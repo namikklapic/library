@@ -1,0 +1,7 @@
+04.06. Namik
+
+Uradio sam sve entitete za bazu. Kod ovih tabela sto su nastale kao posljedica many2many veza, fale funkcije equals
+i hashcode. Inace se one dodaju ako je potrebno neko poredjenje ili za storiranje, pa ako bude bilo potrebe, dodati cu.
+
+Kada budete fetchovali, potrebno je da kreirate projekat kao sto smo radili na vjezbama. Ime baze je Library.
+
