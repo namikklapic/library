@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="Library">
+	<persistence-unit name="Library" transaction-type="RESOURCE_LOCAL">
+	<class>jpa.Knjiga</class>
+	<class>jpa.VrstaKnjige</class>
+	<class>jpa.Autor</class>
+	<class>jpa.AutorKnjiga</class>
+	<class>jpa.Izdavac</class>
+	<class>jpa.Korisnik</class>
+	<class>jpa.Posudba</class>
+	<class>jpa.Predmet</class>
+	<class>jpa.Primjerak</class>
+	<class>jpa.Nastavnik</class>
+	<class>jpa.NastavnikPredmet</class>
+	<class>jpa.Literatura</class>
+	<class>jpa.Student</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\Users\nklapic\Library;create=true"/>
+			<property name="javax.persistence.jdbc.user" value=""/>
+			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+		</properties>
 	</persistence-unit>
 </persistence>
