@@ -1,152 +1,107 @@
 package swing;
 
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
-//import bussines.OsobljeServiceBean;
-//import ejb.Osoblje;
+import bussines.StudentServiceBean;
+import jpa.Student;
+import jpa.Korisnik;
 
 
 public class PanelPrijava extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private JTextField textField_1;
-	private JTextField passwordField;
-	private JLabel lblUsername;
-	private JLabel lblUspjesanLogin;
-	private JLabel lblPoruka;
-	private JLabel lblRasporedSati;
-	private JButton prijava;
-	private JButton odjava;
-//	private OsobljeServiceBean osoba = new OsobljeServiceBean();
-	private String username;
-	private String password;
-//	private Osoblje osoblje = new Osoblje();
-	public JPanel panelLogIn = new JPanel();
-	public JPanel panelLogOut = new JPanel();
-	JLabel tekst;
-//	Osoblje o;
-	String str;
+	private StudentServiceBean student = new StudentServiceBean();
+	private JTextField txtUser = new JTextField(13);
+	JPasswordField txtPass = new JPasswordField(13);
+	
 	public PanelPrijava() {
-		
-		prijava = new JButton("Prijavi se");
-		prijava.setBounds(270, 205, 117, 20);
-		prijava.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				username = textField_1.getText();
-				password = passwordField.getText();
-//				o = osoba.findByAliasAndPassword(username, password);
-				int o = 3;
-				
-				if (o != 0) {
-//					osoblje = o;			
-//					str = "Postovani "+ o.getIme() + " " + o.getPrezime()+ ",";
-					tekst.setText(str);
-					remove(panelLogIn);
-					add(panelLogOut);
-					getRootPane().repaint();
-				}
-				else
-	            {
-	                JOptionPane.showMessageDialog(null,
-	                   "Incorrect username or password.");
-	            }
-
+		setLayout(new GridLayout(2,2,-100,0));
+		//logo image
+//		ImageIcon slika = new ImageIcon(this.getClass().getResource("/resource/ikone/rsz_untz.png"));		
+		JLabel lblslikaLogo = new JLabel(""){
+			@Override
+			public void paintComponent(Graphics g){
+//				g.drawImage(slika.getImage(), 0, 0, 120, 120, null);
 			}
-		});
-
-		textField_1 = new JTextField();
-		textField_1.setBounds(271, 143, 114, 19);
-		textField_1.setColumns(10);
-
-		lblUsername = new JLabel("Username");
-		lblUsername.setBounds(188, 145, 72, 15);
-
-		passwordField = new JPasswordField(20);
-		passwordField.setBounds(271, 174, 114, 19);
-
-		JLabel lblNewLabel = new JLabel(" ");
-		lblNewLabel.setBounds(25, 75, 207, 133);
-//		ImageIcon image = new ImageIcon(
-//		PanelPrijava.class.getResource("/resource/ikone/rsz_untz.png"));
-//		lblNewLabel.setIcon(image);
-
-		lblRasporedSati = new JLabel("Raspored sati");
-		lblRasporedSati.setBounds(204, 75, 157, 24);
-		lblRasporedSati.setForeground(new Color(153, 0, 0));
-		lblRasporedSati.setFont(new Font("SansSerif", Font.BOLD, 20));
-		panelLogIn.setLayout(null);
-		panelLogIn.add(lblNewLabel);
+		};
+//		lblslikaLogo.setIcon(slika);
+		// this panel is used to align logo labels
+		JPanel labels = new JPanel();
+		//university label
+		JLabel univerzitet = new JLabel("UNIVERZITET U TUZLI");
+		univerzitet.setForeground(Color.RED);
+		univerzitet.setFont(new Font(Font.SERIF, Font.BOLD, 16));
+		univerzitet.setHorizontalAlignment(JLabel.CENTER);
+		//faculty label
+		JLabel fakultet = new JLabel("Fakultet elektrotehnike");
+		fakultet.setFont(new Font(Font.SERIF, Font.BOLD, 18));
+		// add labels to panel
+		labels.add(univerzitet);
+		labels.add(fakultet);
+		// add logo image and logo labels to the north section of the panel
+		add(lblslikaLogo);
+		add(labels);
 		
-		panelLogIn.add(lblRasporedSati);
-		panelLogIn.add(lblUsername);
-		panelLogIn.add(textField_1);
-		panelLogIn.add(passwordField);
-		panelLogIn.add(prijava);
-		panelLogIn.setVisible(true);
-
-		tekst = new JLabel();
-		tekst.setForeground(new Color(153, 0, 0));
-		tekst.setFont(new Font("SansSerif", Font.BOLD, 16));
-		tekst.setBounds(150, 71, 500, 24);
-		panelLogOut.add(tekst);
-		
-		JLabel lblslika = new JLabel(" ");
-		lblslika.setBounds(25, 75, 207, 133);
-//		ImageIcon slika = new ImageIcon(PanelPrijava.class.getResource("/resource/ikone/rsz_untz.png"));
-//		lblslika.setIcon(slika);
-		panelLogOut.add(lblslika);
-
-		lblPoruka = new JLabel("Dobrodosli u aplikaciju Raspored sati!");
-		lblPoruka.setBounds(150, 100, 500, 30);
-		lblPoruka.setForeground(new Color(153, 0, 0));
-		lblPoruka.setFont(new Font("SansSerif", Font.BOLD, 16));
-		panelLogOut.add(lblPoruka);
-		// panelLogOut.setVisible(false);
-
-		odjava = new JButton("Odjavi se");
-		odjava.setBounds(250, 193, 106, 25);
-		odjava.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (arg0.getSource() == odjava) {
-					username = null;
-					password = null;
-					remove(panelLogOut);
-					add(panelLogIn);
-//					osoblje = new Osoblje();
-					getRootPane().repaint();
-				
-				}
+		// lock icon
+//		ImageIcon slikaLock = new ImageIcon(this.getClass().getResource("/kljuc.png"));	
+		JLabel lblslikaLock = new JLabel(""){
+			@Override
+			public void paintComponent(Graphics g){
+//				g.drawImage(slikaLock.getImage(), 0, 0, 120, 120, null);
 			}
-		});
-		panelLogOut.setLayout(null);
-		panelLogOut.add(odjava);
-
-		panelLogOut.setBackground(UIManager.getColor("Panel.background"));
-		setLayout(new BorderLayout(0, 0));
-		add(panelLogIn);
-
-		JLabel label = new JLabel("Password");
-		label.setBounds(188, 176, 70, 15);
-		panelLogIn.add(label);
+		};
+//		lblslikaLock.setIcon(slikaLock);
+		// add lock image to the west section of the panel
+		add(lblslikaLock);
+		
+		JLabel user = new JLabel("User:");
+		txtUser.setAlignmentX(JTextField.RIGHT_ALIGNMENT);
+		
+		
+		JButton prijava = new JButton("Prijava");
+		prijava.addActionListener(new prijavaEvent());
+		JLabel password = new JLabel("Password:");
+		JPanel userLogin = new JPanel();
+		userLogin.add(user);
+		userLogin.add(txtUser);
+		userLogin.add(password);
+		userLogin.add(txtPass);
+		userLogin.add(prijava);
+		
+		add(userLogin, BorderLayout.EAST);
+		
+			
+		
 	}
+	
+	class prijavaEvent implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+//			Korisnik k = new Korisnik("123", "Namik","Klapic", 0);
+//			Student s = new Student(k, "14020", "1420", 6);
+//			student.save(s);
+			
+			Student s = student.findByIndexNumber(txtUser.getText(), txtPass.getText());
+			if(s == null){
+				System.out.println("Logiranje nije uspjesno");
+			}
+			else{
+				System.out.println("Logiranje uspjesno");
+			}
+		}
+	}
+	
 
-//	public Osoblje getOsoblje() {
-//		return osoblje;
-//	}
-
-//	public void setOsoblje(Osoblje osoblje) {
-//		this.osoblje = osoblje;
-//	}
 }
