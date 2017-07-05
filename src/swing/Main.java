@@ -8,8 +8,7 @@ import javax.swing.JFrame;
 
 public class Main {
 	private JFrame frame;
-
-	private PanelPrijava panelPrijava = new PanelPrijava();
+	private PanelPrijava panelPrijava;
 
 	/**
 	 * Launch the application.
@@ -31,11 +30,13 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension velicinaEkrana = kit.getScreenSize();
 		int visinaProzora = 350;
 		int sirinaProzora = 390;
 		frame = new JFrame();
+		panelPrijava = new PanelPrijava(frame);
 		frame.setSize(sirinaProzora, visinaProzora);
 		frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
