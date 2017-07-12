@@ -16,7 +16,7 @@
 	<class>jpa.VrstaKnjige</class>
 	<class>jpa.Bibliotekar</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\Users\nklapic\Library;create=true"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\Users\agazibeg\Library;create=true"/>
 			<property name="javax.persistence.jdbc.user" value=""/>
 			<property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
 		</properties>

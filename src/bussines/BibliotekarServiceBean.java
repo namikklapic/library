@@ -33,6 +33,7 @@ public class BibliotekarServiceBean extends EntityManagerProducer<Bibliotekar>{
 			find.setPassword(entity.getPassword());
 			em.getTransaction().commit();
 		} else {
+			//komentar
 			super.save(entity);
 		}
 		return entity;
