@@ -3,8 +3,6 @@ package jpa;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -24,7 +22,6 @@ public class Autor implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String imeAutora;
 	private String prezimeAutora;
@@ -40,9 +37,10 @@ public class Autor implements Serializable {
 		
 	}
 	
-	public Autor(String ime, String prezime){
-		imeAutora = ime;
-		prezimeAutora = prezime;
+	public Autor(int id, String ime, String prezime){
+		this.id = id;
+		this.imeAutora = ime;
+		this.prezimeAutora = prezime;
 	}
 	
 	public int getId(){

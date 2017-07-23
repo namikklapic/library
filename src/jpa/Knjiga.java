@@ -19,7 +19,6 @@ import javax.persistence.*;
 @Table(name="knjiga")
 public class Knjiga {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	private String naslov;
@@ -39,8 +38,9 @@ public class Knjiga {
 	public Knjiga(){
 		
 	}
-	public Knjiga(String naslov, String orgNaslov, int brojStranica, int godinaIzdavanja,
+	public Knjiga(int id, String naslov, String orgNaslov, int brojStranica, int godinaIzdavanja,
 			int negBodovi,int brojPrimjeraka, Izdavac izdavac, VrstaKnjige vrsta){
+		this.id = id;
 		this.naslov = naslov;
 		this.originalniNaslov = orgNaslov;
 		this.brojStranica = brojStranica;

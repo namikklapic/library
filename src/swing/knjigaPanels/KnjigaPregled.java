@@ -9,15 +9,20 @@ import javax.swing.JPanel;
 
 public class KnjigaPregled extends JPanel{
 	public KnjigaPregled(){
-		add(new JLabel("Helloooooooooooooooooooooooooooooooooooooooooo"));
+		panel = this;
+		add(new JLabel("Knjiga pregled panel"));
 	}
-	public JMenuItem createMenuItem(JPanel parent){
+	public JMenuItem getMenuItem(JPanel parent){
 		JMenuItem item = new JMenuItem("Pregled Knijga");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-//				parent.add(	);
+				parent.removeAll();
+				parent.add(panel);
+				parent.repaint();
+				parent.revalidate();
 			}
 		});
 		return item;
 	}
+	private JPanel panel;
 }
