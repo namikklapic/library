@@ -45,6 +45,9 @@ public class Izdavac implements Serializable {
 	public void setNazivIzdavaca(String nazivIzdavaca) {
 		this.nazivIzdavaca = nazivIzdavaca;
 	}
+	public String toString() {
+		return nazivIzdavaca;
+	}
 	
 	
 	

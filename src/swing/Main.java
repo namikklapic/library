@@ -15,19 +15,18 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		Main window = new Main();
-		window.frame.setVisible(true);
-			
+		window.frame.setVisible(true);		
 	}
 
 	/**
-	 * Create the application.
+	 * Create application.
 	 */
 	public Main() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialize content of the frame.
 	 */
 	private void initialize() {
 		

@@ -1,6 +1,7 @@
 package bussines;
 
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.NoResultException;
 
@@ -77,6 +78,7 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 		if(find != null) {
 			em.getTransaction().begin();
 			find.setNazivVrste(entity.getNazivVrste());
+			em.getTransaction().commit();
 		}
 		else {
 			super.save(entity);

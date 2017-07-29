@@ -52,6 +52,9 @@ public class VrstaKnjige implements Serializable{
 	public void setNazivVrste(String nazivVrste) {
 		this.nazivVrste = nazivVrste;
 	}
+	public String toString() {
+		return nazivVrste;
+	}
 	
 	
 }

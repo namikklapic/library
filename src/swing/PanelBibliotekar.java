@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 
 import jpa.Bibliotekar;
 import swing.VrstaKnjigePanels.NovaVrstaKnjige;
+import swing.VrstaKnjigePanels.VrstaKnjigePregled;
+import swing.autorPanels.AutorPregled;
+import swing.autorPanels.NoviAutor;
 import swing.izdavacPanels.IzdavacPregled;
 import swing.izdavacPanels.NoviIzdavac;
 import swing.knjigaPanels.KnjigaPregled;
@@ -29,6 +32,7 @@ public class PanelBibliotekar extends JFrame{
 		
 		JMenu vrstaKnjige = new JMenu("Vrsta");
 		vrstaKnjige.add(novaVrstaKnjige.getMenuItem());
+		vrstaKnjige.add(vrstaKnjigePregled.getMenuItem(panel));
 		knjiga.add(vrstaKnjige);
 		
 		
@@ -36,15 +40,14 @@ public class PanelBibliotekar extends JFrame{
 		izdavac.add(pregledIzdavac.getMenuItem(panel));
 		izdavac.add(noviIzdavac.getMenuItem());
 		
-		
-		
-		
-		
-		
+		JMenu autori = new JMenu("Autor");
+		autori.add(noviAutor.getMenuItem());
+		autori.add(autorPregled.getMenuItem(panel));
 	
 		
 		menuBar.add(knjiga);
 		menuBar.add(izdavac);
+		menuBar.add(autori);
 		setJMenuBar(menuBar);
 		
 		
@@ -60,4 +63,9 @@ public class PanelBibliotekar extends JFrame{
 	private IzdavacPregled pregledIzdavac = new IzdavacPregled();
 	
 	private NovaVrstaKnjige novaVrstaKnjige = new NovaVrstaKnjige();
+	private VrstaKnjigePregled vrstaKnjigePregled = new VrstaKnjigePregled();
+	
+	private NoviAutor noviAutor = new NoviAutor();
+	private AutorPregled autorPregled = new AutorPregled();
+	
 }

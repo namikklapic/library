@@ -32,8 +32,14 @@ public class AutorKnjiga implements Serializable {
 	@JoinColumn(name="autorid")
 	private Autor autor;
 	
-	public AutorKnjiga(){
-		
+	
+	public AutorKnjiga() {}
+	
+	public AutorKnjiga(AutorKnjigaPK id, Knjiga k, Autor a, int rd){
+		this.id = id;
+		this.knjiga = k;
+		this.autor = a;
+		this.redniBrojAutoraNaKnjizi = rd;
 	}
 	
 

@@ -75,7 +75,9 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 	public Izdavac save(Izdavac entity) {
 		Izdavac find = em.find(Izdavac.class, entity.getId());
 		if(find != null) {
+			em.getTransaction().begin();
 			find.setNazivIzdavaca(entity.getNazivIzdavaca());
+			em.getTransaction().commit();
 		}
 		else {
 			super.save(entity);

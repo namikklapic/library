@@ -58,6 +58,9 @@ public class Autor implements Serializable {
 	public void setPrezimeAutora(String prezimeAutora) {
 		this.prezimeAutora = prezimeAutora;
 	}
+	public String toString() {
+		return imeAutora + " " + prezimeAutora;
+	}
 	
 	
 

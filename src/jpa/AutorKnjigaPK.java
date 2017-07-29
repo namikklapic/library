@@ -21,6 +21,10 @@ public class AutorKnjigaPK implements Serializable{
 	public AutorKnjigaPK(){
 		
 	}
+	public AutorKnjigaPK(int aid, int kid) {
+		this.autorId = aid;
+		this.knjigaId = kid;
+	}
 
 	public int getAutorId() {
 		return autorId;

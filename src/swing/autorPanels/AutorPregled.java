@@ -1,4 +1,4 @@
-package swing.izdavacPanels;
+package swing.autorPanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,14 +7,14 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-public class IzdavacPregled extends JPanel{
+public class AutorPregled extends JPanel {
 	
-	public IzdavacPregled() {
-		panel  = this;
-		add(new JLabel("izdavac pregled panel"));
+	public AutorPregled() {
+		panel = this;
+		add(new JLabel("autor pregled panel"));
 	}
 	public JMenuItem getMenuItem(JPanel parent) {
-		JMenuItem item = new JMenuItem("Pregled izdavaca");
+		JMenuItem item = new JMenuItem("Pregled autora");
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -26,6 +26,7 @@ public class IzdavacPregled extends JPanel{
 		});
 		return item;
 	}
+	
 	private JPanel panel;
 
 }

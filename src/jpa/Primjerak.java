@@ -20,18 +20,19 @@ public class Primjerak implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date datumnabavke;
 	private String stanje;
-	
+	private int brojPrimjeraka;
 	@ManyToOne
 	private Knjiga knjiga;
 	
 	public Primjerak(){
 		
 	}
-	public Primjerak(String invBroj, Date datumNabavke, String stanje, Knjiga knjiga){
+	public Primjerak(String invBroj, Date datumNabavke, String stanje, int brojPrimjeraka, Knjiga knjiga){
 		this.inventarskiBroj = invBroj;
 		this.datumnabavke = datumNabavke;
 		this.stanje = stanje;
 		this.knjiga = knjiga;
+		this.brojPrimjeraka = brojPrimjeraka;
 	}
 
 	public String getInventarskiBroj() {
@@ -64,6 +65,12 @@ public class Primjerak implements Serializable {
 
 	public void setKnjiga(Knjiga knjiga) {
 		this.knjiga = knjiga;
+	}
+	public int getBrojPrimjeraka() {
+		return brojPrimjeraka;
+	}
+	public void setBrojPrimjeraka(int brojPrimjeraka) {
+		this.brojPrimjeraka = brojPrimjeraka;
 	}
 	
 	
