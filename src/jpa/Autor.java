@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="autor")
-public class Autor implements Serializable {
+public class Autor implements Serializable, Cloneable {
 
 	/* Persistence klasa za kreiranje tabele autor
 	 * Klasa ima tri atributa
@@ -66,6 +66,13 @@ public class Autor implements Serializable {
 	public String toString() {
 		return imeAutora + " " + prezimeAutora;
 	}
+	
+	public Object clone() {
+		Autor a = new Autor(this.id, new String(this.imeAutora), new String (this.prezimeAutora));
+		return a;
+	}
+	
+	
 	
 	
 
