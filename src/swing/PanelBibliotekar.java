@@ -23,7 +23,6 @@ public class PanelBibliotekar extends JFrame{
 		
 		JPanel panel = new JPanel();
 		
-		
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu knjiga = new JMenu("Knjiga");
