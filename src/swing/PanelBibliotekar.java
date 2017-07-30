@@ -14,6 +14,8 @@ import swing.izdavacPanels.IzdavacPregled;
 import swing.izdavacPanels.NoviIzdavac;
 import swing.knjigaPanels.KnjigaPregled;
 import swing.knjigaPanels.NovaKnjiga;
+import swing.nastavniciPanels.NastavniciPregled;
+import swing.nastavniciPanels.NoviNastavnik;
 
 public class PanelBibliotekar extends JFrame{
 
@@ -26,8 +28,8 @@ public class PanelBibliotekar extends JFrame{
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu knjiga = new JMenu("Knjiga");
-		knjiga.add(pregledKnjiga.getMenuItem(panel));
 		knjiga.add(novaKnjiga.getMenuItem());
+		knjiga.add(pregledKnjiga.getMenuItem(panel));
 		
 		JMenu vrstaKnjige = new JMenu("Vrsta");
 		vrstaKnjige.add(novaVrstaKnjige.getMenuItem());
@@ -36,17 +38,16 @@ public class PanelBibliotekar extends JFrame{
 		
 		
 		JMenu izdavac = new JMenu("Izdavac");
-		izdavac.add(pregledIzdavac.getMenuItem(panel));
 		izdavac.add(noviIzdavac.getMenuItem());
+		izdavac.add(pregledIzdavac.getMenuItem(panel));
 		
 		JMenu autori = new JMenu("Autor");
 		autori.add(noviAutor.getMenuItem());
 		autori.add(autorPregled.getMenuItem(panel));
 		
 		JMenu nastavnici = new JMenu("Nastavnici");
-		//nastavnici.add(noviNastavnik.getMenuItem());
-		//nastavnici.add(nastavnikPregled.getMenuItem(panel));
-	
+		nastavnici.add(noviNastavnik.getMenuItem());
+		nastavnici.add(nastavniciPregled.getMenuItem(panel));
 		
 		menuBar.add(knjiga);
 		menuBar.add(izdavac);
@@ -62,13 +63,16 @@ public class PanelBibliotekar extends JFrame{
 	private KnjigaPregled pregledKnjiga = new KnjigaPregled();
 	private NovaKnjiga novaKnjiga = new NovaKnjiga();
 	
-	private NoviIzdavac noviIzdavac = new NoviIzdavac();
 	private IzdavacPregled pregledIzdavac = new IzdavacPregled();
+	private NoviIzdavac noviIzdavac = new NoviIzdavac();
 	
-	private NovaVrstaKnjige novaVrstaKnjige = new NovaVrstaKnjige();
 	private VrstaKnjigePregled vrstaKnjigePregled = new VrstaKnjigePregled();
+	private NovaVrstaKnjige novaVrstaKnjige = new NovaVrstaKnjige();
 	
-	private NoviAutor noviAutor = new NoviAutor();
 	private AutorPregled autorPregled = new AutorPregled();
+	private NoviAutor noviAutor = new NoviAutor();
+	
+	private NastavniciPregled nastavniciPregled = new NastavniciPregled();
+	private NoviNastavnik noviNastavnik  = new NoviNastavnik();
 	
 }
