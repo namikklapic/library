@@ -2,6 +2,7 @@ package util;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -10,7 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class Lookup<T> extends JPanel {
 	/**
@@ -21,16 +23,39 @@ public class Lookup<T> extends JPanel {
 	public Lookup (List<T> items){
 		// this section will be visible when lookup is opened
 		DefaultListModel<T> listModel = new DefaultListModel<T>();
+		DefaultListModel<T> selectedItemsListModel = new DefaultListModel<T>();
 		for(T element : items) {
 			listModel.addElement(element);
 		}
+		
+		
+		
 		JList<T> selectionLista = new JList<T>(listModel);
+		JList<T> selectedItemsList = new JList<T>(selectedItemsListModel);
+		
+		selectionLista.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			@SuppressWarnings("unchecked")
+			public void valueChanged(ListSelectionEvent event) {
+				if(!event.getValueIsAdjusting()) {
+					T elem = (T)selectionLista.getSelectedValue();
+					try{
+						T cloned = (T) elem.getClass().getMethod("clone").invoke(elem);
+						selectedItems.add(cloned);
+						selectedItemsListModel.addElement(selectionLista.getSelectedValue());
+						listModel.remove(selectionLista.getSelectedIndex());
+					}catch(Exception e) {}
+					
+				}
+			}
+		});
+		
+		
 		JPanel lookupPanel = new JPanel();
 		JButton potvrdi = new JButton("Potvrdi");
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				selectedValues =(T[])selectionLista.getSelectedValues();
 				setSelectionText();
 			}
 		});
@@ -39,14 +64,16 @@ public class Lookup<T> extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				selectionLista.clearSelection();
-				selectedValues = (T[])selectionLista.getSelectedValues();
+				selectedItems.clear();
 				setSelectionText();
 			}
 		});
+		lookupPanel.add(selectedItemsList);
 		lookupPanel.add(selectionLista);
 		lookupPanel.add(potvrdi);
 		lookupPanel.add(ponisti);
 		options.add(lookupPanel);
+		options.setSize(300, 300);
 		
 		
 		// this section will be visible when lookup is included into panel
@@ -65,23 +92,20 @@ public class Lookup<T> extends JPanel {
 		
 		
 	}
-	public Lookup(List<T> items, String label) {
-		
-	}
 	public void setSelectionText() {
 		String selectionText = "";
-		for(T selectedValue : selectedValues) {
+		for(T selectedValue : selectedItems) {
 			selectionText += selectedValue.toString() + ";";
 		}
 		selected.setText(selectionText);
 	}
-	public Object[] getSelectedValues () {
-		return this.selectedValues;
+	public List<T> getSelectedValues () {
+		return this.selectedItems;
 	}
 		
 			
 	private JFrame options = new JFrame();
-	private T[] selectedValues;
+	private List<T> selectedItems = new ArrayList<T>();
 	JTextField selected = new JTextField(10);
 	
 	
