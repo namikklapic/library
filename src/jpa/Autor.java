@@ -42,6 +42,11 @@ public class Autor implements Serializable {
 		this.imeAutora = ime;
 		this.prezimeAutora = prezime;
 	}
+	public Autor (Autor a) {
+		this.id = a.getId();
+		this.imeAutora = new String(a.getImeAutora());
+		this.prezimeAutora = new String(a.getPrezimeAutora());
+	}
 	
 	public int getId(){
 		return id;
