@@ -2,6 +2,7 @@ package swing.knjigaPanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -103,14 +104,13 @@ public class NovaKnjiga  extends JFrame{
 		int negBodovi = Integer.parseInt(txtNegBodovi.getText());
 		VrstaKnjige vrsta =(VrstaKnjige) cbVrsta.getSelectedItem();
 		Izdavac  izdavac = (Izdavac) cbIzdavac.getSelectedItem();
-		Object[] autori = autoriLookup.getSelectedValues();
+		List<Autor> autori = autoriLookup.getSelectedValues();
 		
 		Knjiga k = knjigaServiceBean
 		.save(new Knjiga(knjigaServiceBean.getCount() + 1, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, izdavac, vrsta));
 		
-		for(Object o : autori) {
+		for(Autor a : autori) {
 			int i = 1;
-			Autor a = (Autor) o;
 			autorKnjigaPK = new AutorKnjigaPK(a.getId(), k.getId());
 			autorknjigaServiceBean.save(new AutorKnjiga(autorKnjigaPK, k, a, i++));
 		}
