@@ -24,6 +24,13 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		}
 		return result;
 	}
+	public Integer getCount() {
+		Long c = (long) 0;
+		try {
+			c = (Long)em.createQuery("select count(i) from Nastavnik i").getSingleResult();
+		} catch(NoResultException nre) {}
+		return (Integer) c.intValue();
+	}
 	
 	public Nastavnik save(Nastavnik entity) {
 		Nastavnik find = em.find(Nastavnik.class, entity.getKorisnik().getSifraKorisnika());
