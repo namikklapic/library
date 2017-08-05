@@ -30,7 +30,7 @@ public class NoviIzdavac extends JFrame {
 		panel.setSize(300, 300);
 		
 		JLabel imeIzdavaca = new JLabel("Ime izdavaca");
-		JTextField txtIzdavac = new JTextField(15);
+		
 		
 		JButton potvrdi = new JButton ("Dodaj");
 		potvrdi.addActionListener(new ActionListener() {
@@ -46,6 +46,11 @@ public class NoviIzdavac extends JFrame {
 		panel.add(potvrdi);
 		panel.add(ponisti);
 		add(panel);
+	}
+	
+	public NoviIzdavac(Izdavac i) {
+		this();
+		txtIzdavac.setText(i.getNazivIzdavaca());
 	}
 	
 	public JMenuItem getMenuItem() {
@@ -65,5 +70,6 @@ public class NoviIzdavac extends JFrame {
 	}
 	
 	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
+	JTextField txtIzdavac = new JTextField(15);
 	
 }
