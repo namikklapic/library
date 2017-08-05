@@ -12,21 +12,20 @@ import javax.swing.JTextField;
 
 import bussines.AutorServiceBean;
 import jpa.Autor;
+import jpa.Izdavac;
 
 public class NoviAutor extends JFrame {
 	
 	public NoviAutor() {
 		setTitle("Autor");
-		setSize(300, 300);
+		setSize(400, 400);
 		
 		JPanel panel = new JPanel();
 		panel.setSize(300, 300);
 		
 		JLabel imeAutora = new JLabel("Ime autora:");
-		JTextField txtIme = new JTextField(10);
 		
 		JLabel prezimeAutora = new JLabel("Prezime autora:");
-		JTextField txtPrezime = new JTextField("Prezime");
 		
 		JButton potvrdi = new JButton("Dodaj");
 		potvrdi.addActionListener(new ActionListener() {
@@ -50,6 +49,12 @@ public class NoviAutor extends JFrame {
 		
 	}
 	
+	public NoviAutor(Autor a) {
+		this();
+		txtIme.setText(a.getImeAutora());
+		txtPrezime.setText(a.getPrezimeAutora());
+	}
+	
 	public JMenuItem getMenuItem() {
 		JMenuItem item = new JMenuItem("Novi autor");
 		item.addActionListener(new ActionListener() {
@@ -66,5 +71,7 @@ public class NoviAutor extends JFrame {
 	}
 	
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
+	private JTextField txtIme = new JTextField(20);
+	private JTextField txtPrezime = new JTextField(30);
 
 }

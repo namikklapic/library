@@ -2,16 +2,44 @@ package swing.autorPanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import bussines.AutorServiceBean;
+import jpa.Autor;
+import tableModel.AutorTableModel;
 
 public class AutorPregled extends JPanel {
 	
 	public AutorPregled() {
 		panel = this;
-		add(new JLabel("autor pregled panel"));
+	
+		JScrollPane scrollPane = new JScrollPane();
+		
+		AutorTableModel model = new AutorTableModel(autorServiceBean.getAllAutor());
+		JTable table = new JTable(model);
+		
+		JButton edit = new JButton("Uredi");
+		edit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event){
+				Autor a = model.getAutor(table.getSelectedRow());
+				NoviAutor na = new NoviAutor(a);
+				na.prikazi();
+			}
+		});
+		
+		scrollPane.setViewportView(table);
+		add(scrollPane);
+		add(edit);
+		
+		
 	}
 	public JMenuItem getMenuItem(JPanel parent) {
 		JMenuItem item = new JMenuItem("Pregled autora");
@@ -28,5 +56,7 @@ public class AutorPregled extends JPanel {
 	}
 	
 	private JPanel panel;
+	private List<Autor> autori;
+	private AutorServiceBean autorServiceBean = new AutorServiceBean();
 
 }
