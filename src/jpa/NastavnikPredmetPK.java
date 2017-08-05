@@ -21,6 +21,14 @@ public class NastavnikPredmetPK implements Serializable {
 		return sifraPredmeta;
 	}
 	
+	public NastavnikPredmetPK(){
+		
+	}
+	
+	public NastavnikPredmetPK(String sifraNast, String sifraPred){
+		this.sifraNastavnika = sifraNast;
+		this.sifraPredmeta = sifraPred;
+	}
 	
 	public void setSifraPredmeta(String sifraPredmeta) {
 		this.sifraPredmeta = sifraPredmeta;

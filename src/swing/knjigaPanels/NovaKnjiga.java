@@ -67,7 +67,8 @@ public class NovaKnjiga  extends JFrame{
 		panel.add(izdavac);
 		panel.add(cbIzdavac);
 		
-		
+		JLabel autor = new JLabel("Autori: ");
+		panel.add(autor);
 		panel.add(autoriLookup);
 		JButton potvrdi = new JButton("Potvrdi");
 		potvrdi.addActionListener(new ActionListener() {

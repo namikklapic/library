@@ -20,7 +20,6 @@ public class Nastavnik {
 		this.akademskoZvanje = zvanje;
 		this.password = p;
 	}
-
 	
 	public String getPassword() {
 		return password;

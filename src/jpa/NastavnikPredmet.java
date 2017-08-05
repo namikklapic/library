@@ -20,6 +20,13 @@ public class NastavnikPredmet {
 	public NastavnikPredmet(){
 		
 	}
+	
+	public NastavnikPredmet(NastavnikPredmetPK id, Nastavnik n, Predmet p){
+		this.id = id;
+		this.nastavnik = n;
+		this.predmet = p;
+	}
+	
 
 	public Nastavnik getNastavnik() {
 		return nastavnik;
@@ -37,8 +44,9 @@ public class NastavnikPredmet {
 		this.predmet = predmet;
 	}
 	
-	
-	
+	public NastavnikPredmetPK getId(){
+		return id;
+	}
 	
 	
 }
