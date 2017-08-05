@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import bussines.IzdavacServiceBean;
@@ -19,6 +20,9 @@ public class IzdavacPregled extends JPanel{
 	
 	public IzdavacPregled() {
 		panel  = this;
+		
+		JScrollPane scrollPane = new JScrollPane();
+		
 		IzdavacTableModel model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
 		JTable table = new JTable(model);
 		
@@ -31,7 +35,9 @@ public class IzdavacPregled extends JPanel{
 				ni.prikazi();
 			}
 		});
-		add(table);
+		
+		scrollPane.setViewportView(table);
+		add(scrollPane);
 		add(edit);
 				
 	}
