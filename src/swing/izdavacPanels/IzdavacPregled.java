@@ -27,7 +27,8 @@ public class IzdavacPregled extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				Izdavac i = model.getIzdavac(table.getSelectedRow());
-				System.out.println(i.getId() + ' ' + i.getNazivIzdavaca());
+				NoviIzdavac ni = new NoviIzdavac(i);
+				ni.prikazi();
 			}
 		});
 		add(table);
