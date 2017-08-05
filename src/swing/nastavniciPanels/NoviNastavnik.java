@@ -91,7 +91,6 @@ public class NoviNastavnik extends JFrame{
 		
 		for(Predmet p : predmeti)
 		{
-			int i = 1;
 			nastavnikPredmetPK = new NastavnikPredmetPK(p.getSifraPredmeta(), n.getKorisnik().getSifraKorisnika());
 			nastavnikPredmetServiceBean.save(new NastavnikPredmet(nastavnikPredmetPK, n, p));
 		}

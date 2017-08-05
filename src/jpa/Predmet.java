@@ -49,5 +49,7 @@ public class Predmet {
 	public void setBrojSemestra(int brojSemestra) {
 		this.brojSemestra = brojSemestra;
 	}	
-	
+	public String toString(){
+		return nazivPredmeta;
+	}
 }
