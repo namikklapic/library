@@ -1,8 +1,10 @@
 package jpa;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class PosudbaPK implements Serializable {
@@ -16,11 +18,31 @@ public class PosudbaPK implements Serializable {
 	private String inventarskiBroj;
 	@Column(insertable=false, updatable=false)
 	private String sifraKorisnika;
+	@Column(insertable=false, updatable=false)
+	private Date datumPosudbe;
+	
+	
 	
 	public PosudbaPK(){
 		
 	}
 	
+	public PosudbaPK(String invBroj, String sifra, Date datumPosudbe) {
+		this.inventarskiBroj = invBroj;
+		this.sifraKorisnika = sifra;
+		this.datumPosudbe = datumPosudbe;
+	}
+	
+	public Date getDatumPosudbe() {
+		return datumPosudbe;
+	}
+
+
+	public void setDatumPosudbe(Date datumPosudbe) {
+		this.datumPosudbe = datumPosudbe;
+	}
+
+
 	public String  getInventarskiBroj() {
 		return inventarskiBroj;
 	}

@@ -38,6 +38,15 @@ public class Posudba implements Serializable {
 		
 	}
 	
+	public Posudba(PosudbaPK id, Primjerak p, Korisnik k, Date datumPosudbe, Date krajnjiDatumVracanja) {
+		this.id = id;
+		this.primjerak = p;
+		this.korisnik = k;
+		this.datumPosudbe = datumPosudbe;
+		this.krajnjiDatumVracanja = krajnjiDatumVracanja;
+		this.datumVracanja = null;
+	}
+	
 	public Primjerak getPrimjerak() {
 		return primjerak;
 	}
