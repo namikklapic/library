@@ -1,5 +1,7 @@
 package bussines;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
@@ -17,6 +19,13 @@ public class StudentServiceBean extends EntityManagerProducer<Student>{
 		} catch(NoResultException nre){
 			
 		}
+		return result;
+	}
+	public List<Student> getAllStudent(){
+		List<Student> result = null;
+		try {
+			result = em.createQuery("Select s from Student s").getResultList();
+		} catch(NoResultException nre) {}
 		return result;
 	}
 	
