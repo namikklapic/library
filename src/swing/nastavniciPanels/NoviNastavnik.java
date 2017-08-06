@@ -5,13 +5,13 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import bussines.KorisnikServiceBean;
 import bussines.NastavnikPredmetServiceBean;
 import bussines.NastavnikServiceBean;
 import bussines.PredmetServiceBean;
@@ -82,7 +82,7 @@ public class NoviNastavnik extends JFrame{
 		String zvanje = txtZvanje.getText();
 		List<Predmet> predmeti = predmetiLookup.getSelectedValues();
 		String password = txtPassword.getText();
-		int sifra = nastavnikServiceBean.getCount() + 1;
+		int sifra = korisnikServiceBean.getCount() + 1;
 		
 		Korisnik k = new Korisnik(Integer.toString(sifra), ime, prezime, 0);
 		
@@ -101,6 +101,7 @@ public class NoviNastavnik extends JFrame{
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();
 	private NastavnikPredmetPK nastavnikPredmetPK;
 	private NastavnikPredmetServiceBean nastavnikPredmetServiceBean = new NastavnikPredmetServiceBean();
+	private KorisnikServiceBean korisnikServiceBean = new KorisnikServiceBean();
 	
 	private JTextField txtIme = new JTextField(30);
 	private JTextField txtPrezime = new JTextField(30);
