@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import bussines.PredmetServiceBean;
+import jpa.Autor;
 import jpa.Predmet;
 
 public class NoviPredmet extends JFrame {
@@ -23,16 +24,12 @@ public class NoviPredmet extends JFrame {
 		panel.setSize(300, 300);
 		
 		JLabel sifraPredmeta = new JLabel("Šifra predmeta");
-		JTextField txtSifra = new JTextField(15);
 		
 		JLabel nazivPredmeta = new JLabel("Naziv predmeta");
-		JTextField txtNaziv = new JTextField(15);
 		
 		JLabel skraceniNazivPredmeta = new JLabel("Skraceni naziv predmeta");
-		JTextField txtSkrNaziv = new JTextField(15);
 		
 		JLabel brojSemestra = new JLabel("Semestar");
-		JTextField txtSemestar = new JTextField(15);
 		
 		JButton potvrdi = new JButton("Potvrdi");
 		JButton ponisti =  new JButton("Poništi");
@@ -74,6 +71,15 @@ public class NoviPredmet extends JFrame {
 		add(panel);
 		
 	}
+	
+	public NoviPredmet(Predmet p) {
+		this();
+		txtSifra.setText(p.getSifraPredmeta());
+		txtNaziv.setText(p.getNazivPredmeta());
+		txtSkrNaziv.setText(p.getSkraceniNazivPredmeta());
+		txtSemestar.setText(Integer.toString(p.getBrojSemestra()));
+	}
+	
 	public JMenuItem getMenuItem() {
 		JMenuItem menuItem = new JMenuItem("Novi predmet");
 		menuItem.addActionListener(new ActionListener() {
@@ -87,5 +93,10 @@ public class NoviPredmet extends JFrame {
 	public void prikazi() {
 		setVisible(true);
 	}
+	
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();
+	private JTextField txtSifra = new JTextField(15);
+	private JTextField txtNaziv = new JTextField(15);
+	private JTextField txtSkrNaziv = new JTextField(15);
+	private JTextField txtSemestar = new JTextField(15);
 }
