@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Embeddable
 public class PosudbaPK implements Serializable {
@@ -19,6 +21,7 @@ public class PosudbaPK implements Serializable {
 	@Column(insertable=false, updatable=false)
 	private String sifraKorisnika;
 	@Column(insertable=false, updatable=false)
+	@Temporal(TemporalType.DATE)
 	private Date datumPosudbe;
 	
 	
