@@ -1,11 +1,15 @@
 package bussines;
 
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
+import jpa.Izdavac;
 import jpa.Nastavnik;
 
 public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
+	
 	public Nastavnik findByNameAndSurname(String nameAndSurname, String password){
 		Nastavnik result = null;		
 		try{
@@ -24,6 +28,7 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		}
 		return result;
 	}
+	
 	public Integer getCount() {
 		Long c = (long) 0;
 		try {
@@ -45,5 +50,17 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		}
 		return entity;
 	}
-
+	
+	/**
+	 * 
+	 * @return List of all Nastavnik in database
+	 */
+	public List<Nastavnik> getAllNastavnik() {
+		List<Nastavnik> result = null;
+		try {
+			result = em.createQuery("select n from Nastavnik n").getResultList();
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
 }

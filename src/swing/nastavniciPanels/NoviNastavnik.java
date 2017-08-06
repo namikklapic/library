@@ -23,6 +23,7 @@ import jpa.Predmet;
 import util.Lookup;
 
 public class NoviNastavnik extends JFrame{
+	
 	public NoviNastavnik(){
 		setTitle("Novi nastavnik");
 		setSize(500, 500);
@@ -41,6 +42,10 @@ public class NoviNastavnik extends JFrame{
 		JLabel zvanje = new JLabel("Akademsko zvanje: ");
 		panel.add(zvanje);
 		panel.add(txtZvanje); //moze i ovo biti dropdown
+		
+		JLabel negBodovi = new JLabel("Negativni bodovi: ");
+		panel.add(negBodovi);
+		panel.add(txtNegBodovi);
 			
 		JLabel predmeti = new JLabel("Predmeti: ");
 		panel.add(predmeti);
@@ -60,6 +65,14 @@ public class NoviNastavnik extends JFrame{
 		panel.add(potvrdi);		
 		
 		add(panel);
+	}
+	
+	public NoviNastavnik(Nastavnik n){
+		this();
+		txtIme.setText(n.getKorisnik().getImeKorisnika());
+		txtPrezime.setText(n.getKorisnik().getPrezimeKorisnika());
+		txtZvanje.setText(n.getAkademskoZvanje());
+		txtNegBodovi.setText(Integer.toString(n.getKorisnik().getBrojNegativnihBodova()));
 	}
 	
 	public JMenuItem getMenuItem(){
@@ -106,6 +119,7 @@ public class NoviNastavnik extends JFrame{
 	private JTextField txtIme = new JTextField(30);
 	private JTextField txtPrezime = new JTextField(30);
 	private JTextField txtZvanje = new JTextField(15);
+	private JTextField txtNegBodovi = new JTextField(2);
 	private JTextField txtPassword = new JTextField(13);
 	private Lookup<Predmet> predmetiLookup = new Lookup<Predmet>(predmetServiceBean.getAllPredmeti());
 	
