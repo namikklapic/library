@@ -18,6 +18,8 @@ import swing.nastavniciPanels.NastavniciPregled;
 import swing.nastavniciPanels.NoviNastavnik;
 import swing.predmetPanels.NoviPredmet;
 import swing.predmetPanels.PredmetPregled;
+import swing.studentiPanels.NoviStudent;
+import swing.studentiPanels.StudentPregled;
 
 public class PanelBibliotekar extends JFrame{
 
@@ -55,6 +57,10 @@ public class PanelBibliotekar extends JFrame{
 		predmeti.add(predmetPregled.getMenuItem(panel));
 		predmeti.add(noviPredmet.getMenuItem());
 		
+		JMenu studenti = new JMenu("Student");
+		studenti.add(studentPregled.getMenuItem(panel));
+		studenti.add(noviStudent.getMenuItem());
+		
 		
 		
 		
@@ -63,6 +69,7 @@ public class PanelBibliotekar extends JFrame{
 		menuBar.add(autori);
 		menuBar.add(nastavnici);
 		menuBar.add(predmeti);
+		menuBar.add(studenti);
 		setJMenuBar(menuBar);
 		
 		add(panel);
@@ -87,5 +94,8 @@ public class PanelBibliotekar extends JFrame{
 	
 	private NoviPredmet noviPredmet = new NoviPredmet();
 	private PredmetPregled predmetPregled = new PredmetPregled();
+	
+	private NoviStudent noviStudent = new NoviStudent();
+	private StudentPregled studentPregled = new StudentPregled();
 	
 }
