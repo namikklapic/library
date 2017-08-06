@@ -17,6 +17,7 @@ import tableModel.NastavnikTableModel;
 public class NastavniciPregled extends JPanel{
 	
 	
+	
 	public NastavniciPregled(){
 		panel = this;
 		//add(new JLabel("Nastavnici pregled panel"));
@@ -53,7 +54,7 @@ public class NastavniciPregled extends JPanel{
 		});
 		return item;
 	}
-	
+
 	private JPanel panel;
 	private NastavnikServiceBean nastavnikServiceBean = new NastavnikServiceBean();
 

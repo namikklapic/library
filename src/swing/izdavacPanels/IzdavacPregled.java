@@ -56,7 +56,6 @@ public class IzdavacPregled extends JPanel{
 	}
 	
 	private JPanel panel;
-	private List<Izdavac> izdavaci;
 	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
 
 }
