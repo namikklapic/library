@@ -70,7 +70,7 @@ public class NovaKnjiga  extends JFrame{
 		JLabel autor = new JLabel("Autori: ");
 		panel.add(autor);
 		panel.add(autoriLookup);
-		JButton potvrdi = new JButton("Potvrdi");
+		
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -81,6 +81,19 @@ public class NovaKnjiga  extends JFrame{
 		
 		add(panel);
 				
+	}
+	
+	public NovaKnjiga(Knjiga k){
+		this();
+		txtNaslov.setText(k.getNaslov());
+		txtOrgNaslov.setText(k.getOriginalniNaslov());
+		txtBrojStranica.setText(Integer.toString(k.getBrojStranica()));
+		txtGodinaIzdavanja.setText(Integer.toString(k.getGodinaIzdavanja()));
+		txtNegBodovi.setText(Integer.toString(k.getNegBodovi()));
+	
+		setTitle("Uredi knjigu");
+		potvrdi.setText("Snimi izmjene");
+		
 	}
 	
 	public JMenuItem getMenuItem() {
@@ -133,6 +146,7 @@ public class NovaKnjiga  extends JFrame{
 	private JComboBox<VrstaKnjige> cbVrsta = new JComboBox<VrstaKnjige>();
 	private JComboBox<Izdavac> cbIzdavac = new JComboBox<Izdavac>();
 	private Lookup<Autor> autoriLookup = new Lookup<Autor>(autorServiceBean.getAllAutor());
+	JButton potvrdi = new JButton("Potvrdi");
 	
 	private AutorKnjigaPK autorKnjigaPK;
 
