@@ -60,6 +60,7 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 			find.setNegBodovi(entity.getNegBodovi());
 			find.setIzdavac(entity.getIzdavac());
 			find.setVrsta(entity.getVrsta());
+			find.setBrojPrimjeraka(entity.getBrojPrimjeraka());
 		} else {
 			super.save(entity);
 		}

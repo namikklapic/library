@@ -26,6 +26,7 @@ public class Knjiga {
 	private int brojStranica;
 	private int godinaIzdavanja;
 	private int negBodovi;
+	private int brojPrimjeraka;
 	
 	@ManyToOne
 	private VrstaKnjige vrsta;
@@ -38,13 +39,14 @@ public class Knjiga {
 		
 	}
 	public Knjiga(int id, String naslov, String orgNaslov, int brojStranica, int godinaIzdavanja,
-			int negBodovi, Izdavac izdavac, VrstaKnjige vrsta){
+			int negBodovi, int brojPrimjeraka, Izdavac izdavac, VrstaKnjige vrsta){
 		this.id = id;
 		this.naslov = naslov;
 		this.originalniNaslov = orgNaslov;
 		this.brojStranica = brojStranica;
 		this.godinaIzdavanja = godinaIzdavanja;
 		this.negBodovi = negBodovi;
+		this.brojPrimjeraka = brojPrimjeraka;
 		this.izdavac = izdavac;
 		this.vrsta = vrsta;
 	}
@@ -94,6 +96,12 @@ public class Knjiga {
 	}
 	public void setNegBodovi(int negBodovi) {
 		this.negBodovi = negBodovi;
+	}
+	public int getBrojPrimjeraka(){
+		return brojPrimjeraka;
+	}
+	public void setBrojPrimjeraka(int brojPrimjeraka){
+		this.brojPrimjeraka = brojPrimjeraka;
 	}
 	
 }

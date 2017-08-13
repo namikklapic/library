@@ -42,8 +42,6 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			find.setDatumnabavke(entity.getDatumnabavke());
 			find.setStanje(entity.getStanje());
 			
-			//TODO: Consider moving brojPrimjeraka attribute to another table.
-			find.setBrojPrimjeraka(entity.getBrojPrimjeraka());
 			find.setKnjiga(entity.getKnjiga());
 			em.getTransaction().commit();
 		} else {

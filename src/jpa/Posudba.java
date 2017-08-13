@@ -21,13 +21,10 @@ public class Posudba implements Serializable {
 	@JoinColumn(name="inventarskiBroj")
 	private Primjerak primjerak;
 	
-	
 	@ManyToOne
 	@JoinColumn(name="sifraKorisnika")
 	private Korisnik korisnik;
 	
-	@Temporal(TemporalType.DATE)
-	private Date datumPosudbe;
 	@Temporal(TemporalType.DATE)
 	private Date krajnjiDatumVracanja;
 	@Temporal(TemporalType.DATE)
@@ -38,11 +35,10 @@ public class Posudba implements Serializable {
 		
 	}
 	
-	public Posudba(PosudbaPK id, Primjerak p, Korisnik k, Date datumPosudbe, Date krajnjiDatumVracanja) {
+	public Posudba(PosudbaPK id, Primjerak p, Korisnik k, Date krajnjiDatumVracanja) {
 		this.id = id;
 		this.primjerak = p;
 		this.korisnik = k;
-		this.datumPosudbe = datumPosudbe;
 		this.krajnjiDatumVracanja = krajnjiDatumVracanja;
 		this.datumVracanja = null;
 	}
@@ -67,12 +63,7 @@ public class Posudba implements Serializable {
 	public void setId(PosudbaPK id) {
 		this.id = id;
 	}
-	public Date getDatumPosudbe() {
-		return datumPosudbe;
-	}
-	public void setDatumPosudbe(Date datumPosudbe) {
-		this.datumPosudbe = datumPosudbe;
-	}
+
 	public Date getKrajnjiDatumVracanja() {
 		return krajnjiDatumVracanja;
 	}

@@ -49,9 +49,13 @@ public class NovaKnjiga  extends JFrame{
 		panel.add(godinaIzdavanja);
 		panel.add(txtGodinaIzdavanja);
 		
-		JLabel negBodovi = new JLabel("Negativni bodovi");
+		JLabel negBodovi = new JLabel("Negativni bodovi: ");
 		panel.add(negBodovi);
 		panel.add(txtNegBodovi);
+		
+		JLabel brojPrimjeraka = new JLabel("Broj primjeraka: ");
+		panel.add(brojPrimjeraka);
+		panel.add(txtBrojPrimjeraka);
 		
 		JLabel vrsta = new JLabel("Vrsta knjige: ");
 		for(VrstaKnjige vk: vrstaKnjigeServiceBean.getAllVrstaKnjige()) {
@@ -116,12 +120,13 @@ public class NovaKnjiga  extends JFrame{
 		int brStranica = Integer.parseInt(txtBrojStranica.getText());
 		int godIzdavanja = Integer.parseInt(txtGodinaIzdavanja.getText());
 		int negBodovi = Integer.parseInt(txtNegBodovi.getText());
+		int brojPrimjeraka = Integer.parseInt(txtBrojPrimjeraka.getText());
 		VrstaKnjige vrsta =(VrstaKnjige) cbVrsta.getSelectedItem();
 		Izdavac  izdavac = (Izdavac) cbIzdavac.getSelectedItem();
 		List<Autor> autori = autoriLookup.getSelectedValues();
 		
 		Knjiga k = knjigaServiceBean
-		.save(new Knjiga(knjigaServiceBean.getCount() + 1, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, izdavac, vrsta));
+		.save(new Knjiga(knjigaServiceBean.getCount() + 1, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, brojPrimjeraka, izdavac, vrsta));
 		
 		for(Autor a : autori) {
 			int i = 1;
@@ -143,6 +148,7 @@ public class NovaKnjiga  extends JFrame{
 	private JTextField txtBrojStranica = new JTextField(15);
 	private JTextField txtGodinaIzdavanja = new JTextField(15);
 	private JTextField txtNegBodovi = new JTextField(15);
+	private JTextField txtBrojPrimjeraka = new JTextField(3);
 	private JComboBox<VrstaKnjige> cbVrsta = new JComboBox<VrstaKnjige>();
 	private JComboBox<Izdavac> cbIzdavac = new JComboBox<Izdavac>();
 	private Lookup<Autor> autoriLookup = new Lookup<Autor>(autorServiceBean.getAllAutor());
