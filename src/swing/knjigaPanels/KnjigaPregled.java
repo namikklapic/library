@@ -57,4 +57,5 @@ public class KnjigaPregled extends JPanel{
 	}
 	private JPanel panel;
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
+	
 }
