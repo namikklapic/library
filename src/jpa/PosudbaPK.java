@@ -20,7 +20,7 @@ public class PosudbaPK implements Serializable {
 	private String inventarskiBroj;
 	@Column(insertable=false, updatable=false)
 	private String sifraKorisnika;
-	@Column(insertable=false, updatable=false)
+	@Column(insertable=true, updatable=true)
 	@Temporal(TemporalType.DATE)
 	private Date datumPosudbe;
 	
