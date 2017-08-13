@@ -110,6 +110,8 @@ public class PanelPrijava extends JPanel {
 //			Bibliotekar b = new Bibliotekar(k2, "14020");
 //			bibliotekar.save(b);
 			
+			// Komentar za commit
+			
 			Student s = student.findByIndexNumber(txtUser.getText(), txtPass.getText());
 			Nastavnik n = nastavnik.findByNameAndSurname(txtUser.getText(), txtPass.getText());
 			Bibliotekar b = bibliotekar.findByNameAndSurname(txtUser.getText(), txtPass.getText());
