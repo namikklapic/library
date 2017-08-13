@@ -27,6 +27,8 @@ public class Posudba implements Serializable {
 	private Korisnik korisnik;
 	
 	@Temporal(TemporalType.DATE)
+	private Date datumPosudbe;
+	@Temporal(TemporalType.DATE)
 	private Date krajnjiDatumVracanja;
 	@Temporal(TemporalType.DATE)
 	private Date datumVracanja;
