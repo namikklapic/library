@@ -95,11 +95,5 @@ public class Knjiga {
 	public void setNegBodovi(int negBodovi) {
 		this.negBodovi = negBodovi;
 	}
-
-	
-	
-	
-	
-
 	
 }

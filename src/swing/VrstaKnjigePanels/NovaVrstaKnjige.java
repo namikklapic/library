@@ -26,10 +26,7 @@ public class NovaVrstaKnjige extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setSize(300, 300);
 		
-		JLabel imeVrsteKnjige = new JLabel("Naziv vrste knjige:");
-		JTextField txtVrstaKnjige = new JTextField(15);
 		
-		JButton potvrdi = new JButton("Dodaj");
 		potvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				vrstaKnjigeServiceBean.
@@ -43,6 +40,14 @@ public class NovaVrstaKnjige extends JFrame {
 		panel.add(potvrdi);
 		panel.add(ponisti);
 		add(panel);
+	}
+	
+	public NovaVrstaKnjige(VrstaKnjige vk){
+		this();
+		txtVrstaKnjige.setText(vk.getNazivVrste());
+		
+		setTitle("Uredi vrstu knjige");
+		potvrdi.setText("Snimi izmjene");
 	}
 	
 	public JMenuItem getMenuItem() {
@@ -60,5 +65,8 @@ public class NovaVrstaKnjige extends JFrame {
 	}
 	
 	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();
-
+	private JLabel imeVrsteKnjige = new JLabel("Naziv vrste knjige:");
+	private JTextField txtVrstaKnjige = new JTextField(15);
+	private JButton potvrdi = new JButton("Dodaj");
+	
 }

@@ -6,6 +6,7 @@ import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
 import jpa.Knjiga;
+import jpa.VrstaKnjige;
 
 public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 	/**
@@ -64,6 +65,5 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 		}
 		return entity;
 	}
-	
 
 }
