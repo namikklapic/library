@@ -22,15 +22,20 @@ public class Primjerak implements Serializable {
 	private String stanje;
 	@ManyToOne
 	private Knjiga knjiga;
+	private Boolean rezervisan;
+	private Boolean posudjen;
 	
 	public Primjerak(){
 		
 	}
-	public Primjerak(String invBroj, Date datumNabavke, String stanje, Knjiga knjiga){
+	public Primjerak(String invBroj, Date datumNabavke, String stanje, Knjiga knjiga, Boolean rezervisan, Boolean posudjen){
 		this.inventarskiBroj = invBroj;
 		this.datumnabavke = datumNabavke;
 		this.stanje = stanje;
 		this.knjiga = knjiga;
+		this.rezervisan = rezervisan;
+		this.posudjen = posudjen;
+		
 	}
 
 	public String getInventarskiBroj() {
@@ -63,6 +68,8 @@ public class Primjerak implements Serializable {
 
 	public void setKnjiga(Knjiga knjiga) {
 		this.knjiga = knjiga;
-	}	
+	}
+	
+	
 	
 }
