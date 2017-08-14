@@ -55,6 +55,7 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 			find.setNazivPredmeta(entity.getNazivPredmeta());
 			find.setSkraceniNazivPredmeta(entity.getSkraceniNazivPredmeta());
 			find.setBrojSemestra(entity.getBrojSemestra());
+			em.getTransaction().commit();
 		}else{
 			super.save(entity);
 		}

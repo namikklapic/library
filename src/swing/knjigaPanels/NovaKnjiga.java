@@ -30,7 +30,7 @@ public class NovaKnjiga  extends JFrame{
 		setTitle("Nova knjiga");
 		setSize(300, 300);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setSize(300, 300);
 		
 		JLabel naslov = new JLabel("Naslov: ");		
@@ -87,16 +87,32 @@ public class NovaKnjiga  extends JFrame{
 				
 	}
 	
-	public NovaKnjiga(Knjiga k){
+	public NovaKnjiga(Knjiga k, Boolean canEdit){
 		this();
 		txtNaslov.setText(k.getNaslov());
 		txtOrgNaslov.setText(k.getOriginalniNaslov());
 		txtBrojStranica.setText(Integer.toString(k.getBrojStranica()));
 		txtGodinaIzdavanja.setText(Integer.toString(k.getGodinaIzdavanja()));
 		txtNegBodovi.setText(Integer.toString(k.getNegBodovi()));
-	
-		setTitle("Uredi knjigu");
-		potvrdi.setText("Snimi izmjene");
+		if (canEdit == true) {
+			setTitle("Uredi knjigu");
+			potvrdi.setText("Snimi izmjene");
+		}
+		else {
+			setTitle("Pregled knjige");
+			txtNaslov.setEditable(false);
+			txtOrgNaslov.setEditable(false);
+			txtBrojStranica.setEditable(false);
+			txtGodinaIzdavanja.setEditable(false);
+			txtNegBodovi.setEditable(false);
+			txtBrojPrimjeraka.setEditable(false);
+			cbVrsta.setEnabled(false);
+			cbIzdavac.setEnabled(false);
+			potvrdi.setVisible(false);
+			//autoriLookup.setEditable(false);
+			autoriLookup.removeButtons();
+			panel.add(rezervisi);
+		}
 		
 	}
 	
@@ -152,7 +168,9 @@ public class NovaKnjiga  extends JFrame{
 	private JComboBox<VrstaKnjige> cbVrsta = new JComboBox<VrstaKnjige>();
 	private JComboBox<Izdavac> cbIzdavac = new JComboBox<Izdavac>();
 	private Lookup<Autor> autoriLookup = new Lookup<Autor>(autorServiceBean.getAllAutor());
-	JButton potvrdi = new JButton("Potvrdi");
+	private JButton potvrdi = new JButton("Potvrdi");
+	private JButton rezervisi = new JButton("Rezervisi");
+	private JPanel panel;
 	
 	private AutorKnjigaPK autorKnjigaPK;
 

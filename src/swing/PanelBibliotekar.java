@@ -76,7 +76,7 @@ public class PanelBibliotekar extends JFrame{
 	}
 	private Bibliotekar bibliotekar;
 
-	private KnjigaPregled pregledKnjiga = new KnjigaPregled();
+	private KnjigaPregled pregledKnjiga = new KnjigaPregled(true);
 	private NovaKnjiga novaKnjiga = new NovaKnjiga();
 	
 	private IzdavacPregled pregledIzdavac = new IzdavacPregled();

@@ -61,6 +61,7 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 			find.setIzdavac(entity.getIzdavac());
 			find.setVrsta(entity.getVrsta());
 			find.setBrojPrimjeraka(entity.getBrojPrimjeraka());
+			em.getTransaction().commit();
 		} else {
 			super.save(entity);
 		}

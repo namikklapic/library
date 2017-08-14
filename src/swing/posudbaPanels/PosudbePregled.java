@@ -1,4 +1,4 @@
-package swing.knjigaPanels;
+package swing.posudbaPanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,28 +11,32 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import bussines.KnjigaServiceBean;
+import bussines.PosudbaServiceBean;
+import jpa.Posudba;
+import jpa.PosudbaPK;
+import swing.knjigaPanels.NovaKnjiga;
 import jpa.Knjiga;
-import tableModel.KnjigaTableModel;
+import jpa.Korisnik;
+import tableModel.PosudbeTableModel;
 
-public class KnjigaPregled extends JPanel{
+public class PosudbePregled extends JPanel{
 	
 	
-	public KnjigaPregled(Boolean canEdit){
-		panel = this;
-		//add(new JLabel("Knjiga pregled panel"));
-		
+	public PosudbePregled(Korisnik k){
+		panel = this;	
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		KnjigaTableModel model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
+		PosudbeTableModel model = new PosudbeTableModel(posudbaServiceBean.getPosudbeByKorisnik(k));
 		JTable table = new JTable(model);
 		
 		JButton edit = new JButton("Uredi");
 		edit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				Knjiga k = model.getKnjiga(table.getSelectedRow());
-				NovaKnjiga nk = new NovaKnjiga(k, canEdit);
+				Posudba p = model.getPosudba(table.getSelectedRow());
+				Knjiga k = knjigaServiceBean.getById(p.getPrimjerak().getKnjiga().getId());
+				NovaKnjiga nk = new NovaKnjiga(k, false);
 				nk.prikazi();
 			}
 		});
@@ -44,7 +48,7 @@ public class KnjigaPregled extends JPanel{
 		
 	}
 	public JMenuItem getMenuItem(JPanel parent){
-		JMenuItem item = new JMenuItem("Pregled Knijga");
+		JMenuItem item = new JMenuItem("Pregled Posudbi");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				parent.removeAll();
@@ -56,6 +60,7 @@ public class KnjigaPregled extends JPanel{
 		return item;
 	}
 	private JPanel panel;
+	private PosudbaServiceBean posudbaServiceBean = new PosudbaServiceBean();
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
 	
 }

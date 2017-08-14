@@ -65,7 +65,7 @@ public class Lookup<T> extends JPanel {
 		
 		
 		JPanel lookupPanel = new JPanel();
-		JButton potvrdi = new JButton("Potvrdi");
+		potvrdi = new JButton("Potvrdi");
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -73,7 +73,7 @@ public class Lookup<T> extends JPanel {
 				setSelectionText();
 			}
 		});
-		JButton ponisti = new JButton("Ponisti");
+		ponisti = new JButton("Ponisti");
 		ponisti.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -92,14 +92,14 @@ public class Lookup<T> extends JPanel {
 		
 		// this section will be visible when lookup is included into panel
 		
-		JButton openDialog = new JButton("Odaberi");
+		openDialog = new JButton("Odaberi");
 		openDialog.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				options.setVisible(true);
 			}
 		});
-		JButton cancelSelection = new JButton("Ponisti");
+		cancelSelection = new JButton("Ponisti");
 		add(selected);
 		add(openDialog);
 		add(cancelSelection);
@@ -122,11 +122,23 @@ public class Lookup<T> extends JPanel {
 		}
 		selected.setText(selectionText);
 	}
+	
+	public void removeButtons() {
+		remove(potvrdi);
+		remove(ponisti);
+		remove(openDialog);
+		remove(cancelSelection);
+		selected.setEditable(false);
+	}
 		
 			
 	private JFrame options = new JFrame();
 	private JList<T> selectedItemsList = new JList<T>();
 	private JTextField selected = new JTextField(10);
+	private JButton potvrdi;
+	private JButton ponisti;
+	private JButton openDialog;
+	private JButton cancelSelection;
 	
 	
 }
