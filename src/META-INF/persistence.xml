@@ -3,6 +3,7 @@
 	<persistence-unit name="Library" transaction-type="RESOURCE_LOCAL">
 	<class>jpa.Autor</class>
 	<class>jpa.AutorKnjiga</class>
+	<class>jpa.Bibliotekar</class>
 	<class>jpa.Izdavac</class>
 	<class>jpa.Knjiga</class>
 	<class>jpa.Korisnik</class>
@@ -14,7 +15,6 @@
 	<class>jpa.Primjerak</class>
 	<class>jpa.Student</class>
 	<class>jpa.VrstaKnjige</class>
-	<class>jpa.Bibliotekar</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:derby:C:\Users\agazibeg\Library;create=true"/>
 			<property name="javax.persistence.jdbc.user" value=""/>

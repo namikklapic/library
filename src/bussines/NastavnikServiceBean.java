@@ -29,6 +29,18 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		return result;
 	}
 	
+	public Nastavnik searchByJMBG(String sifra){
+		Nastavnik result = null;
+		try{
+			result = (Nastavnik)em
+					.createQuery("Select n from Nastavnik n inner join n.korisnik k where k.sifra=:sifra")
+					.setParameter("sifra", sifra)
+					.getSingleResult();
+		}catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
 	public Integer getCount() {
 		Long c = (long) 0;
 		try {

@@ -78,9 +78,9 @@ public class NoviStudent extends JFrame {
 		String brojIndeksa = txtBrojIndeksa.getText();
 		int upisaniSem = Integer.parseInt(txtUpisaniSem.getText());
 		
-		int sifra = Integer.parseInt(txtJmbg.getText());
+		String sifra = txtJmbg.getText();
 		
-		Korisnik k = new Korisnik(Integer.toString(sifra), ime, prezime, 0);
+		Korisnik k = new Korisnik(sifra, ime, prezime, 0);
 		
 		studentServiceBean.save(new Student(k, brojIndeksa, pass, upisaniSem));
 	}
@@ -100,6 +100,7 @@ public class NoviStudent extends JFrame {
 	public void prikazi() {
 		setVisible(true);
 	}
+	
 	private JTextField txtIme = new JTextField(15);
 	private JTextField txtPrezime = new JTextField(15);
 	private JTextField txtJmbg = new JTextField(13);

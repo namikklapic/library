@@ -95,9 +95,9 @@ public class NoviNastavnik extends JFrame{
 		String zvanje = txtZvanje.getText();
 		List<Predmet> predmeti = predmetiLookup.getSelectedValues();
 		String password = txtJmbg.getText();
-		int sifra = Integer.parseInt(txtJmbg.getText());
+		String sifra = txtJmbg.getText();
 		
-		Korisnik k = new Korisnik(Integer.toString(sifra), ime, prezime, 0);
+		Korisnik k = new Korisnik(sifra, ime, prezime, 0);
 		
 		Nastavnik n = nastavnikServiceBean
 				.save(new Nastavnik(k, zvanje, password));
