@@ -51,9 +51,9 @@ public class NoviNastavnik extends JFrame{
 		panel.add(predmeti);
 		panel.add(predmetiLookup);
 		
-		JLabel password = new JLabel( "JMBG: ");
-		panel.add(password);
-		panel.add(txtPassword);
+		JLabel jmbg = new JLabel( "JMBG: ");
+		panel.add(jmbg);
+		panel.add(txtJmbg);
 		
 		JButton potvrdi = new JButton("Potvrdi");
 		potvrdi.addActionListener(new ActionListener(){
@@ -94,8 +94,8 @@ public class NoviNastavnik extends JFrame{
 		String prezime = txtPrezime.getText();
 		String zvanje = txtZvanje.getText();
 		List<Predmet> predmeti = predmetiLookup.getSelectedValues();
-		String password = txtPassword.getText();
-		int sifra = korisnikServiceBean.getCount() + 1;
+		String password = txtJmbg.getText();
+		int sifra = Integer.parseInt(txtJmbg.getText());
 		
 		Korisnik k = new Korisnik(Integer.toString(sifra), ime, prezime, 0);
 		
@@ -120,7 +120,7 @@ public class NoviNastavnik extends JFrame{
 	private JTextField txtPrezime = new JTextField(30);
 	private JTextField txtZvanje = new JTextField(15);
 	private JTextField txtNegBodovi = new JTextField(2);
-	private JTextField txtPassword = new JTextField(13);
+	private JTextField txtJmbg = new JTextField(13);
 	private Lookup<Predmet> predmetiLookup = new Lookup<Predmet>(predmetServiceBean.getAllPredmeti());
 	
 }

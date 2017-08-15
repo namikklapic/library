@@ -32,9 +32,9 @@ public class NoviStudent extends JFrame {
 		panel.add(prezime);
 		panel.add(txtPrezime);
 		
-		JLabel password = new JLabel("Password");
-		panel.add(password);
-		panel.add(txtPass);
+		JLabel jmbg = new JLabel("JMBG");
+		panel.add(jmbg);
+		panel.add(txtJmbg);
 		
 		JLabel brojIndeksa = new JLabel("Broj indeksa");
 		panel.add(brojIndeksa);
@@ -63,8 +63,8 @@ public class NoviStudent extends JFrame {
 		txtBrojIndeksa.setText(s.getBrojIndeksa());
 		txtUpisaniSem.setText(Integer.toString(s.getUspisaniSemestar()));
 		
-		txtPass.setText(s.getPassword());
-		txtPass.setEditable(false);
+		txtJmbg.setText(s.getPassword());
+		txtJmbg.setEditable(false);
 		
 		setTitle("Uredi studenta");
 		potvrdi.setText("Snimi izmjene");
@@ -74,11 +74,11 @@ public class NoviStudent extends JFrame {
 	private void saveStudent() {
 		String ime = txtIme.getText();
 		String prezime = txtPrezime.getText();
-		String pass = txtPass.getText();
+		String pass = txtJmbg.getText();
 		String brojIndeksa = txtBrojIndeksa.getText();
 		int upisaniSem = Integer.parseInt(txtUpisaniSem.getText());
 		
-		int sifra = korisnikServiceBean.getCount() + 1;
+		int sifra = Integer.parseInt(txtJmbg.getText());
 		
 		Korisnik k = new Korisnik(Integer.toString(sifra), ime, prezime, 0);
 		
@@ -102,7 +102,7 @@ public class NoviStudent extends JFrame {
 	}
 	private JTextField txtIme = new JTextField(15);
 	private JTextField txtPrezime = new JTextField(15);
-	private JPasswordField txtPass = new JPasswordField(15);
+	private JTextField txtJmbg = new JTextField(13);
 	private JTextField txtBrojIndeksa = new JTextField(10);
 	private JTextField txtUpisaniSem = new JTextField(10);
 	

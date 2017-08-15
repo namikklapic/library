@@ -9,7 +9,7 @@ import jpa.Nastavnik;
 
 public class NastavnikTableModel extends AbstractTableModel {
 	
-	private String[] columnNames = {"Ime i prezime nastavnika", "Akademsko zvanje", "Broj negativnih bodova"};
+	private String[] columnNames = {"JMBG", "Ime i prezime nastavnika", "Akademsko zvanje", "Broj negativnih bodova"};
 	private List<Nastavnik> nastavnici;
 	
 	public NastavnikTableModel(){
@@ -37,11 +37,13 @@ public class NastavnikTableModel extends AbstractTableModel {
 		// TODO Auto-generated method stub
 		Nastavnik n = getNastavnik(row);
 		switch(column){
-		case 0: 
+		case 0:
+			return n.getPassword();
+		case 1: 
 			return n.getKorisnik().getImeKorisnika() + ' ' + n.getKorisnik().getPrezimeKorisnika();
-		case 1:
-			return n.getAkademskoZvanje();
 		case 2:
+			return n.getAkademskoZvanje();
+		case 3:
 			return n.getKorisnik().getBrojNegativnihBodova();
 			
 		default: return null;

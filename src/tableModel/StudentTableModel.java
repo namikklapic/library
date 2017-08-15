@@ -9,7 +9,7 @@ import jpa.Student;
 
 public class StudentTableModel extends AbstractTableModel {
 
-	private String[] columnNames = { "Ime", "Prezime", "Broj indeksa", "Upisani semestar", "Broj neg. bodova" };
+	private String[] columnNames = {"JMBG", "Ime", "Prezime", "Broj indeksa", "Upisani semestar", "Broj neg. bodova" };
 	private List<Student> studenti;
 
 	public StudentTableModel() {
@@ -40,14 +40,16 @@ public class StudentTableModel extends AbstractTableModel {
 		Student s = getStudent(row);
 		switch (col) {
 		case 0:
-			return s.getKorisnik().getImeKorisnika();
+			return s.getPassword();
 		case 1:
-			return s.getKorisnik().getPrezimeKorisnika();
+			return s.getKorisnik().getImeKorisnika();
 		case 2:
-			return s.getBrojIndeksa();
+			return s.getKorisnik().getPrezimeKorisnika();
 		case 3:
-			return s.getUspisaniSemestar();
+			return s.getBrojIndeksa();
 		case 4:
+			return s.getUspisaniSemestar();
+		case 5:
 			return s.getKorisnik().getBrojNegativnihBodova();
 		default: return null;
 		}
