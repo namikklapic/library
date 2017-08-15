@@ -7,7 +7,8 @@ import javax.persistence.NoResultException;
 import jpa.EntityManagerProducer;
 import jpa.Student;
 
-public class StudentServiceBean extends EntityManagerProducer<Student>{
+public class StudentServiceBean extends EntityManagerProducer<Student> {
+	
 	public Student findByIndexNumber(String brojIndeksa, String password){
 		Student result = null;
 		try{
@@ -21,6 +22,19 @@ public class StudentServiceBean extends EntityManagerProducer<Student>{
 		}
 		return result;
 	}
+	
+	public Student searchByIndexNumber(String brojIndeksa){
+		Student result = null;
+		try{
+			result = (Student)em
+					.createQuery("Select s from Student s where s.brojIndeksa=:brojIndeksa")
+					.setParameter("brojIndeksa", brojIndeksa)
+					.getSingleResult();
+		}catch(NoResultException nre) { }
+		
+		return result;
+	}
+	
 	public List<Student> getAllStudent(){
 		List<Student> result = null;
 		try {

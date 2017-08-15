@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -19,11 +20,21 @@ import jpa.Knjiga;
 import jpa.Korisnik;
 import tableModel.PosudbeTableModel;
 
-public class PosudbePregled extends JPanel{
+public class PosudbePregled extends JFrame {
 	
+	public PosudbePregled() {
+		
+		panel = new JPanel();
+		add(panel);
+	}
 	
 	public PosudbePregled(Korisnik k){
-		panel = this;	
+		
+		setTitle("Pregled posudbi za korisnika");
+		setSize(800, 800);
+		
+		panel = new JPanel();	
+		panel.setSize(800, 800);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -42,23 +53,23 @@ public class PosudbePregled extends JPanel{
 		});
 		
 		scrollPane.setViewportView(table);
-		add(scrollPane);
-		add(edit);
+		panel.add(scrollPane);
+		panel.add(edit);
 		
+		add(panel);
 		
 	}
+	
 	public JMenuItem getMenuItem(JPanel parent){
 		JMenuItem item = new JMenuItem("Pregled Posudbi");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-				parent.removeAll();
-				parent.add(panel);
-				parent.repaint();
-				parent.revalidate();
+				setVisible(true);
 			}
 		});
 		return item;
 	}
+	
 	private JPanel panel;
 	private PosudbaServiceBean posudbaServiceBean = new PosudbaServiceBean();
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();

@@ -77,8 +77,5 @@ public class Posudba implements Serializable {
 		this.datumVracanja = datumVracanja;
 	}
 	
-	
-	
-	
 
 }

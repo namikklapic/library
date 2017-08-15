@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -15,10 +16,15 @@ import bussines.AutorServiceBean;
 import jpa.Autor;
 import tableModel.AutorTableModel;
 
-public class AutorPregled extends JPanel {
+public class AutorPregled extends JFrame {
 	
 	public AutorPregled() {
-		panel = this;
+		
+		setTitle("Pregled autora");
+		setSize(800, 800);
+		
+		panel = new JPanel();
+		panel.setSize(800, 800);
 	
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -36,8 +42,10 @@ public class AutorPregled extends JPanel {
 		});
 		
 		scrollPane.setViewportView(table);
-		add(scrollPane);
-		add(edit);
+		panel.add(scrollPane);
+		panel.add(edit);
+		
+		add(panel);
 		
 		
 	}
@@ -46,10 +54,7 @@ public class AutorPregled extends JPanel {
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				parent.removeAll();
-				parent.add(panel);
-				parent.repaint();
-				parent.revalidate();
+				setVisible(true);
 			}
 		});
 		return item;

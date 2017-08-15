@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -14,12 +15,16 @@ import bussines.PredmetServiceBean;
 import jpa.Predmet;
 import tableModel.PredmetTableModel;
 
-public class PredmetPregled extends JPanel {
+public class PredmetPregled extends JFrame {
 	
 	
 	public PredmetPregled() {
-		panel = this;
-		//add(new JLabel("Panel za pregled predmeta"));
+		
+		setTitle("Pregled predmeta");
+		setSize(800, 800);
+		
+		panel = new JPanel();
+		panel.setSize(800, 800);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -37,8 +42,10 @@ public class PredmetPregled extends JPanel {
 		});
 		
 		scrollPane.setViewportView(table);
-		add(scrollPane);
-		add(edit);
+		panel.add(scrollPane);
+		panel.add(edit);
+		
+		add(panel);
 		
 	}
 	
@@ -47,10 +54,7 @@ public class PredmetPregled extends JPanel {
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				parent.removeAll();
-				parent.add(panel);
-				parent.revalidate();
-				parent.repaint();
+				setVisible(true);
 			}
 		});
 		return menuItem;

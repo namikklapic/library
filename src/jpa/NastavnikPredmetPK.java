@@ -17,6 +17,7 @@ public class NastavnikPredmetPK implements Serializable {
 	private String sifraPredmeta;
 	@Column(insertable=false, updatable=false)
 	private String sifraNastavnika;
+	
 	public String getSifraPredmeta() {
 		return sifraPredmeta;
 	}

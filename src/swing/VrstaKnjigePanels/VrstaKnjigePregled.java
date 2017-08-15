@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -14,11 +15,15 @@ import bussines.VrstaKnjigeServiceBean;
 import jpa.VrstaKnjige;
 import tableModel.VrstaKnjigeTableModel;
 
-public class VrstaKnjigePregled extends JPanel {
+public class VrstaKnjigePregled extends JFrame {
 	
 	public VrstaKnjigePregled() {
-		panel = this;
-		//add(new JLabel("vrsta knjige pregled panel"));
+		
+		setTitle("Pregled vrsta knjige");
+		setSize(800, 800);
+		
+		panel = new JPanel();
+		panel.setSize(800, 800);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -36,8 +41,10 @@ public class VrstaKnjigePregled extends JPanel {
 		});
 		
 		scrollPane.setViewportView(table);
-		add(scrollPane);
-		add(edit);
+		panel.add(scrollPane);
+		panel.add(edit);
+		
+		add(panel);
 		
 	}
 	public JMenuItem getMenuItem(JPanel parent) {
@@ -45,10 +52,7 @@ public class VrstaKnjigePregled extends JPanel {
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				parent.removeAll();
-				parent.add(panel);
-				parent.repaint();
-				parent.revalidate();
+				setVisible(true);
 			}
 		});
 		return item;

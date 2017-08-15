@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -14,12 +15,15 @@ import bussines.IzdavacServiceBean;
 import jpa.Izdavac;
 import tableModel.IzdavacTableModel;
 
-public class IzdavacPregled extends JPanel{
-	
-	
+public class IzdavacPregled extends JFrame {
 	
 	public IzdavacPregled() {
-		panel  = this;
+		
+		setTitle("Pregled izdavaca");
+		setSize(800, 800);
+		
+		panel  = new JPanel();
+		panel.setSize(800, 800);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -37,8 +41,10 @@ public class IzdavacPregled extends JPanel{
 		});
 		
 		scrollPane.setViewportView(table);
-		add(scrollPane);
-		add(edit);
+		panel.add(scrollPane);
+		panel.add(edit);
+		
+		add(panel);
 				
 	}
 	public JMenuItem getMenuItem(JPanel parent) {
@@ -46,10 +52,7 @@ public class IzdavacPregled extends JPanel{
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				parent.removeAll();
-				parent.add(panel);
-				parent.repaint();
-				parent.revalidate();
+				setVisible(true);
 			}
 		});
 		return item;

@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -14,13 +15,15 @@ import bussines.NastavnikServiceBean;
 import jpa.Nastavnik;
 import tableModel.NastavnikTableModel;
 
-public class NastavniciPregled extends JPanel{
-	
-	
+public class NastavniciPregled extends JFrame{
 	
 	public NastavniciPregled(){
-		panel = this;
-		//add(new JLabel("Nastavnici pregled panel"));
+		
+		setTitle("Pregled nastavnika");
+		setSize(800, 800);
+		
+		panel = new JPanel();
+		panel.setSize(800, 800);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -38,18 +41,17 @@ public class NastavniciPregled extends JPanel{
 		});
 		
 		scrollPane.setViewportView(table);
-		add(scrollPane);
-		add(edit);
+		panel.add(scrollPane);
+		panel.add(edit);
+		
+		add(panel);
 		
 	}
 	public JMenuItem getMenuItem(JPanel parent){
 		JMenuItem item = new JMenuItem("Pregled nastavnika");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
-				parent.removeAll();
-				parent.add(panel);
-				parent.repaint();
-				parent.revalidate();
+				setVisible(true);
 			}
 		});
 		return item;

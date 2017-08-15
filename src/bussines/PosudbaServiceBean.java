@@ -42,6 +42,7 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		} catch(NoResultException nre) {}
 		return c.intValue();
 	}
+	
 	public List<Posudba> getActivePosudbaByKorisnik(Korisnik k){
 		List<Posudba> result = null;
 		try {
