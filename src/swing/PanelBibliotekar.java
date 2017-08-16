@@ -30,6 +30,7 @@ public class PanelBibliotekar extends JFrame{
 		setTitle(b.getKorisnik().getImeKorisnika() + " " + b.getKorisnik().getPrezimeKorisnika());
 		
 		JPanel panel = new JPanel();
+		
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu knjiga = new JMenu("Knjiga");
