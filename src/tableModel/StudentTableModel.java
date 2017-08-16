@@ -48,7 +48,7 @@ public class StudentTableModel extends AbstractTableModel {
 		case 3:
 			return s.getBrojIndeksa();
 		case 4:
-			return s.getUspisaniSemestar();
+			return s.getUpisaniSemestar();
 		case 5:
 			return s.getKorisnik().getBrojNegativnihBodova();
 		default: return null;

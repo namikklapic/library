@@ -61,7 +61,7 @@ public class NoviStudent extends JFrame {
 		txtIme.setText(s.getKorisnik().getImeKorisnika());
 		txtPrezime.setText(s.getKorisnik().getPrezimeKorisnika());
 		txtBrojIndeksa.setText(s.getBrojIndeksa());
-		txtUpisaniSem.setText(Integer.toString(s.getUspisaniSemestar()));
+		txtUpisaniSem.setText(Integer.toString(s.getUpisaniSemestar()));
 		
 		txtJmbg.setText(s.getPassword());
 		txtJmbg.setEditable(false);

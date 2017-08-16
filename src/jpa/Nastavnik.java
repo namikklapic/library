@@ -12,21 +12,22 @@ public class Nastavnik {
 	private String password;
 	private String akademskoZvanje;
 	
-	public Nastavnik(){
-		
-	}
-	public Nastavnik(Korisnik k, String zvanje, String p){
+	public Nastavnik() {}
+	
+	public Nastavnik(Korisnik k, String zvanje, String pw){
 		this.korisnik = k;
 		this.akademskoZvanje = zvanje;
-		this.password = p;
+		this.password = pw;
 	}
 	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	public Korisnik getKorisnik() {
 		return korisnik;
 	}
@@ -41,6 +42,5 @@ public class Nastavnik {
 
 	public void setAkademskoZvanje(String akademskoZvanje) {
 		this.akademskoZvanje = akademskoZvanje;
-	}
-	
+	}	
 }

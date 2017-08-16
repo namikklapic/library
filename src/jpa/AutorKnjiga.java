@@ -13,9 +13,6 @@ import javax.persistence.Table;
 @Table(name="autorknjiga")
 public class AutorKnjiga implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
@@ -35,14 +32,21 @@ public class AutorKnjiga implements Serializable {
 	
 	public AutorKnjiga() {}
 	
-	public AutorKnjiga(AutorKnjigaPK id, Knjiga k, Autor a, int rd){
+	public AutorKnjiga(AutorKnjigaPK id, Knjiga k, Autor a, int rb){
 		this.id = id;
 		this.knjiga = k;
 		this.autor = a;
-		this.redniBrojAutoraNaKnjizi = rd;
+		this.redniBrojAutoraNaKnjizi = rb;
 	}
 	
-
+	public AutorKnjigaPK getId() {
+		return id;
+	}
+	
+	public void setId(AutorKnjigaPK id) {
+		this.id = id;
+	}
+	
 	public Knjiga getKnjiga() {
 		return knjiga;
 	}
@@ -57,14 +61,6 @@ public class AutorKnjiga implements Serializable {
 
 	public void setAutor(Autor autor) {
 		this.autor = autor;
-	}
-
-	public AutorKnjigaPK getId() {
-		return id;
-	}
-
-	public void setId(AutorKnjigaPK id) {
-		this.id = id;
 	}
 
 	public int getRedniBrojAutoraNaKnjizi() {

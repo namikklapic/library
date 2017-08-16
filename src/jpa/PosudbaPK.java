@@ -11,9 +11,6 @@ import javax.persistence.TemporalType;
 @Embeddable
 public class PosudbaPK implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Column(insertable=false, updatable=false)
@@ -25,10 +22,7 @@ public class PosudbaPK implements Serializable {
 	private Date datumPosudbe;
 	
 	
-	
-	public PosudbaPK(){
-		
-	}
+	public PosudbaPK() {}
 	
 	public PosudbaPK(String invBroj, String sifra, Date datumPosudbe) {
 		this.inventarskiBroj = invBroj;
@@ -40,11 +34,9 @@ public class PosudbaPK implements Serializable {
 		return datumPosudbe;
 	}
 
-
 	public void setDatumPosudbe(Date datumPosudbe) {
 		this.datumPosudbe = datumPosudbe;
 	}
-
 
 	public String  getInventarskiBroj() {
 		return inventarskiBroj;
@@ -57,6 +49,7 @@ public class PosudbaPK implements Serializable {
 	public String getSifraKorisnika() {
 		return sifraKorisnika;
 	}
+	
 	public void setSifraKorisnika(String sifraKorisnika) {
 		this.sifraKorisnika = sifraKorisnika;
 	}
@@ -80,8 +73,4 @@ public class PosudbaPK implements Serializable {
 
 		return hash;
 	}
-	
-	
-	
-
 }

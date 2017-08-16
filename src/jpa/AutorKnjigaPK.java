@@ -18,9 +18,8 @@ public class AutorKnjigaPK implements Serializable{
 	@Column(insertable=false, updatable=false)
 	private int knjigaId;
 	
-	public AutorKnjigaPK(){
-		
-	}
+	public AutorKnjigaPK() {}
+	
 	public AutorKnjigaPK(int aid, int kid) {
 		this.autorId = aid;
 		this.knjigaId = kid;
@@ -59,7 +58,6 @@ public class AutorKnjigaPK implements Serializable{
 		return(this.autorId == castOther.autorId) && (this.knjigaId == castOther.knjigaId);
 	}
 	
-	
 	public int hashCode() {
 		final int prime = 31;
 		int hash = 17;
@@ -69,6 +67,4 @@ public class AutorKnjigaPK implements Serializable{
 		return hash;
 	}
 	
-	
-
 }

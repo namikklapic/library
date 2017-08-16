@@ -50,7 +50,7 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 			find.setBrojIndeksa(entity.getBrojIndeksa());
 			find.setKorisnik(entity.getKorisnik());
 			find.setPassword(entity.getPassword());
-			find.setUspisaniSemestar(entity.getUspisaniSemestar());
+			find.setUpisaniSemestar(entity.getUpisaniSemestar());
 			em.getTransaction().commit();
 		} else {
 			super.save(entity);

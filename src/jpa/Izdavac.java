@@ -12,9 +12,6 @@ import javax.persistence.Table;
 @Table(name="izdavac")
 public class Izdavac implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -28,9 +25,8 @@ public class Izdavac implements Serializable {
 	 * 	koriste seteri da se vrijednosti paramtera promijene.
 	 * 
 	 */
-	public Izdavac(){
-		
-	}
+	public Izdavac() {}
+	
 	public Izdavac(int id, String naziv){
 		this.id = id;
 		this.nazivIzdavaca = naziv;
@@ -39,17 +35,16 @@ public class Izdavac implements Serializable {
 	public int getId() {
 		return id;
 	}
+	
 	public String getNazivIzdavaca() {
 		return nazivIzdavaca;
 	}
+	
 	public void setNazivIzdavaca(String nazivIzdavaca) {
 		this.nazivIzdavaca = nazivIzdavaca;
 	}
+	
 	public String toString() {
 		return nazivIzdavaca;
 	}
-	
-	
-	
-
 }

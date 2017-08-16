@@ -9,9 +9,6 @@ import java.util.Date;
 @Table(name="posudba")
 public class Posudba implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
@@ -31,9 +28,7 @@ public class Posudba implements Serializable {
 	private Date datumVracanja;
 	
 	
-	public Posudba(){
-		
-	}
+	public Posudba() {}
 	
 	public Posudba(PosudbaPK id, Primjerak p, Korisnik k, Date krajnjiDatumVracanja) {
 		this.id = id;
@@ -41,6 +36,14 @@ public class Posudba implements Serializable {
 		this.korisnik = k;
 		this.krajnjiDatumVracanja = krajnjiDatumVracanja;
 		this.datumVracanja = null;
+	}
+	
+	public PosudbaPK getId() {
+		return id;
+	}
+	
+	public void setId(PosudbaPK id) {
+		this.id = id;
 	}
 	
 	public Primjerak getPrimjerak() {
@@ -54,28 +57,24 @@ public class Posudba implements Serializable {
 	public Korisnik getKorisnik() {
 		return korisnik;
 	}
+	
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
-	}
-	public PosudbaPK getId() {
-		return id;
-	}
-	public void setId(PosudbaPK id) {
-		this.id = id;
 	}
 
 	public Date getKrajnjiDatumVracanja() {
 		return krajnjiDatumVracanja;
 	}
+	
 	public void setKrajnjiDatumVracanja(Date krajnjiDatumVracanja) {
 		this.krajnjiDatumVracanja = krajnjiDatumVracanja;
 	}
+	
 	public Date getDatumVracanja() {
 		return datumVracanja;
 	}
+	
 	public void setDatumVracanja(Date datumVracanja) {
 		this.datumVracanja = datumVracanja;
-	}
-	
-
+	}	
 }

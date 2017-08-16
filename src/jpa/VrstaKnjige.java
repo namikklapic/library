@@ -34,9 +34,7 @@ public class VrstaKnjige implements Serializable{
 	 * 	koriste seteri da se vrijednosti paramtera promijene.
 	 * 
 	 */
-	public VrstaKnjige(){
-		
-	}
+	public VrstaKnjige() {}
 	
 	public VrstaKnjige(int id, String naziv){
 		this.id = id;
@@ -46,15 +44,16 @@ public class VrstaKnjige implements Serializable{
 	public int getId(){
 		return id;
 	}
+	
 	public String getNazivVrste() {
 		return nazivVrste;
 	}
+	
 	public void setNazivVrste(String nazivVrste) {
 		this.nazivVrste = nazivVrste;
 	}
+	
 	public String toString() {
 		return nazivVrste;
 	}
-	
-	
 }

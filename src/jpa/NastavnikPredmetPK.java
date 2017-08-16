@@ -8,9 +8,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class NastavnikPredmetPK implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Column(insertable=false, updatable=false)
@@ -18,29 +15,28 @@ public class NastavnikPredmetPK implements Serializable {
 	@Column(insertable=false, updatable=false)
 	private String sifraNastavnika;
 	
-	public String getSifraPredmeta() {
-		return sifraPredmeta;
-	}
-	
-	public NastavnikPredmetPK(){
-		
-	}
+	public NastavnikPredmetPK() {}
 	
 	public NastavnikPredmetPK(String sifraNast, String sifraPred){
 		this.sifraNastavnika = sifraNast;
 		this.sifraPredmeta = sifraPred;
 	}
 	
+	public String getSifraPredmeta() {
+		return sifraPredmeta;
+	}
+	
 	public void setSifraPredmeta(String sifraPredmeta) {
 		this.sifraPredmeta = sifraPredmeta;
 	}
+	
 	public String getSifraNastavnika() {
 		return sifraNastavnika;
 	}
+	
 	public void setSifraNastavnika(String sifraNastavnika) {
 		this.sifraNastavnika = sifraNastavnika;
 	}
-	
 	
 	public boolean equals (Object other){
 		if(this == other) return true;
@@ -59,6 +55,5 @@ public class NastavnikPredmetPK implements Serializable {
 		hash = hash * prime + this.sifraPredmeta.hashCode();
 
 		return hash;
-	}
-	
+	}	
 }

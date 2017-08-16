@@ -13,9 +13,6 @@ import javax.persistence.Table;
 @Table(name="literatura")
 public class Literatura implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@EmbeddedId
@@ -32,10 +29,9 @@ public class Literatura implements Serializable {
 	private int brojVaznosti;
 	private boolean obavezna;
 	
+
+	public Literatura() {}
 	
-	public Literatura(){
-		
-	}
 	public LiteraturaPK getId() {
 		return id;
 	}
@@ -59,25 +55,20 @@ public class Literatura implements Serializable {
 	public void setPredmet(Predmet predmet) {
 		this.predmet = predmet;
 	}
+	
 	public int getBrojVaznosti() {
 		return brojVaznosti;
 	}
+	
 	public void setBrojVaznosti(int brojVaznosti) {
 		this.brojVaznosti = brojVaznosti;
 	}
+	
 	public boolean isObavezna() {
 		return obavezna;
 	}
+	
 	public void setObavezna(boolean obavezna) {
 		this.obavezna = obavezna;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

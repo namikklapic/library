@@ -17,9 +17,7 @@ public class NastavnikPredmet {
 	@JoinColumn(name="sifraPredmeta")
 	private Predmet predmet;
 	
-	public NastavnikPredmet(){
-		
-	}
+	public NastavnikPredmet() {}
 	
 	public NastavnikPredmet(NastavnikPredmetPK id, Nastavnik n, Predmet p){
 		this.id = id;
@@ -27,7 +25,10 @@ public class NastavnikPredmet {
 		this.predmet = p;
 	}
 	
-
+	public NastavnikPredmetPK getId(){
+		return id;
+	}
+	
 	public Nastavnik getNastavnik() {
 		return nastavnik;
 	}
@@ -43,10 +44,4 @@ public class NastavnikPredmet {
 	public void setPredmet(Predmet predmet) {
 		this.predmet = predmet;
 	}
-	
-	public NastavnikPredmetPK getId(){
-		return id;
-	}
-	
-	
 }

@@ -6,6 +6,7 @@ import jpa.Bibliotekar;
 import jpa.EntityManagerProducer;
 
 public class BibliotekarServiceBean extends EntityManagerProducer<Bibliotekar>{
+	
 	public Bibliotekar findByNameAndSurname(String nameAndSurname, String password){
 		Bibliotekar result = null;		
 		try{
@@ -27,16 +28,16 @@ public class BibliotekarServiceBean extends EntityManagerProducer<Bibliotekar>{
 	
 	public Bibliotekar save(Bibliotekar entity) {
 		Bibliotekar find = em.find(Bibliotekar.class, entity.getKorisnik().getSifraKorisnika());
+		
 		if (find != null) {
 			em.getTransaction().begin();
 			find.setKorisnik(entity.getKorisnik());
 			find.setPassword(entity.getPassword());
 			em.getTransaction().commit();
 		} else {
-			//komentar
 			super.save(entity);
 		}
+		
 		return entity;
 	}
-
 }

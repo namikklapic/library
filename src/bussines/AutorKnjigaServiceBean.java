@@ -4,8 +4,10 @@ import jpa.AutorKnjiga;
 import jpa.EntityManagerProducer;
 
 public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
+	
 	public AutorKnjiga save(AutorKnjiga entity) {
 		AutorKnjiga find = em.find(AutorKnjiga.class, entity.getId());
+		
 		if(find != null) {
 			em.getTransaction().begin();
 			find.setAutor(entity.getAutor());
@@ -15,7 +17,7 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 		} else {
 			super.save(entity);
 		}
+		
 		return find;
 	}
-
 }

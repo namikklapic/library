@@ -24,15 +24,17 @@ public class Bibliotekar {
 	public Korisnik getKorisnik() {
 		return korisnik;
 	}
+	
 	public void setKorisnik(Korisnik korisnik) {
 		this.korisnik = korisnik;
 	}
+	
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
+		
 }

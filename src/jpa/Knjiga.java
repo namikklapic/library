@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Klasa ima sljedece atribute:
  * 		id - koji je primarni kljuc i sam se generira;
  * 		naslov - naslov knjige
- * 		originaliNaslov
+ * 		originalniNaslov
  * 		brojStranica
  * 		godinaIzdavanja
  * 		negBodovi koji se dodaju korisniku ako kasni sa vracanjem knjige
@@ -35,9 +35,8 @@ public class Knjiga {
 	private Izdavac izdavac;
 	
 	
-	public Knjiga(){
-		
-	}
+	public Knjiga() {}
+	
 	public Knjiga(int id, String naslov, String orgNaslov, int brojStranica, int godinaIzdavanja,
 			int negBodovi, int brojPrimjeraka, Izdavac izdavac, VrstaKnjige vrsta){
 		this.id = id;
@@ -51,57 +50,71 @@ public class Knjiga {
 		this.vrsta = vrsta;
 	}
 	
+	public int getId(){
+		return id;
+	}
 	
 	public VrstaKnjige getVrsta() {
 		return vrsta;
 	}
+	
 	public void setVrsta(VrstaKnjige vrsta) {
 		this.vrsta = vrsta;
 	}
-	public void setIzdavac(Izdavac izdavac) {
-		this.izdavac = izdavac;
-	}
+	
 	public Izdavac getIzdavac(){
 		return this.izdavac;
 	}
-	public int getId(){
-		return id;
+	
+	public void setIzdavac(Izdavac izdavac) {
+		this.izdavac = izdavac;
 	}
+	
 	public String getNaslov() {
 		return naslov;
 	}
+	
 	public void setNaslov(String naslov) {
 		this.naslov = naslov;
 	}
+	
 	public String getOriginalniNaslov() {
 		return originalniNaslov;
 	}
+	
 	public void setOriginalniNaslov(String originalniNaslov) {
 		this.originalniNaslov = originalniNaslov;
 	}
+	
 	public int getBrojStranica() {
 		return brojStranica;
 	}
+	
 	public void setBrojStranica(int brojStranica) {
 		this.brojStranica = brojStranica;
 	}
+	
 	public int getGodinaIzdavanja() {
 		return godinaIzdavanja;
 	}
+	
 	public void setGodinaIzdavanja(int godinaIzdavanja) {
 		this.godinaIzdavanja = godinaIzdavanja;
 	}
+	
 	public int getNegBodovi() {
 		return negBodovi;
 	}
+	
 	public void setNegBodovi(int negBodovi) {
 		this.negBodovi = negBodovi;
 	}
+	
 	public int getBrojPrimjeraka(){
 		return brojPrimjeraka;
 	}
+	
 	public void setBrojPrimjeraka(int brojPrimjeraka){
 		this.brojPrimjeraka = brojPrimjeraka;
 	}
-	
 }

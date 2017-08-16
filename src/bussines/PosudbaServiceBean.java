@@ -82,5 +82,4 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		super.save(entity);
 		return entity;
 	}
-
 }

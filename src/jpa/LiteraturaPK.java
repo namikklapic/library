@@ -8,9 +8,6 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class LiteraturaPK implements Serializable{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Column(insertable=false, updatable=false)
@@ -19,19 +16,20 @@ public class LiteraturaPK implements Serializable{
 	private int knjigaId;
 	
 	
-	public LiteraturaPK(){
-		
-	}
+	public LiteraturaPK() {}
 	
 	public String getSifraPredmeta() {
 		return sifraPredmeta;
 	}
+	
 	public void setSifraPredmeta(String sifraPredmeta) {
 		this.sifraPredmeta = sifraPredmeta;
 	}
+	
 	public int getKnjigaId() {
 		return knjigaId;
 	}
+	
 	public void setKnjigaId(int knjigaId) {
 		this.knjigaId = knjigaId;
 	}
@@ -55,7 +53,4 @@ public class LiteraturaPK implements Serializable{
 
 		return hash;
 	}
-	
-	
-
 }

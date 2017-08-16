@@ -35,7 +35,7 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 		Izdavac result = null;
 		try {
 			result = (Izdavac)em
-					.createQuery("select i from Izdavac i where i.nazivIzdavaca = :name")
+					.createQuery("select i from Izdavac i where i.nazivIzdavaca=:name")
 					.setParameter("name", name)
 					.getSingleResult();
 		} catch(NoResultException nre) {

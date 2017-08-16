@@ -9,12 +9,9 @@ import javax.persistence.*;
 @Table(name="primjerak")
 public class Primjerak implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	
-	
+		
 	@Id
 	private String inventarskiBroj;
 	@Temporal(TemporalType.DATE)
@@ -25,17 +22,15 @@ public class Primjerak implements Serializable {
 	private Boolean rezervisan;
 	private Boolean posudjen;
 	
-	public Primjerak(){
-		
-	}
+	public Primjerak() {}
+	
 	public Primjerak(String invBroj, Date datumNabavke, String stanje, Knjiga knjiga, Boolean rezervisan, Boolean posudjen){
 		this.inventarskiBroj = invBroj;
 		this.datumnabavke = datumNabavke;
 		this.stanje = stanje;
 		this.knjiga = knjiga;
 		this.rezervisan = rezervisan;
-		this.posudjen = posudjen;
-		
+		this.posudjen = posudjen;	
 	}
 
 	public String getInventarskiBroj() {
@@ -70,6 +65,19 @@ public class Primjerak implements Serializable {
 		this.knjiga = knjiga;
 	}
 	
+	public boolean isRezervisan(){
+		return rezervisan;
+	}
 	
+	public void setRezervisan(boolean state){
+		this.rezervisan = state;
+	}
 	
+	public boolean isPosudjen(){
+		return posudjen;
+	}
+	
+	public void setPosudjen(boolean state){
+		this.posudjen = state;
+	}
 }

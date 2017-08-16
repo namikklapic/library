@@ -20,9 +20,7 @@ public class Korisnik implements Serializable{
 	private String prezimeKorisnika;
 	private int brojNegativnihBodova;
 	
-	public Korisnik(){
-		
-	}
+	public Korisnik() {}
 	
 	public Korisnik(String sifra, String ime, String prezime, int brojBodova){
 		this.sifra = sifra;
@@ -62,7 +60,4 @@ public class Korisnik implements Serializable{
 	public void setBrojNegativnihBodova(int brojNegativnihBodova) {
 		this.brojNegativnihBodova = brojNegativnihBodova;
 	}
-	
-	
-	
 }

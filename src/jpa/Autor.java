@@ -16,7 +16,7 @@ public class Autor implements Serializable, Cloneable {
 	 * 		imeAutora, 
 	 * 		prezimeAutora
 	 * 
-	 * Za konstruktor ove metode klase vaze ista pravila kao i za VrstuKnjige (pogledati fajl VrstaKnjige.java)
+	 * Za konstruktor ove klase vaze ista pravila kao i za VrstuKnjige (pogledati fajl VrstaKnjige.java)
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -28,20 +28,19 @@ public class Autor implements Serializable, Cloneable {
 	
 	/*
 	 * 	Default konstruktor je potreban za JPA.
-	 * 	Prilikom persistanja na bazu, Derby driver kreira objekte klase kroz tkz. reflekciju.
-	 * 	Refleksija podrazumija da se kreira objekat sa konstruktorom koji ne prima argumente, a zatim se 
-	 * 	koriste seteri da se vrijednosti paramtera promijene.
+	 * 	Prilikom persistanja na bazu, Derby driver kreira objekte klase kroz tzv. refleksiju.
+	 * 	Refleksija podrazumijeva da se kreira objekat sa konstruktorom koji ne prima argumente, a zatim se 
+	 * 	koriste seteri da se vrijednosti parametara promijene.
 	 * 
 	 */
-	public Autor(){
-		
-	}
+	public Autor(){}
 	
 	public Autor(int id, String ime, String prezime){
 		this.id = id;
 		this.imeAutora = ime;
 		this.prezimeAutora = prezime;
 	}
+	
 	public Autor (Autor a) {
 		this.id = a.getId();
 		this.imeAutora = new String(a.getImeAutora());
@@ -51,18 +50,23 @@ public class Autor implements Serializable, Cloneable {
 	public int getId(){
 		return id;
 	}
+	
 	public String getImeAutora() {
 		return imeAutora;
 	}
+	
 	public void setImeAutora(String imeAutora) {
 		this.imeAutora = imeAutora;
 	}
+	
 	public String getPrezimeAutora() {
 		return prezimeAutora;
 	}
+	
 	public void setPrezimeAutora(String prezimeAutora) {
 		this.prezimeAutora = prezimeAutora;
 	}
+	
 	public String toString() {
 		return imeAutora + " " + prezimeAutora;
 	}
@@ -72,8 +76,4 @@ public class Autor implements Serializable, Cloneable {
 		return a;
 	}
 	
-	
-	
-	
-
 }
