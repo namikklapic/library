@@ -46,9 +46,9 @@ public class PosudbePregled extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent event){
 				Posudba p = model.getPosudba(table.getSelectedRow());
-				Knjiga k = knjigaServiceBean.getById(p.getPrimjerak().getKnjiga().getId());
-				NovaKnjiga nk = new NovaKnjiga(k, false);
-				nk.prikazi();
+//				Knjiga k = knjigaServiceBean.getById(p.getPrimjerak().getKnjiga().getId());
+//				NovaKnjiga nk = new NovaKnjiga(k, false);
+//				nk.prikazi();
 			}
 		});
 		

@@ -65,6 +65,4 @@ public class KnjigaTableModel extends AbstractTableModel {
 	public Knjiga getKnjiga(int row){
 		return knjige.get(row);
 	}
-	
-
 }

@@ -35,9 +35,12 @@ public class KnjigaPregled extends JFrame {
 		edit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				Knjiga k = model.getKnjiga(table.getSelectedRow());
-				NovaKnjiga nk = new NovaKnjiga(k, canEdit);
-				nk.prikazi();
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow > -1){
+					Knjiga k = model.getKnjiga(table.getSelectedRow());
+					NovaKnjiga nk = new NovaKnjiga(k, canEdit);
+					nk.prikazi();
+				}
 			}
 		});
 		
