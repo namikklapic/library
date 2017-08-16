@@ -47,6 +47,20 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 		return result;
 	}
 	/**
+	 * 
+	 * @return List of Knjiga with the specified naslov
+	 */
+	public List<Knjiga> getKnjigaByNaslov(String naslov) {
+		List<Knjiga> result = null;
+		try{
+			result = em.createQuery("Select k from Knjiga k where k.naslov=:naslov")
+					.setParameter("naslov", naslov)
+					.getResultList();
+		}catch(NoResultException nre) {}
+		
+		return result;
+	}
+	/**
 	 * Save Knjiga to database or change existing one.
 	 */
 	public Knjiga save(Knjiga entity) {
