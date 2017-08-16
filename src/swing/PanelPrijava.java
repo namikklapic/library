@@ -213,23 +213,22 @@ public class PanelPrijava extends JPanel {
 					    int x = (int) ((dimension.getWidth() - bibliotekarLogin.getWidth()) / 2);
 					    int y = (int) ((dimension.getHeight() - bibliotekarLogin.getHeight()) / 2);
 					    bibliotekarLogin.setLocation(x, y);
-						//bibliotekarLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						bibliotekarLogin.setVisible(true);
-						bibliotekarLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
+						bibliotekarLogin.addWindowListener(new UserPanelClosingAction());
 					}
 					else if (n != null){
 						mainFrame.setVisible(false);
 						JFrame nastavnikLogin = new PanelNastavnik(n);
 						nastavnikLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						nastavnikLogin.setVisible(true);
-						nastavnikLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
+						nastavnikLogin.addWindowListener(new UserPanelClosingAction());
 					}
 					else if(s != null){
 						mainFrame.setVisible(false);
 						JFrame studentLogin = new PanelStudent(s);
 						studentLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						studentLogin.setVisible(true);
-						studentLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
+						studentLogin.addWindowListener(new UserPanelClosingAction());
 						
 					}
 					else {
@@ -255,14 +254,28 @@ public class PanelPrijava extends JPanel {
 }
 	
 	class UserPanelClosingAction extends WindowAdapter implements WindowListener{
-		public UserPanelClosingAction(JFrame frame) {
-			frameToDisplay = frame;
+		public UserPanelClosingAction() {
+			frame = new JFrame();
+			
+			Toolkit kit = Toolkit.getDefaultToolkit();
+			Dimension velicinaEkrana = kit.getScreenSize();
+			int visinaProzora = 600;
+			int sirinaProzora = 400;
+			
+			PanelPrijava panelPrijava = new PanelPrijava(frame);
+			frame.setSize(400, 600);
+			frame.setResizable(false);
+
+			frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.getContentPane().add(panelPrijava);
+			frame.setTitle("Login");
 		}
 		@Override
 		public void windowClosing(WindowEvent event){
-			frameToDisplay.setVisible(true);
+			frame.setVisible(true);
 		}
-		private JFrame frameToDisplay;
+		private JFrame frame;
 	}
 	
 
