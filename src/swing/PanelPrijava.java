@@ -2,9 +2,11 @@ package swing;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -15,6 +17,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 import bussines.BibliotekarServiceBean;
 import bussines.NastavnikServiceBean;
@@ -193,36 +197,62 @@ public class PanelPrijava extends JPanel {
 			
 			// Komentar za commit
 			
-			Student s = student.findByIndexNumber(txtUser.getText(), txtPass.getText());
-			Nastavnik n = nastavnik.findByNameAndSurname(txtUser.getText(), txtPass.getText());
-			Bibliotekar b = bibliotekar.findByNameAndSurname(txtUser.getText(), txtPass.getText());
-			if(b != null){
-				mainFrame.setVisible(false);
-				JFrame bibliotekarLogin = new PanelBibliotekar(b);
-				bibliotekarLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				bibliotekarLogin.setVisible(true);
-				bibliotekarLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
-			}
-			else if (n != null){
-				mainFrame.setVisible(false);
-				JFrame nastavnikLogin = new PanelNastavnik(n);
-				nastavnikLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				nastavnikLogin.setVisible(true);
-				nastavnikLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
-			}
-			else if(s != null){
-				mainFrame.setVisible(false);
-				JFrame studentLogin = new PanelStudent(s);
-				studentLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				studentLogin.setVisible(true);
-				studentLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
-				
-			}
-			else {
-				System.out.println("Logiranje neuspjesno.");
-			}
-		}
+			// Timer is used for delaying the loading animation 
+			
+			Timer delay = new Timer(2000, new ActionListener() {	        		        		            
+	        	@Override      		            
+	        	public void actionPerformed(ActionEvent e) {
+					Student s = student.findByIndexNumber(txtUser.getText(), txtPass.getText());
+					Nastavnik n = nastavnik.findByNameAndSurname(txtUser.getText(), txtPass.getText());
+					Bibliotekar b = bibliotekar.findByNameAndSurname(txtUser.getText(), txtPass.getText());
+					if(b != null){
+						mainFrame.setVisible(false);
+						JFrame bibliotekarLogin = new PanelBibliotekar(b);
+						bibliotekarLogin.setSize(1200, 800);
+						Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+					    int x = (int) ((dimension.getWidth() - bibliotekarLogin.getWidth()) / 2);
+					    int y = (int) ((dimension.getHeight() - bibliotekarLogin.getHeight()) / 2);
+					    bibliotekarLogin.setLocation(x, y);
+						//bibliotekarLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						bibliotekarLogin.setVisible(true);
+						bibliotekarLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
+					}
+					else if (n != null){
+						mainFrame.setVisible(false);
+						JFrame nastavnikLogin = new PanelNastavnik(n);
+						nastavnikLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						nastavnikLogin.setVisible(true);
+						nastavnikLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
+					}
+					else if(s != null){
+						mainFrame.setVisible(false);
+						JFrame studentLogin = new PanelStudent(s);
+						studentLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						studentLogin.setVisible(true);
+						studentLogin.addWindowListener(new UserPanelClosingAction(mainFrame));
+						
+					}
+					else {
+						System.out.println("Logiranje neuspjesno.");
+					}
+				}
+			});
+			
+			delay.setRepeats(false);
+	        delay.start();
+
+			mainFrame.getContentPane().removeAll();
+			mainFrame.revalidate();
+		
+			mainFrame.getContentPane().setBackground(new Color(95, 158, 160));
+
+		
+			mainFrame.setTitle("Loading, please wait...");
+		    ImageIcon loading = new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/loader.gif"));
+		    mainFrame.add(new JLabel("", loading, JLabel.CENTER)); 
+		    mainFrame.setVisible(true);
 	}
+}
 	
 	class UserPanelClosingAction extends WindowAdapter implements WindowListener{
 		public UserPanelClosingAction(JFrame frame) {
