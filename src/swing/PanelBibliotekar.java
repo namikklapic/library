@@ -142,7 +142,7 @@ public class PanelBibliotekar extends JFrame{
 		
 		
 		JMenu knjiga = new JMenu("Books");
-		knjiga.add(novaKnjiga.getMenuItem());
+		knjiga.add(novaKnjiga.getMenuItem(panel));
 		knjiga.add(pregledKnjiga.getMenuItem(panel));
 		
 		JMenu vrstaKnjige = new JMenu("Book type");

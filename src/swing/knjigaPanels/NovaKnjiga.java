@@ -23,100 +23,150 @@ import jpa.AutorKnjigaPK;
 import jpa.Izdavac;
 import jpa.Knjiga;
 import jpa.VrstaKnjige;
+import swing.VrstaKnjigePanels.NovaVrstaKnjige;
+import swing.autorPanels.NoviAutor;
+import swing.izdavacPanels.NoviIzdavac;
 import util.Lookup;
 
-public class NovaKnjiga  extends JFrame{
+public class NovaKnjiga extends JFrame {
+	
 	public NovaKnjiga(){
-		setTitle("Nova knjiga");
-		setSize(300, 300);
+		
+		setTitle("New book");
+		setSize(800, 800);
 		
 		panel = new JPanel();
-		panel.setSize(300, 300);
+		panel.setSize(800, 800);
 		
-		JLabel naslov = new JLabel("Naslov: ");		
-		panel.add(naslov);
+		lbNaslov = new JLabel("Title: ");
+		txtNaslov = new JTextField(20);
+		panel.add(lbNaslov);
 		panel.add(txtNaslov);
 		
-		JLabel orgNaslov = new JLabel("Originalni naslov: ");		
-		panel.add(orgNaslov);
+		lbOrgNaslov = new JLabel("Original title: ");
+		txtOrgNaslov = new JTextField(20);
+		panel.add(lbOrgNaslov);
 		panel.add(txtOrgNaslov);
 		
-		JLabel brojStranica = new JLabel("Broj stranica: ");
-		panel.add(brojStranica);
-		panel.add(txtBrojStranica);
+		lbBrStranica = new JLabel("Number of pages: ");
+		txtBrStranica = new JTextField(3);
+		panel.add(lbBrStranica);
+		panel.add(txtBrStranica);
 		
-		JLabel godinaIzdavanja = new JLabel("Godina izdavanja: ");
-		panel.add(godinaIzdavanja);
-		panel.add(txtGodinaIzdavanja);
+		lbGodIzdavanja = new JLabel("Publishing year: ");
+		txtGodIzdavanja = new JTextField(4);
+		panel.add(lbGodIzdavanja);
+		panel.add(txtGodIzdavanja);
 		
-		JLabel negBodovi = new JLabel("Negativni bodovi: ");
-		panel.add(negBodovi);
+		lbNegBodovi = new JLabel("Negative points: ");
+		txtNegBodovi = new JTextField(3);
+		panel.add(lbNegBodovi);
 		panel.add(txtNegBodovi);
 		
-		JLabel brojPrimjeraka = new JLabel("Broj primjeraka: ");
-		panel.add(brojPrimjeraka);
-		panel.add(txtBrojPrimjeraka);
+		lbBrPrimjeraka = new JLabel("Number of copies: ");
+		txtBrPrimjeraka = new JTextField(3);
+		panel.add(lbBrPrimjeraka);
+		panel.add(txtBrPrimjeraka);
 		
-		JLabel vrsta = new JLabel("Vrsta knjige: ");
-		for(VrstaKnjige vk: vrstaKnjigeServiceBean.getAllVrstaKnjige()) {
-			cbVrsta.addItem(vk);
-		}
-		panel.add(vrsta);
-		panel.add(cbVrsta);
-		
-		JLabel izdavac = new JLabel("Izdavac");
-		for(Izdavac i: izdavacServiceBean.getAllIzdavac()) {
-			cbIzdavac.addItem(i);
-		}
-		panel.add(izdavac);
-		panel.add(cbIzdavac);
-		
-		JLabel autor = new JLabel("Autori: ");
-		panel.add(autor);
-		panel.add(autoriLookup);
-		
-		potvrdi.addActionListener(new ActionListener() {
+		lbVrstaKnjige = new JLabel("Book type: ");
+		cbVrstaKnjige = new JComboBox<VrstaKnjige>();
+		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige())
+			cbVrstaKnjige.addItem(vk);
+		btnAddNovaVrsta = new JButton("+");
+		btnAddNovaVrsta.addActionListener(new ActionListener(){
 			@Override
-			public void actionPerformed(ActionEvent event) {
-				saveBook();			
+			public void actionPerformed(ActionEvent event){
+				NovaVrstaKnjige nvk = new NovaVrstaKnjige();
+				nvk.prikazi();
 			}
 		});
-		panel.add(potvrdi);
+		panel.add(lbVrstaKnjige);
+		panel.add(cbVrstaKnjige);
+		panel.add(btnAddNovaVrsta);
 		
-		add(panel);
-				
+		lbIzdavac = new JLabel("Publisher: ");
+		cbIzdavac = new JComboBox<Izdavac>();
+		for(Izdavac i : izdavacServiceBean.getAllIzdavac())
+			cbIzdavac.addItem(i);
+		btnAddNoviIzdavac = new JButton("+");
+		btnAddNoviIzdavac.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				NoviIzdavac ni = new NoviIzdavac();
+				ni.prikazi();
+			}
+		});
+		panel.add(lbIzdavac);
+		panel.add(cbIzdavac);
+		panel.add(btnAddNoviIzdavac);
+		
+		lbAutori = new JLabel("Authors: ");
+		lookupAutori = new Lookup<Autor>(autorServiceBean.getAllAutor());
+		btnAddNoviAutor = new JButton("+");
+		btnAddNoviAutor.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				NoviAutor na = new NoviAutor();
+				na.prikazi();
+			}
+		});
+		panel.add(lbAutori);
+		panel.add(lookupAutori);
+		panel.add(btnAddNoviAutor);
+		
+		btnPotvrdi = new JButton("Save");
+		btnPotvrdi.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				saveBook();
+			}
+		});
+		panel.add(btnPotvrdi);
+		
+		
+		add(panel);	
 	}
 	
-	public NovaKnjiga(Knjiga k, Boolean canEdit){
+	public NovaKnjiga(Knjiga k, Boolean isEditable){
+		
 		this();
 		txtNaslov.setText(k.getNaslov());
 		txtOrgNaslov.setText(k.getOriginalniNaslov());
-		txtBrojStranica.setText(Integer.toString(k.getBrojStranica()));
-		txtGodinaIzdavanja.setText(Integer.toString(k.getGodinaIzdavanja()));
+		txtBrStranica.setText(Integer.toString(k.getBrojStranica()));
+		txtGodIzdavanja.setText(Integer.toString(k.getGodinaIzdavanja()));
 		txtNegBodovi.setText(Integer.toString(k.getNegBodovi()));
-		if (canEdit == true) {
-			setTitle("Uredi knjigu");
-			potvrdi.setText("Snimi izmjene");
+		txtBrPrimjeraka.setText(Integer.toString(k.getBrojPrimjeraka()));
+		
+		if(isEditable){
+			setTitle("Edit book");
+			btnPotvrdi.setText("Save changes");
 		}
-		else {
-			setTitle("Pregled knjige");
+		else{
+			setTitle("Book review");
 			txtNaslov.setEditable(false);
 			txtOrgNaslov.setEditable(false);
-			txtBrojStranica.setEditable(false);
-			txtGodinaIzdavanja.setEditable(false);
+			txtBrStranica.setEditable(false);
+			txtGodIzdavanja.setEditable(false);
 			txtNegBodovi.setEditable(false);
-			txtBrojPrimjeraka.setEditable(false);
-			cbVrsta.setEnabled(false);
+			txtBrPrimjeraka.setEditable(false);
+			cbVrstaKnjige.setEnabled(false);
 			cbIzdavac.setEnabled(false);
-			potvrdi.setVisible(false);
-			//autoriLookup.setEditable(false);
-			autoriLookup.removeButtons();
-			panel.add(rezervisi);
+			btnPotvrdi.setVisible(false);
+			lookupAutori.removeButtons();
+			
+			btnRezervisi = new JButton("Reserve");
+			btnRezervisi.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent event){
+					
+				}
+			});
+			
+			panel.add(btnRezervisi);
 		}
-		
 	}
 	
-	public JMenuItem getMenuItem() {
+	public JMenuItem getMenuItem(JPanel parent) {
 		JMenuItem item = new JMenuItem("New book");
 		item.addActionListener(new ActionListener() {
 			@Override
@@ -130,48 +180,59 @@ public class NovaKnjiga  extends JFrame{
 	public void prikazi(){
 		setVisible(true);
 	}
+	
 	private void saveBook() {
 		String naslov = txtNaslov.getText();
 		String orgNaslov = txtOrgNaslov.getText();
-		int brStranica = Integer.parseInt(txtBrojStranica.getText());
-		int godIzdavanja = Integer.parseInt(txtGodinaIzdavanja.getText());
+		int brStranica = Integer.parseInt(txtBrStranica.getText());
+		int godIzdavanja = Integer.parseInt(txtGodIzdavanja.getText());
 		int negBodovi = Integer.parseInt(txtNegBodovi.getText());
-		int brojPrimjeraka = Integer.parseInt(txtBrojPrimjeraka.getText());
-		VrstaKnjige vrsta =(VrstaKnjige) cbVrsta.getSelectedItem();
-		Izdavac  izdavac = (Izdavac) cbIzdavac.getSelectedItem();
-		List<Autor> autori = autoriLookup.getSelectedValues();
+		int brPrimjeraka = Integer.parseInt(txtBrPrimjeraka.getText());
+		VrstaKnjige vrsta = (VrstaKnjige) cbVrstaKnjige.getSelectedItem();
+		Izdavac izdavac = (Izdavac) cbIzdavac.getSelectedItem();
+		List<Autor> autori = lookupAutori.getSelectedValues();
 		
 		Knjiga k = knjigaServiceBean
-		.save(new Knjiga(knjigaServiceBean.getCount() + 1, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, brojPrimjeraka, izdavac, vrsta));
+				.save(new Knjiga(knjigaServiceBean.getCount() + 1, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, brPrimjeraka, izdavac, vrsta));
 		
-		for(Autor a : autori) {
+		AutorKnjigaPK autorKnjigaPK;
+		for(Autor a : autori){
 			int i = 1;
 			autorKnjigaPK = new AutorKnjigaPK(a.getId(), k.getId());
-			autorknjigaServiceBean.save(new AutorKnjiga(autorKnjigaPK, k, a, i++));
+			autorKnjigaServiceBean.save(new AutorKnjiga(autorKnjigaPK, k, a, i++));
 		}
-		
 		
 	}
 	
-	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();
-	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
-	private AutorServiceBean autorServiceBean = new AutorServiceBean();
-	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
-	private AutorKnjigaServiceBean autorknjigaServiceBean = new AutorKnjigaServiceBean();
-	
-	private JTextField txtNaslov = new JTextField(15);
-	private JTextField txtOrgNaslov = new JTextField(15);
-	private JTextField txtBrojStranica = new JTextField(15);
-	private JTextField txtGodinaIzdavanja = new JTextField(15);
-	private JTextField txtNegBodovi = new JTextField(15);
-	private JTextField txtBrojPrimjeraka = new JTextField(3);
-	private JComboBox<VrstaKnjige> cbVrsta = new JComboBox<VrstaKnjige>();
-	private JComboBox<Izdavac> cbIzdavac = new JComboBox<Izdavac>();
-	private Lookup<Autor> autoriLookup = new Lookup<Autor>(autorServiceBean.getAllAutor());
-	private JButton potvrdi = new JButton("Potvrdi");
-	private JButton rezervisi = new JButton("Rezervisi");
 	private JPanel panel;
 	
-	private AutorKnjigaPK autorKnjigaPK;
-
+	private AutorServiceBean autorServiceBean = new AutorServiceBean();
+	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();
+	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
+	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
+	private AutorKnjigaServiceBean autorKnjigaServiceBean = new AutorKnjigaServiceBean();
+	
+	private JLabel lbNaslov;
+	private JTextField txtNaslov;
+	private JLabel lbOrgNaslov;
+	private JTextField txtOrgNaslov;
+	private JLabel lbBrStranica;
+	private JTextField txtBrStranica;
+	private JLabel lbGodIzdavanja;
+	private JTextField txtGodIzdavanja;
+	private JLabel lbNegBodovi;
+	private JTextField txtNegBodovi;
+	private JLabel lbBrPrimjeraka;
+	private JTextField txtBrPrimjeraka;
+	private JLabel lbVrstaKnjige;
+	private JComboBox<VrstaKnjige> cbVrstaKnjige;
+	private JButton btnAddNovaVrsta;
+	private JLabel lbIzdavac;
+	private JComboBox<Izdavac> cbIzdavac;
+	private JButton btnAddNoviIzdavac;
+	private JLabel lbAutori;
+	private Lookup<Autor> lookupAutori;
+	private JButton btnAddNoviAutor;
+	private JButton btnPotvrdi;
+	private JButton btnRezervisi;
 }
