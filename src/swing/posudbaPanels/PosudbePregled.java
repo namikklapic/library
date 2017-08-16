@@ -61,7 +61,7 @@ public class PosudbePregled extends JFrame {
 	}
 	
 	public JMenuItem getMenuItem(JPanel parent){
-		JMenuItem item = new JMenuItem("Pregled Posudbi");
+		JMenuItem item = new JMenuItem("Book loans review");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				setVisible(true);

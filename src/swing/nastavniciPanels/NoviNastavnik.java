@@ -76,7 +76,7 @@ public class NoviNastavnik extends JFrame{
 	}
 	
 	public JMenuItem getMenuItem(){
-		JMenuItem item = new JMenuItem("Novi Nastavnik");
+		JMenuItem item = new JMenuItem("New teacher");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				prikazi();

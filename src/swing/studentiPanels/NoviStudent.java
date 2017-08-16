@@ -86,7 +86,7 @@ public class NoviStudent extends JFrame {
 	}
 	
 	public JMenuItem getMenuItem() {
-		JMenuItem item = new JMenuItem("Novi student");
+		JMenuItem item = new JMenuItem("New student");
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {

@@ -48,7 +48,7 @@ public class VrstaKnjigePregled extends JFrame {
 		
 	}
 	public JMenuItem getMenuItem(JPanel parent) {
-		JMenuItem item = new JMenuItem("Pregled vrsta knjige");
+		JMenuItem item = new JMenuItem("Book types review");
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {

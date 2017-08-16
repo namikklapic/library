@@ -119,7 +119,7 @@ public class NovaPosudba extends JFrame {
 	}
 	
 	public JMenuItem getMenuItem(){
-		JMenuItem item = new JMenuItem("Nova posudba");
+		JMenuItem item = new JMenuItem("New book loan");
 		item.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){

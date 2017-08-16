@@ -50,7 +50,7 @@ public class PredmetPregled extends JFrame {
 	}
 	
 	public JMenuItem getMenuItem(JPanel parent) {
-		JMenuItem menuItem = new JMenuItem("Pregled predmeta");
+		JMenuItem menuItem = new JMenuItem("Subject review");
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {

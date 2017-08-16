@@ -26,54 +26,54 @@ import swing.studentiPanels.StudentPregled;
 public class PanelBibliotekar extends JFrame{
 
 	public PanelBibliotekar (Bibliotekar b){
+
 		this.bibliotekar = b;
 		setTitle(b.getKorisnik().getImeKorisnika() + " " + b.getKorisnik().getPrezimeKorisnika());
 		
 		JPanel panel = new JPanel();
-		
 		JMenuBar menuBar = new JMenuBar();
 		
-		JMenu knjiga = new JMenu("Knjiga");
+		JMenu knjiga = new JMenu("Books");
 		knjiga.add(novaKnjiga.getMenuItem());
 		knjiga.add(pregledKnjiga.getMenuItem(panel));
 		
-		JMenu vrstaKnjige = new JMenu("Vrsta");
+		JMenu vrstaKnjige = new JMenu("Book type");
 		vrstaKnjige.add(novaVrstaKnjige.getMenuItem());
 		vrstaKnjige.add(vrstaKnjigePregled.getMenuItem(panel));
 		knjiga.add(vrstaKnjige);
 		
-		JMenu izdavac = new JMenu("Izdavac");
-		izdavac.add(noviIzdavac.getMenuItem(panel));
-		izdavac.add(pregledIzdavac.getMenuItem(panel));
-		
-		JMenu autori = new JMenu("Autor");
+		JMenu autori = new JMenu("Authors");
 		autori.add(noviAutor.getMenuItem());
 		autori.add(autorPregled.getMenuItem(panel));
+		knjiga.add(autori);
 		
-		JMenu nastavnici = new JMenu("Nastavnici");
+		JMenu izdavac = new JMenu("Publishers");
+		izdavac.add(noviIzdavac.getMenuItem());
+		izdavac.add(pregledIzdavac.getMenuItem(panel));
+		knjiga.add(izdavac);
+		
+		JMenu nastavnici = new JMenu("Teachers");
 		nastavnici.add(noviNastavnik.getMenuItem());
 		nastavnici.add(nastavniciPregled.getMenuItem(panel));
 		
-		JMenu predmeti = new JMenu("Predmeti");
-		predmeti.add(predmetPregled.getMenuItem(panel));
-		predmeti.add(noviPredmet.getMenuItem());
-		
-		JMenu studenti = new JMenu("Student");
-		studenti.add(studentPregled.getMenuItem(panel));
+		JMenu studenti = new JMenu("Students");
 		studenti.add(noviStudent.getMenuItem());
+		studenti.add(studentPregled.getMenuItem(panel));
 		
-		JMenu posudbe = new JMenu("Posudbe");
+		JMenu predmeti = new JMenu("Subjects");
+		predmeti.add(noviPredmet.getMenuItem());
+		predmeti.add(predmetPregled.getMenuItem(panel));
+		
+		JMenu posudbe = new JMenu("Book loans");
 		posudbe.add(novaPosudba.getMenuItem());
 		posudbe.add(posudbePregled.getMenuItem(panel));
 				
-		
 		menuBar.add(knjiga);
-		menuBar.add(izdavac);
-		menuBar.add(autori);
 		menuBar.add(nastavnici);
-		menuBar.add(predmeti);
 		menuBar.add(studenti);
+		menuBar.add(predmeti);
 		menuBar.add(posudbe);
+		
 		setJMenuBar(menuBar);
 		
 		add(panel);
@@ -81,28 +81,28 @@ public class PanelBibliotekar extends JFrame{
 	}
 	private Bibliotekar bibliotekar;
 
-	private KnjigaPregled pregledKnjiga = new KnjigaPregled(true);
 	private NovaKnjiga novaKnjiga = new NovaKnjiga();
+	private KnjigaPregled pregledKnjiga = new KnjigaPregled(true);
 	
-	private IzdavacPregled pregledIzdavac = new IzdavacPregled();
-	private NoviIzdavac noviIzdavac = new NoviIzdavac();
-	
-	private VrstaKnjigePregled vrstaKnjigePregled = new VrstaKnjigePregled();
 	private NovaVrstaKnjige novaVrstaKnjige = new NovaVrstaKnjige();
+	private VrstaKnjigePregled vrstaKnjigePregled = new VrstaKnjigePregled();
 	
-	private AutorPregled autorPregled = new AutorPregled();
 	private NoviAutor noviAutor = new NoviAutor();
+	private AutorPregled autorPregled = new AutorPregled();
 	
-	private NastavniciPregled nastavniciPregled = new NastavniciPregled();
+	private NoviIzdavac noviIzdavac = new NoviIzdavac();
+	private IzdavacPregled pregledIzdavac = new IzdavacPregled();
+	
 	private NoviNastavnik noviNastavnik  = new NoviNastavnik();
-	
-	private NoviPredmet noviPredmet = new NoviPredmet();
-	private PredmetPregled predmetPregled = new PredmetPregled();
+	private NastavniciPregled nastavniciPregled = new NastavniciPregled();
 	
 	private NoviStudent noviStudent = new NoviStudent();
 	private StudentPregled studentPregled = new StudentPregled();
 	
-	private PosudbePregled posudbePregled = new PosudbePregled();
+	private NoviPredmet noviPredmet = new NoviPredmet();
+	private PredmetPregled predmetPregled = new PredmetPregled();
+	
 	private NovaPosudba novaPosudba = new NovaPosudba();
+	private PosudbePregled posudbePregled = new PosudbePregled();
 	
 }

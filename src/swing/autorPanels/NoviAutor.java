@@ -56,7 +56,7 @@ public class NoviAutor extends JFrame {
 	}
 	
 	public JMenuItem getMenuItem() {
-		JMenuItem item = new JMenuItem("Novi autor");
+		JMenuItem item = new JMenuItem("New author");
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {

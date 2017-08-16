@@ -48,7 +48,7 @@ public class IzdavacPregled extends JFrame {
 				
 	}
 	public JMenuItem getMenuItem(JPanel parent) {
-		JMenuItem item = new JMenuItem("Pregled izdavaca");
+		JMenuItem item = new JMenuItem("Publisher review");
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {

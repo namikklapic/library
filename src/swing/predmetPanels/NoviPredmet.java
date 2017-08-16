@@ -81,7 +81,7 @@ public class NoviPredmet extends JFrame {
 	}
 	
 	public JMenuItem getMenuItem() {
-		JMenuItem menuItem = new JMenuItem("Novi predmet");
+		JMenuItem menuItem = new JMenuItem("New subject");
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed (ActionEvent evet) {

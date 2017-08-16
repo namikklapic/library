@@ -49,7 +49,7 @@ public class KnjigaPregled extends JFrame {
 			
 	}
 	public JMenuItem getMenuItem(JPanel parent){
-		JMenuItem item = new JMenuItem("Pregled Knijga");
+		JMenuItem item = new JMenuItem("Book review");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				setVisible(true);

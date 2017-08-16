@@ -48,7 +48,7 @@ public class NastavniciPregled extends JFrame{
 		
 	}
 	public JMenuItem getMenuItem(JPanel parent){
-		JMenuItem item = new JMenuItem("Pregled nastavnika");
+		JMenuItem item = new JMenuItem("Teacher review");
 		item.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent event){
 				setVisible(true);

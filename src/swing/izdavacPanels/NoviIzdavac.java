@@ -112,13 +112,11 @@ public class NoviIzdavac extends JFrame {
 		txtIzdavac.setText(i.getNazivIzdavaca());
 	}
 	
-	public JMenuItem getMenuItem(JPanel current) {
-		JMenuItem menuItem = new JMenuItem("Novi izdavac");
+	public JMenuItem getMenuItem() {
+		JMenuItem menuItem = new JMenuItem("New publisher");
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				CardLayout cl = (CardLayout)(current.getLayout());
-				cl.show(current, "defaultPanel");
 				prikazi();
 			}
 		});

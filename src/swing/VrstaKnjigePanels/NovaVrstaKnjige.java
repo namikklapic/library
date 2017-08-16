@@ -51,7 +51,7 @@ public class NovaVrstaKnjige extends JFrame {
 	}
 	
 	public JMenuItem getMenuItem() {
-		JMenuItem item = new JMenuItem("Nova vrsta knjige");
+		JMenuItem item = new JMenuItem("New book type");
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {

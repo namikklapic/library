@@ -50,7 +50,7 @@ public class AutorPregled extends JFrame {
 		
 	}
 	public JMenuItem getMenuItem(JPanel parent) {
-		JMenuItem item = new JMenuItem("Pregled autora");
+		JMenuItem item = new JMenuItem("Author review");
 		item.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
