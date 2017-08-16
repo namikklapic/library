@@ -13,7 +13,9 @@ import javax.swing.Timer;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -100,7 +102,7 @@ public class PanelBibliotekar extends JFrame{
 		// Implementation of clock in right panel -- BEGIN
 		
 					Date date = new Date();
-					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+					SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 					
 							class ClockLabel extends JLabel implements ActionListener {
 			
@@ -112,14 +114,14 @@ public class PanelBibliotekar extends JFrame{
 			
 								  public void actionPerformed(ActionEvent ae) {	
 									Date date = new Date();
-									SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+									SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 									
 								    setText(sdf.format(date));
 								  }
 								}
 							
 							JLabel Clock = new ClockLabel();
-							Clock.setFont(new Font("Segoe UI Emoji", Font.BOLD, 47));
+							Clock.setFont(new Font("Segoe UI Emoji", Font.BOLD, 67));
 							Clock.setForeground(Color.WHITE);
 							Clock.setBounds(12, 13, 202, 104);
 							
@@ -190,15 +192,26 @@ public class PanelBibliotekar extends JFrame{
 		lineExit.setOpaque(true);
 		lineExit.setForeground(Color.WHITE);
 		lineExit.setBackground(Color.WHITE);
-		lineExit.setBounds(128, 676, 69, 3);
+		lineExit.setBounds(125, 715, 34, 3);
 		infoPanel.add(lineExit);
 		
+		Box lineLogout = Box.createHorizontalBox();
+		lineLogout.setVisible(false);
+		lineExit.setVisible(false);
+		lineLogout.setOpaque(true);
+		lineLogout.setBackground(Color.WHITE);
+		lineLogout.setForeground(Color.WHITE);
+		lineLogout.setBounds(67, 715, 34, 3);
+		infoPanel.add(lineLogout);
+		
 		JLabel exit = new JLabel("");
+		exit.setName("65");
+		exit.setHorizontalAlignment(SwingConstants.CENTER);
 		exit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int confirmed = JOptionPane.showConfirmDialog(null, 
-				        "Are you sure you want to exit the program?", "Exit Program Message Box",
+				        "Are you sure you want to exit the program?", "Exit confirmation box",
 				        JOptionPane.YES_NO_OPTION);
 				
 				if (confirmed == JOptionPane.YES_OPTION) {
@@ -215,8 +228,52 @@ public class PanelBibliotekar extends JFrame{
 			}
 		});
 		exit.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/power-2-48.png")));
-		exit.setBounds(136, 609, 48, 70);
+		exit.setBounds(118, 659, 48, 70);
 		infoPanel.add(exit);
+		
+		JLabel logout = new JLabel("");
+		logout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				int confirmed = JOptionPane.showConfirmDialog(null, 
+				        "Are you sure you want to logout from your account?", "Logout confirmation box",
+				        JOptionPane.YES_NO_OPTION);
+				
+				if (confirmed == JOptionPane.YES_OPTION) {
+						dispose();
+					
+				      	JFrame frame = new JFrame();
+							
+						Toolkit kit = Toolkit.getDefaultToolkit();
+						Dimension velicinaEkrana = kit.getScreenSize();
+						int visinaProzora = 600;
+						int sirinaProzora = 400;
+						
+						PanelPrijava panelPrijava = new PanelPrijava(frame);
+						frame.setSize(400, 600);
+						frame.setResizable(false);
+	
+						frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+						frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						frame.getContentPane().add(panelPrijava);
+						frame.setTitle("Login");
+						
+						frame.setVisible(true);
+				    }
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				lineLogout.setVisible(true);
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				lineLogout.setVisible(false);
+			}
+		});
+		logout.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/account-logout-24.png")));
+		logout.setHorizontalAlignment(SwingConstants.CENTER);
+		logout.setBounds(58, 659, 48, 70);
+		infoPanel.add(logout);
 		
 		// Items on right panel -- END
 		
@@ -674,5 +731,4 @@ public class PanelBibliotekar extends JFrame{
 	
 	private NovaPosudba novaPosudba = new NovaPosudba();
 	private PosudbePregled posudbePregled = new PosudbePregled();
-	
 }

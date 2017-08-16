@@ -73,7 +73,7 @@ public class PanelPrijava extends JPanel {
 		
 		// Username enter field options - BEGIN
 		txtUser.setAlignmentX(JTextField.RIGHT_ALIGNMENT);
-		txtUser.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
+		txtUser.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtUser.setBorder(null);
 		txtUser.setText("Enter your username");
 		txtUser.addFocusListener(new FocusAdapter() {
@@ -163,7 +163,7 @@ public class PanelPrijava extends JPanel {
 		// Workaround for focus issue -- END
 		
 		// Password enter field options -- BEGIN
-		txtPass.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
+		txtPass.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtPass.setBorder(null);
 		txtPass.addFocusListener(new FocusAdapter() {
 			@Override
