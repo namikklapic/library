@@ -1,9 +1,12 @@
 package swing;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 
 public class Main {
@@ -14,6 +17,7 @@ public class Main {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		Main window = new Main();
 		window.frame.setVisible(true);		
 	}
@@ -32,15 +36,27 @@ public class Main {
 		
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension velicinaEkrana = kit.getScreenSize();
-		int visinaProzora = 350;
-		int sirinaProzora = 390;
+		int visinaProzora = 600;
+		int sirinaProzora = 400;
 		frame = new JFrame();
+		
+		// TEST LOOK AND FEEL
+		/*try{
+		UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+
+		SwingUtilities.updateComponentTreeUI(frame);
+		}
+		catch (Exception e)
+		{}*/
+		
 		panelPrijava = new PanelPrijava(frame);
-		frame.setSize(sirinaProzora, visinaProzora);
+		frame.setSize(400, 600);
+		frame.setResizable(false);
+
 		frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(panelPrijava);
-		frame.setTitle("Prijava");
+		frame.getContentPane().add(panelPrijava);
+		frame.setTitle("Login");
 	}
 
 }

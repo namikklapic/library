@@ -43,7 +43,7 @@ public class PanelBibliotekar extends JFrame{
 		knjiga.add(vrstaKnjige);
 		
 		JMenu izdavac = new JMenu("Izdavac");
-		izdavac.add(noviIzdavac.getMenuItem());
+		izdavac.add(noviIzdavac.getMenuItem(panel));
 		izdavac.add(pregledIzdavac.getMenuItem(panel));
 		
 		JMenu autori = new JMenu("Autor");
