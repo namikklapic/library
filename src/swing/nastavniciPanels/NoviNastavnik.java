@@ -43,9 +43,6 @@ public class NoviNastavnik extends JFrame{
 		panel.add(zvanje);
 		panel.add(txtZvanje); //moze i ovo biti dropdown
 		
-		JLabel negBodovi = new JLabel("Negativni bodovi: ");
-		panel.add(negBodovi);
-		panel.add(txtNegBodovi);
 			
 		JLabel predmeti = new JLabel("Predmeti: ");
 		panel.add(predmeti);
