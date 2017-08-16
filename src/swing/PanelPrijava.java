@@ -246,9 +246,10 @@ public class PanelPrijava extends JPanel {
 			mainFrame.getContentPane().setBackground(new Color(95, 158, 160));
 
 		
+			mainFrame.getContentPane().setSize(800, 600);
 			mainFrame.setTitle("Loading, please wait...");
 		    ImageIcon loading = new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/loader.gif"));
-		    mainFrame.add(new JLabel("", loading, JLabel.CENTER)); 
+		    mainFrame.add(new JLabel("", loading, JLabel.CENTER)); 	    	    
 		    mainFrame.setVisible(true);
 	}
 }
