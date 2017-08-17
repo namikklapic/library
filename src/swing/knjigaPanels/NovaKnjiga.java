@@ -130,6 +130,7 @@ public class NovaKnjiga extends JFrame {
 	public NovaKnjiga(Knjiga k, Boolean isEditable){
 		
 		this();
+		
 		txtNaslov.setText(k.getNaslov());
 		txtOrgNaslov.setText(k.getOriginalniNaslov());
 		txtBrStranica.setText(Integer.toString(k.getBrojStranica()));
