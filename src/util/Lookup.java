@@ -123,6 +123,11 @@ public class Lookup<T> extends JPanel {
 		selected.setText(selectionText);
 	}
 	
+	public void initializeLookup(){
+		selected.setText("");
+		selectedItemsList.clearSelection(); //ovo iz nekog razloga ne radi ?!
+	}
+	
 	public void removeButtons() {
 		remove(potvrdi);
 		remove(ponisti);
@@ -139,7 +144,5 @@ public class Lookup<T> extends JPanel {
 	private JButton ponisti;
 	private JButton openDialog;
 	private JButton cancelSelection;
-	
-	
 }
 

@@ -3,6 +3,7 @@ package swing.knjigaPanels;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -72,6 +73,7 @@ public class NovaKnjiga extends JFrame {
 		cbVrstaKnjige = new JComboBox<VrstaKnjige>();
 		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige())
 			cbVrstaKnjige.addItem(vk);
+		cbVrstaKnjige.setSelectedItem(null);
 		btnAddNovaVrsta = new JButton("+");
 		btnAddNovaVrsta.addActionListener(new ActionListener(){
 			@Override
@@ -88,6 +90,7 @@ public class NovaKnjiga extends JFrame {
 		cbIzdavac = new JComboBox<Izdavac>();
 		for(Izdavac i : izdavacServiceBean.getAllIzdavac())
 			cbIzdavac.addItem(i);
+		cbIzdavac.setSelectedItem(null);
 		btnAddNoviIzdavac = new JButton("+");
 		btnAddNoviIzdavac.addActionListener(new ActionListener(){
 			@Override
@@ -127,6 +130,16 @@ public class NovaKnjiga extends JFrame {
 			}
 		});
 		panel.add(btnPotvrdi);
+		
+		btnOdustani = new JButton("Cancel");
+		btnOdustani.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				clearView();
+				dispose();
+			}
+		});
+		panel.add(btnOdustani);
 		
 		
 		add(panel);	
@@ -188,6 +201,18 @@ public class NovaKnjiga extends JFrame {
 		setVisible(true);
 	}
 	
+	private void clearView(){
+		txtNaslov.setText("");
+		txtOrgNaslov.setText("");
+		txtBrStranica.setText("");
+		txtGodIzdavanja.setText("");
+		txtNegBodovi.setText("");
+		cbVrstaKnjige.setSelectedItem(null);
+		cbIzdavac.setSelectedItem(null);
+		lookupAutori.initializeLookup();
+		txtBrPrimjeraka.setText("");
+	}
+	
 	private void saveBook() {
 		String naslov = txtNaslov.getText();
 		String orgNaslov = txtOrgNaslov.getText();
@@ -211,12 +236,15 @@ public class NovaKnjiga extends JFrame {
 			autorKnjigaServiceBean.save(new AutorKnjiga(autorKnjigaPK, k, a, i++));
 		}
 		
+		//save primjerci - each primjerak will get generated invBroj
 		Primjerak temp;
 		String invBroj;
 		for(int i = 1; i <= brPrimjeraka; i++){
 			temp = new Primjerak();
 			invBroj = Integer.toString(id) + "-" + Integer.toString(i);
 			temp.setInventarskiBroj(invBroj);
+			temp.setDatumnabavke(new Date());
+			temp.setStanje("New");
 			temp.setKnjiga(k);
 			temp.setRezervisan(false);
 			temp.setPosudjen(false);
@@ -257,5 +285,6 @@ public class NovaKnjiga extends JFrame {
 	private JLabel lbBrPrimjeraka;
 	private JTextField txtBrPrimjeraka;
 	private JButton btnPotvrdi;
+	private JButton btnOdustani;
 	private JButton btnRezervisi;
 }
