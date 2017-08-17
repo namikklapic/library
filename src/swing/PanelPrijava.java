@@ -57,8 +57,9 @@ public class PanelPrijava extends JPanel {
 		
 		// Whole panel that is showing options -- BEGIN
 		JPanel userLogin = new JPanel();
-		userLogin.setBounds(0, 0, 400, 597);
-		userLogin.setBackground(new Color(95, 158, 160));
+		userLogin.setOpaque(false);
+		userLogin.setBackground( new Color(95, 158, 160) );
+		userLogin.setBounds(0, 0, 400, 600);
 		userLogin.setLayout(null);
 		
 		add(userLogin);
@@ -99,87 +100,92 @@ public class PanelPrijava extends JPanel {
 		prijava.setFocusPainted(false);
 		prijava.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 		prijava.setForeground(new Color(255, 255, 255));
-		prijava.setBackground(new Color(178, 34, 34));
+		prijava.setBackground(Color.DARK_GRAY);
 		prijava.setBounds(100, 443, 200, 56);
 		prijava.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				prijava.setBackground(new Color(220, 20, 60));			
+				prijava.setBackground(Color.GRAY);			
 				}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				prijava.setBackground(new Color(178, 34, 34));
+				prijava.setBackground(Color.DARK_GRAY);
 			}
 		});
 		prijava.addActionListener(new prijavaEvent());
 		
 		userLogin.add(prijava);
+		
+				// Login button options -- END
+				
+				// Label Welcome -- BEGIN
+				JLabel lblLogIn = new JLabel("Welcome");
+				lblLogIn.setForeground(new Color(255, 255, 255));
+				lblLogIn.setFont(new Font("Segoe UI Light", Font.BOLD, 45));
+				lblLogIn.setBounds(100, 13, 200, 92);
+				
+				userLogin.add(lblLogIn);	
+				//Label Welcome -- END
+				
+				// Label Please log in -- BEGIN
+				JLabel lblPleaseSignIn = new JLabel("Please sign in");
+				lblPleaseSignIn.setForeground(Color.WHITE);
+				lblPleaseSignIn.setFont(new Font("Segoe UI Light", Font.BOLD, 27));
+				lblPleaseSignIn.setBounds(117, 133, 171, 64);
+				
+				userLogin.add(lblPleaseSignIn);
+				// Label Please log in -- END
+				
+				// All separators used -- BEGIN
+				JSeparator separator = new JSeparator();
+				separator.setBounds(74, 195, 265, 2);
+				userLogin.add(separator);
+				
+				JSeparator separator_1 = new JSeparator();
+				separator_1.setBounds(55, 297, 275, 2);
+				userLogin.add(separator_1);
+				
+				JSeparator separator_2 = new JSeparator();
+				separator_2.setBounds(55, 377, 275, 2);
+				userLogin.add(separator_2);
+				// All separators used -- END
+				
+				// Label password options -- BEGIN
+				JLabel password = new JLabel("Password:");
+				password.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
+				password.setForeground(new Color(255, 255, 255));
+				password.setBounds(55, 322, 124, 23);
+				
+				userLogin.add(password);
+				// Label password options -- END
 
-		// Login button options -- END
+				// Workaround for focus issue -- BEGIN
+				textField = new JTextField();
+				textField.setBounds(74, 13, -52, -3);
+				textField.setColumns(10);
+				
+				userLogin.add(textField);
+				// Workaround for focus issue -- END
+				
+				// Password enter field options -- BEGIN
+				txtPass.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+				txtPass.setBorder(null);
+				txtPass.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusGained(FocusEvent e) {
+						txtPass.setText("");
+					}
+				});
+				txtPass.setForeground(new Color(255, 255, 255));
+				txtPass.setOpaque(false);
+				txtPass.setText("Enter your password");
+				txtPass.setBounds(55, 356, 284, 23);
+				userLogin.add(txtPass);
 		
-		// Label Welcome -- BEGIN
-		JLabel lblLogIn = new JLabel("Welcome");
-		lblLogIn.setForeground(new Color(255, 255, 255));
-		lblLogIn.setFont(new Font("Segoe UI Light", Font.BOLD, 45));
-		lblLogIn.setBounds(100, 13, 200, 92);
-		
-		userLogin.add(lblLogIn);	
-		//Label Welcome -- END
-		
-		// Label Please log in -- BEGIN
-		JLabel lblPleaseSignIn = new JLabel("Please sign in");
-		lblPleaseSignIn.setForeground(Color.WHITE);
-		lblPleaseSignIn.setFont(new Font("Segoe UI Light", Font.BOLD, 27));
-		lblPleaseSignIn.setBounds(117, 133, 171, 64);
-		
-		userLogin.add(lblPleaseSignIn);
-		// Label Please log in -- END
-		
-		// All separators used -- BEGIN
-		JSeparator separator = new JSeparator();
-		separator.setBounds(74, 195, 265, 2);
-		userLogin.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(55, 297, 275, 2);
-		userLogin.add(separator_1);
-		
-		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(55, 377, 275, 2);
-		userLogin.add(separator_2);
-		// All separators used -- END
-		
-		// Label password options -- BEGIN
-		JLabel password = new JLabel("Password:");
-		password.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
-		password.setForeground(new Color(255, 255, 255));
-		password.setBounds(55, 322, 124, 23);
-		
-		userLogin.add(password);
-		// Label password options -- END
-
-		// Workaround for focus issue -- BEGIN
-		textField = new JTextField();
-		textField.setBounds(74, 13, -52, -3);
-		textField.setColumns(10);
-		
-		userLogin.add(textField);
-		// Workaround for focus issue -- END
-		
-		// Password enter field options -- BEGIN
-		txtPass.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtPass.setBorder(null);
-		txtPass.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				txtPass.setText("");
-			}
-		});
-		txtPass.setForeground(new Color(255, 255, 255));
-		txtPass.setOpaque(false);
-		txtPass.setText("Enter your password");
-		txtPass.setBounds(55, 356, 284, 23);
-		userLogin.add(txtPass);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(PanelPrijava.class.getResource("/swing/images/loginbackground.jpg")));
+		lblNewLabel.setBounds(0, 0, 400, 600);
+		add(lblNewLabel);
 		
 		// Password enter field options -- END		
 		
@@ -268,14 +274,18 @@ public class PanelPrijava extends JPanel {
 			mainFrame.getContentPane().removeAll();
 			mainFrame.revalidate();
 		
-			mainFrame.getContentPane().setBackground(new Color(95, 158, 160));
+			mainFrame.getContentPane().setBackground(Color.GRAY);
 
-		
+			
 			mainFrame.getContentPane().setSize(800, 600);
 			mainFrame.setTitle("Loading, please wait...");
 		    ImageIcon loading = new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/loader.gif"));
-		    mainFrame.add(new JLabel("", loading, JLabel.CENTER)); 	    	    
+		    mainFrame.add(new JLabel("", loading, JLabel.CENTER)); 	 
+
+		
 		    mainFrame.setVisible(true);
+		    
+		    
 		    
 		    
 	}

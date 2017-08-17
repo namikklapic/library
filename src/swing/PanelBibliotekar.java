@@ -41,6 +41,8 @@ import swing.predmetPanels.NoviPredmet;
 import swing.predmetPanels.PredmetPregled;
 import swing.studentiPanels.NoviStudent;
 import swing.studentiPanels.StudentPregled;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class PanelBibliotekar extends JFrame{
 	
@@ -280,13 +282,21 @@ public class PanelBibliotekar extends JFrame{
 								    super("" + sdf.format(date));
 								    Timer t = new Timer(1000, this);
 								    t.start();
+
 								  }
 			
 								  public void actionPerformed(ActionEvent ae) {	
+									
+									
+									  
 									Date date = new Date();
 									SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 									
 								    setText(sdf.format(date));
+								    getContentPane().repaint();
+								    getContentPane().revalidate();
+							
+								    
 								  }
 								}
 							
@@ -294,9 +304,11 @@ public class PanelBibliotekar extends JFrame{
 							Clock.setFont(new Font("Segoe UI Emoji", Font.BOLD, 67));
 							Clock.setForeground(Color.WHITE);
 							Clock.setBounds(12, 13, 202, 104);
+							Clock.setOpaque(false);
 							
 							
 							Clock.setVisible(true);
+							
 					
 					infoPanel.add(Clock);
 		
