@@ -1,5 +1,6 @@
 package swing.knjigaPanels;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -126,7 +128,10 @@ public class NovaKnjiga extends JFrame {
 		btnPotvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				saveBook();
+				if(isValidBook() == true)
+					saveBook();
+				else
+					displayMessageDialogBox();
 			}
 		});
 		panel.add(btnPotvrdi);
@@ -213,6 +218,83 @@ public class NovaKnjiga extends JFrame {
 		txtBrPrimjeraka.setText("");
 	}
 	
+	private boolean isBookDataEmpty(){
+		boolean success = false;
+		
+		if(txtNaslov.getText().equals(null) || txtNaslov.getText().equals(""))
+			txtNaslov.setBackground(Color.RED);
+		if(txtOrgNaslov.getText().equals(null) || txtOrgNaslov.getText().equals(""))
+			txtOrgNaslov.setBackground(Color.RED);
+		if(txtBrStranica.getText().equals(null) || txtBrStranica.getText().equals(""))
+			txtBrStranica.setBackground(Color.RED);
+		if(txtGodIzdavanja.getText().equals(null) || txtGodIzdavanja.getText().equals(""))
+			txtGodIzdavanja.setBackground(Color.RED);
+		if(txtNegBodovi.getText().equals(null) || txtNegBodovi.getText().equals(""))
+			txtNegBodovi.setBackground(Color.RED);
+		if(cbVrstaKnjige.getSelectedItem() == null)
+			cbVrstaKnjige.setBackground(Color.RED);
+		if(cbIzdavac.getSelectedItem() == null)
+			cbIzdavac.setBackground(Color.RED);
+		if(lookupAutori.getSelected().getText().equals(null) || lookupAutori.getSelected().getText().equals(""))
+			lookupAutori.getSelected().setBackground(Color.RED);
+		if(txtBrPrimjeraka.getText().equals(null) || txtBrPrimjeraka.getText().equals(""))
+			txtBrPrimjeraka.setBackground(Color.RED);
+		else
+			success = true;
+		
+		return success;
+	}
+	
+	private boolean isNumeric(String s){
+		
+		int num;
+		try{
+			num = Integer.parseInt(s);
+		}catch(NumberFormatException e){
+			return false;
+		}catch(NullPointerException e){
+			return false;
+		}
+		if(num < 0)
+			return false;
+		
+		return true;
+	}
+	
+	private boolean isValidBook(){
+		
+		if(isBookDataEmpty() == false){
+			message = "All data must be entered!";
+			return false;
+		}
+		else if(isNumeric(txtBrStranica.getText()) == false){
+			message = "Number of pages must be a positive number!";
+			txtBrStranica.setBackground(Color.RED);
+			return false;
+		}
+		else if(isNumeric(txtGodIzdavanja.getText()) == false || txtGodIzdavanja.getText().length() != 4){
+			message = "Invalid year!";
+			txtGodIzdavanja.setBackground(Color.RED);
+			return false;
+		}
+		else if(isNumeric(txtNegBodovi.getText()) == false){
+			message = "Negative points must be a positive number!";
+			txtNegBodovi.setBackground(Color.RED);
+			return false;
+		}
+		else if(isNumeric(txtBrPrimjeraka.getText()) == false){
+			message = "Number of copies must be a positive number!";
+			txtBrPrimjeraka.setBackground(Color.RED);
+			return false;
+		}
+		return true;
+	}
+	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
+	}
+	
 	private void saveBook() {
 		String naslov = txtNaslov.getText();
 		String orgNaslov = txtOrgNaslov.getText();
@@ -255,6 +337,8 @@ public class NovaKnjiga extends JFrame {
 	private JPanel panel;
 	
 	private Knjiga knjiga;
+	
+	private String message;
 	
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
 	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();

@@ -135,7 +135,10 @@ public class Lookup<T> extends JPanel {
 		remove(cancelSelection);
 		selected.setEditable(false);
 	}
-		
+	
+	public JTextField getSelected(){
+		return selected;
+	}
 			
 	private JFrame options = new JFrame();
 	private JList<T> selectedItemsList = new JList<T>();
