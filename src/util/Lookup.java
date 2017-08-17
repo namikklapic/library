@@ -102,7 +102,7 @@ public class Lookup<T> extends JPanel {
 		cancelSelection = new JButton("Abort");
 		add(selected);
 		add(openDialog);
-		add(cancelSelection);
+		//add(cancelSelection);
 		
 		
 	}

@@ -2,6 +2,7 @@ package swing.knjigaPanels;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -16,12 +17,14 @@ import bussines.AutorKnjigaServiceBean;
 import bussines.AutorServiceBean;
 import bussines.IzdavacServiceBean;
 import bussines.KnjigaServiceBean;
+import bussines.PrimjerakServiceBean;
 import bussines.VrstaKnjigeServiceBean;
 import jpa.Autor;
 import jpa.AutorKnjiga;
 import jpa.AutorKnjigaPK;
 import jpa.Izdavac;
 import jpa.Knjiga;
+import jpa.Primjerak;
 import jpa.VrstaKnjige;
 import swing.VrstaKnjigePanels.NovaVrstaKnjige;
 import swing.autorPanels.NoviAutor;
@@ -64,11 +67,6 @@ public class NovaKnjiga extends JFrame {
 		txtNegBodovi = new JTextField(3);
 		panel.add(lbNegBodovi);
 		panel.add(txtNegBodovi);
-		
-		lbBrPrimjeraka = new JLabel("Number of copies: ");
-		txtBrPrimjeraka = new JTextField(3);
-		panel.add(lbBrPrimjeraka);
-		panel.add(txtBrPrimjeraka);
 		
 		lbVrstaKnjige = new JLabel("Book type: ");
 		cbVrstaKnjige = new JComboBox<VrstaKnjige>();
@@ -115,6 +113,11 @@ public class NovaKnjiga extends JFrame {
 		panel.add(lbAutori);
 		panel.add(lookupAutori);
 		panel.add(btnAddNoviAutor);
+		
+		lbBrPrimjeraka = new JLabel("Number of copies: ");
+		txtBrPrimjeraka = new JTextField(3);
+		panel.add(lbBrPrimjeraka);
+		panel.add(txtBrPrimjeraka);
 		
 		btnPotvrdi = new JButton("Save");
 		btnPotvrdi.addActionListener(new ActionListener(){
@@ -208,6 +211,17 @@ public class NovaKnjiga extends JFrame {
 			autorKnjigaServiceBean.save(new AutorKnjiga(autorKnjigaPK, k, a, i++));
 		}
 		
+		Primjerak temp;
+		String invBroj;
+		for(int i = 1; i <= brPrimjeraka; i++){
+			temp = new Primjerak();
+			invBroj = Integer.toString(id) + "-" + Integer.toString(i);
+			temp.setInventarskiBroj(invBroj);
+			temp.setKnjiga(k);
+			temp.setRezervisan(false);
+			temp.setPosudjen(false);
+			primjerakServiceBean.save(temp);
+		}
 	}
 	
 	private JPanel panel;
@@ -219,6 +233,7 @@ public class NovaKnjiga extends JFrame {
 	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
 	private AutorKnjigaServiceBean autorKnjigaServiceBean = new AutorKnjigaServiceBean();
+	private PrimjerakServiceBean primjerakServiceBean = new PrimjerakServiceBean();
 	
 	private JLabel lbNaslov;
 	private JTextField txtNaslov;
@@ -230,8 +245,6 @@ public class NovaKnjiga extends JFrame {
 	private JTextField txtGodIzdavanja;
 	private JLabel lbNegBodovi;
 	private JTextField txtNegBodovi;
-	private JLabel lbBrPrimjeraka;
-	private JTextField txtBrPrimjeraka;
 	private JLabel lbVrstaKnjige;
 	private JComboBox<VrstaKnjige> cbVrstaKnjige;
 	private JButton btnAddNovaVrsta;
@@ -241,6 +254,8 @@ public class NovaKnjiga extends JFrame {
 	private JLabel lbAutori;
 	private Lookup<Autor> lookupAutori;
 	private JButton btnAddNoviAutor;
+	private JLabel lbBrPrimjeraka;
+	private JTextField txtBrPrimjeraka;
 	private JButton btnPotvrdi;
 	private JButton btnRezervisi;
 }

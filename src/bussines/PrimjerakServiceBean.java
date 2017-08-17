@@ -20,6 +20,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		} catch(NoResultException nre) {}
 		return result;
 	}
+	
 	public List<Primjerak> getAllPrimjerak(){
 		List<Primjerak> result = null;
 		try {
@@ -27,6 +28,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		} catch(NoResultException nre) {}
 		return result;
 	}
+	
 	public Integer getCount() {
 		Long c = (long) 0;
 		try {
