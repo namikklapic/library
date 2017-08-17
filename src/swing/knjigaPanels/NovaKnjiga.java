@@ -38,6 +38,8 @@ public class NovaKnjiga extends JFrame {
 		panel = new JPanel();
 		panel.setSize(800, 800);
 		
+		knjiga = null;
+		
 		lbNaslov = new JLabel("Title: ");
 		txtNaslov = new JTextField(20);
 		panel.add(lbNaslov);
@@ -130,7 +132,8 @@ public class NovaKnjiga extends JFrame {
 	public NovaKnjiga(Knjiga k, Boolean isEditable){
 		
 		this();
-		
+
+		knjiga = k;
 		txtNaslov.setText(k.getNaslov());
 		txtOrgNaslov.setText(k.getOriginalniNaslov());
 		txtBrStranica.setText(Integer.toString(k.getBrojStranica()));
@@ -193,8 +196,10 @@ public class NovaKnjiga extends JFrame {
 		Izdavac izdavac = (Izdavac) cbIzdavac.getSelectedItem();
 		List<Autor> autori = lookupAutori.getSelectedValues();
 		
+		Integer id = knjiga != null ? knjiga.getId() :  knjigaServiceBean.getCount() + 1;
+		
 		Knjiga k = knjigaServiceBean
-				.save(new Knjiga(knjigaServiceBean.getCount() + 1, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, brPrimjeraka, izdavac, vrsta));
+				.save(new Knjiga(id, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, brPrimjeraka, izdavac, vrsta));
 		
 		AutorKnjigaPK autorKnjigaPK;
 		for(Autor a : autori){
@@ -206,6 +211,8 @@ public class NovaKnjiga extends JFrame {
 	}
 	
 	private JPanel panel;
+	
+	private Knjiga knjiga;
 	
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
 	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();

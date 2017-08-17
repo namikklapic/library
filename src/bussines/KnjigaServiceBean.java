@@ -64,6 +64,7 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 	 * Save Knjiga to database or change existing one.
 	 */
 	public Knjiga save(Knjiga entity) {
+		
 		Knjiga find = em.find(Knjiga.class, entity.getId());
 		if(find != null) {
 			em.getTransaction().begin();

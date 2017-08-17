@@ -57,5 +57,4 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 		}
 		return entity;
 	}
-
 }

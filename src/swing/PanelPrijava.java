@@ -19,8 +19,10 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
@@ -44,6 +46,7 @@ public class PanelPrijava extends JPanel {
 	private JPasswordField txtPass = new JPasswordField(13);
 	private JFrame mainFrame;
 	private JTextField textField;
+
 	
 	
 	public PanelPrijava(JFrame mF) {
@@ -111,6 +114,7 @@ public class PanelPrijava extends JPanel {
 		prijava.addActionListener(new prijavaEvent());
 		
 		userLogin.add(prijava);
+
 		// Login button options -- END
 		
 		// Label Welcome -- BEGIN
@@ -231,8 +235,29 @@ public class PanelPrijava extends JPanel {
 						studentLogin.addWindowListener(new UserPanelClosingAction());
 						
 					}
-					else {
-						System.out.println("Logiranje neuspjesno.");
+					else {						
+						mainFrame.dispose();
+						
+						JOptionPane.showMessageDialog(null,"Login failed. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+						
+						JFrame frame = new JFrame();
+						
+						Toolkit kit = Toolkit.getDefaultToolkit();
+						Dimension velicinaEkrana = kit.getScreenSize();
+						int visinaProzora = 600;
+						int sirinaProzora = 400;
+						
+						PanelPrijava panelPrijava = new PanelPrijava(frame);
+						frame.setSize(400, 600);
+						frame.setResizable(false);
+
+						frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+						frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						frame.getContentPane().add(panelPrijava);
+						frame.setTitle("Login");
+						
+						frame.setVisible(true);
+						
 					}
 				}
 			});
@@ -251,6 +276,8 @@ public class PanelPrijava extends JPanel {
 		    ImageIcon loading = new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/loader.gif"));
 		    mainFrame.add(new JLabel("", loading, JLabel.CENTER)); 	    	    
 		    mainFrame.setVisible(true);
+		    
+		    
 	}
 }
 	
@@ -278,6 +305,4 @@ public class PanelPrijava extends JPanel {
 		}
 		private JFrame frame;
 	}
-	
-
 }
