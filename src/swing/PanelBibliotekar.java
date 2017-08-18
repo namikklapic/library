@@ -219,6 +219,12 @@ public class PanelBibliotekar extends JFrame{
 								panel_2.setVisible(false);
 								lineAuthors.setVisible(false);
 							}
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								cl.show(panel_1, "panelStudentsName");
+								repaint();
+								revalidate();
+							}
 						});
 						lblAuthors.setHorizontalAlignment(SwingConstants.LEFT);
 						lblAuthors.setForeground(Color.WHITE);
@@ -237,6 +243,12 @@ public class PanelBibliotekar extends JFrame{
 							public void mouseExited(MouseEvent e) {
 								panel_2.setVisible(false);
 								lineProffessors.setVisible(false);
+							}
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								cl.show(panel_1, "panelProfessorsName");
+								repaint();
+								revalidate();
 							}
 						});
 						lblProffessors.setHorizontalAlignment(SwingConstants.LEFT);
@@ -257,6 +269,11 @@ public class PanelBibliotekar extends JFrame{
 								panel_2.setVisible(false);
 								lineClasses.setVisible(false);
 							}
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								cl.show(panel_1, "panelClassesName");
+								repaint();
+								revalidate();							}
 						});
 						lblClasses.setHorizontalAlignment(SwingConstants.LEFT);
 						lblClasses.setForeground(Color.WHITE);
@@ -465,11 +482,249 @@ public class PanelBibliotekar extends JFrame{
 		logout.setBounds(58, 659, 48, 70);
 		infoPanel.add(logout);
 		
+
 		
 		
 		// Items on right panel -- END
 		
 		// Middle panel items -- BEGIN
+		
+		JPanel panelStudents = new JPanel();
+		panelStudents.setOpaque(false);
+		panelStudents.setBackground(new Color(95, 158, 160));
+		panelStudents.setLayout(null);
+		panel_1.add(panelStudents, "panelStudentsName");
+		
+		// Panel Students items -- BEGIN
+		
+			Box lineAddStudent = Box.createHorizontalBox();
+			lineAddStudent.setVisible(false);
+			lineAddStudent.setOpaque(true);
+			lineAddStudent.setBackground(new Color(255, 255, 255));
+			lineAddStudent.setBounds(103, 375, 274, 3);
+			panelStudents.add(lineAddStudent);
+			
+			Box lineViewStudents = Box.createHorizontalBox();
+			lineViewStudents.setVisible(false);
+			lineViewStudents.setOpaque(true);
+			lineViewStudents.setBackground(Color.WHITE);
+			lineViewStudents.setBounds(519, 375, 253, 3);
+			panelStudents.add(lineViewStudents);
+		
+			JLabel lblAddNewStudent = new JLabel("Add a new student");
+			lblAddNewStudent.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					lineAddStudent.setVisible(true);
+					repaint();
+					revalidate();
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					lineAddStudent.setVisible(false);
+					repaint();
+					revalidate();
+				}
+			});				
+			lblAddNewStudent.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAddNewStudent.setForeground(Color.WHITE);
+			lblAddNewStudent.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+			lblAddNewStudent.setBounds(76, 309, 332, 96);
+			panelStudents.add(lblAddNewStudent);
+			
+			JLabel lblViewAllStudents = new JLabel("View all students");
+			lblViewAllStudents.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					lineViewStudents.setVisible(true);
+					repaint();
+					revalidate();
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					lineViewStudents.setVisible(false);
+					repaint();
+					revalidate();
+				}
+			});	
+			lblViewAllStudents.setHorizontalAlignment(SwingConstants.CENTER);
+			lblViewAllStudents.setForeground(Color.WHITE);
+			lblViewAllStudents.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+			lblViewAllStudents.setBounds(473, 309, 332, 96);
+			panelStudents.add(lblViewAllStudents);
+			
+			JLabel lblAddStudentPic = new JLabel("");
+			lblAddStudentPic.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAddStudentPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/add-file-48.png")));
+			lblAddStudentPic.setBounds(211, 286, 56, 52);
+			panelStudents.add(lblAddStudentPic);
+			
+			JLabel lblViewStudentsPic = new JLabel("");
+			lblViewStudentsPic.setHorizontalAlignment(SwingConstants.CENTER);
+			lblViewStudentsPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
+			lblViewStudentsPic.setBounds(616, 286, 56, 52);
+			panelStudents.add(lblViewStudentsPic);
+	
+		// Panel Students items -- END
+		
+		
+		JPanel panelClasses = new JPanel();
+		panelClasses.setOpaque(false);
+		panelClasses.setBackground(new Color(95, 158, 160));
+		panelClasses.setLayout(null);
+		panel_1.add(panelClasses, "panelClassesName");
+		
+		// Panel Classes items -- BEGIN
+		
+					Box lineAddSubject = Box.createHorizontalBox();
+					lineAddSubject.setVisible(false);
+					lineAddSubject.setOpaque(true);
+					lineAddSubject.setBackground(new Color(255, 255, 255));
+					lineAddSubject.setBounds(103, 375, 274, 3);
+					panelClasses.add(lineAddSubject);
+					
+					Box lineViewSubjects = Box.createHorizontalBox();
+					lineViewSubjects.setVisible(false);
+					lineViewSubjects.setOpaque(true);
+					lineViewSubjects.setBackground(Color.WHITE);
+					lineViewSubjects.setBounds(519, 375, 253, 3);
+					panelClasses.add(lineViewSubjects);
+				
+					JLabel lblAddNewSubject = new JLabel("Add a new class");
+					lblAddNewSubject.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							lineAddSubject.setVisible(true);
+							repaint();
+							revalidate();
+						}
+						@Override
+						public void mouseExited(MouseEvent e) {
+							lineAddSubject.setVisible(false);
+							repaint();
+							revalidate();
+						}
+					});				
+					lblAddNewSubject.setHorizontalAlignment(SwingConstants.CENTER);
+					lblAddNewSubject.setForeground(Color.WHITE);
+					lblAddNewSubject.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+					lblAddNewSubject.setBounds(76, 309, 332, 96);
+					panelClasses.add(lblAddNewSubject);
+					
+					JLabel lblViewAllSubjects = new JLabel("View all classes");
+					lblViewAllSubjects.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							lineViewSubjects.setVisible(true);
+							repaint();
+							revalidate();
+						}
+						@Override
+						public void mouseExited(MouseEvent e) {
+							lineViewSubjects.setVisible(false);
+							repaint();
+							revalidate();
+						}
+					});	
+					lblViewAllSubjects.setHorizontalAlignment(SwingConstants.CENTER);
+					lblViewAllSubjects.setForeground(Color.WHITE);
+					lblViewAllSubjects.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+					lblViewAllSubjects.setBounds(473, 309, 332, 96);
+					panelClasses.add(lblViewAllSubjects);
+					
+					JLabel lblAddSubjectPic = new JLabel("");
+					lblAddSubjectPic.setHorizontalAlignment(SwingConstants.CENTER);
+					lblAddSubjectPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/edit-property-48.png")));
+					lblAddSubjectPic.setBounds(211, 286, 56, 52);
+					panelClasses.add(lblAddSubjectPic);
+					
+					JLabel lblViewSubjectsPic = new JLabel("");
+					lblViewSubjectsPic.setHorizontalAlignment(SwingConstants.CENTER);
+					lblViewSubjectsPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
+					lblViewSubjectsPic.setBounds(616, 286, 56, 52);
+					panelClasses.add(lblViewSubjectsPic);
+				
+				// Panel Classes items -- END
+		
+		
+		JPanel panelProfessors = new JPanel();
+		panelProfessors.setOpaque(false);
+		panelProfessors.setBackground(new Color(95, 158, 160));
+		panelProfessors.setLayout(null);
+		panel_1.add(panelProfessors, "panelProfessorsName");
+		
+		// Panel Professors items -- BEGIN
+		
+			Box lineAddProfessor = Box.createHorizontalBox();
+			lineAddProfessor.setVisible(false);
+			lineAddProfessor.setOpaque(true);
+			lineAddProfessor.setBackground(new Color(255, 255, 255));
+			lineAddProfessor.setBounds(103, 375, 274, 3);
+			panelProfessors.add(lineAddProfessor);
+			
+			Box lineViewProfessors = Box.createHorizontalBox();
+			lineViewProfessors.setVisible(false);
+			lineViewProfessors.setOpaque(true);
+			lineViewProfessors.setBackground(Color.WHITE);
+			lineViewProfessors.setBounds(519, 375, 253, 3);
+			panelProfessors.add(lineViewProfessors);
+		
+			JLabel lblAddNewProfessor = new JLabel("Add a new professor");
+			lblAddNewProfessor.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					lineAddProfessor.setVisible(true);
+					repaint();
+					revalidate();
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					lineAddProfessor.setVisible(false);
+					repaint();
+					revalidate();
+				}
+			});				
+			lblAddNewProfessor.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAddNewProfessor.setForeground(Color.WHITE);
+			lblAddNewProfessor.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+			lblAddNewProfessor.setBounds(76, 309, 332, 96);
+			panelProfessors.add(lblAddNewProfessor);
+			
+			JLabel lblViewAllProfessors = new JLabel("View all professors");
+			lblViewAllProfessors.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					lineViewProfessors.setVisible(true);
+					repaint();
+					revalidate();
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					lineViewProfessors.setVisible(false);
+					repaint();
+					revalidate();
+				}
+			});	
+			lblViewAllProfessors.setHorizontalAlignment(SwingConstants.CENTER);
+			lblViewAllProfessors.setForeground(Color.WHITE);
+			lblViewAllProfessors.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+			lblViewAllProfessors.setBounds(473, 309, 332, 96);
+			panelProfessors.add(lblViewAllProfessors);
+			
+			JLabel lblAddProfessorPic = new JLabel("");
+			lblAddProfessorPic.setHorizontalAlignment(SwingConstants.CENTER);
+			lblAddProfessorPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/administrator-2-48.png")));
+			lblAddProfessorPic.setBounds(211, 286, 56, 52);
+			panelProfessors.add(lblAddProfessorPic);
+			
+			JLabel lblViewProfessorsPic = new JLabel("");
+			lblViewProfessorsPic.setHorizontalAlignment(SwingConstants.CENTER);
+			lblViewProfessorsPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
+			lblViewProfessorsPic.setBounds(616, 286, 56, 52);
+			panelProfessors.add(lblViewProfessorsPic);
+		
+		// Panel Professors items -- END
+		
 		JPanel panelBooks = new JPanel();
 		panelBooks.setOpaque(false);
 		panelBooks.setBorder(null);
@@ -566,10 +821,17 @@ public class PanelBibliotekar extends JFrame{
 					// Lines -- BEGIN
 						Box lineAddBook = Box.createHorizontalBox();
 						lineAddBook.setVisible(false);
+						
+						Box lineAddAuthor = Box.createHorizontalBox();
+						lineAddAuthor.setVisible(false);
+						lineAddAuthor.setOpaque(true);
+						lineAddAuthor.setBackground(Color.WHITE);
+						lineAddAuthor.setBounds(122, 456, 235, 3);
+						panelBooks.add(lineAddAuthor);
 						lineAddBook.setOpaque(true);
 						lineAddBook.setForeground(Color.WHITE);
 						lineAddBook.setBackground(Color.WHITE);
-						lineAddBook.setBounds(124, 266, 231, 3);
+						lineAddBook.setBounds(134, 139, 210, 3);
 						panelBooks.add(lineAddBook);
 						
 						Box lineViewAllBooks = Box.createHorizontalBox();
@@ -577,7 +839,7 @@ public class PanelBibliotekar extends JFrame{
 						lineViewAllBooks.setOpaque(true);
 						lineViewAllBooks.setForeground(Color.WHITE);
 						lineViewAllBooks.setBackground(Color.WHITE);
-						lineViewAllBooks.setBounds(531, 266, 231, 3);
+						lineViewAllBooks.setBounds(548, 139, 201, 3);
 						panelBooks.add(lineViewAllBooks);
 						
 						Box lineAddBookType = Box.createHorizontalBox();
@@ -585,7 +847,7 @@ public class PanelBibliotekar extends JFrame{
 						lineAddBookType.setOpaque(true);
 						lineAddBookType.setForeground(Color.WHITE);
 						lineAddBookType.setBackground(Color.WHITE);
-						lineAddBookType.setBounds(101, 471, 279, 3);
+						lineAddBookType.setBounds(103, 302, 270, 3);
 						panelBooks.add(lineAddBookType);
 						
 						Box lineViewBookType = Box.createHorizontalBox();
@@ -593,7 +855,7 @@ public class PanelBibliotekar extends JFrame{
 						lineViewBookType.setOpaque(true);
 						lineViewBookType.setForeground(Color.WHITE);
 						lineViewBookType.setBackground(Color.WHITE);
-						lineViewBookType.setBounds(511, 471, 262, 3);
+						lineViewBookType.setBounds(522, 302, 253, 3);
 						panelBooks.add(lineViewBookType);
 					// Lines -- END
 					
@@ -619,10 +881,31 @@ public class PanelBibliotekar extends JFrame{
 								
 							}
 						});
+						
+						Box lineViewAuthors = Box.createHorizontalBox();
+						lineViewAuthors.setVisible(false);
+						lineViewAuthors.setOpaque(true);
+						lineViewAuthors.setBackground(Color.WHITE);
+						lineViewAuthors.setBounds(543, 456, 210, 3);
+						panelBooks.add(lineViewAuthors);
+						
+						Box lineAddPublisher = Box.createHorizontalBox();
+						lineAddPublisher.setVisible(false);
+						lineAddPublisher.setBounds(111, 609, 262, 3);
+						panelBooks.add(lineAddPublisher);
+						lineAddPublisher.setOpaque(true);
+						lineAddPublisher.setBackground(Color.WHITE);
+						
+						Box lineViewPublishers = Box.createHorizontalBox();
+						lineViewPublishers.setVisible(false);
+						lineViewPublishers.setOpaque(true);
+						lineViewPublishers.setBackground(Color.WHITE);
+						lineViewPublishers.setBounds(522, 609, 253, 3);
+						panelBooks.add(lineViewPublishers);
 						addANewBook.setHorizontalAlignment(SwingConstants.CENTER);
 						addANewBook.setForeground(new Color(255, 255, 255));
 						addANewBook.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-						addANewBook.setBounds(63, 165, 346, 175);
+						addANewBook.setBounds(65, 30, 346, 175);
 						panelBooks.add(addANewBook);
 						
 						JLabel viewAllBooks = new JLabel("View all books");
@@ -648,7 +931,7 @@ public class PanelBibliotekar extends JFrame{
 						viewAllBooks.setHorizontalAlignment(SwingConstants.CENTER);
 						viewAllBooks.setForeground(Color.WHITE);
 						viewAllBooks.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-						viewAllBooks.setBounds(472, 165, 346, 175);
+						viewAllBooks.setBounds(474, 38, 346, 175);
 						panelBooks.add(viewAllBooks);
 						
 						JLabel addBookType = new JLabel("Add a new book type");
@@ -674,7 +957,7 @@ public class PanelBibliotekar extends JFrame{
 						addBookType.setHorizontalAlignment(SwingConstants.CENTER);
 						addBookType.setForeground(Color.WHITE);
 						addBookType.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-						addBookType.setBounds(63, 368, 346, 175);
+						addBookType.setBounds(75, 196, 346, 175);
 						panelBooks.add(addBookType);
 						
 						JLabel viewAllBookTypes = new JLabel("View all book types");
@@ -700,29 +983,140 @@ public class PanelBibliotekar extends JFrame{
 						viewAllBookTypes.setHorizontalAlignment(SwingConstants.CENTER);
 						viewAllBookTypes.setForeground(Color.WHITE);
 						viewAllBookTypes.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-						viewAllBookTypes.setBounds(472, 368, 346, 175);
+						viewAllBookTypes.setBounds(474, 199, 346, 175);
 						panelBooks.add(viewAllBookTypes);
 						
-						JLabel lblNewLabel = new JLabel("");
-						lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-						lblNewLabel.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/literature-48.png")));
-						lblNewLabel.setBounds(185, 163, 103, 68);
-						panelBooks.add(lblNewLabel);
+						JLabel lblNewBookPic = new JLabel("");
+						lblNewBookPic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblNewBookPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/literature-48.png")));
+						lblNewBookPic.setBounds(186, 38, 103, 68);
+						panelBooks.add(lblNewBookPic);
 						
-						JLabel label = new JLabel("");
-						label.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/books-48.png")));
-						label.setBounds(617, 155, 57, 76);
-						panelBooks.add(label);
+						JLabel lblViewAllBooksPic = new JLabel("");
+						lblViewAllBooksPic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblViewAllBooksPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/books-48.png")));
+						lblViewAllBooksPic.setBounds(619, 28, 57, 76);
+						panelBooks.add(lblViewAllBooksPic);
 						
-						JLabel label_1 = new JLabel("");
-						label_1.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
-						label_1.setBounds(614, 376, 62, 60);
-						panelBooks.add(label_1);
+						JLabel lblViewBookTypesPic = new JLabel("");
+						lblViewBookTypesPic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblViewBookTypesPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
+						lblViewBookTypesPic.setBounds(619, 196, 57, 76);
+						panelBooks.add(lblViewBookTypesPic);
 						
-						JLabel label_2 = new JLabel("");
-						label_2.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/add-file-48.png")));
-						label_2.setBounds(208, 360, 57, 76);
-						panelBooks.add(label_2);
+						JLabel lblAddBookTypePic = new JLabel("");
+						lblAddBookTypePic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblAddBookTypePic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/add-file-48.png")));
+						lblAddBookTypePic.setBounds(186, 194, 103, 68);
+						panelBooks.add(lblAddBookTypePic);
+						
+						JLabel lblAddNewAuthor = new JLabel("Add a new author");
+						lblAddNewAuthor.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseEntered(MouseEvent arg0) {
+								lineAddAuthor.setVisible(true);
+								repaint();
+								revalidate();
+							}
+							@Override
+							public void mouseExited(MouseEvent arg0) {
+								lineAddAuthor.setVisible(false);
+								repaint();
+								revalidate();
+							}
+						});
+						lblAddNewAuthor.setHorizontalAlignment(SwingConstants.CENTER);
+						lblAddNewAuthor.setForeground(Color.WHITE);
+						lblAddNewAuthor.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+						lblAddNewAuthor.setBounds(65, 351, 346, 175);
+						panelBooks.add(lblAddNewAuthor);
+						
+						JLabel lblViewAllAuthors = new JLabel("View all authors");
+						lblViewAllAuthors.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseEntered(MouseEvent e) {
+								lineViewAuthors.setVisible(true);
+								repaint();
+								revalidate();
+							}
+							@Override
+							public void mouseExited(MouseEvent e) {
+								lineViewAuthors.setVisible(false);
+								repaint();
+								revalidate();
+							}
+						});
+						lblViewAllAuthors.setHorizontalAlignment(SwingConstants.CENTER);
+						lblViewAllAuthors.setForeground(Color.WHITE);
+						lblViewAllAuthors.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+						lblViewAllAuthors.setBounds(474, 351, 346, 175);
+						panelBooks.add(lblViewAllAuthors);
+						
+						JLabel lblAddANewPublisher = new JLabel("Add a new publisher");
+						lblAddANewPublisher.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseEntered(MouseEvent e) {
+								lineAddPublisher.setVisible(true);
+								repaint();
+								revalidate();
+							}
+							@Override
+							public void mouseExited(MouseEvent e) {
+								lineAddPublisher.setVisible(false);
+								repaint();
+								revalidate();
+							}
+						});
+						lblAddANewPublisher.setHorizontalAlignment(SwingConstants.CENTER);
+						lblAddANewPublisher.setForeground(Color.WHITE);
+						lblAddANewPublisher.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+						lblAddANewPublisher.setBounds(65, 506, 346, 175);
+						panelBooks.add(lblAddANewPublisher);
+						
+						JLabel lblViewAllPublishers = new JLabel("View all publishers");
+						lblViewAllPublishers.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseEntered(MouseEvent e) {
+								lineViewPublishers.setVisible(true);
+								repaint();
+								revalidate();
+							}
+							@Override
+							public void mouseExited(MouseEvent e) {
+								lineViewPublishers.setVisible(false);
+								repaint();
+								revalidate();
+							}
+						});
+						lblViewAllPublishers.setHorizontalAlignment(SwingConstants.CENTER);
+						lblViewAllPublishers.setForeground(Color.WHITE);
+						lblViewAllPublishers.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+						lblViewAllPublishers.setBounds(474, 506, 346, 175);
+						panelBooks.add(lblViewAllPublishers);
+						
+						JLabel lblNewAuthorPic = new JLabel("");
+						lblNewAuthorPic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblNewAuthorPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/edit-9-48.png")));
+						lblNewAuthorPic.setBounds(186, 350, 103, 68);
+						panelBooks.add(lblNewAuthorPic);
+						
+						JLabel lblViewAuthorsPic = new JLabel("");
+						lblViewAuthorsPic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblViewAuthorsPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/edit-property-48.png")));
+						lblViewAuthorsPic.setBounds(619, 351, 57, 76);
+						panelBooks.add(lblViewAuthorsPic);
+						
+						JLabel lblNewPublisherPic = new JLabel("");
+						lblNewPublisherPic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblNewPublisherPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/printer-48.png")));
+						lblNewPublisherPic.setBounds(186, 506, 103, 68);
+						panelBooks.add(lblNewPublisherPic);
+						
+						JLabel lblViewPublishersPic = new JLabel("");
+						lblViewPublishersPic.setHorizontalAlignment(SwingConstants.CENTER);
+						lblViewPublishersPic.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/user-3-48.png")));
+						lblViewPublishersPic.setBounds(619, 498, 57, 76);
+						panelBooks.add(lblViewPublishersPic);
 					// Buttons -- END
 		// Disappearing panel items -- END
 	
