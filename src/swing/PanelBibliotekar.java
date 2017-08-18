@@ -55,6 +55,8 @@ public class PanelBibliotekar extends JFrame{
 		setResizable(false);
 		getContentPane().setLayout(null);
 		
+		setUndecorated(true);
+		
 
 		// Frame options -- END
 		
@@ -66,7 +68,7 @@ public class PanelBibliotekar extends JFrame{
 		panel.setBorder(null);
 		panel.setBackground(new Color(51, 51, 51,180));
 		panel.setForeground(Color.WHITE);
-		panel.setBounds(0, 0, 78, 742);
+		panel.setBounds(0, 0, 78, 790);
 		getContentPane().add(panel);
 	
 	
@@ -91,14 +93,14 @@ public class PanelBibliotekar extends JFrame{
 		});
 		panel_2.setVisible(false);
 		panel_2.setBackground(new Color(65, 65, 65,220));
-		panel_2.setBounds(78, 0, 165, 742);
+		panel_2.setBounds(78, 0, 165, 804);
 		getContentPane().add(panel_2);
 		
 		// Middle panel
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(192, 192, 192,30));
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.setBounds(90, 13, 883, 713);
+		panel_1.setBounds(90, 13, 883, 748);
 		getContentPane().add(panel_1);
 		
 		CardLayout cl = (CardLayout)(panel_1.getLayout());
@@ -283,7 +285,7 @@ public class PanelBibliotekar extends JFrame{
 		
 		// Right panel 
 		JPanel infoPanel = new JPanel();
-		infoPanel.setBounds(985, 0, 209, 742);
+		infoPanel.setBounds(985, 0, 215, 804);
 		getContentPane().add(infoPanel);
 		infoPanel.setBackground(new Color(51,51,51,180));
 		infoPanel.setLayout(null);
@@ -460,6 +462,7 @@ public class PanelBibliotekar extends JFrame{
 						frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						frame.getContentPane().add(panelPrijava);
 						frame.setTitle("Login");
+						frame.setUndecorated(true);
 						
 						frame.setVisible(true);
 				    }
@@ -1232,7 +1235,7 @@ public class PanelBibliotekar extends JFrame{
 		MenuBackground.setHorizontalAlignment(SwingConstants.CENTER);
 		MenuBackground.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/background.jpg")));
 		MenuBackground.setOpaque(true);
-		MenuBackground.setBounds(0, 0, 1194, 742);
+		MenuBackground.setBounds(0, -11, 1200, 815);
 		getContentPane().add(MenuBackground);
 	// Main menu background options -- END
 							

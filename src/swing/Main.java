@@ -57,6 +57,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(panelPrijava);
 		frame.setTitle("Login");
+		frame.setUndecorated(true);
 	}
 
 }

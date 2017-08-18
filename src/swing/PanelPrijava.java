@@ -35,6 +35,7 @@ import bussines.StudentServiceBean;
 import jpa.Bibliotekar;
 import jpa.Nastavnik;
 import jpa.Student;
+import javax.swing.SwingConstants;
 
 
 public class PanelPrijava extends JPanel {
@@ -52,7 +53,6 @@ public class PanelPrijava extends JPanel {
 	public PanelPrijava(JFrame mF) {
 		
 		setLayout(null);
-
 		mainFrame = mF;
 		
 		// Whole panel that is showing options -- BEGIN
@@ -69,7 +69,7 @@ public class PanelPrijava extends JPanel {
 		JLabel user = new JLabel("Username:");
 		user.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
 		user.setForeground(new Color(255, 255, 255));
-		user.setBounds(55, 239, 124, 23);
+		user.setBounds(54, 265, 124, 23);
 		
 		userLogin.add(user);
 		// Username label options - END
@@ -89,7 +89,7 @@ public class PanelPrijava extends JPanel {
 		txtUser.setForeground(new Color(255, 255, 255));
 		txtUser.setOpaque(false);
 		txtUser.setToolTipText("");
-		txtUser.setBounds(55, 275, 284, 23);
+		txtUser.setBounds(54, 301, 284, 23);
 		
 		userLogin.add(txtUser);
 		// Username enter field options - END
@@ -101,7 +101,7 @@ public class PanelPrijava extends JPanel {
 		prijava.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 		prijava.setForeground(new Color(255, 255, 255));
 		prijava.setBackground(Color.DARK_GRAY);
-		prijava.setBounds(100, 443, 200, 56);
+		prijava.setBounds(99, 469, 200, 56);
 		prijava.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -122,7 +122,7 @@ public class PanelPrijava extends JPanel {
 				JLabel lblLogIn = new JLabel("Welcome");
 				lblLogIn.setForeground(new Color(255, 255, 255));
 				lblLogIn.setFont(new Font("Segoe UI Light", Font.BOLD, 45));
-				lblLogIn.setBounds(100, 13, 200, 92);
+				lblLogIn.setBounds(99, 39, 200, 92);
 				
 				userLogin.add(lblLogIn);	
 				//Label Welcome -- END
@@ -131,22 +131,22 @@ public class PanelPrijava extends JPanel {
 				JLabel lblPleaseSignIn = new JLabel("Please sign in");
 				lblPleaseSignIn.setForeground(Color.WHITE);
 				lblPleaseSignIn.setFont(new Font("Segoe UI Light", Font.BOLD, 27));
-				lblPleaseSignIn.setBounds(117, 133, 171, 64);
+				lblPleaseSignIn.setBounds(116, 159, 171, 64);
 				
 				userLogin.add(lblPleaseSignIn);
 				// Label Please log in -- END
 				
 				// All separators used -- BEGIN
 				JSeparator separator = new JSeparator();
-				separator.setBounds(74, 195, 265, 2);
+				separator.setBounds(73, 221, 265, 2);
 				userLogin.add(separator);
 				
 				JSeparator separator_1 = new JSeparator();
-				separator_1.setBounds(55, 297, 275, 2);
+				separator_1.setBounds(54, 323, 275, 2);
 				userLogin.add(separator_1);
 				
 				JSeparator separator_2 = new JSeparator();
-				separator_2.setBounds(55, 377, 275, 2);
+				separator_2.setBounds(54, 403, 275, 2);
 				userLogin.add(separator_2);
 				// All separators used -- END
 				
@@ -154,7 +154,7 @@ public class PanelPrijava extends JPanel {
 				JLabel password = new JLabel("Password:");
 				password.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
 				password.setForeground(new Color(255, 255, 255));
-				password.setBounds(55, 322, 124, 23);
+				password.setBounds(54, 348, 124, 23);
 				
 				userLogin.add(password);
 				// Label password options -- END
@@ -179,8 +179,34 @@ public class PanelPrijava extends JPanel {
 				txtPass.setForeground(new Color(255, 255, 255));
 				txtPass.setOpaque(false);
 				txtPass.setText("Enter your password");
-				txtPass.setBounds(55, 356, 284, 23);
+				txtPass.setBounds(54, 382, 284, 23);
 				userLogin.add(txtPass);
+				prijava.setForeground(new Color(255, 255, 255));
+				prijava.setBackground(Color.DARK_GRAY);
+				
+				JButton btnExit = new JButton("X");
+				btnExit.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent arg0) {
+						btnExit.setBackground(Color.GRAY);			
+						}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnExit.setBackground(Color.DARK_GRAY);
+					}
+				});
+				btnExit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						System.exit(1);
+					}
+				});
+				btnExit.setForeground(Color.WHITE);
+				btnExit.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+				btnExit.setFocusPainted(false);
+				btnExit.setBorder(null);
+				btnExit.setBackground(Color.DARK_GRAY);
+				btnExit.setBounds(335, 13, 53, 35);
+				userLogin.add(btnExit);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(PanelPrijava.class.getResource("/swing/images/loginbackground.jpg")));
@@ -261,6 +287,7 @@ public class PanelPrijava extends JPanel {
 						frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 						frame.getContentPane().add(panelPrijava);
 						frame.setTitle("Login");
+						frame.setUndecorated(true);
 						
 						frame.setVisible(true);
 						

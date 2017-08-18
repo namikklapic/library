@@ -20,6 +20,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.BorderLayout;
+import javax.swing.ImageIcon;
 
 public class NoviIzdavac extends JFrame {
 	/**
@@ -39,13 +41,15 @@ public class NoviIzdavac extends JFrame {
 		setSize(500, 500);
 
 	    setResizable(false);
+		getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(95, 158, 160));
+		panel.setBounds(12, 16, 470, 436);
+		panel.setBackground(new Color(255,255,255,70));
 		
 		JLabel imeIzdavaca = new JLabel("Name of publisher");
 		imeIzdavaca.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
-		imeIzdavaca.setForeground(new Color(255, 255, 255));
+		imeIzdavaca.setForeground(Color.BLACK);
 		imeIzdavaca.setBounds(167, 41, 160, 35);
 		
 		JButton ponisti = new JButton("Cancel");
@@ -105,6 +109,11 @@ public class NoviIzdavac extends JFrame {
 		panel.add(txtIzdavac);
 		panel.add(ponisti);
 		getContentPane().add(panel);
+		
+		JLabel Background = new JLabel("");
+		Background.setIcon(new ImageIcon(NoviIzdavac.class.getResource("/swing/images/test.jpg")));
+		Background.setBounds(0, 0, 494, 465);
+		getContentPane().add(Background);
 	}
 	
 	public NoviIzdavac(Izdavac i) {
