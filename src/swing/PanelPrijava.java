@@ -184,6 +184,31 @@ public class PanelPrijava extends JPanel {
 				prijava.setForeground(new Color(255, 255, 255));
 				prijava.setBackground(Color.DARK_GRAY);
 				
+				JButton btnMinimize = new JButton("__");
+				btnMinimize.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent arg0) {
+						btnMinimize.setBackground(Color.GRAY);			
+						}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnMinimize.setBackground(Color.DARK_GRAY);
+					}
+				});
+				btnMinimize.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						mF.setExtendedState(JFrame.ICONIFIED);
+						
+					}
+				});
+				btnMinimize.setForeground(Color.WHITE);
+				btnMinimize.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+				btnMinimize.setFocusPainted(false);
+				btnMinimize.setBorder(null);
+				btnMinimize.setBackground(Color.DARK_GRAY);
+				btnMinimize.setBounds(276, 13, 53, 35);
+				userLogin.add(btnMinimize);
+				
 				JButton btnExit = new JButton("X");
 				btnExit.addMouseListener(new MouseAdapter() {
 					@Override
@@ -198,6 +223,7 @@ public class PanelPrijava extends JPanel {
 				btnExit.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						System.exit(1);
+						
 					}
 				});
 				btnExit.setForeground(Color.WHITE);
