@@ -51,10 +51,13 @@ public class PanelBibliotekar extends JFrame{
 
 		// Frame options -- BEGIN
 		this.bibliotekar = b;
+		pregledKnjiga = new KnjigaPregled(true, bibliotekar.getKorisnik());
 		setTitle("Welcome "+ b.getKorisnik().getImeKorisnika() + " " + b.getKorisnik().getPrezimeKorisnika());
 		setResizable(false);
 		getContentPane().setLayout(null);
-				
+		
+		setUndecorated(true);
+		
 
 		// Frame options -- END
 		
@@ -98,7 +101,7 @@ public class PanelBibliotekar extends JFrame{
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(192, 192, 192,30));
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.setBounds(90, 13, 883, 713);
+		panel_1.setBounds(90, 13, 883, 748);
 		getContentPane().add(panel_1);
 		
 		CardLayout cl = (CardLayout)(panel_1.getLayout());
@@ -283,7 +286,7 @@ public class PanelBibliotekar extends JFrame{
 		
 		// Right panel 
 		JPanel infoPanel = new JPanel();
-		infoPanel.setBounds(985, 0, 215, 752);
+		infoPanel.setBounds(985, 0, 215, 804);
 		getContentPane().add(infoPanel);
 		infoPanel.setBackground(new Color(51,51,51,180));
 		infoPanel.setLayout(null);
@@ -1241,7 +1244,7 @@ public class PanelBibliotekar extends JFrame{
 	private Bibliotekar bibliotekar;
 
 	private NovaKnjiga novaKnjiga = new NovaKnjiga();
-	private KnjigaPregled pregledKnjiga = new KnjigaPregled(true);
+	private KnjigaPregled pregledKnjiga;
 	
 	private NovaVrstaKnjige novaVrstaKnjige = new NovaVrstaKnjige();
 	private VrstaKnjigePregled vrstaKnjigePregled = new VrstaKnjigePregled();

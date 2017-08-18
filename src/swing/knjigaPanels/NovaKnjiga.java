@@ -1,6 +1,7 @@
 package swing.knjigaPanels;
 
 import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,13 +22,17 @@ import bussines.AutorServiceBean;
 import bussines.IzdavacServiceBean;
 import bussines.KnjigaServiceBean;
 import bussines.PrimjerakServiceBean;
+import bussines.RezervacijaServiceBean;
 import bussines.VrstaKnjigeServiceBean;
 import jpa.Autor;
 import jpa.AutorKnjiga;
 import jpa.AutorKnjigaPK;
 import jpa.Izdavac;
 import jpa.Knjiga;
+import jpa.Korisnik;
 import jpa.Primjerak;
+import jpa.Rezervacija;
+import jpa.RezervacijaPK;
 import jpa.VrstaKnjige;
 import swing.VrstaKnjigePanels.NovaVrstaKnjige;
 import swing.autorPanels.NoviAutor;
@@ -35,7 +40,6 @@ import swing.izdavacPanels.NoviIzdavac;
 import util.Lookup;
 
 public class NovaKnjiga extends JFrame {
-	
 	public NovaKnjiga(){
 		
 		setTitle("New book");
@@ -150,7 +154,7 @@ public class NovaKnjiga extends JFrame {
 		add(panel);	
 	}
 	
-	public NovaKnjiga(Knjiga k, Boolean isEditable){
+	public NovaKnjiga(Knjiga k, Boolean isEditable, Korisnik currUser){
 		
 		this();
 
@@ -183,11 +187,65 @@ public class NovaKnjiga extends JFrame {
 			btnRezervisi.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent event){
-					
+					onReserveBookClicked(currUser);
 				}
 			});
 			
 			panel.add(btnRezervisi);
+		}
+	}
+	
+	private void onReserveBookClicked(Korisnik currUser) {
+		List<Primjerak> listaDostupnih = primjerakServiceBean.getAllAvailablePrimjerakByBook(knjiga);
+		if (listaDostupnih.size() == 0) {
+			JOptionPane.showMessageDialog(btnRezervisi.getParent(), "There are no available copies of that book.", "Oops!", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		List<Rezervacija> listaRezervacija = rezervacijaServiceBean.getRezervacijeByKorisnik(currUser);
+		if(listaRezervacija.size() >= 3) {
+			JOptionPane.showMessageDialog(btnRezervisi.getParent(), "You can have only 3 books reserved at the same time.", "Oops!", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		for (int i=0; i<listaRezervacija.size(); i++) {
+			if(listaRezervacija.get(i).getPrimjerak().getKnjiga().getId() == knjiga.getId()) {
+				JOptionPane.showMessageDialog(btnRezervisi.getParent(), "You can reserve only 1 copy of the same book at the same time.", "Oops!", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+		}
+		
+			
+		Boolean isValidDate = false;
+		while(!isValidDate) {
+			String mess = "Please enter the motherfucking date in \"dd.mm.yyyy.\" format:\n";
+			String date = (String)JOptionPane.showInputDialog(btnRezervisi.getParent(), mess, "Make a reservation", JOptionPane.INFORMATION_MESSAGE );
+			if(date != null) {
+				String[] koefs = date.split("\\.");
+				/*(System.out.println(koefs[0]);
+				System.out.println(koefs[1]);
+				System.out.println(koefs[2]);*/
+				if(koefs.length == 3){
+					int d = Integer.parseInt(koefs[0]);
+					int m = Integer.parseInt(koefs[1]) - 1;
+					int y = Integer.parseInt(koefs[2]) - 1900;
+					Date datum = new Date(y,m,d);
+					Date today = new Date();
+					isValidDate = datum.getYear() == today.getYear() && datum.getMonth() == today.getMonth() && datum.getDate()-today.getDate() >= 0 && datum.getDate()-today.getDate() <= 5;
+					if(!isValidDate)
+						JOptionPane.showMessageDialog(btnRezervisi.getParent(), "Date must not be more than 5 days from today!", "Invalid date!", JOptionPane.ERROR_MESSAGE);
+					else {
+						RezervacijaPK id = new RezervacijaPK(listaDostupnih.get(0).getInventarskiBroj(), currUser.getSifraKorisnika());
+						Rezervacija entity = new Rezervacija(id, listaDostupnih.get(0), currUser, datum);
+						rezervacijaServiceBean.save(entity);
+						Primjerak p = listaDostupnih.get(0);
+						p.setRezervisan(true);
+						primjerakServiceBean.save(p);
+					}
+				}
+				else
+					JOptionPane.showMessageDialog(btnRezervisi.getParent(), "Date must be in \"dd.mm.yyyy.\" format", "Invalid date!", JOptionPane.ERROR_MESSAGE);
+			}
+			else
+				isValidDate = true;
 		}
 	}
 	
@@ -346,6 +404,7 @@ public class NovaKnjiga extends JFrame {
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
 	private AutorKnjigaServiceBean autorKnjigaServiceBean = new AutorKnjigaServiceBean();
 	private PrimjerakServiceBean primjerakServiceBean = new PrimjerakServiceBean();
+	private RezervacijaServiceBean rezervacijaServiceBean = new RezervacijaServiceBean();
 	
 	private JLabel lbNaslov;
 	private JTextField txtNaslov;

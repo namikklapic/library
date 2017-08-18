@@ -10,6 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import bussines.BibliotekarServiceBean;
 import jpa.Student;
 import swing.knjigaPanels.KnjigaPregled;
 import swing.knjigaPanels.NovaKnjiga;
@@ -19,7 +20,7 @@ public class PanelStudent extends JFrame {
 	public PanelStudent(Student s){
 		JPanel p = new JPanel();
 		panel = this;
-		knjigaPregled = new KnjigaPregled(false);
+		knjigaPregled = new KnjigaPregled(false, s.getKorisnik());
 		posudbePregled = new PosudbePregled(s.getKorisnik());
 		JMenuBar menuBar = new JMenuBar();
 		JMenu knjigaMenu = new JMenu("Knjiga");
@@ -66,7 +67,6 @@ public class PanelStudent extends JFrame {
 //		add((new JPanel()).add(new JLabel("Hello from student dashboard")));
 		setTitle(s.getKorisnik().getImeKorisnika() + " " + s.getKorisnik().getPrezimeKorisnika());
 		add(p);
-		
 		
 		
 	}

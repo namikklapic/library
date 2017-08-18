@@ -1,8 +1,10 @@
 package bussines;
 
 import java.util.List;
+import jpa.Knjiga;
 
 import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import jpa.EntityManagerProducer;
 import jpa.Primjerak;
@@ -17,6 +19,16 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 					.createQuery("Select p from Primjerak p where p.inventarskiBroj =: invBroj")
 					.setParameter("invBroj", invBroj)
 					.getSingleResult();
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public List<Primjerak> getAllAvailablePrimjerakByBook(Knjiga k) {
+		List<Primjerak> result = null;
+		try {
+			Query query = em.createQuery("select p from Primjerak p where p.knjiga=:k and p.posudjen=0 and p.rezervisan=0");
+			query.setParameter("k",k);
+			result = query.getResultList();
 		} catch(NoResultException nre) {}
 		return result;
 	}

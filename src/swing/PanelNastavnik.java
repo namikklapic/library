@@ -12,6 +12,7 @@ import swing.posudbaPanels.PosudbePregled;
 public class PanelNastavnik extends JFrame {
 	public PanelNastavnik (Nastavnik n){
 		this.nastavnik = n;
+		knjigaPregled = new KnjigaPregled(false, nastavnik.getKorisnik());
 		this.posudbePregled = new PosudbePregled(n.getKorisnik());
 		setTitle(n.getKorisnik().getImeKorisnika() + " " + n.getKorisnik().getPrezimeKorisnika());
 		
@@ -40,6 +41,6 @@ public class PanelNastavnik extends JFrame {
 	}
 	private Nastavnik nastavnik;
 	
-	private KnjigaPregled knjigaPregled = new KnjigaPregled(false);
+	private KnjigaPregled knjigaPregled;
 	private PosudbePregled posudbePregled;
 }

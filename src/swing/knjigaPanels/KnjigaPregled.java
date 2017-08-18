@@ -13,13 +13,15 @@ import javax.swing.JTable;
 
 import bussines.KnjigaServiceBean;
 import jpa.Knjiga;
+import jpa.Korisnik;
 import tableModel.KnjigaTableModel;
 
 public class KnjigaPregled extends JFrame {
 	
 	
-	public KnjigaPregled(Boolean canEdit){
+	public KnjigaPregled(Boolean canEdit, Korisnik k){
 		
+		currUser = k;
 		setTitle("Pregled knjiga");
 		setSize(800, 800);
 		
@@ -30,15 +32,19 @@ public class KnjigaPregled extends JFrame {
 		
 		KnjigaTableModel model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
 		JTable table = new JTable(model);
-		
-		JButton edit = new JButton("Uredi");
+		String editBtnName;
+		if(canEdit)
+			editBtnName = "Edit";
+		else
+			editBtnName = "View details";
+		JButton edit = new JButton(editBtnName);
 		edit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				int selectedRow = table.getSelectedRow();
 				if(selectedRow > -1){
 					Knjiga k = model.getKnjiga(table.getSelectedRow());
-					NovaKnjiga nk = new NovaKnjiga(k, canEdit);
+					NovaKnjiga nk = new NovaKnjiga(k, canEdit, currUser);
 					nk.prikazi();
 				}
 			}
@@ -62,5 +68,6 @@ public class KnjigaPregled extends JFrame {
 	}
 	private JPanel panel;
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
+	private Korisnik currUser;
 	
 }
