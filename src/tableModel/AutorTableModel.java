@@ -9,7 +9,7 @@ import jpa.Autor;
 
 public class AutorTableModel extends AbstractTableModel {
 	
-	private String [] columnNames = {"Ime i prezime autora"};
+	private String [] columnNames = {"Author's first and last name"};
 	private List<Autor> autori;
 	
 	public AutorTableModel(){

@@ -185,14 +185,17 @@ public class PanelPrijava extends JPanel {
 				prijava.setBackground(Color.DARK_GRAY);
 				
 				JButton btnMinimize = new JButton("__");
+				btnMinimize.setOpaque(false);
 				btnMinimize.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent arg0) {
-						btnMinimize.setBackground(Color.GRAY);			
+						btnMinimize.setBackground(Color.GRAY);	
+						btnMinimize.setForeground(Color.DARK_GRAY);
 						}
 					@Override
 					public void mouseExited(MouseEvent e) {
 						btnMinimize.setBackground(Color.DARK_GRAY);
+						btnMinimize.setForeground(Color.WHITE);
 					}
 				});
 				btnMinimize.addActionListener(new ActionListener() {
@@ -202,22 +205,27 @@ public class PanelPrijava extends JPanel {
 					}
 				});
 				btnMinimize.setForeground(Color.WHITE);
-				btnMinimize.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+				btnMinimize.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
 				btnMinimize.setFocusPainted(false);
 				btnMinimize.setBorder(null);
 				btnMinimize.setBackground(Color.DARK_GRAY);
-				btnMinimize.setBounds(276, 13, 53, 35);
+				btnMinimize.setBounds(334, 13, 26, 23);
 				userLogin.add(btnMinimize);
 				
-				JButton btnExit = new JButton("X");
+				JButton btnExit = new JButton("x");
+				btnExit.setOpaque(false);
 				btnExit.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent arg0) {
-						btnExit.setBackground(Color.GRAY);			
+						btnExit.setBackground(Color.GRAY);	
+						btnExit.setForeground(Color.DARK_GRAY);
+
 						}
 					@Override
 					public void mouseExited(MouseEvent e) {
 						btnExit.setBackground(Color.DARK_GRAY);
+						btnExit.setForeground(Color.WHITE);
+
 					}
 				});
 				btnExit.addActionListener(new ActionListener() {
@@ -227,11 +235,11 @@ public class PanelPrijava extends JPanel {
 					}
 				});
 				btnExit.setForeground(Color.WHITE);
-				btnExit.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+				btnExit.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
 				btnExit.setFocusPainted(false);
 				btnExit.setBorder(null);
 				btnExit.setBackground(Color.DARK_GRAY);
-				btnExit.setBounds(335, 13, 53, 35);
+				btnExit.setBounds(362, 16, 26, 23);
 				userLogin.add(btnExit);
 		
 		JLabel lblNewLabel = new JLabel("");

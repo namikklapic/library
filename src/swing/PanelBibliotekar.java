@@ -54,10 +54,7 @@ public class PanelBibliotekar extends JFrame{
 		pregledKnjiga = new KnjigaPregled(true, bibliotekar.getKorisnik());
 		setTitle("Welcome "+ b.getKorisnik().getImeKorisnika() + " " + b.getKorisnik().getPrezimeKorisnika());
 		setResizable(false);
-		getContentPane().setLayout(null);
-		
-		setUndecorated(true);
-		
+		getContentPane().setLayout(null);		
 
 		// Frame options -- END
 		
@@ -101,7 +98,7 @@ public class PanelBibliotekar extends JFrame{
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(192, 192, 192,30));
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.setBounds(90, 13, 883, 748);
+		panel_1.setBounds(90, 13, 883, 713);
 		getContentPane().add(panel_1);
 		
 		CardLayout cl = (CardLayout)(panel_1.getLayout());
