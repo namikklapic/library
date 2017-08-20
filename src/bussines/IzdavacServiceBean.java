@@ -93,4 +93,10 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 		}
 		return -1;
 	}
+	
+	public boolean existsIzdavac(String izdavac){
+		if(getByName(izdavac) != null)
+			return true;
+		return false;
+	}
 }

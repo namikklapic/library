@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -24,11 +25,6 @@ import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 
 public class NoviIzdavac extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 
 	public NoviIzdavac() {
 		
@@ -43,16 +39,16 @@ public class NoviIzdavac extends JFrame {
 	    setResizable(false);
 		getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(12, 16, 470, 436);
 		panel.setBackground(new Color(255,255,255,70));
 		
-		JLabel imeIzdavaca = new JLabel("Name of publisher");
+		imeIzdavaca = new JLabel("Name of publisher");
 		imeIzdavaca.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
 		imeIzdavaca.setForeground(Color.BLACK);
 		imeIzdavaca.setBounds(167, 41, 160, 35);
 		
-		JButton ponisti = new JButton("Cancel");
+		ponisti = new JButton("Cancel");
 		ponisti.setBorder(null);
 		ponisti.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 		ponisti.setForeground(new Color(255, 255, 255));
@@ -70,6 +66,8 @@ public class NoviIzdavac extends JFrame {
 		});
 		ponisti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				txtIzdavac.setText("");
+				txtIzdavac.setBackground(Color.WHITE);
 				dispose();
 			}
 		});
@@ -80,7 +78,7 @@ public class NoviIzdavac extends JFrame {
 		panel.add(imeIzdavaca);
 		
 		
-		JButton potvrdi = new JButton ("Add");
+		potvrdi = new JButton ("Save");
 		potvrdi.setBorder(null);
 		potvrdi.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 		potvrdi.setForeground(new Color(255, 255, 255));
@@ -99,7 +97,9 @@ public class NoviIzdavac extends JFrame {
 		potvrdi.setBounds(100, 346, 97, 47);
 		potvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {				
-				izdavacServiceBean.save(new Izdavac(izdavacServiceBean.getCount() + 1, txtIzdavac.getText()));
+				if(isValidIzdavac())
+					saveIzdavac();
+				displayMessageDialogBox();
 			}
 		});
 		
@@ -114,6 +114,13 @@ public class NoviIzdavac extends JFrame {
 		Background.setIcon(new ImageIcon(NoviIzdavac.class.getResource("/swing/images/test.jpg")));
 		Background.setBounds(0, 0, 494, 465);
 		getContentPane().add(Background);
+		
+		panel.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent event){
+				txtIzdavac.setBackground(Color.WHITE);
+			}
+		});
 	}
 	
 	public NoviIzdavac(Izdavac i) {
@@ -132,12 +139,40 @@ public class NoviIzdavac extends JFrame {
 		return menuItem;
 	}
 	
-	
 	public void prikazi() {
 		setVisible(true);
 	}
 	
-	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
-	JTextField txtIzdavac = new JTextField(15);
+	public void saveIzdavac(){
+		izdavacServiceBean.save(new Izdavac(izdavacServiceBean.getCount()+1, txtIzdavac.getText()));
+		message = "The publisher has been successfully saved!";
+	}
 	
+	private boolean isValidIzdavac(){
+		if(txtIzdavac.getText().equals("") || txtIzdavac.getText().equals(null)){
+			txtIzdavac.setBackground(Color.RED);
+			message = "Publisher name is missing!";
+			return false;
+		}
+		if(izdavacServiceBean.existsIzdavac(txtIzdavac.getText())){
+			message = "Entered publisher alreday exists!";
+			return false;
+		}
+		return true;
+	}
+	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
+	}
+	
+	private JPanel panel;
+	
+	private String message;
+	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
+	
+	private JTextField txtIzdavac = new JTextField(15);
+	private JLabel imeIzdavaca;
+	private JButton ponisti;
+	private JButton potvrdi;
 }
