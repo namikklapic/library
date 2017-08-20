@@ -36,11 +36,11 @@ public class AutorPregled extends JFrame {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension velicinaEkrana = kit.getScreenSize();
 		int visinaProzora = 600;
-		int sirinaProzora = 800;
+		int sirinaProzora = 700;
 		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
 		setUndecorated(true);
 		
-		setSize(800, 600);
+		setSize(700, 600);
 		setResizable(false);
 		
 		AutorTableModel model = new AutorTableModel(autorServiceBean.getAllAutor());
@@ -48,13 +48,13 @@ public class AutorPregled extends JFrame {
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
-		panel.setBounds(12, 16, 776, 571);
+		panel.setBounds(12, 16, 676, 571);
 		
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 			scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 			scrollPane.setOpaque(false);
-			scrollPane.setBounds(0, 0, 458, 569);
+			scrollPane.setBounds(0, 0, 458, 571);
 			JTable table = new JTable(model);
 			table.addMouseListener(new MouseAdapter() {
 				@Override
@@ -75,8 +75,8 @@ public class AutorPregled extends JFrame {
 			table.getTableHeader().setOpaque(false);
 			table.getTableHeader().setBackground(new Color(255, 255, 255,150));
 			
-			JButton edit = new JButton("Uredi");
-			edit.setBounds(578, 346, 97, 37);
+			JButton edit = new JButton("Edit");
+			edit.setBounds(521, 345, 97, 37);
 			edit.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent event){
@@ -113,9 +113,11 @@ public class AutorPregled extends JFrame {
 			getContentPane().add(panel);
 			
 			JButton btnCancel = new JButton("Cancel");
+			btnCancel.setBackground(Color.DARK_GRAY);
 			btnCancel.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
+					btnCancel.setBackground(Color.DARK_GRAY);
 					dispose();
 				}
 				@Override
@@ -130,9 +132,8 @@ public class AutorPregled extends JFrame {
 			btnCancel.setForeground(Color.WHITE);
 			btnCancel.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 			btnCancel.setFocusPainted(false);
-			btnCancel.setBorder(null);
-			btnCancel.setBackground(Color.DARK_GRAY);
-			btnCancel.setBounds(578, 409, 97, 37);
+			btnCancel.setBorder(null);		
+			btnCancel.setBounds(521, 408, 97, 37);
 			panel.add(btnCancel);
 		
 		JLabel lblNewLabel = new JLabel("");

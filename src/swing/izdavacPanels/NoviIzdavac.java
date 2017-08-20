@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 
 import bussines.IzdavacServiceBean;
 import jpa.Izdavac;
+import swing.autorPanels.NoviAutor;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -30,37 +32,38 @@ public class NoviIzdavac extends JFrame {
 		
 		setTitle("Add a new publisher");
 		
-		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-	    int x = (int) ((dimension.getWidth() - getWidth()) / 2);
-	    int y = (int) ((dimension.getHeight() - getHeight()) / 2);
-	    setLocation(x-300, y-200);
-		setSize(500, 500);
-
-	    setResizable(false);
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension velicinaEkrana = kit.getScreenSize();
+		int visinaProzora = 400;
+		int sirinaProzora = 400;
+		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+		setUndecorated(true);
+		
+		setSize(400, 300);
 		getContentPane().setLayout(null);
 		
 		panel = new JPanel();
-		panel.setBounds(12, 16, 470, 436);
+		panel.setBounds(12, 16, 376, 271);
 		panel.setBackground(new Color(255,255,255,70));
 		
 		imeIzdavaca = new JLabel("Name of publisher");
-		imeIzdavaca.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
+		imeIzdavaca.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		imeIzdavaca.setForeground(Color.BLACK);
-		imeIzdavaca.setBounds(167, 41, 160, 35);
+		imeIzdavaca.setBounds(12, 86, 160, 35);
 		
 		ponisti = new JButton("Cancel");
 		ponisti.setBorder(null);
 		ponisti.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 		ponisti.setForeground(new Color(255, 255, 255));
-		ponisti.setBackground(new Color(0, 59, 70));
+		ponisti.setBackground(Color.DARK_GRAY);
 		ponisti.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				ponisti.setBackground(new Color(7, 87, 91));
+				ponisti.setBackground(Color.GRAY);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				ponisti.setBackground(new Color(0, 59, 70));
+				ponisti.setBackground(Color.DARK_GRAY);
 
 			}
 		});
@@ -71,7 +74,7 @@ public class NoviIzdavac extends JFrame {
 				dispose();
 			}
 		});
-		ponisti.setBounds(297, 349, 97, 41);
+		ponisti.setBounds(202, 214, 97, 41);
 		panel.setLayout(null);
 		
 		
@@ -85,16 +88,16 @@ public class NoviIzdavac extends JFrame {
 		potvrdi.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				potvrdi.setBackground(new Color(7, 87, 91));
+				potvrdi.setBackground(Color.GRAY);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				potvrdi.setBackground(new Color(0, 59, 70));
+				potvrdi.setBackground(Color.DARK_GRAY);
 
 			}
 		});
-		potvrdi.setBackground(new Color(0, 59, 70));
-		potvrdi.setBounds(100, 346, 97, 47);
+		potvrdi.setBackground(Color.DARK_GRAY);
+		potvrdi.setBounds(80, 214, 97, 41);
 		potvrdi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {				
 				if(isValidIzdavac())
@@ -104,16 +107,16 @@ public class NoviIzdavac extends JFrame {
 		});
 		
 		panel.add(potvrdi);
-		txtIzdavac.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
-		txtIzdavac.setBounds(155, 89, 183, 27);
+		txtIzdavac.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtIzdavac.setBounds(167, 90, 197, 27);
 		panel.add(txtIzdavac);
 		panel.add(ponisti);
 		getContentPane().add(panel);
 		
-		JLabel Background = new JLabel("");
-		Background.setIcon(new ImageIcon(NoviIzdavac.class.getResource("/swing/images/test.jpg")));
-		Background.setBounds(0, 0, 494, 465);
-		getContentPane().add(Background);
+		JLabel backgroundPicture = new JLabel("");
+		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
+		backgroundPicture.setBounds(0, 0, 400, 300);
+		getContentPane().add(backgroundPicture);
 		
 		panel.addMouseListener(new MouseAdapter(){
 			@Override

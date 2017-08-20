@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import jpa.Izdavac;
 
 public class IzdavacTableModel extends AbstractTableModel {
-	private String [] columnNames = {"Ime izdavaca"};
+	private String [] columnNames = {"Publishers first and last name"};
 	private List<Izdavac> izdavaci;
 	
 	public IzdavacTableModel() {
