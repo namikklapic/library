@@ -66,5 +66,26 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 		}
 		return entity;
 	}
+	/**
+	 * Returns the Autor specified by ime and prezime
+	 */
+	public Autor getByFirstAndLastName(String ime, String prezime){
+		Autor result = null;
+		try{
+			result = (Autor)em
+					.createQuery("Select a from Autor a where a.imeAutora=:ime and a.prezimeAutora=:prezime")
+					.setParameter("ime", ime)
+					.setParameter("prezime", prezime)
+					.getSingleResult();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
+	public boolean existsAutor(String ime, String prezime){
+		if(getByFirstAndLastName(ime, prezime) != null)
+			return true;
+		return false;
+	}
 
 }

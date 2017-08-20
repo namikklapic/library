@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -38,7 +39,7 @@ public class NoviAutor extends JFrame {
 		setSize(400, 300);
 		getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setLocation(12, 16);
 
@@ -52,13 +53,14 @@ public class NoviAutor extends JFrame {
 		prezimeAutora.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		prezimeAutora.setBounds(12, 122, 154, 16);
 		
-		JButton potvrdi = new JButton("Add");
+		JButton potvrdi = new JButton("Save");
 		potvrdi.setBounds(88, 222, 82, 36);
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				autorServiceBean.save(new Autor(autorServiceBean.getCount() + 1, 
-						txtIme.getText(), txtPrezime.getText()));
+				if(isValidAutor())
+					saveAutor();
+				displayMessageDialogBox();
 			}
 		});
 		potvrdi.setBorder(null);
@@ -96,6 +98,7 @@ public class NoviAutor extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				initializeUIElements();
 				dispose();
 			}
 		});
@@ -119,7 +122,13 @@ public class NoviAutor extends JFrame {
 		backgroundPicture.setBounds(0, 0, 400, 300);
 		getContentPane().add(backgroundPicture);
 		
-		
+		panel.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mousePressed(MouseEvent event){
+				txtIme.setBackground(Color.WHITE);
+				txtPrezime.setBackground(Color.WHITE);
+			}
+		});
 	}
 	
 	public NoviAutor(Autor a) {
@@ -143,7 +152,49 @@ public class NoviAutor extends JFrame {
 		setVisible(true);
 	}
 	
+	public void saveAutor(){
+		autorServiceBean.save(new Autor(autorServiceBean.getCount()+1, txtIme.getText(), txtPrezime.getText()));
+		message = "The author has been successfully saved!";
+	}
+	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
+	}
+	
+	private boolean isValidAutor(){
+		String ime = txtIme.getText();
+		String prezime = txtPrezime.getText();
+	
+		if(ime.equals("") || ime.equals(null)){
+			txtIme.setBackground(Color.RED);
+			message = "First name is missing!";
+			return false;
+		}
+		if(prezime.equals("") || prezime.equals(null)){
+			txtPrezime.setBackground(Color.RED);
+			message = "Last name is missing!";
+			return false;
+		}
+		if(autorServiceBean.existsAutor(ime, prezime)){
+			message = "The entered author already exists!";
+			return false;
+		}
+		return true;
+	}
+	
+	private void initializeUIElements(){
+		txtIme.setText("");
+		txtIme.setBackground(Color.WHITE);
+		txtPrezime.setText("");
+		txtPrezime.setBackground(Color.WHITE);
+	}
+	
+	private String message;
+	
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
+	
+	private JPanel panel;
 	private JTextField txtIme = new JTextField(20);
 	private JTextField txtPrezime = new JTextField(30);
 
