@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -164,6 +165,8 @@ public class NovaKnjiga extends JFrame {
 		txtGodIzdavanja.setText(Integer.toString(k.getGodinaIzdavanja()));
 		txtNegBodovi.setText(Integer.toString(k.getNegBodovi()));
 		txtBrPrimjeraka.setText(Integer.toString(k.getBrojPrimjeraka()));
+		cbVrstaKnjige.setSelectedIndex(vrstaKnjigeServiceBean.getIndexOfVrstaKnjige(k.getVrsta()));
+		cbIzdavac.setSelectedIndex(izdavacServiceBean.getIndexOfIzdavac(k.getIzdavac()));
 		
 		if(isEditable){
 			setTitle("Edit book");

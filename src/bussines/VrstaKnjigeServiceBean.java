@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -85,5 +86,13 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 		}
 		return entity;
 	}
-
+	
+	public int getIndexOfVrstaKnjige(VrstaKnjige vk){
+		List<VrstaKnjige> vkLista = getAllVrstaKnjige();
+		for(int i = 0; i < vkLista.size(); i++){
+			if(vkLista.get(i).toString().equals(vk.toString()))
+				return i;
+		}
+		return -1;
+	}
 }

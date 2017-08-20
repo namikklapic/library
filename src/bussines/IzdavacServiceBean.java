@@ -84,4 +84,13 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 		}
 		return entity;
 	}
+	
+	public int getIndexOfIzdavac(Izdavac izd){
+		List<Izdavac> izdLista = getAllIzdavac();
+		for(int i = 0; i < izdLista.size(); i++){
+			if(izdLista.get(i).toString().equals(izd.toString()))
+				return i;
+		}
+		return -1;
+	}
 }
