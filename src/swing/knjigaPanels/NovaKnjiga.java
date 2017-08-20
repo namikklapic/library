@@ -134,8 +134,7 @@ public class NovaKnjiga extends JFrame {
 			public void actionPerformed(ActionEvent event){
 				if(isValidBook() == true)
 					saveBook();
-				else
-					displayMessageDialogBox();
+				displayMessageDialogBox();
 			}
 		});
 		panel.add(btnPotvrdi);
@@ -266,40 +265,64 @@ public class NovaKnjiga extends JFrame {
 	
 	private void clearView(){
 		txtNaslov.setText("");
+		txtNaslov.setBackground(Color.WHITE);
 		txtOrgNaslov.setText("");
+		txtOrgNaslov.setBackground(Color.WHITE);
 		txtBrStranica.setText("");
+		txtBrStranica.setBackground(Color.WHITE);
 		txtGodIzdavanja.setText("");
+		txtGodIzdavanja.setBackground(Color.WHITE);
 		txtNegBodovi.setText("");
+		txtNegBodovi.setBackground(Color.WHITE);
 		cbVrstaKnjige.setSelectedItem(null);
+		cbVrstaKnjige.setBackground(Color.WHITE);
 		cbIzdavac.setSelectedItem(null);
+		cbIzdavac.setBackground(Color.WHITE);
 		lookupAutori.initializeLookup();
+		lookupAutori.getSelected().setBackground(Color.WHITE);
 		txtBrPrimjeraka.setText("");
+		txtBrPrimjeraka.setBackground(Color.WHITE);
 	}
 	
 	private boolean isBookDataEmpty(){
-		boolean success = false;
+		boolean success = true;
 		
-		if(txtNaslov.getText().equals(null) || txtNaslov.getText().equals(""))
+		if(txtNaslov.getText().equals(null) || txtNaslov.getText().equals("")){
 			txtNaslov.setBackground(Color.RED);
-		if(txtOrgNaslov.getText().equals(null) || txtOrgNaslov.getText().equals(""))
+			success = false;
+		}		
+		if(txtOrgNaslov.getText().equals(null) || txtOrgNaslov.getText().equals("")){
 			txtOrgNaslov.setBackground(Color.RED);
-		if(txtBrStranica.getText().equals(null) || txtBrStranica.getText().equals(""))
+			success = false;
+		}	
+		if(txtBrStranica.getText().equals(null) || txtBrStranica.getText().equals("")){
 			txtBrStranica.setBackground(Color.RED);
-		if(txtGodIzdavanja.getText().equals(null) || txtGodIzdavanja.getText().equals(""))
+			success = false;
+		}
+		if(txtGodIzdavanja.getText().equals(null) || txtGodIzdavanja.getText().equals("")){
 			txtGodIzdavanja.setBackground(Color.RED);
-		if(txtNegBodovi.getText().equals(null) || txtNegBodovi.getText().equals(""))
+			success = false;
+		}
+		if(txtNegBodovi.getText().equals(null) || txtNegBodovi.getText().equals("")){
 			txtNegBodovi.setBackground(Color.RED);
-		if(cbVrstaKnjige.getSelectedItem() == null)
-			cbVrstaKnjige.setBackground(Color.RED);
-		if(cbIzdavac.getSelectedItem() == null)
+			success = false;
+		}
+		if(cbVrstaKnjige.getSelectedItem() == null){
+			cbVrstaKnjige.setBackground(Color.RED);	
+			success = false;
+		}
+		if(cbIzdavac.getSelectedItem() == null){
 			cbIzdavac.setBackground(Color.RED);
-		if(lookupAutori.getSelected().getText().equals(null) || lookupAutori.getSelected().getText().equals(""))
+			success = false;
+		}
+		if(lookupAutori.getSelected().getText().equals(null) || lookupAutori.getSelected().getText().equals("")){
 			lookupAutori.getSelected().setBackground(Color.RED);
-		if(txtBrPrimjeraka.getText().equals(null) || txtBrPrimjeraka.getText().equals(""))
+			success = false;
+		}
+		if(txtBrPrimjeraka.getText().equals(null) || txtBrPrimjeraka.getText().equals("")){
 			txtBrPrimjeraka.setBackground(Color.RED);
-		else
-			success = true;
-		
+			success = false;
+		}
 		return success;
 	}
 	
@@ -390,6 +413,7 @@ public class NovaKnjiga extends JFrame {
 			temp.setPosudjen(false);
 			primjerakServiceBean.save(temp);
 		}
+		message = "The book has been successfully saved!";
 	}
 	
 	private JPanel panel;
