@@ -1,11 +1,15 @@
 package swing.studentiPanels;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,37 +23,106 @@ import bussines.KorisnikServiceBean;
 import bussines.StudentServiceBean;
 import jpa.Korisnik;
 import jpa.Student;
+import swing.autorPanels.NoviAutor;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class NoviStudent extends JFrame {
 	
 	public NoviStudent() {
 		setTitle("New student");
+		
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension velicinaEkrana = kit.getScreenSize();
+		int visinaProzora = 500;
+		int sirinaProzora = 500;
+		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+		setUndecorated(true);
+		
 		setSize(500, 500);
 		
 		panel = new JPanel();
-		panel.setSize(500, 500);
+		panel.setSize(476, 471);
+		panel.setBackground(new Color(255, 255, 255,150));
+		panel.setLocation(12, 16);
+		panel.setLayout(null);
 		
 		ime = new JLabel ("First name: ");
+		ime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		ime.setBounds(36, 101, 171, 25);
 		panel.add(ime);
+		txtIme.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtIme.setBackground(Color.white);
+			}
+		});
+		txtIme.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtIme.setBounds(219, 102, 222, 22);
 		panel.add(txtIme);
 		
 		prezime = new JLabel("Last name: ");
+		prezime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		prezime.setBounds(36, 139, 171, 25);
 		panel.add(prezime);
+		txtPrezime.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtPrezime.setBackground(Color.white);
+
+			}
+		});
+		txtPrezime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtPrezime.setBounds(219, 140, 222, 22);
 		panel.add(txtPrezime);
 		
 		jmbg = new JLabel("Personal ID: ");
+		jmbg.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		jmbg.setBounds(36, 177, 171, 25);
 		panel.add(jmbg);
+		txtJmbg.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtJmbg.setBackground(Color.white);
+
+			}
+		});
+		txtJmbg.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtJmbg.setBounds(219, 178, 222, 22);
 		panel.add(txtJmbg);
 		
 		brojIndeksa = new JLabel("Student number: ");
+		brojIndeksa.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		brojIndeksa.setBounds(36, 215, 171, 25);
 		panel.add(brojIndeksa);
+		txtBrojIndeksa.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtBrojIndeksa.setBackground(Color.white);
+
+			}
+		});
+		txtBrojIndeksa.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtBrojIndeksa.setBounds(219, 216, 222, 22);
 		panel.add(txtBrojIndeksa);
 		
 		upisaniSem = new JLabel("Registered semester: ");
+		upisaniSem.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		upisaniSem.setBounds(36, 253, 171, 25);
 		panel.add(upisaniSem);
+		txtUpisaniSem.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtUpisaniSem.setBackground(Color.white);
+
+			}
+		});
+		txtUpisaniSem.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtUpisaniSem.setBounds(219, 254, 222, 22);
 		panel.add(txtUpisaniSem);
 		
 		potvrdi = new JButton("Save");
+		potvrdi.setBounds(150, 397, 87, 41);
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -58,26 +131,64 @@ public class NoviStudent extends JFrame {
 				displayMessageDialogBox();
 			}
 		});
+		potvrdi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				potvrdi.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				potvrdi.setBackground(Color.DARK_GRAY);
+			}
+		});
+		potvrdi.setBorder(null);
+		potvrdi.setFocusPainted(false);
+		potvrdi.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		potvrdi.setForeground(new Color(255, 255, 255));
+		potvrdi.setBackground(Color.DARK_GRAY);
 		panel.add(potvrdi);
 		
 		ponisti = new JButton("Cancel");
+		ponisti.setBounds(249, 397, 87, 41);
 		ponisti.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				initializeUIElements();
 				dispose();
+				ponisti.setBackground(Color.DARK_GRAY);
 			}
 		});
+		ponisti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				ponisti.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ponisti.setBackground(Color.DARK_GRAY);
+			}
+		});
+		ponisti.setBorder(null);
+		ponisti.setFocusPainted(false);
+		ponisti.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		ponisti.setForeground(new Color(255, 255, 255));
+		ponisti.setBackground(Color.DARK_GRAY);
 		panel.add(ponisti);
 		
-		panel.addMouseListener(new MouseAdapter(){
+		/*panel.addMouseListener(new MouseAdapter(){
 			@Override
 			public void mousePressed(MouseEvent event){
 				setUIElementsColor(Color.WHITE);
 			}			
-		});
+		});*/
+		getContentPane().setLayout(null);
 							
-		add(panel);
+		getContentPane().add(panel);
+		
+		JLabel backgroundPicture = new JLabel("");
+		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
+		backgroundPicture.setBounds(0, 0, 500, 500);
+		getContentPane().add(backgroundPicture);
 	}
 	
 	public NoviStudent(Student s) {
@@ -134,7 +245,7 @@ public class NoviStudent extends JFrame {
 			return false;
 		}
 		else if(txtJmbg.getText().contains("[a-zA-Z]+") || txtJmbg.getText().length() != 13){
-			txtJmbg.setBackground(Color.RED);
+			txtJmbg.setBackground(Color.LIGHT_GRAY);
 			message = "Personal ID must contain 13 digits!";
 			return false;
 		}
@@ -169,23 +280,23 @@ public class NoviStudent extends JFrame {
 		boolean success = false;
 		
 		if(txtIme.getText().equals("") || txtIme.getText().equals(null)){
-			txtIme.setBackground(Color.RED);
+			txtIme.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtPrezime.getText().equals("") || txtPrezime.getText().equals(null)){
-			txtPrezime.setBackground(Color.RED);
+			txtPrezime.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtJmbg.getText().equals("") || txtJmbg.getText().equals(null)){
-			txtJmbg.setBackground(Color.RED);
+			txtJmbg.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtBrojIndeksa.getText().equals("") || txtBrojIndeksa.equals(null)){
-			txtBrojIndeksa.setBackground(Color.RED);
+			txtBrojIndeksa.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtUpisaniSem.getText().equals("") || txtUpisaniSem.equals(null)){
-			txtUpisaniSem.setBackground(Color.RED);
+			txtUpisaniSem.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		return success;
