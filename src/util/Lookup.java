@@ -69,15 +69,15 @@ public class Lookup<T> extends JPanel {
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				options.dispose();
 				setSelectionText();
+				options.dispose();
 			}
 		});
-		ponisti = new JButton("Abort");
+		ponisti = new JButton("Cancel");
 		ponisti.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				setSelectionText();
+				options.dispose();
 			}
 		});
 		
@@ -99,7 +99,7 @@ public class Lookup<T> extends JPanel {
 				options.setVisible(true);
 			}
 		});
-		cancelSelection = new JButton("Abort");
+		//cancelSelection = new JButton("Abort");
 		add(selected);
 		add(openDialog);
 		//add(cancelSelection);
@@ -132,7 +132,7 @@ public class Lookup<T> extends JPanel {
 		remove(potvrdi);
 		remove(ponisti);
 		remove(openDialog);
-		remove(cancelSelection);
+		//remove(cancelSelection);
 		selected.setEditable(false);
 	}
 	
@@ -146,6 +146,6 @@ public class Lookup<T> extends JPanel {
 	private JButton potvrdi;
 	private JButton ponisti;
 	private JButton openDialog;
-	private JButton cancelSelection;
+	//private JButton cancelSelection;
 }
 

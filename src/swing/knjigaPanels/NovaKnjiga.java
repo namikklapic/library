@@ -336,7 +336,7 @@ public class NovaKnjiga extends JFrame {
 		}catch(NullPointerException e){
 			return false;
 		}
-		if(num < 0)
+		if(num < 1)
 			return false;
 		
 		return true;
@@ -349,7 +349,7 @@ public class NovaKnjiga extends JFrame {
 			return false;
 		}
 		else if(isNumeric(txtBrStranica.getText()) == false){
-			message = "Number of pages must be a positive number!";
+			message = "Invalid number of pages!";
 			txtBrStranica.setBackground(Color.RED);
 			return false;
 		}
@@ -359,12 +359,12 @@ public class NovaKnjiga extends JFrame {
 			return false;
 		}
 		else if(isNumeric(txtNegBodovi.getText()) == false){
-			message = "Negative points must be a positive number!";
+			message = "Invalid number of negative points!";
 			txtNegBodovi.setBackground(Color.RED);
 			return false;
 		}
 		else if(isNumeric(txtBrPrimjeraka.getText()) == false){
-			message = "Number of copies must be a positive number!";
+			message = "Invalid number of copies!";
 			txtBrPrimjeraka.setBackground(Color.RED);
 			return false;
 		}
