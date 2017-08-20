@@ -17,9 +17,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class Lookup<T> extends JPanel {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public Lookup (List<T> items){
@@ -30,7 +28,7 @@ public class Lookup<T> extends JPanel {
 			listModel.addElement(element);
 		}
 		
-		
+	
 		JScrollPane scrollOptions = new JScrollPane();
 		scrollOptions.setPreferredSize(new Dimension(120, 180));
 		JList<T> selectionLista = new JList<T>(listModel);
@@ -57,8 +55,11 @@ public class Lookup<T> extends JPanel {
 		selectedItemsList.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent event) {
-				if(!event.getValueIsAdjusting()) {
-					
+				if(!event.getValueIsAdjusting() && selectedItemsList.getSelectedValue() != null) {
+					try{
+						listModel.addElement(selectedItemsList.getSelectedValue());
+						selectedItemsListModel.remove(selectedItemsList.getSelectedIndex());
+					}catch(Exception e) {}
 				}
 			}
 		});
@@ -77,6 +78,7 @@ public class Lookup<T> extends JPanel {
 		ponisti.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
+				selectedItemsListModel.removeAllElements();
 				options.dispose();
 			}
 		});

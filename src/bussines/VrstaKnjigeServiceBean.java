@@ -95,4 +95,10 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 		}
 		return -1;
 	}
+	
+	public boolean existsVrstaKnjige(String vkNaziv){
+		if(getByName(vkNaziv) != null)
+			return true;
+		return false;
+	}
 }
