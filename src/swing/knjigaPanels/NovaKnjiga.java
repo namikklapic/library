@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -144,11 +146,18 @@ public class NovaKnjiga extends JFrame {
 		btnOdustani.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				clearView();
+				initializeUIElements();
 				dispose();
 			}
 		});
 		panel.add(btnOdustani);
+		
+	panel.addMouseListener(new MouseAdapter(){
+		@Override
+		public void mousePressed(MouseEvent event){
+			setUIElementsColor(Color.WHITE);
+		}
+	});
 		
 		
 		add(panel);	
@@ -266,25 +275,30 @@ public class NovaKnjiga extends JFrame {
 		setVisible(true);
 	}
 	
-	private void clearView(){
+	private void initializeUIElements(){
 		txtNaslov.setText("");
-		txtNaslov.setBackground(Color.WHITE);
 		txtOrgNaslov.setText("");
-		txtOrgNaslov.setBackground(Color.WHITE);
 		txtBrStranica.setText("");
-		txtBrStranica.setBackground(Color.WHITE);
 		txtGodIzdavanja.setText("");
-		txtGodIzdavanja.setBackground(Color.WHITE);
 		txtNegBodovi.setText("");
-		txtNegBodovi.setBackground(Color.WHITE);
 		cbVrstaKnjige.setSelectedItem(null);
-		cbVrstaKnjige.setBackground(Color.WHITE);
 		cbIzdavac.setSelectedItem(null);
-		cbIzdavac.setBackground(Color.WHITE);
 		lookupAutori.initializeLookup();
-		lookupAutori.getSelected().setBackground(Color.WHITE);
 		txtBrPrimjeraka.setText("");
-		txtBrPrimjeraka.setBackground(Color.WHITE);
+		
+		setUIElementsColor(Color.WHITE);
+	}
+	
+	private void setUIElementsColor(Color c){
+		txtNaslov.setBackground(c);
+		txtOrgNaslov.setBackground(c);
+		txtBrStranica.setBackground(c);
+		txtGodIzdavanja.setBackground(c);
+		txtNegBodovi.setBackground(c);
+		cbVrstaKnjige.setBackground(c);
+		cbIzdavac.setBackground(c);
+		lookupAutori.getSelected().setBackground(c);
+		txtBrPrimjeraka.setBackground(c);
 	}
 	
 	private boolean isBookDataEmpty(){
