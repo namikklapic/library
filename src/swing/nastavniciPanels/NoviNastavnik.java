@@ -1,12 +1,16 @@
 package swing.nastavniciPanels;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,38 +28,67 @@ import jpa.Nastavnik;
 import jpa.NastavnikPredmet;
 import jpa.NastavnikPredmetPK;
 import jpa.Predmet;
+import swing.autorPanels.NoviAutor;
 import util.Lookup;
 
 public class NoviNastavnik extends JFrame{
 	
 	public NoviNastavnik(){
+		
+		getContentPane().setLayout(null);
+		
 		setTitle("New teacher");
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension velicinaEkrana = kit.getScreenSize();
+		int visinaProzora = 500;
+		int sirinaProzora = 500;
+		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+		setUndecorated(true);
 		setSize(500, 500);
 		
 		panel = new JPanel();
-		panel.setSize(500, 500);
+		panel.setSize(476, 471);
+		panel.setBackground(new Color(255, 255, 255,150));
+		panel.setLocation(12, 16);
+		panel.setLayout(null);
 		
 		ime = new JLabel("First name: ");
+		ime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		ime.setBounds(32, 118, 127, 16);
 		panel.add(ime);
+		txtIme.setBounds(171, 115, 293, 22);
 		panel.add(txtIme);
 		
 		prezime = new JLabel("Last name: ");
+		prezime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		prezime.setBounds(32, 153, 127, 16);
 		panel.add(prezime);
+		txtPrezime.setBounds(171, 150, 293, 22);
 		panel.add(txtPrezime);
 		
 		zvanje = new JLabel("Academic title: ");
+		zvanje.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		zvanje.setBounds(32, 190, 127, 16);
 		panel.add(zvanje);
+		txtZvanje.setBounds(171, 187, 293, 22);
 		panel.add(txtZvanje); //moze i ovo biti dropdown
 		
 		predmeti = new JLabel("Subjects: ");
+		predmeti.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		predmeti.setBounds(32, 245, 127, 16);
 		panel.add(predmeti);
+		predmetiLookup.setBounds(171, 229, 293, 49);
 		panel.add(predmetiLookup);
 		
 		jmbg = new JLabel("Personal ID: ");
+		jmbg.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		jmbg.setBounds(32, 295, 127, 16);
 		panel.add(jmbg);
+		txtJmbg.setBounds(171, 292, 293, 22);
 		panel.add(txtJmbg);
 		
 		potvrdi = new JButton("Save");
+		potvrdi.setBounds(150, 397, 87, 41);
 		potvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -64,26 +97,58 @@ public class NoviNastavnik extends JFrame{
 				displayMessageDialogBox();
 			}
 		});
+		potvrdi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				potvrdi.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				potvrdi.setBackground(Color.DARK_GRAY);
+			}
+		});
+		potvrdi.setBorder(null);
+		potvrdi.setFocusPainted(false);
+		potvrdi.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		potvrdi.setForeground(new Color(255, 255, 255));
+		potvrdi.setBackground(Color.DARK_GRAY);
 		panel.add(potvrdi);
 		
 		ponisti = new JButton("Cancel");
+		ponisti.setBounds(249, 397, 87, 41);
 		ponisti.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				initializeUIElements();
 				dispose();
+				ponisti.setBackground(Color.DARK_GRAY);
+
 			}
 		});
+		ponisti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				ponisti.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				ponisti.setBackground(Color.DARK_GRAY);
+			}
+		});
+		ponisti.setBorder(null);
+		ponisti.setFocusPainted(false);
+		ponisti.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		ponisti.setForeground(new Color(255, 255, 255));
+		ponisti.setBackground(Color.DARK_GRAY);
 		panel.add(ponisti);
 		
-		panel.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mousePressed(MouseEvent event){
-				setUIElementsColor(Color.WHITE);
-			}
-		});
 		
-		add(panel);
+		getContentPane().add(panel);
+		
+		JLabel backgroundPicture = new JLabel("");
+		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
+		backgroundPicture.setBounds(0, 0, 500, 500);
+		getContentPane().add(backgroundPicture);
 	}
 	
 	public NoviNastavnik(Nastavnik n){

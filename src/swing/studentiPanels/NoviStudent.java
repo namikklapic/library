@@ -175,12 +175,6 @@ public class NoviStudent extends JFrame {
 		ponisti.setBackground(Color.DARK_GRAY);
 		panel.add(ponisti);
 		
-		/*panel.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mousePressed(MouseEvent event){
-				setUIElementsColor(Color.WHITE);
-			}			
-		});*/
 		getContentPane().setLayout(null);
 							
 		getContentPane().add(panel);
