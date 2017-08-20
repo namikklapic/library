@@ -302,43 +302,43 @@ public class NovaKnjiga extends JFrame {
 	}
 	
 	private boolean isBookDataEmpty(){
-		boolean success = true;
+		boolean success = false;
 		
 		if(txtNaslov.getText().equals(null) || txtNaslov.getText().equals("")){
 			txtNaslov.setBackground(Color.RED);
-			success = false;
+			success = true;
 		}		
 		if(txtOrgNaslov.getText().equals(null) || txtOrgNaslov.getText().equals("")){
 			txtOrgNaslov.setBackground(Color.RED);
-			success = false;
+			success = true;
 		}	
 		if(txtBrStranica.getText().equals(null) || txtBrStranica.getText().equals("")){
 			txtBrStranica.setBackground(Color.RED);
-			success = false;
+			success = true;
 		}
 		if(txtGodIzdavanja.getText().equals(null) || txtGodIzdavanja.getText().equals("")){
 			txtGodIzdavanja.setBackground(Color.RED);
-			success = false;
+			success = true;
 		}
 		if(txtNegBodovi.getText().equals(null) || txtNegBodovi.getText().equals("")){
 			txtNegBodovi.setBackground(Color.RED);
-			success = false;
+			success = true;
 		}
 		if(cbVrstaKnjige.getSelectedItem() == null){
 			cbVrstaKnjige.setBackground(Color.RED);	
-			success = false;
+			success = true;
 		}
 		if(cbIzdavac.getSelectedItem() == null){
 			cbIzdavac.setBackground(Color.RED);
-			success = false;
+			success = true;
 		}
 		if(lookupAutori.getSelected().getText().equals(null) || lookupAutori.getSelected().getText().equals("")){
 			lookupAutori.getSelected().setBackground(Color.RED);
-			success = false;
+			success = true;
 		}
 		if(txtBrPrimjeraka.getText().equals(null) || txtBrPrimjeraka.getText().equals("")){
 			txtBrPrimjeraka.setBackground(Color.RED);
-			success = false;
+			success = true;
 		}
 		return success;
 	}
@@ -361,26 +361,26 @@ public class NovaKnjiga extends JFrame {
 	
 	private boolean isValidBook(){
 		
-		if(isBookDataEmpty() == false){
+		if(isBookDataEmpty()){
 			message = "All data must be entered!";
 			return false;
 		}
-		else if(isNumeric(txtBrStranica.getText()) == false){
+		else if(!isNumeric(txtBrStranica.getText())){
 			message = "Invalid number of pages!";
 			txtBrStranica.setBackground(Color.RED);
 			return false;
 		}
-		else if(isNumeric(txtGodIzdavanja.getText()) == false || txtGodIzdavanja.getText().length() != 4){
+		else if(!isNumeric(txtGodIzdavanja.getText()) || txtGodIzdavanja.getText().length() != 4){
 			message = "Invalid year!";
 			txtGodIzdavanja.setBackground(Color.RED);
 			return false;
 		}
-		else if(isNumeric(txtNegBodovi.getText()) == false){
+		else if(!isNumeric(txtNegBodovi.getText())){
 			message = "Invalid number of negative points!";
 			txtNegBodovi.setBackground(Color.RED);
 			return false;
 		}
-		else if(isNumeric(txtBrPrimjeraka.getText()) == false){
+		else if(!isNumeric(txtBrPrimjeraka.getText())){
 			message = "Invalid number of copies!";
 			txtBrPrimjeraka.setBackground(Color.RED);
 			return false;

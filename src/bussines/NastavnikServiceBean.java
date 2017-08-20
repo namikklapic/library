@@ -41,6 +41,12 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		return result;
 	}
 	
+	public boolean existsNastavnik(String jmbg){
+		if(searchByJMBG(jmbg) != null)
+			return true;
+		return false;
+	}
+	
 	public Integer getCount() {
 		Long c = (long) 0;
 		try {
