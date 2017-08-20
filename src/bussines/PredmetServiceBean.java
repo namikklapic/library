@@ -17,7 +17,7 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 		Predmet result = null;
 		try{
 			result = (Predmet)em
-							  .createQuery("Select p from Predmet where p.sifraPredmeta =:sifraPredmeta")
+							  .createQuery("Select p from Predmet p where p.sifraPredmeta=:sifraPredmeta")
 							  .setParameter("sifraPredmeta", sifraPredmeta)
 							  .getSingleResult();
 		}catch(NoResultException nre) {}
@@ -60,5 +60,47 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 			super.save(entity);
 		}
 		return entity;
+	}
+	
+	public Predmet getByNazivPredmeta(String naziv){
+		Predmet result = null;
+		try{
+			result = (Predmet)em
+					.createQuery("Select p from Predmet p where p.nazivPredmeta=:naziv")
+					.setParameter("naziv", naziv)
+					.getSingleResult();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
+	public Predmet getBySkraceniNaziv(String skrNaziv){
+		Predmet result = null;
+		try{
+			result = (Predmet)em
+					.createQuery("Select p from Predmet p where p.skraceniNazivPredmeta=:skrNaziv")
+					.setParameter("skrNaziv", skrNaziv)
+					.getSingleResult();
+		}catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
+	public boolean existsPredmetByNaziv(String naziv){
+		if(getByNazivPredmeta(naziv) != null)
+			return true;
+		return false;
+	}
+	
+	public boolean existsPredmetBySkraceniNaziv(String naziv){
+		if(getBySkraceniNaziv(naziv) != null)
+			return true;
+		return false;
+	}
+	
+	public boolean existsPredmetBySifra(String sifra){
+		if(getBySifraPredmeta(sifra) != null)
+			return true;
+		return false;
 	}
 }
