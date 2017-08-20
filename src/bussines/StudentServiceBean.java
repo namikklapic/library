@@ -35,6 +35,24 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 		return result;
 	}
 	
+	public Student searchByJMBG(String jmbg){
+		Student result = null;
+		try{
+			result = (Student)em
+					.createQuery("Select s from Student s inner join s.korisnik k where k.sifra=:jmbg")
+					.setParameter("jmbg", jmbg)
+					.getSingleResult();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
+	public boolean existsStudent(String jmbg){
+		if(searchByJMBG(jmbg) != null)
+			return true;
+		return false;
+	}
+	
 	public List<Student> getAllStudent(){
 		List<Student> result = null;
 		try {
