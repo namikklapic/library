@@ -30,6 +30,8 @@ import jpa.NastavnikPredmetPK;
 import jpa.Predmet;
 import swing.autorPanels.NoviAutor;
 import util.Lookup;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class NoviNastavnik extends JFrame{
 	
@@ -56,6 +58,12 @@ public class NoviNastavnik extends JFrame{
 		ime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		ime.setBounds(32, 118, 127, 16);
 		panel.add(ime);
+		txtIme.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtIme.setBackground(Color.WHITE);
+			}
+		});
 		txtIme.setBounds(171, 115, 293, 22);
 		panel.add(txtIme);
 		
@@ -63,6 +71,12 @@ public class NoviNastavnik extends JFrame{
 		prezime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		prezime.setBounds(32, 153, 127, 16);
 		panel.add(prezime);
+		txtPrezime.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtPrezime.setBackground(Color.WHITE);
+			}
+		});
 		txtPrezime.setBounds(171, 150, 293, 22);
 		panel.add(txtPrezime);
 		
@@ -70,6 +84,12 @@ public class NoviNastavnik extends JFrame{
 		zvanje.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		zvanje.setBounds(32, 190, 127, 16);
 		panel.add(zvanje);
+		txtZvanje.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtZvanje.setBackground(Color.WHITE);
+			}
+		});
 		txtZvanje.setBounds(171, 187, 293, 22);
 		panel.add(txtZvanje); //moze i ovo biti dropdown
 		
@@ -77,6 +97,12 @@ public class NoviNastavnik extends JFrame{
 		predmeti.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		predmeti.setBounds(32, 245, 127, 16);
 		panel.add(predmeti);
+		predmetiLookup.getSelected().addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				predmetiLookup.getSelected().setBackground(Color.WHITE);
+			}
+		});
 		predmetiLookup.setBounds(171, 229, 293, 49);
 		panel.add(predmetiLookup);
 		
@@ -84,6 +110,12 @@ public class NoviNastavnik extends JFrame{
 		jmbg.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		jmbg.setBounds(32, 295, 127, 16);
 		panel.add(jmbg);
+		txtJmbg.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtJmbg.setBackground(Color.WHITE);
+			}
+		});
 		txtJmbg.setBounds(171, 292, 293, 22);
 		panel.add(txtJmbg);
 		
@@ -201,7 +233,7 @@ public class NoviNastavnik extends JFrame{
 			return false;
 		}
 		else if(txtJmbg.getText().contains("[a-zA-Z]+") || txtJmbg.getText().length() != 13){
-			txtJmbg.setBackground(Color.RED);
+			txtJmbg.setBackground(Color.LIGHT_GRAY);
 			message = "Personal ID must contain 13 digits!";
 			return false;
 		}
@@ -216,23 +248,23 @@ public class NoviNastavnik extends JFrame{
 		boolean success = false;
 		
 		if(txtIme.getText().equals("") || txtIme.getText().equals(null)){
-			txtIme.setBackground(Color.RED);
+			txtIme.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtPrezime.getText().equals("") || txtPrezime.getText().equals(null)){
-			txtPrezime.setBackground(Color.RED);
+			txtPrezime.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtZvanje.getText().equals("") || txtZvanje.getText().equals(null)){
-			txtZvanje.setBackground(Color.RED);
+			txtZvanje.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(predmetiLookup.getSelected().getText().equals("") || predmetiLookup.getSelected().getText().equals(null)){
-			predmetiLookup.getSelected().setBackground(Color.RED);
+			predmetiLookup.getSelected().setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtJmbg.getText().equals("") || txtJmbg.getText().equals(null)){
-			txtJmbg.setBackground(Color.RED);
+			txtJmbg.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		return success;

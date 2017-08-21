@@ -195,7 +195,7 @@ public class Lookup<T> extends JPanel {
 		setLayout(null);
 		setBackground(new Color(255,255,255,70));
 		selected.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		selected.setBounds(12, 11, 180, 24);
+		selected.setBounds(0, 12, 192, 24);
 		//cancelSelection = new JButton("Abort");
 		add(selected);
 		add(openDialog);

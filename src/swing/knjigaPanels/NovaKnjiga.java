@@ -49,41 +49,56 @@ public class NovaKnjiga extends JFrame {
 		setSize(800, 800);
 		
 		panel = new JPanel();
-		panel.setSize(800, 800);
+		panel.setLocation(0, 0);
+		panel.setSize(782, 753);
 		
 		knjiga = null;
 		
 		lbNaslov = new JLabel("Title: ");
+		lbNaslov.setBounds(23, 8, 34, 16);
 		txtNaslov = new JTextField(20);
+		txtNaslov.setBounds(62, 5, 226, 22);
+		panel.setLayout(null);
 		panel.add(lbNaslov);
 		panel.add(txtNaslov);
 		
 		lbOrgNaslov = new JLabel("Original title: ");
+		lbOrgNaslov.setBounds(293, 8, 78, 16);
 		txtOrgNaslov = new JTextField(20);
+		txtOrgNaslov.setBounds(376, 5, 226, 22);
 		panel.add(lbOrgNaslov);
 		panel.add(txtOrgNaslov);
 		
 		lbBrStranica = new JLabel("Number of pages: ");
+		lbBrStranica.setBounds(607, 8, 107, 16);
 		txtBrStranica = new JTextField(3);
+		txtBrStranica.setBounds(719, 5, 39, 22);
 		panel.add(lbBrStranica);
 		panel.add(txtBrStranica);
 		
 		lbGodIzdavanja = new JLabel("Publishing year: ");
+		lbGodIzdavanja.setBounds(39, 36, 95, 16);
 		txtGodIzdavanja = new JTextField(4);
+		txtGodIzdavanja.setBounds(139, 33, 50, 22);
 		panel.add(lbGodIzdavanja);
 		panel.add(txtGodIzdavanja);
 		
 		lbNegBodovi = new JLabel("Negative points: ");
+		lbNegBodovi.setBounds(194, 36, 96, 16);
 		txtNegBodovi = new JTextField(3);
+		txtNegBodovi.setBounds(295, 33, 39, 22);
 		panel.add(lbNegBodovi);
 		panel.add(txtNegBodovi);
 		
 		lbVrstaKnjige = new JLabel("Book type: ");
+		lbVrstaKnjige.setBounds(339, 36, 64, 16);
 		cbVrstaKnjige = new JComboBox<VrstaKnjige>();
+		cbVrstaKnjige.setBounds(408, 33, 31, 22);
 		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige())
 			cbVrstaKnjige.addItem(vk);
 		cbVrstaKnjige.setSelectedItem(null);
 		btnAddNovaVrsta = new JButton("+");
+		btnAddNovaVrsta.setBounds(444, 32, 41, 25);
 		btnAddNovaVrsta.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -96,11 +111,14 @@ public class NovaKnjiga extends JFrame {
 		panel.add(btnAddNovaVrsta);
 		
 		lbIzdavac = new JLabel("Publisher: ");
+		lbIzdavac.setBounds(490, 36, 61, 16);
 		cbIzdavac = new JComboBox<Izdavac>();
+		cbIzdavac.setBounds(556, 33, 31, 22);
 		for(Izdavac i : izdavacServiceBean.getAllIzdavac())
 			cbIzdavac.addItem(i);
 		cbIzdavac.setSelectedItem(null);
 		btnAddNoviIzdavac = new JButton("+");
+		btnAddNoviIzdavac.setBounds(592, 32, 41, 25);
 		btnAddNoviIzdavac.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -113,8 +131,11 @@ public class NovaKnjiga extends JFrame {
 		panel.add(btnAddNoviIzdavac);
 		
 		lbAutori = new JLabel("Authors: ");
+		lbAutori.setBounds(638, 36, 53, 16);
 		lookupAutori = new Lookup<Autor>(autorServiceBean.getAllAutor());
+		lookupAutori.setBounds(37, 68, 297, 48);
 		btnAddNoviAutor = new JButton("+");
+		btnAddNoviAutor.setBounds(349, 68, 41, 25);
 		btnAddNoviAutor.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -127,11 +148,14 @@ public class NovaKnjiga extends JFrame {
 		panel.add(btnAddNoviAutor);
 		
 		lbBrPrimjeraka = new JLabel("Number of copies: ");
+		lbBrPrimjeraka.setBounds(419, 90, 109, 16);
 		txtBrPrimjeraka = new JTextField(3);
+		txtBrPrimjeraka.setBounds(533, 87, 39, 22);
 		panel.add(lbBrPrimjeraka);
 		panel.add(txtBrPrimjeraka);
 		
 		btnPotvrdi = new JButton("Save");
+		btnPotvrdi.setBounds(577, 86, 61, 25);
 		btnPotvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -143,6 +167,7 @@ public class NovaKnjiga extends JFrame {
 		panel.add(btnPotvrdi);
 		
 		btnOdustani = new JButton("Cancel");
+		btnOdustani.setBounds(643, 86, 71, 25);
 		btnOdustani.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -158,9 +183,10 @@ public class NovaKnjiga extends JFrame {
 			setUIElementsColor(Color.WHITE);
 		}
 	});
+		getContentPane().setLayout(null);
 		
 		
-		add(panel);	
+		getContentPane().add(panel);	
 	}
 	
 	public NovaKnjiga(Knjiga k, Boolean isEditable, Korisnik currUser){
