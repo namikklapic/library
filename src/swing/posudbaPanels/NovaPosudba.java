@@ -123,7 +123,7 @@ public class NovaPosudba extends JFrame {
 		datumPosudbe = new Date();
 		datumPosudbeLabel = new JLabel("Start date: ");
 		txtDatumPosudbe = new JTextField(10);
-		txtDatumPosudbe.setText(LocalDate.now().toString());
+		txtDatumPosudbe.setText(LocalDate.now().toString()); //is there a better way ??
 		txtDatumPosudbe.setEditable(false);
 		panel.add(datumPosudbeLabel);
 		panel.add(txtDatumPosudbe);
@@ -209,7 +209,7 @@ public class NovaPosudba extends JFrame {
 		Posudba p = new Posudba(id, primjerak, korisnik, krajnjiDatumVracanja);
 		posudbaServiceBean.save(p);
 		
-		message = "The book load has been successfully saved!";
+		message = "The book loan has been successfully saved!";
 	}
 	
 	private void initializeView(){
