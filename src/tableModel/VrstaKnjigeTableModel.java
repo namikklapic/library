@@ -10,7 +10,7 @@ import jpa.VrstaKnjige;
 
 public class VrstaKnjigeTableModel extends AbstractTableModel {
 	
-	private String[] columnNames = {"Naziv vrste knjige"};
+	private String[] columnNames = {"Book types"};
 	private List<VrstaKnjige> vrste;
 	
 	public VrstaKnjigeTableModel(){

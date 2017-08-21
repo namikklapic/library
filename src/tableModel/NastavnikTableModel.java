@@ -9,7 +9,7 @@ import jpa.Nastavnik;
 
 public class NastavnikTableModel extends AbstractTableModel {
 	
-	private String[] columnNames = {"JMBG", "Ime i prezime nastavnika", "Akademsko zvanje", "Broj negativnih bodova"};
+	private String[] columnNames = {"JMBG", "First and Last name", "Degree", "Negative points"};
 	private List<Nastavnik> nastavnici;
 	
 	public NastavnikTableModel(){

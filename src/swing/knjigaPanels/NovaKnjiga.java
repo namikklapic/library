@@ -1,7 +1,9 @@
 package swing.knjigaPanels;
 
 import java.awt.Color;
-
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,6 +13,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -38,67 +41,127 @@ import jpa.Rezervacija;
 import jpa.RezervacijaPK;
 import jpa.VrstaKnjige;
 import swing.VrstaKnjigePanels.NovaVrstaKnjige;
+import swing.autorPanels.AutorPregled;
 import swing.autorPanels.NoviAutor;
 import swing.izdavacPanels.NoviIzdavac;
 import util.Lookup;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
+import javax.swing.event.CaretListener;
+import javax.swing.event.CaretEvent;
 
 public class NovaKnjiga extends JFrame {
 	public NovaKnjiga(){
 		
 		setTitle("New book");
-		setSize(800, 800);
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension velicinaEkrana = kit.getScreenSize();
+		int visinaProzora = 600;
+		int sirinaProzora = 700;
+		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+		setUndecorated(true);
+		setSize(700, 600);
 		
 		panel = new JPanel();
-		panel.setLocation(0, 0);
-		panel.setSize(782, 753);
+		panel.setBounds(12, 13, 676, 574);
+		panel.setBackground(new Color(255, 255, 255,150));
 		
 		knjiga = null;
 		
 		lbNaslov = new JLabel("Title: ");
-		lbNaslov.setBounds(23, 8, 34, 16);
+		lbNaslov.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbNaslov.setBounds(83, 80, 145, 27);
 		txtNaslov = new JTextField(20);
-		txtNaslov.setBounds(62, 5, 226, 22);
+		txtNaslov.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtNaslov.setBackground(Color.WHITE);
+			}
+		});
+		txtNaslov.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtNaslov.setBounds(260, 82, 343, 22);
 		panel.setLayout(null);
 		panel.add(lbNaslov);
 		panel.add(txtNaslov);
 		
 		lbOrgNaslov = new JLabel("Original title: ");
-		lbOrgNaslov.setBounds(293, 8, 78, 16);
+		lbOrgNaslov.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbOrgNaslov.setBounds(83, 116, 145, 27);
 		txtOrgNaslov = new JTextField(20);
-		txtOrgNaslov.setBounds(376, 5, 226, 22);
+		txtOrgNaslov.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtOrgNaslov.setBackground(Color.WHITE);
+			}
+		});
+		txtOrgNaslov.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtOrgNaslov.setBounds(260, 118, 343, 22);
 		panel.add(lbOrgNaslov);
 		panel.add(txtOrgNaslov);
 		
 		lbBrStranica = new JLabel("Number of pages: ");
-		lbBrStranica.setBounds(607, 8, 107, 16);
+		lbBrStranica.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbBrStranica.setBounds(83, 151, 145, 27);
 		txtBrStranica = new JTextField(3);
-		txtBrStranica.setBounds(719, 5, 39, 22);
+		txtBrStranica.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtBrStranica.setBackground(Color.WHITE);
+			}
+		});
+		txtBrStranica.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtBrStranica.setBounds(260, 153, 343, 22);
 		panel.add(lbBrStranica);
 		panel.add(txtBrStranica);
 		
 		lbGodIzdavanja = new JLabel("Publishing year: ");
-		lbGodIzdavanja.setBounds(39, 36, 95, 16);
+		lbGodIzdavanja.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbGodIzdavanja.setBounds(83, 186, 145, 27);
 		txtGodIzdavanja = new JTextField(4);
-		txtGodIzdavanja.setBounds(139, 33, 50, 22);
+		txtGodIzdavanja.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtGodIzdavanja.setBackground(Color.WHITE);
+			}
+		});
+		txtGodIzdavanja.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtGodIzdavanja.setBounds(260, 188, 343, 22);
 		panel.add(lbGodIzdavanja);
 		panel.add(txtGodIzdavanja);
 		
 		lbNegBodovi = new JLabel("Negative points: ");
-		lbNegBodovi.setBounds(194, 36, 96, 16);
+		lbNegBodovi.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbNegBodovi.setBounds(83, 226, 145, 27);
 		txtNegBodovi = new JTextField(3);
-		txtNegBodovi.setBounds(295, 33, 39, 22);
+		txtNegBodovi.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtNegBodovi.setBackground(Color.WHITE);
+			}
+		});
+		txtNegBodovi.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtNegBodovi.setBounds(260, 228, 343, 22);
 		panel.add(lbNegBodovi);
 		panel.add(txtNegBodovi);
 		
 		lbVrstaKnjige = new JLabel("Book type: ");
-		lbVrstaKnjige.setBounds(339, 36, 64, 16);
+		lbVrstaKnjige.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbVrstaKnjige.setBounds(83, 266, 145, 27);
 		cbVrstaKnjige = new JComboBox<VrstaKnjige>();
-		cbVrstaKnjige.setBounds(408, 33, 31, 22);
+		cbVrstaKnjige.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				cbVrstaKnjige.setBackground(Color.WHITE);
+			}
+		});
+		cbVrstaKnjige.setBounds(260, 268, 278, 22);
 		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige())
 			cbVrstaKnjige.addItem(vk);
 		cbVrstaKnjige.setSelectedItem(null);
 		btnAddNovaVrsta = new JButton("+");
-		btnAddNovaVrsta.setBounds(444, 32, 41, 25);
+		btnAddNovaVrsta.setBounds(562, 267, 41, 25);
 		btnAddNovaVrsta.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -106,19 +169,41 @@ public class NovaKnjiga extends JFrame {
 				nvk.prikazi();
 			}
 		});
+		btnAddNovaVrsta.setBorder(null);
+		btnAddNovaVrsta.setFocusPainted(false);
+		btnAddNovaVrsta.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		btnAddNovaVrsta.setForeground(new Color(255, 255, 255));
+		btnAddNovaVrsta.setBackground(Color.DARK_GRAY);
+		btnAddNovaVrsta.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btnAddNovaVrsta.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAddNovaVrsta.setBackground(Color.DARK_GRAY);
+			}
+		});
 		panel.add(lbVrstaKnjige);
 		panel.add(cbVrstaKnjige);
 		panel.add(btnAddNovaVrsta);
 		
 		lbIzdavac = new JLabel("Publisher: ");
-		lbIzdavac.setBounds(490, 36, 61, 16);
+		lbIzdavac.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbIzdavac.setBounds(83, 306, 145, 27);
 		cbIzdavac = new JComboBox<Izdavac>();
-		cbIzdavac.setBounds(556, 33, 31, 22);
+		cbIzdavac.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				cbIzdavac.setBackground(Color.WHITE);
+			}
+		});
+		cbIzdavac.setBounds(260, 308, 278, 22);
 		for(Izdavac i : izdavacServiceBean.getAllIzdavac())
 			cbIzdavac.addItem(i);
 		cbIzdavac.setSelectedItem(null);
 		btnAddNoviIzdavac = new JButton("+");
-		btnAddNoviIzdavac.setBounds(592, 32, 41, 25);
+		btnAddNoviIzdavac.setBounds(562, 308, 41, 25);
 		btnAddNoviIzdavac.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -126,16 +211,39 @@ public class NovaKnjiga extends JFrame {
 				ni.prikazi();
 			}
 		});
+		btnAddNoviIzdavac.setBorder(null);
+		btnAddNoviIzdavac.setFocusPainted(false);
+		btnAddNoviIzdavac.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		btnAddNoviIzdavac.setForeground(new Color(255, 255, 255));
+		btnAddNoviIzdavac.setBackground(Color.DARK_GRAY);
+		btnAddNoviIzdavac.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btnAddNoviIzdavac.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAddNoviIzdavac.setBackground(Color.DARK_GRAY);
+			}
+		});
 		panel.add(lbIzdavac);
 		panel.add(cbIzdavac);
 		panel.add(btnAddNoviIzdavac);
 		
 		lbAutori = new JLabel("Authors: ");
-		lbAutori.setBounds(638, 36, 53, 16);
+		lbAutori.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbAutori.setBounds(83, 357, 145, 27);
 		lookupAutori = new Lookup<Autor>(autorServiceBean.getAllAutor());
-		lookupAutori.setBounds(37, 68, 297, 48);
+		lookupAutori.getSelected().addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				lookupAutori.getSelected().setBackground(Color.WHITE);
+			}
+		});
+		
+		
+		lookupAutori.setBounds(260, 346, 280, 48);
 		btnAddNoviAutor = new JButton("+");
-		btnAddNoviAutor.setBounds(349, 68, 41, 25);
+		btnAddNoviAutor.setBounds(562, 361, 41, 25);
 		btnAddNoviAutor.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -143,19 +251,42 @@ public class NovaKnjiga extends JFrame {
 				na.prikazi();
 			}
 		});
+		btnAddNoviAutor.setBorder(null);
+		btnAddNoviAutor.setFocusPainted(false);
+		btnAddNoviAutor.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		btnAddNoviAutor.setForeground(new Color(255, 255, 255));
+		btnAddNoviAutor.setBackground(Color.DARK_GRAY);
+		btnAddNoviAutor.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btnAddNoviAutor.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAddNoviAutor.setBackground(Color.DARK_GRAY);
+			}
+		});
 		panel.add(lbAutori);
 		panel.add(lookupAutori);
 		panel.add(btnAddNoviAutor);
 		
 		lbBrPrimjeraka = new JLabel("Number of copies: ");
-		lbBrPrimjeraka.setBounds(419, 90, 109, 16);
+		lbBrPrimjeraka.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lbBrPrimjeraka.setBounds(80, 407, 145, 27);
 		txtBrPrimjeraka = new JTextField(3);
-		txtBrPrimjeraka.setBounds(533, 87, 39, 22);
+		txtBrPrimjeraka.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtBrPrimjeraka.setBackground(Color.WHITE);
+			}
+		});
+		txtBrPrimjeraka.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtBrPrimjeraka.setBounds(260, 409, 343, 22);
 		panel.add(lbBrPrimjeraka);
 		panel.add(txtBrPrimjeraka);
 		
 		btnPotvrdi = new JButton("Save");
-		btnPotvrdi.setBounds(577, 86, 61, 25);
+		btnPotvrdi.setBounds(234, 499, 82, 36);
 		btnPotvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -164,29 +295,60 @@ public class NovaKnjiga extends JFrame {
 				displayMessageDialogBox();
 			}
 		});
+		btnPotvrdi.setBorder(null);
+		btnPotvrdi.setFocusPainted(false);
+		btnPotvrdi.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		btnPotvrdi.setForeground(new Color(255, 255, 255));
+		btnPotvrdi.setBackground(Color.DARK_GRAY);
+		btnPotvrdi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btnPotvrdi.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnPotvrdi.setBackground(Color.DARK_GRAY);
+			}
+		});
 		panel.add(btnPotvrdi);
 		
 		btnOdustani = new JButton("Cancel");
-		btnOdustani.setBounds(643, 86, 71, 25);
+		btnOdustani.setBounds(339, 499, 82, 36);
 		btnOdustani.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				initializeUIElements();
 				dispose();
+				btnOdustani.setBackground(Color.DARK_GRAY);
+
+			}
+		});
+		btnOdustani.setBorder(null);
+		btnOdustani.setFocusPainted(false);
+		btnOdustani.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		btnOdustani.setForeground(new Color(255, 255, 255));
+		btnOdustani.setBackground(Color.DARK_GRAY);
+		btnOdustani.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btnOdustani.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnOdustani.setBackground(Color.DARK_GRAY);
 			}
 		});
 		panel.add(btnOdustani);
 		
-	panel.addMouseListener(new MouseAdapter(){
-		@Override
-		public void mousePressed(MouseEvent event){
-			setUIElementsColor(Color.WHITE);
-		}
-	});
 		getContentPane().setLayout(null);
 		
 		
 		getContentPane().add(panel);	
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
+		lblNewLabel.setBounds(0, 0, 800, 800);
+		getContentPane().add(lblNewLabel);
 	}
 	
 	public NovaKnjiga(Knjiga k, Boolean isEditable, Korisnik currUser){
@@ -331,39 +493,39 @@ public class NovaKnjiga extends JFrame {
 		boolean success = false;
 		
 		if(txtNaslov.getText().equals(null) || txtNaslov.getText().equals("")){
-			txtNaslov.setBackground(Color.RED);
+			txtNaslov.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}		
 		if(txtOrgNaslov.getText().equals(null) || txtOrgNaslov.getText().equals("")){
-			txtOrgNaslov.setBackground(Color.RED);
+			txtOrgNaslov.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}	
 		if(txtBrStranica.getText().equals(null) || txtBrStranica.getText().equals("")){
-			txtBrStranica.setBackground(Color.RED);
+			txtBrStranica.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtGodIzdavanja.getText().equals(null) || txtGodIzdavanja.getText().equals("")){
-			txtGodIzdavanja.setBackground(Color.RED);
+			txtGodIzdavanja.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtNegBodovi.getText().equals(null) || txtNegBodovi.getText().equals("")){
-			txtNegBodovi.setBackground(Color.RED);
+			txtNegBodovi.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(cbVrstaKnjige.getSelectedItem() == null){
-			cbVrstaKnjige.setBackground(Color.RED);	
+			cbVrstaKnjige.setBackground(Color.LIGHT_GRAY);	
 			success = true;
 		}
 		if(cbIzdavac.getSelectedItem() == null){
-			cbIzdavac.setBackground(Color.RED);
+			cbIzdavac.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(lookupAutori.getSelected().getText().equals(null) || lookupAutori.getSelected().getText().equals("")){
-			lookupAutori.getSelected().setBackground(Color.RED);
+			lookupAutori.getSelected().setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtBrPrimjeraka.getText().equals(null) || txtBrPrimjeraka.getText().equals("")){
-			txtBrPrimjeraka.setBackground(Color.RED);
+			txtBrPrimjeraka.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		return success;
@@ -393,22 +555,22 @@ public class NovaKnjiga extends JFrame {
 		}
 		else if(!isNumeric(txtBrStranica.getText())){
 			message = "Invalid number of pages!";
-			txtBrStranica.setBackground(Color.RED);
+			txtBrStranica.setBackground(Color.LIGHT_GRAY);
 			return false;
 		}
 		else if(!isNumeric(txtGodIzdavanja.getText()) || txtGodIzdavanja.getText().length() != 4){
 			message = "Invalid year!";
-			txtGodIzdavanja.setBackground(Color.RED);
+			txtGodIzdavanja.setBackground(Color.LIGHT_GRAY);
 			return false;
 		}
 		else if(!isNumeric(txtNegBodovi.getText())){
 			message = "Invalid number of negative points!";
-			txtNegBodovi.setBackground(Color.RED);
+			txtNegBodovi.setBackground(Color.LIGHT_GRAY);
 			return false;
 		}
 		else if(!isNumeric(txtBrPrimjeraka.getText())){
 			message = "Invalid number of copies!";
-			txtBrPrimjeraka.setBackground(Color.RED);
+			txtBrPrimjeraka.setBackground(Color.LIGHT_GRAY);
 			return false;
 		}
 		return true;

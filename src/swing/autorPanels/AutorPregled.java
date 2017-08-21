@@ -154,6 +154,8 @@ public class AutorPregled extends JFrame {
 		return item;
 	}
 	
+	public void prikazi() { setVisible(true); }
+	
 	private JPanel panel;
 	private List<Autor> autori;
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();

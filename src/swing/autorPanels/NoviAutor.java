@@ -23,6 +23,8 @@ import java.awt.Dimension;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class NoviAutor extends JFrame {
 	
@@ -100,15 +102,28 @@ public class NoviAutor extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				initializeUIElements();
 				dispose();
+				ponisti.setBackground(Color.DARK_GRAY);
 			}
 		});
 		panel.setLayout(null);
 		
 		panel.add(imeAutora);
+		txtIme.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtIme.setBackground(Color.WHITE);
+			}
+		});
 		txtIme.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtIme.setBounds(178, 56, 186, 30);
 		panel.add(txtIme);
 		panel.add(prezimeAutora);
+		txtPrezime.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtPrezime.setBackground(Color.WHITE);
+			}
+		});
 		txtPrezime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtPrezime.setBounds(178, 115, 186, 30);
 		panel.add(txtPrezime);
@@ -122,13 +137,6 @@ public class NoviAutor extends JFrame {
 		backgroundPicture.setBounds(0, 0, 400, 300);
 		getContentPane().add(backgroundPicture);
 		
-		panel.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mousePressed(MouseEvent event){
-				txtIme.setBackground(Color.WHITE);
-				txtPrezime.setBackground(Color.WHITE);
-			}
-		});
 	}
 	
 	public NoviAutor(Autor a) {
@@ -167,12 +175,12 @@ public class NoviAutor extends JFrame {
 		String prezime = txtPrezime.getText();
 	
 		if(ime.equals("") || ime.equals(null)){
-			txtIme.setBackground(Color.RED);
+			txtIme.setBackground(Color.LIGHT_GRAY);
 			message = "First name is missing!";
 			return false;
 		}
 		if(prezime.equals("") || prezime.equals(null)){
-			txtPrezime.setBackground(Color.RED);
+			txtPrezime.setBackground(Color.LIGHT_GRAY);
 			message = "Last name is missing!";
 			return false;
 		}

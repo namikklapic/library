@@ -877,8 +877,7 @@ public class PanelBibliotekar extends JFrame{
 							}
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
-								//cl.show(panel_1, "defaultPanel");
-								//novaKnjiga.prikazi();
+								novaKnjiga.prikazi();
 								
 							}
 						});
@@ -950,9 +949,8 @@ public class PanelBibliotekar extends JFrame{
 								revalidate();
 							}
 							@Override
-							public void mouseClicked(MouseEvent arg0) {
-								//cl.show(panel_1, "defaultPanel");
-								//novaVrstaKnjige.prikazi();
+							public void mouseClicked(MouseEvent arg0) {						
+								novaVrstaKnjige.prikazi();
 							}
 						});
 						addBookType.setHorizontalAlignment(SwingConstants.CENTER);
@@ -976,9 +974,8 @@ public class PanelBibliotekar extends JFrame{
 								revalidate();
 							}
 							@Override
-							public void mouseClicked(MouseEvent e) {
-								//cl.show(panel_1, "defaultPanel");
-								//vrstaKnjigePregled.prikazi();
+							public void mouseClicked(MouseEvent e) {						
+								vrstaKnjigePregled.prikazi();
 							}
 						});
 						viewAllBookTypes.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1025,6 +1022,10 @@ public class PanelBibliotekar extends JFrame{
 								repaint();
 								revalidate();
 							}
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								noviAutor.prikazi();
+							}
 						});
 						lblAddNewAuthor.setHorizontalAlignment(SwingConstants.CENTER);
 						lblAddNewAuthor.setForeground(Color.WHITE);
@@ -1045,6 +1046,10 @@ public class PanelBibliotekar extends JFrame{
 								lineViewAuthors.setVisible(false);
 								repaint();
 								revalidate();
+							}
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								autorPregled.prikazi();
 							}
 						});
 						lblViewAllAuthors.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1067,6 +1072,10 @@ public class PanelBibliotekar extends JFrame{
 								repaint();
 								revalidate();
 							}
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								noviIzdavac.prikazi();
+							}
 						});
 						lblAddANewPublisher.setHorizontalAlignment(SwingConstants.CENTER);
 						lblAddANewPublisher.setForeground(Color.WHITE);
@@ -1087,6 +1096,10 @@ public class PanelBibliotekar extends JFrame{
 								lineViewPublishers.setVisible(false);
 								repaint();
 								revalidate();
+							}
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								pregledIzdavac.prikazi();
 							}
 						});
 						lblViewAllPublishers.setHorizontalAlignment(SwingConstants.CENTER);

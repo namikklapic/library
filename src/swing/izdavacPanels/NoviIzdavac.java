@@ -25,6 +25,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class NoviIzdavac extends JFrame {
 
@@ -72,6 +74,7 @@ public class NoviIzdavac extends JFrame {
 				txtIzdavac.setText("");
 				txtIzdavac.setBackground(Color.WHITE);
 				dispose();
+				ponisti.setBackground(Color.DARK_GRAY);
 			}
 		});
 		ponisti.setBounds(202, 214, 97, 41);
@@ -107,6 +110,12 @@ public class NoviIzdavac extends JFrame {
 		});
 		
 		panel.add(potvrdi);
+		txtIzdavac.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtIzdavac.setBackground(Color.WHITE);
+			}
+		});
 		txtIzdavac.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtIzdavac.setBounds(167, 90, 197, 27);
 		panel.add(txtIzdavac);
@@ -118,12 +127,6 @@ public class NoviIzdavac extends JFrame {
 		backgroundPicture.setBounds(0, 0, 400, 300);
 		getContentPane().add(backgroundPicture);
 		
-		panel.addMouseListener(new MouseAdapter(){
-			@Override
-			public void mousePressed(MouseEvent event){
-				txtIzdavac.setBackground(Color.WHITE);
-			}
-		});
 	}
 	
 	public NoviIzdavac(Izdavac i) {
@@ -153,7 +156,7 @@ public class NoviIzdavac extends JFrame {
 	
 	private boolean isValidIzdavac(){
 		if(txtIzdavac.getText().equals("") || txtIzdavac.getText().equals(null)){
-			txtIzdavac.setBackground(Color.RED);
+			txtIzdavac.setBackground(Color.LIGHT_GRAY);
 			message = "Publisher name is missing!";
 			return false;
 		}

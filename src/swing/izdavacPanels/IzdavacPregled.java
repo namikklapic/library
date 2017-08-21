@@ -147,6 +147,8 @@ public class IzdavacPregled extends JFrame {
 		return item;
 	}
 	
+	public void prikazi() { setVisible(true); }
+	
 	private JPanel panel;
 	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
 
