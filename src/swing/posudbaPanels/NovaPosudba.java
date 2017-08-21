@@ -3,12 +3,14 @@ package swing.posudbaPanels;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -120,21 +122,39 @@ public class NovaPosudba extends JFrame {
 		panel.add(primjerakLabel);
 		panel.add(txtPrimjerak);
 		
-		datumPosudbe = new Date();
+		datumPosudbe = java.sql.Date.valueOf(LocalDate.now());
+		dateWithoutTime = datumPosudbe.toString().substring(0, 10);
 		datumPosudbeLabel = new JLabel("Start date: ");
 		txtDatumPosudbe = new JTextField(10);
-		txtDatumPosudbe.setText(LocalDate.now().toString()); //is there a better way ??
+		txtDatumPosudbe.setText(dateWithoutTime);
 		txtDatumPosudbe.setEditable(false);
 		panel.add(datumPosudbeLabel);
 		panel.add(txtDatumPosudbe);
 		
-		//krajnjiDatumVracanja = datumPosudbe + vremenski period ?
+		krajnjiDatumVracanja = java.sql.Date.valueOf(LocalDate.now().plusDays(30));
+		dateWithoutTime = krajnjiDatumVracanja.toString().substring(0, 10);
 		krajnjiDatumVracanjaLabel = new JLabel("Ultimate end date: ");
 		txtKrajnjiDatumVracanja = new JTextField(10);
-		txtKrajnjiDatumVracanja.setText("?");
 		txtKrajnjiDatumVracanja.setEditable(false);
+		txtKrajnjiDatumVracanja.setText(dateWithoutTime);
 		panel.add(krajnjiDatumVracanjaLabel);
 		panel.add(txtKrajnjiDatumVracanja);
+		
+		brojDanaLabel = new JLabel("Number of days: ");
+		cbBrojDana = new JComboBox<Integer>();
+		for(int i = 30; i <= 180; i+=30)
+			cbBrojDana.addItem(i);
+		cbBrojDana.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				Integer brDana = (Integer)cbBrojDana.getSelectedItem();
+				krajnjiDatumVracanja = java.sql.Date.valueOf(LocalDate.now().plusDays(brDana));
+				dateWithoutTime = krajnjiDatumVracanja.toString().substring(0, 10);
+				txtKrajnjiDatumVracanja.setText(dateWithoutTime);
+			}
+		});
+		panel.add(brojDanaLabel);
+		panel.add(cbBrojDana);
 		
 		potvrdi = new JButton("Save");
 		potvrdi.addActionListener(new ActionListener(){
@@ -205,10 +225,11 @@ public class NovaPosudba extends JFrame {
 	}
 	
 	private void savePosudba(){
+		
 		id = new PosudbaPK(primjerak.getInventarskiBroj(), korisnik.getSifraKorisnika(), datumPosudbe);
 		Posudba p = new Posudba(id, primjerak, korisnik, krajnjiDatumVracanja);
 		posudbaServiceBean.save(p);
-		
+		primjerakServiceBean.setPrimjerakPosudjen(primjerak, true);
 		message = "The book loan has been successfully saved!";
 	}
 	
@@ -228,6 +249,7 @@ public class NovaPosudba extends JFrame {
 	
 	private JPanel panel;
 	private String message;
+	private String dateWithoutTime;
 	
 	private Korisnik korisnik = null;
 	private Primjerak primjerak = null;
@@ -254,6 +276,8 @@ public class NovaPosudba extends JFrame {
 	private JTextField txtDatumPosudbe;
 	private JLabel krajnjiDatumVracanjaLabel;
 	private JTextField txtKrajnjiDatumVracanja;
+	private JLabel brojDanaLabel;
+	private JComboBox<Integer> cbBrojDana;
 	
 	private JButton potvrdi;
 	private JButton ponisti;

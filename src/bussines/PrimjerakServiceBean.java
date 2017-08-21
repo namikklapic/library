@@ -63,4 +63,22 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		}
 		return entity;
 	}
+	
+	public void setPrimjerakPosudjen(Primjerak entity, boolean state){
+		Primjerak find = em.find(Primjerak.class, entity.getInventarskiBroj());
+		if(find != null){
+			em.getTransaction().begin();
+			find.setPosudjen(state);
+			em.getTransaction().commit();
+		}
+	}
+	
+	public void setPrimjerakRezervisan(Primjerak entity, boolean state){
+		Primjerak find = em.find(Primjerak.class, entity.getInventarskiBroj());
+		if(find != null){
+			em.getTransaction().begin();
+			find.setRezervisan(state);
+			em.getTransaction().commit();
+		}
+	}
 }
