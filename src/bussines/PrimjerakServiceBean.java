@@ -16,7 +16,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		Primjerak result = null;
 		try {
 			result = (Primjerak)em
-					.createQuery("Select p from Primjerak p where p.inventarskiBroj =: invBroj")
+					.createQuery("Select p from Primjerak p where p.inventarskiBroj=:invBroj")
 					.setParameter("invBroj", invBroj)
 					.getSingleResult();
 		} catch(NoResultException nre) {}
