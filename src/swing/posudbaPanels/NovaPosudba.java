@@ -205,9 +205,7 @@ public class NovaPosudba extends JFrame {
 	}
 	
 	private void savePosudba(){
-		//primjerak = primjerakServiceBean.getByInvBroj(txtPrimjerak.getText());
 		id = new PosudbaPK(primjerak.getInventarskiBroj(), korisnik.getSifraKorisnika(), datumPosudbe);
-		
 		Posudba p = new Posudba(id, primjerak, korisnik, krajnjiDatumVracanja);
 		posudbaServiceBean.save(p);
 		
