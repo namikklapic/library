@@ -77,6 +77,8 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 	public VrstaKnjige save(VrstaKnjige entity) {
 		VrstaKnjige find = em.find(VrstaKnjige.class, entity.getId());
 		if(find != null) {
+			String naziv = entity.getNazivVrste();
+			int sifra = entity.getId();
 			em.getTransaction().begin();
 			find.setNazivVrste(entity.getNazivVrste());
 			em.getTransaction().commit();

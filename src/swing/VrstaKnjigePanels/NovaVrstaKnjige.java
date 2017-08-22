@@ -42,6 +42,8 @@ public class NovaVrstaKnjige extends JFrame {
 		panel.setBackground(new Color(255,255,255,70));
 		panel.setLayout(null);
 		
+		vrstaKnjige = null;
+		
 		lbVrstaKnjige = new JLabel("Book type: ");
 		lbVrstaKnjige.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		lbVrstaKnjige.setBounds(12, 107, 84, 22);
@@ -124,6 +126,7 @@ public class NovaVrstaKnjige extends JFrame {
 	
 	public NovaVrstaKnjige(VrstaKnjige vk){
 		this();
+		vrstaKnjige = vk;
 		txtVrstaKnjige.setText(vk.getNazivVrste());
 		setTitle("Edit book type");
 		potvrdi.setText("Save");
@@ -145,20 +148,28 @@ public class NovaVrstaKnjige extends JFrame {
 	}
 	
 	public void saveVrstaKnjige(){
-		vrstaKnjigeServiceBean.save(new VrstaKnjige(vrstaKnjigeServiceBean.getCount() + 1, txtVrstaKnjige.getText()));
-		message = "The book type has been successfully saved!";
+		
+		int id = vrstaKnjige != null ? vrstaKnjige.getId() : vrstaKnjigeServiceBean.getCount() + 1;
+		vrstaKnjigeServiceBean.save(new VrstaKnjige(id, txtVrstaKnjige.getText()));
+	
+		if(vrstaKnjige != null)
+			message = "Changes were successfully saved!";
+		else
+			message = "The book type has been successfully saved!";
 	}
 	
 	private boolean isValidVrstaKnjige(){
-		String vk = txtVrstaKnjige.getText();
-		if(vrstaKnjigeServiceBean.existsVrstaKnjige(vk)){
-			message = "The entered book type already exists!";
-			return false;
-		}
-		if(vk.equals(null) || vk.equals("")){
-			txtVrstaKnjige.setBackground(Color.LIGHT_GRAY);
-			message = "Book type title is missing!";
-			return false;
+		if(vrstaKnjige == null){
+			String vk = txtVrstaKnjige.getText();
+			if(vrstaKnjigeServiceBean.existsVrstaKnjige(vk)){
+				message = "The entered book type already exists!";
+				return false;
+			}
+			if(vk.equals(null) || vk.equals("")){
+				txtVrstaKnjige.setBackground(Color.LIGHT_GRAY);
+				message = "Book type title is missing!";
+				return false;
+			}
 		}
 		return true;
 	}
@@ -175,6 +186,7 @@ public class NovaVrstaKnjige extends JFrame {
 	
 	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();
 	
+	private VrstaKnjige vrstaKnjige;
 	private String message;
 	
 	private JPanel panel;
