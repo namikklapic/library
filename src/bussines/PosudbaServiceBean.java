@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -10,7 +11,6 @@ import jpa.Korisnik;
 import jpa.Posudba;
 
 public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
-	
 	
 	
 	public Integer getCount() {
@@ -70,8 +70,8 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		List<Posudba> result = null;
 		try {
 			result = em
-					.createQuery("Select p from Posudba p inner join p.primjerak pr where pr.knjiga = :k and p.datumVracanja IS NULL")
-					.setParameter('k', 	k)
+					.createQuery("Select p from Posudba p inner join p.primjerak pr where pr.knjiga=:k and p.datumVracanja IS NULL")
+					.setParameter("k", k)
 					.getResultList();
 		} catch(NoResultException nre) {}
 		return result;

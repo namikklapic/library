@@ -659,4 +659,5 @@ public class NovaKnjiga extends JFrame {
 	private JButton btnPotvrdi;
 	private JButton btnOdustani;
 	private JButton btnRezervisi;
+	private JButton delete;
 }

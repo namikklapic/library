@@ -64,4 +64,16 @@ public class KnjigaTableModel extends AbstractTableModel {
 	public Knjiga getKnjiga(int row){
 		return knjige.get(row);
 	}
+	
+	public void removeRow(int row){
+		knjige.remove(row);
+		fireTableRowsDeleted(row, row);
+	}
+	
+	public void removeAll(){
+		int size = knjige.size();
+		for(int i = 0; i < size; i++)
+			knjige.remove(i);
+		fireTableRowsDeleted(0, size-1);
+	}
 }

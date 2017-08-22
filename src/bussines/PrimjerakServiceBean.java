@@ -81,4 +81,11 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			em.getTransaction().commit();
 		}
 	}
+	
+	public void deleteByKnjiga(Knjiga k){
+		try{
+			em.createQuery("Delete from Primjerak p where p.knjiga=:k")
+			.setParameter("k", k);
+		}catch(Exception e) {}
+	}
 }

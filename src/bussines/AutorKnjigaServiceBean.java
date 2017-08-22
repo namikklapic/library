@@ -1,5 +1,8 @@
 package bussines;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.NoResultException;
 
 import jpa.Autor;
@@ -37,4 +40,24 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 		
 		return result.getAutor();
 	}
+	
+	public List<Knjiga> getKnjigeByAutor(String ime, String prezime){
+		List<AutorKnjiga> lista = null;
+		List<Knjiga> result = new ArrayList<Knjiga>();
+		
+		try{
+			lista = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora=:ime and ak.autor.prezimeAutora=:prezime")
+					.setParameter("ime", ime)
+					.setParameter("prezime", prezime)
+					.getResultList();
+		}catch(NoResultException nre) {}
+		
+		if(lista != null){
+			for(AutorKnjiga ak : lista)
+				result.add(ak.getKnjiga());
+		}
+		
+		return result;
+	}
+
 }

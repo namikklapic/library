@@ -7,6 +7,7 @@ import javax.persistence.NoResultException;
 import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import jpa.Korisnik;
+import jpa.Posudba;
 import jpa.Rezervacija;
 
 public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
@@ -37,5 +38,24 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 		// Once added, rezervacija can not be changed. That is the reason we are not trying to find existing Rezervacija
 		super.save(entity);
 		return entity;
+	}
+	
+	public List<Rezervacija> getRezervacijeByKnjiga(Knjiga k){
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where pr.knjiga = :k")
+					.setParameter('k', 	k)
+					.getResultList();
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public boolean isKnjigaRezervisana(Knjiga k){
+		
+		if(getRezervacijeByKnjiga(k) != null)
+			return true;
+		
+		return false;
 	}
 }
