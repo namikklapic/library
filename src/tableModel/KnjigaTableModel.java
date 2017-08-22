@@ -5,12 +5,15 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import bussines.AutorKnjigaServiceBean;
 import jpa.Knjiga;
 
 public class KnjigaTableModel extends AbstractTableModel {
 	
-	private String [] columnNames = {"Naslov", "Originalni naslov", "Broj stranica", "Godina izdavanja", "Negativni bodovi", "Vrsta", "Izdavac" };
+	private String [] columnNames = {"Title", "Author", "Book type", "Publisher", "Publishing year" };
 	private List<Knjiga> knjige;
+	
+	private AutorKnjigaServiceBean autorKnjigaServiceBean = new AutorKnjigaServiceBean();
 	
 	public KnjigaTableModel(){
 		knjige = new ArrayList<Knjiga>();
@@ -46,17 +49,13 @@ public class KnjigaTableModel extends AbstractTableModel {
 		case 0:
 			return k.getNaslov();
 		case 1:
-			return k.getOriginalniNaslov();
+			return autorKnjigaServiceBean.getAutorNaKnjizi(k, 1);
 		case 2:
-			return k.getBrojStranica();
-		case 3:
-			return k.getGodinaIzdavanja();
-		case 4:
-			return k.getNegBodovi();
-		case 5:
 			return k.getVrsta();
-		case 6:
+		case 3:
 			return k.getIzdavac();
+		case 4:
+			return k.getGodinaIzdavanja();
 		default:
 			return null;
 		}
