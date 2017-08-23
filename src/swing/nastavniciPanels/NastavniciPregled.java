@@ -69,7 +69,7 @@ public class NastavniciPregled extends JFrame{
 		table.getTableHeader().setOpaque(false);
 		table.getTableHeader().setBackground(new Color(255, 255, 255,150));
 		
-		JButton edit = new JButton("Uredi");
+		JButton edit = new JButton("Edit");
 		edit.setBounds(225, 521, 97, 37);
 		edit.addActionListener(new ActionListener(){
 			@Override

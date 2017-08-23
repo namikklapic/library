@@ -2,6 +2,7 @@ package swing;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -11,11 +12,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,6 +45,9 @@ import swing.predmetPanels.PredmetPregled;
 import swing.studentiPanels.NoviStudent;
 import swing.studentiPanels.StudentPregled;
 import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.beans.PropertyChangeEvent;
 
 public class PanelBibliotekar extends JFrame{
@@ -55,7 +61,7 @@ public class PanelBibliotekar extends JFrame{
 		setTitle("Welcome "+ b.getKorisnik().getImeKorisnika() + " " + b.getKorisnik().getPrezimeKorisnika());
 		setResizable(false);
 		getContentPane().setLayout(null);		
-
+		
 		// Frame options -- END
 		
 		// Panels definition and options -- BEGIN
@@ -283,7 +289,7 @@ public class PanelBibliotekar extends JFrame{
 		
 		// Right panel 
 		JPanel infoPanel = new JPanel();
-		infoPanel.setBounds(985, 0, 215, 804);
+		infoPanel.setBounds(985, 0, 215, 761);
 		getContentPane().add(infoPanel);
 		infoPanel.setBackground(new Color(51,51,51,180));
 		infoPanel.setLayout(null);
@@ -483,6 +489,68 @@ public class PanelBibliotekar extends JFrame{
 		logout.setBounds(58, 659, 48, 70);
 		infoPanel.add(logout);
 		
+		// CHANGE PROFILE PICTURE TEST -- BEGIN
+		
+		JLabel profilePictureBox = new JLabel("");
+		profilePictureBox.setBounds(34, 150, 140, 140);
+		infoPanel.add(profilePictureBox);
+		
+		File profilePicture = new File(PanelBibliotekar.class.getResource("/swing/profileImages/").toString().substring(6) + b.getKorisnik().getSifraKorisnika() + ".jpg");
+		
+		boolean exists = profilePicture.exists();
+		
+		if(exists == true) 
+		{
+			ImageIcon icon = new ImageIcon(PanelBibliotekar.class.getResource("/swing/profileImages/" + b.getKorisnik().getSifraKorisnika()	+ ".jpg"));
+			Image image = icon.getImage();
+			Image toShow = image.getScaledInstance(140, 140, java.awt.Image.SCALE_SMOOTH);
+            profilePictureBox.setIcon(new ImageIcon(toShow));
+		}
+		else {
+			ImageIcon icon = new ImageIcon(PanelBibliotekar.class.getResource("/swing/profileImages/default-profile.png"));
+			Image image = icon.getImage();
+			Image toShow = image.getScaledInstance(140, 140, java.awt.Image.SCALE_SMOOTH);
+            profilePictureBox.setIcon(new ImageIcon(toShow));
+		}
+		
+		JLabel lblChangeProfilePicture = new JLabel("Change profile picture");
+		JFileChooser fc = new JFileChooser();
+		lblChangeProfilePicture.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				JOptionPane.showMessageDialog(null, "The picture dimensions must be maximum 200 x 200 !");
+				
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPEG file", "jpg", "jpeg");
+                fc.setFileFilter(filter);
+                int response = fc.showOpenDialog(null);
+                try {
+                    if (response == JFileChooser.APPROVE_OPTION) {
+                        String pathName = fc.getSelectedFile().getPath();                    
+                        
+                        File src = new File(pathName);
+                        File target = new File(PanelBibliotekar.class.getResource("/swing/profileImages/").toString().substring(6) + b.getKorisnik().getSifraKorisnika() + ".jpg");
+
+                        Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        
+                        JOptionPane.showMessageDialog(null, "Picture changed succesfully!");
+                        ImageIcon icon = new ImageIcon(pathName);
+                        Image image = icon.getImage();
+            			Image toShow = image.getScaledInstance(140, 140, java.awt.Image.SCALE_SMOOTH);
+                        profilePictureBox.setIcon(new ImageIcon(toShow));
+                    } 
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+			}
+		});
+		lblChangeProfilePicture.setForeground(new Color(255, 255, 255));
+		lblChangeProfilePicture.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblChangeProfilePicture.setBounds(32, 296, 151, 35);
+		infoPanel.add(lblChangeProfilePicture);
+		
+		// CHANGE PROFILE PICTURE TEST -- END
 
 		
 		
