@@ -14,9 +14,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import bussines.VrstaKnjigeServiceBean;
 import jpa.VrstaKnjige;
@@ -42,14 +44,39 @@ public class VrstaKnjigePregled extends JFrame {
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		searchLabel = new JLabel("Book type title: ");
+		txtSearchFilter = new JTextField(10);
+		searchBtn = new JButton("Search");
+		searchBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				String filter = txtSearchFilter.getText();
+				if(filter.equals(null) || filter.equals("")){
+					model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
+				}else{
+					model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getVrstaKnjigeByNaziv(filter));
+				}
+				
+				table.setModel(model);
+				
+				if(table.getRowCount() == 0){
+					message = "No result found!";
+					displayMessageDialogBox();
+				}
+			}
+		});
+		panel.add(searchLabel);
+		panel.add(txtSearchFilter);
+		panel.add(searchBtn);
+		
+		scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 458, 571);
 		
-		VrstaKnjigeTableModel model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
-		JTable table = new JTable(model);
+		model = new VrstaKnjigeTableModel();
+		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -74,9 +101,15 @@ public class VrstaKnjigePregled extends JFrame {
 		edit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				VrstaKnjige vk = model.getVrstaKnjige(table.getSelectedRow());
-				NovaVrstaKnjige nvk = new NovaVrstaKnjige(vk);
-				nvk.prikazi();
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow > -1){
+					VrstaKnjige vk = model.getVrstaKnjige(table.getSelectedRow());
+					NovaVrstaKnjige nvk = new NovaVrstaKnjige(vk);
+					nvk.prikazi();
+				}else{
+					message = "No item selected!";
+					displayMessageDialogBox();
+				}	
 			}
 		});
 		edit.setBorder(null);
@@ -145,9 +178,24 @@ public class VrstaKnjigePregled extends JFrame {
 		return item;
 	}
 	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
+	}
+	
 	public void prikazi() { setVisible(true); }
 	
 	private JPanel panel;
+	private String message;
+	
+	private JScrollPane scrollPane;
+	private VrstaKnjigeTableModel model;
+	private JTable table;
+	
+	private JLabel searchLabel;
+	private JTextField txtSearchFilter;
+	private JButton searchBtn;
+	
 	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();
 
 }

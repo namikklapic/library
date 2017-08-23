@@ -1,6 +1,7 @@
 package bussines;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
 
@@ -42,6 +43,18 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 		} catch(NoResultException nre) {
 			
 		}
+		return result;
+	}
+	
+	public List<VrstaKnjige> getVrstaKnjigeByNaziv(String naziv){
+		List<VrstaKnjige> result = null;
+		try{
+			result = em.createQuery("Select vk from VrstaKnjige vk where vk.nazivVrste=:naziv")
+					.setParameter("naziv", naziv)
+					.getResultList();
+			
+		}catch(NoResultException nre){}
+		
 		return result;
 	}
 	
