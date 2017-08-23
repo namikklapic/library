@@ -494,7 +494,7 @@ public class PanelBibliotekar extends JFrame{
 		lineChangePic.setVisible(false);
 		lineChangePic.setOpaque(true);
 		lineChangePic.setBackground(new Color(255, 255, 255));
-		lineChangePic.setBounds(12, 329, 191, 3);
+		lineChangePic.setBounds(19, 328, 177, 2);
 		infoPanel.add(lineChangePic);
 		
 		JLabel profilePictureBox = new JLabel("");
@@ -520,6 +520,8 @@ public class PanelBibliotekar extends JFrame{
 		}
 		
 		JLabel lblChangeProfilePicture = new JLabel("Change profile picture");
+		lblChangeProfilePicture.setHorizontalAlignment(SwingConstants.CENTER);
+		lblChangeProfilePicture.setAlignmentX(200.0f);
 		JFileChooser fc = new JFileChooser();
 		lblChangeProfilePicture.addMouseListener(new MouseAdapter() {
 			@Override
@@ -566,9 +568,54 @@ public class PanelBibliotekar extends JFrame{
 		
 		
 		lblChangeProfilePicture.setForeground(new Color(255, 255, 255));
-		lblChangeProfilePicture.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
-		lblChangeProfilePicture.setBounds(12, 296, 191, 35);
+		lblChangeProfilePicture.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblChangeProfilePicture.setBounds(19, 296, 177, 35);
 		infoPanel.add(lblChangeProfilePicture);
+		
+		JLabel lblName = new JLabel("First name :");
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setForeground(Color.WHITE);
+		lblName.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblName.setAlignmentX(200.0f);
+		lblName.setBounds(19, 354, 87, 35);
+		infoPanel.add(lblName);
+		
+		JLabel lblLastName = new JLabel("Last name :");
+		lblLastName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLastName.setForeground(Color.WHITE);
+		lblLastName.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblLastName.setAlignmentX(200.0f);
+		lblLastName.setBounds(19, 395, 87, 35);
+		infoPanel.add(lblLastName);
+		
+		JLabel lblNameEntry = new JLabel(b.getKorisnik().getImeKorisnika());
+		lblNameEntry.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNameEntry.setForeground(new Color(255, 255, 255));
+		lblNameEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblNameEntry.setBounds(109, 354, 94, 35);
+		infoPanel.add(lblNameEntry);
+		
+		JLabel lblSurnameEntry = new JLabel(b.getKorisnik().getPrezimeKorisnika());
+		lblSurnameEntry.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSurnameEntry.setForeground(Color.WHITE);
+		lblSurnameEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblSurnameEntry.setBounds(109, 395, 94, 35);
+		infoPanel.add(lblSurnameEntry);
+		
+		JLabel lblNegativePoints = new JLabel("Negative points :");
+		lblNegativePoints.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNegativePoints.setForeground(Color.WHITE);
+		lblNegativePoints.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblNegativePoints.setAlignmentX(200.0f);
+		lblNegativePoints.setBounds(19, 436, 140, 35);
+		infoPanel.add(lblNegativePoints);
+		
+		JLabel lblNegPtsEntry = new JLabel(String.valueOf(b.getKorisnik().getBrojNegativnihBodova()));
+		lblNegPtsEntry.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNegPtsEntry.setForeground(Color.WHITE);
+		lblNegPtsEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblNegPtsEntry.setBounds(155, 436, 48, 35);
+		infoPanel.add(lblNegPtsEntry);
 		
 		// CHANGE PROFILE PICTURE TEST -- END
 
