@@ -55,16 +55,17 @@ public class KnjigaPregled extends JFrame {
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.addItem("Book title");
 		cbSearchFilters.addItem("Author");
+		cbSearchFilters.addItem("Publisher");
 		cbSearchFilters.addItem("Subject");
 		cbSearchFilters.addItem("Show all");
 		cbSearchFilters.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				String option = (String)cbSearchFilters.getSelectedItem();
-				if(option.equals("Show all")){				
-					txtSearchFilter.setText("");
+				txtSearchFilter.setText("");
+				txtSearchFilter.setBackground(Color.WHITE);
+				if(option.equals("Show all"))		
 					txtSearchFilter.setEditable(false);
-				}
 				else
 					txtSearchFilter.setEditable(true);
 			}
@@ -97,7 +98,10 @@ public class KnjigaPregled extends JFrame {
 						}else{							
 							model = new KnjigaTableModel(autorKnjigaServiceBean.getKnjigeByAutor(spliter[0], spliter[1]));
 						}		
-					}		
+					}
+					else if(criteria.equals("Publisher")){
+						model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByIzdavac(filter));
+					}
 					else if(criteria.equals("Subject")){
 						model = new KnjigaTableModel(literaturaServiceBean.getLiteraturaByPredmet(filter));
 					}
@@ -105,6 +109,10 @@ public class KnjigaPregled extends JFrame {
 						model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
 					
 					table.setModel(model);
+					if(table.getRowCount() == 0){
+						message = "No result found!";
+						displayMessageDialogBox();
+					}
 				}
 			}
 		});
@@ -168,8 +176,12 @@ public class KnjigaPregled extends JFrame {
 	private void clearUIElements(){
 		txtSearchFilter.setText("");
 		txtSearchFilter.setBackground(Color.WHITE);
+		cbSearchFilters.setSelectedItem("Book title");
+		txtSearchFilter.setEditable(true);
 		table.getSelectionModel().clearSelection();
-		table.removeAll();
+		
+		model = new KnjigaTableModel();
+		table.setModel(model);
 	}
 	
 	private JPanel panel;

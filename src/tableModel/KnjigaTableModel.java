@@ -70,10 +70,4 @@ public class KnjigaTableModel extends AbstractTableModel {
 		fireTableRowsDeleted(row, row);
 	}
 	
-	public void removeAll(){
-		int size = knjige.size();
-		for(int i = 0; i < size; i++)
-			knjige.remove(i);
-		fireTableRowsDeleted(0, size-1);
-	}
 }
