@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import bussines.VrstaKnjigeServiceBean;
 import jpa.VrstaKnjige;
 import swing.autorPanels.AutorPregled;
+import tableModel.KnjigaTableModel;
 import tableModel.VrstaKnjigeTableModel;
 
 public class VrstaKnjigePregled extends JFrame {
@@ -134,6 +135,7 @@ public class VrstaKnjigePregled extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnCancel.setBackground(Color.DARK_GRAY);
+				clearUIElements();
 				dispose();
 			}
 			@Override
@@ -176,6 +178,13 @@ public class VrstaKnjigePregled extends JFrame {
 			}
 		});
 		return item;
+	}
+	
+	private void clearUIElements(){
+		txtSearchFilter.setText("");
+		table.getSelectionModel().clearSelection();
+		model = new VrstaKnjigeTableModel();
+		table.setModel(model);
 	}
 	
 	private void displayMessageDialogBox(){
