@@ -490,6 +490,12 @@ public class PanelBibliotekar extends JFrame{
 		infoPanel.add(logout);
 		
 		// CHANGE PROFILE PICTURE TEST -- BEGIN
+		Box lineChangePic = Box.createHorizontalBox();
+		lineChangePic.setVisible(false);
+		lineChangePic.setOpaque(true);
+		lineChangePic.setBackground(new Color(255, 255, 255));
+		lineChangePic.setBounds(12, 329, 191, 3);
+		infoPanel.add(lineChangePic);
 		
 		JLabel profilePictureBox = new JLabel("");
 		profilePictureBox.setBounds(34, 150, 140, 140);
@@ -507,7 +513,7 @@ public class PanelBibliotekar extends JFrame{
             profilePictureBox.setIcon(new ImageIcon(toShow));
 		}
 		else {
-			ImageIcon icon = new ImageIcon(PanelBibliotekar.class.getResource("/swing/profileImages/default-profile.png"));
+			ImageIcon icon = new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/default-profile.png"));
 			Image image = icon.getImage();
 			Image toShow = image.getScaledInstance(140, 140, java.awt.Image.SCALE_SMOOTH);
             profilePictureBox.setIcon(new ImageIcon(toShow));
@@ -544,10 +550,24 @@ public class PanelBibliotekar extends JFrame{
                     e.printStackTrace();
                 }
 			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				lineChangePic.setVisible(true);
+				repaint();
+				revalidate();
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				lineChangePic.setVisible(false);
+				repaint();
+				revalidate();
+			}
 		});
+		
+		
 		lblChangeProfilePicture.setForeground(new Color(255, 255, 255));
-		lblChangeProfilePicture.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblChangeProfilePicture.setBounds(32, 296, 151, 35);
+		lblChangeProfilePicture.setFont(new Font("Segoe UI Light", Font.PLAIN, 20));
+		lblChangeProfilePicture.setBounds(12, 296, 191, 35);
 		infoPanel.add(lblChangeProfilePicture);
 		
 		// CHANGE PROFILE PICTURE TEST -- END
