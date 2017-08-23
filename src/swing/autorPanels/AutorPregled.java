@@ -8,13 +8,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import bussines.AutorServiceBean;
 import jpa.Autor;
 import tableModel.AutorTableModel;
+import tableModel.VrstaKnjigeTableModel;
+
 import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -43,19 +47,52 @@ public class AutorPregled extends JFrame {
 		setSize(700, 600);
 		setResizable(false);
 		
-		AutorTableModel model = new AutorTableModel(autorServiceBean.getAllAutor());
 		getContentPane().setLayout(null);
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
 		
-			JScrollPane scrollPane = new JScrollPane();
+		searchLabel = new JLabel("Author: ");
+		txtSearchFilter = new JTextField(10);
+		searchBtn = new JButton("Search");
+		searchBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				String filter = txtSearchFilter.getText();
+				if(filter.equals(null) || filter.equals("")){
+					model = new AutorTableModel(autorServiceBean.getAllAutor());
+				}else{
+					String[] spliter = filter.split(" ");
+					if(spliter.length != 2){
+						message = "Please, enter author's first and last name!";
+						txtSearchFilter.setBackground(Color.RED);
+						displayMessageDialogBox();
+					}else
+						model = new AutorTableModel(autorServiceBean.getAutorByFullName(spliter[0], spliter[1]));
+				}
+				
+				table.setModel(model);
+				
+				if(table.getRowCount() == 0){
+					message = "No result found!";
+					displayMessageDialogBox();
+				}
+			}
+		});
+		
+		panel.add(searchLabel);
+		panel.add(txtSearchFilter);
+		panel.add(searchBtn);
+		
+			scrollPane = new JScrollPane();
 			scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 			scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 			scrollPane.setOpaque(false);
 			scrollPane.setBounds(0, 0, 458, 571);
-			JTable table = new JTable(model);
+			
+			model = new AutorTableModel();
+			table = new JTable(model);
 			table.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mousePressed(MouseEvent e) {
@@ -80,9 +117,16 @@ public class AutorPregled extends JFrame {
 			edit.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent event){
-					Autor a = model.getAutor(table.getSelectedRow());
-					NoviAutor na = new NoviAutor(a);
-					na.prikazi();
+					int selectedRow = table.getSelectedRow();
+					if(selectedRow > -1){
+						Autor a = model.getAutor(table.getSelectedRow());
+						NoviAutor na = new NoviAutor(a);
+						na.prikazi();
+					}else{
+						message = "No item selected!";
+						displayMessageDialogBox();
+					}
+					
 				}
 			});
 			edit.setBorder(null);
@@ -102,8 +146,6 @@ public class AutorPregled extends JFrame {
 			});
 			
 
-			
-			
 			panel.setLayout(null);
 			
 			scrollPane.setViewportView(table);
@@ -118,6 +160,7 @@ public class AutorPregled extends JFrame {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
 					btnCancel.setBackground(Color.DARK_GRAY);
+					clearUIElements();
 					dispose();
 				}
 				@Override
@@ -154,9 +197,32 @@ public class AutorPregled extends JFrame {
 		return item;
 	}
 	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
+	}
+	
+	private void clearUIElements(){
+		txtSearchFilter.setText("");
+		txtSearchFilter.setBackground(Color.WHITE);
+		table.getSelectionModel().clearSelection();
+		
+		model = new AutorTableModel();
+		table.setModel(model);
+	}
+	
 	public void prikazi() { setVisible(true); }
 	
 	private JPanel panel;
-	private List<Autor> autori;
+	private String message;
+	
+	private AutorTableModel model;
+	private JScrollPane scrollPane;
+	private JTable table;
+	
+	private JLabel searchLabel;
+	private JTextField txtSearchFilter;
+	private JButton searchBtn;
+	
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
 }

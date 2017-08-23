@@ -37,6 +37,18 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 		return result;
 	}
 	
+	public List<Autor> getAutorByFullName(String firstname, String lastname){
+		List<Autor> result = null;
+		try{
+			result = em.createQuery("Select a from Autor a where a.imeAutora=:firstname and a.prezimeAutora=:lastname")
+					.setParameter("firstname", firstname)
+					.setParameter("lastname", lastname)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
 	/**
 	 * 
 	 * @return number of autors in database
