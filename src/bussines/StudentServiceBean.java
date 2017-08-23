@@ -35,6 +35,40 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 		return result;
 	}
 	
+	public List<Student> getStudentByIndexNumber(String index){
+		List<Student> result = null;
+		try{
+			result = em.createQuery("Select s from Student s where s.brojIndeksa=:brojIndeksa")
+					.setParameter("brojIndeksa", index)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
+	public List<Student> getStudentByFullName(String ime, String prezime){
+		List<Student> result = null;
+		try{
+			result = em.createQuery("Select s from Student s inner join s.korisnik k where k.imeKorisnika=:ime and k.prezimeKorisnika=:prezime")
+					.setParameter("ime", ime)
+					.setParameter("prezime", prezime)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
+	public List<Student> getStudentByNegativePoints(int bodovi){
+		List<Student> result = null;
+		try{
+			result = em.createQuery("Select s from Student s inner join s.korisnik k where k.brojNegativnihBodova=:bodovi")
+					.setParameter("bodovi", bodovi)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
 	public Student searchByJMBG(String jmbg){
 		Student result = null;
 		try{
