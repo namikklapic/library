@@ -44,6 +44,17 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 		return result;
 	}
 	
+	public List<Izdavac> getIzdavacByNaziv(String naziv){
+		List<Izdavac> result = null;
+		try{
+			result = em.createQuery("Select i from Izdavac i where i.nazivIzdavaca=:naziv")
+					.setParameter("naziv", naziv)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
 	/**
 	 * 
 	 * @return List of all Izdavac in database

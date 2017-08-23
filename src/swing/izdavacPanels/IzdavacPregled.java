@@ -15,13 +15,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import bussines.IzdavacServiceBean;
+import jpa.Autor;
 import jpa.Izdavac;
 import swing.autorPanels.AutorPregled;
+import swing.autorPanels.NoviAutor;
+import tableModel.AutorTableModel;
 import tableModel.IzdavacTableModel;
 
 public class IzdavacPregled extends JFrame {
@@ -43,16 +48,41 @@ public class IzdavacPregled extends JFrame {
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 13, 676, 574);
 		panel.setLayout(null);
-
 		
-		JScrollPane scrollPane = new JScrollPane();
+		searchLabel = new JLabel("Publisher: ");
+		txtSearchFilter = new JTextField(10);
+		searchBtn = new JButton("Search");
+		searchBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				String filter = txtSearchFilter.getText();
+				if(filter.equals(null) || filter.equals("")){
+					model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
+				}else
+					model = new IzdavacTableModel(izdavacServiceBean.getIzdavacByNaziv(filter));
+				
+				table.setModel(model);
+				
+				if(table.getRowCount() == 0){
+					message = "No result found!";
+					displayMessageDialogBox();
+				}
+				
+			}
+		});
+		
+		panel.add(searchLabel);
+		panel.add(txtSearchFilter);
+		panel.add(searchBtn);
+		
+		scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 458, 574);
 		
-		IzdavacTableModel model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
-		JTable table = new JTable(model);
+		model = new IzdavacTableModel();
+		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -77,9 +107,15 @@ public class IzdavacPregled extends JFrame {
 		edit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				Izdavac i = model.getIzdavac(table.getSelectedRow());
-				NoviIzdavac ni = new NoviIzdavac(i);
-				ni.prikazi();
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow > -1){
+					Izdavac i = model.getIzdavac(table.getSelectedRow());
+					NoviIzdavac ni = new NoviIzdavac(i);
+					ni.prikazi();
+				}else{
+					message = "No item selected!";
+					displayMessageDialogBox();
+				}
 			}
 		});
 		edit.setBorder(null);
@@ -103,6 +139,7 @@ public class IzdavacPregled extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnCancel.setBackground(Color.DARK_GRAY);
+				clearUIElements();
 				dispose();
 			}
 			@Override
@@ -147,9 +184,33 @@ public class IzdavacPregled extends JFrame {
 		return item;
 	}
 	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
+	}
+	
+	private void clearUIElements(){
+		txtSearchFilter.setText("");
+		txtSearchFilter.setBackground(Color.WHITE);
+		table.getSelectionModel().clearSelection();
+		
+		model = new IzdavacTableModel();
+		table.setModel(model);
+	}
+	
 	public void prikazi() { setVisible(true); }
 	
 	private JPanel panel;
+	private String message;
+	
+	private JScrollPane scrollPane;
+	private IzdavacTableModel model;
+	private JTable table;
+	
+	private JLabel searchLabel;
+	private JTextField txtSearchFilter;
+	private JButton searchBtn;
+	
 	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
 
 }
