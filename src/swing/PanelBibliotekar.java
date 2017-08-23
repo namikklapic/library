@@ -455,11 +455,11 @@ public class PanelBibliotekar extends JFrame{
 							
 						Toolkit kit = Toolkit.getDefaultToolkit();
 						Dimension velicinaEkrana = kit.getScreenSize();
-						int visinaProzora = 600;
-						int sirinaProzora = 400;
+						int visinaProzora = 530;
+						int sirinaProzora = 470;
 						
 						PanelPrijava panelPrijava = new PanelPrijava(frame);
-						frame.setSize(400, 600);
+						frame.setSize(470, 530);
 						frame.setResizable(false);
 	
 						frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);

@@ -57,21 +57,12 @@ public class PanelPrijava extends JPanel {
 		
 		// Whole panel that is showing options -- BEGIN
 		JPanel userLogin = new JPanel();
+		userLogin.setBackground(new Color(255,255,255,0));
 		userLogin.setOpaque(false);
-		userLogin.setBackground( new Color(95, 158, 160) );
-		userLogin.setBounds(0, 0, 400, 600);
+		userLogin.setBounds(8, 15, 453, 500);
 		userLogin.setLayout(null);
 		
 		add(userLogin);
-		// Whole panel that is showing options -- END
-		
-		// Username label options - BEGIN
-		JLabel user = new JLabel("Username:");
-		user.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
-		user.setForeground(new Color(255, 255, 255));
-		user.setBounds(54, 265, 124, 23);
-		
-		userLogin.add(user);
 		// Username label options - END
 		
 		
@@ -85,31 +76,40 @@ public class PanelPrijava extends JPanel {
 			public void focusGained(FocusEvent arg0) {
 				txtUser.setText("");
 			}
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				if(txtUser.getText().isEmpty())
+					txtUser.setText("Enter your username");
+			}
 		});
 		txtUser.setForeground(new Color(255, 255, 255));
 		txtUser.setOpaque(false);
 		txtUser.setToolTipText("");
-		txtUser.setBounds(54, 301, 284, 23);
+		txtUser.setBounds(99, 209, 253, 23);
 		
 		userLogin.add(txtUser);
 		// Username enter field options - END
 		
 		// Login button options -- BEGIN
-		JButton prijava = new JButton("Login");
+		JButton prijava = new JButton("Sign in");
 		prijava.setBorder(null);
 		prijava.setFocusPainted(false);
 		prijava.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 		prijava.setForeground(new Color(255, 255, 255));
-		prijava.setBackground(Color.DARK_GRAY);
-		prijava.setBounds(99, 469, 200, 56);
+		prijava.setBackground(new Color(47, 79, 79));
+		prijava.setBounds(130, 408, 190, 42);
 		prijava.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
-				prijava.setBackground(Color.GRAY);			
+				prijava.setBackground(new Color(51,102,102));	
+				repaint();
+				revalidate();
 				}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				prijava.setBackground(Color.DARK_GRAY);
+				prijava.setBackground(new Color(47, 79, 79));
+				repaint();
+				revalidate();
 			}
 		});
 		prijava.addActionListener(new prijavaEvent());
@@ -120,43 +120,22 @@ public class PanelPrijava extends JPanel {
 				
 				// Label Welcome -- BEGIN
 				JLabel lblLogIn = new JLabel("Welcome");
+				lblLogIn.setHorizontalAlignment(SwingConstants.LEFT);
 				lblLogIn.setForeground(new Color(255, 255, 255));
-				lblLogIn.setFont(new Font("Segoe UI Light", Font.BOLD, 45));
-				lblLogIn.setBounds(99, 39, 200, 92);
+				lblLogIn.setFont(new Font("Segoe UI Semibold", Font.BOLD, 45));
+				lblLogIn.setBounds(56, 39, 200, 92);
 				
 				userLogin.add(lblLogIn);	
 				//Label Welcome -- END
 				
 				// Label Please log in -- BEGIN
-				JLabel lblPleaseSignIn = new JLabel("Please sign in");
-				lblPleaseSignIn.setForeground(Color.WHITE);
-				lblPleaseSignIn.setFont(new Font("Segoe UI Light", Font.BOLD, 27));
-				lblPleaseSignIn.setBounds(116, 159, 171, 64);
+				JLabel lblPleaseSignIn = new JLabel("Please sign in to your account");
+				lblPleaseSignIn.setHorizontalAlignment(SwingConstants.LEFT);
+				lblPleaseSignIn.setForeground(new Color(197,223,208));
+				lblPleaseSignIn.setFont(new Font("Segoe UI Light", Font.BOLD, 24));
+				lblPleaseSignIn.setBounds(56, 97, 340, 64);
 				
 				userLogin.add(lblPleaseSignIn);
-				// Label Please log in -- END
-				
-				// All separators used -- BEGIN
-				JSeparator separator = new JSeparator();
-				separator.setBounds(73, 221, 265, 2);
-				userLogin.add(separator);
-				
-				JSeparator separator_1 = new JSeparator();
-				separator_1.setBounds(54, 323, 275, 2);
-				userLogin.add(separator_1);
-				
-				JSeparator separator_2 = new JSeparator();
-				separator_2.setBounds(54, 403, 275, 2);
-				userLogin.add(separator_2);
-				// All separators used -- END
-				
-				// Label password options -- BEGIN
-				JLabel password = new JLabel("Password:");
-				password.setFont(new Font("Segoe UI Light", Font.BOLD, 18));
-				password.setForeground(new Color(255, 255, 255));
-				password.setBounds(54, 348, 124, 23);
-				
-				userLogin.add(password);
 				// Label password options -- END
 
 				// Workaround for focus issue -- BEGIN
@@ -175,22 +154,27 @@ public class PanelPrijava extends JPanel {
 					public void focusGained(FocusEvent e) {
 						txtPass.setText("");
 					}
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if(txtPass.getText().isEmpty())
+							txtPass.setText("Enter your password");
+					}
 				});
 				txtPass.setForeground(new Color(255, 255, 255));
 				txtPass.setOpaque(false);
 				txtPass.setText("Enter your password");
-				txtPass.setBounds(54, 382, 284, 23);
+				txtPass.setBounds(99, 259, 253, 23);
 				userLogin.add(txtPass);
-				prijava.setForeground(new Color(255, 255, 255));
-				prijava.setBackground(Color.DARK_GRAY);
+				//prijava.setForeground(new Color(255, 255, 255));
+				//prijava.setBackground(new Color(53,100,98));
 				
 				JButton btnMinimize = new JButton("__");
 				btnMinimize.setOpaque(false);
 				btnMinimize.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent arg0) {
-						btnMinimize.setBackground(Color.GRAY);	
-						btnMinimize.setForeground(Color.DARK_GRAY);
+						btnMinimize.setBackground(new Color(197,223,208));	
+						btnMinimize.setForeground(new Color(197,223,208));
 						}
 					@Override
 					public void mouseExited(MouseEvent e) {
@@ -209,7 +193,7 @@ public class PanelPrijava extends JPanel {
 				btnMinimize.setFocusPainted(false);
 				btnMinimize.setBorder(null);
 				btnMinimize.setBackground(Color.DARK_GRAY);
-				btnMinimize.setBounds(334, 13, 26, 23);
+				btnMinimize.setBounds(387, 9, 26, 23);
 				userLogin.add(btnMinimize);
 				
 				JButton btnExit = new JButton("x");
@@ -217,8 +201,8 @@ public class PanelPrijava extends JPanel {
 				btnExit.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent arg0) {
-						btnExit.setBackground(Color.GRAY);	
-						btnExit.setForeground(Color.DARK_GRAY);
+						btnExit.setBackground(new Color(197,223,208));	
+						btnExit.setForeground(new Color(197,223,208));
 
 						}
 					@Override
@@ -239,12 +223,12 @@ public class PanelPrijava extends JPanel {
 				btnExit.setFocusPainted(false);
 				btnExit.setBorder(null);
 				btnExit.setBackground(Color.DARK_GRAY);
-				btnExit.setBounds(362, 16, 26, 23);
+				btnExit.setBounds(415, 11, 26, 23);
 				userLogin.add(btnExit);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(PanelPrijava.class.getResource("/swing/images/loginbackground.jpg")));
-		lblNewLabel.setBounds(0, 0, 400, 600);
+		lblNewLabel.setIcon(new ImageIcon(PanelPrijava.class.getResource("/swing/images/LoginScreenBackground.jpg")));
+		lblNewLabel.setBounds(-165, -35, 663, 600);
 		add(lblNewLabel);
 		
 		// Password enter field options -- END		
@@ -335,7 +319,7 @@ public class PanelPrijava extends JPanel {
 			mainFrame.getContentPane().removeAll();
 			mainFrame.revalidate();
 		
-			mainFrame.getContentPane().setBackground(Color.GRAY);
+			mainFrame.getContentPane().setBackground(new Color(86,133,121));
 
 			
 			mainFrame.getContentPane().setSize(800, 600);
@@ -345,7 +329,7 @@ public class PanelPrijava extends JPanel {
 
 		
 		    mainFrame.setVisible(true);
-		    
+		  
 		    
 		    
 		    
@@ -358,11 +342,11 @@ public class PanelPrijava extends JPanel {
 			
 			Toolkit kit = Toolkit.getDefaultToolkit();
 			Dimension velicinaEkrana = kit.getScreenSize();
-			int visinaProzora = 600;
-			int sirinaProzora = 400;
+			int visinaProzora = 530;
+			int sirinaProzora = 470;
 			
 			PanelPrijava panelPrijava = new PanelPrijava(frame);
-			frame.setSize(400, 600);
+			frame.setSize(470, 530);
 			frame.setResizable(false);
 
 			frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
