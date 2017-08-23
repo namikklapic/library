@@ -29,6 +29,18 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		return result;
 	}
 	
+	public List<Nastavnik> getNastavniciByFullName(String ime, String prezime){
+		List<Nastavnik> result = null;
+		try{
+			result = em.createQuery("Select n from Nastavnik n inner join n.korisnik k where k.imeKorisnika=:ime and k.prezimeKorisnika=:prezime")
+					.setParameter("ime", ime)
+					.setParameter("prezime", prezime)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
 	public Nastavnik searchByJMBG(String sifra){
 		Nastavnik result = null;
 		try{

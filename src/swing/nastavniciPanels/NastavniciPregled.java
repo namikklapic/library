@@ -14,13 +14,18 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import bussines.NastavnikServiceBean;
+import jpa.Autor;
 import jpa.Nastavnik;
 import swing.autorPanels.AutorPregled;
+import swing.autorPanels.NoviAutor;
+import tableModel.AutorTableModel;
 import tableModel.NastavnikTableModel;
 
 public class NastavniciPregled extends JFrame{
@@ -42,14 +47,42 @@ public class NastavniciPregled extends JFrame{
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		searchLabel = new JLabel("Author: ");
+		txtSearchFilter = new JTextField(10);
+		searchBtn = new JButton("Search");
+		searchBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				String filter = txtSearchFilter.getText();
+				if(filter.equals(null) || filter.equals("")){
+					model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
+				}else{
+					String[] spliter = filter.split(" ");
+					if(spliter.length != 2){
+						message = "Please, enter teacher's first and last name!";
+						txtSearchFilter.setBackground(Color.RED);
+						displayMessageDialogBox();
+					}else
+						model = new NastavnikTableModel(nastavnikServiceBean.getNastavniciByFullName(spliter[0], spliter[1]));
+				}
+				
+				table.setModel(model);
+				
+				if(table.getRowCount() == 0){
+					message = "No result found!";
+					displayMessageDialogBox();
+				}
+			}
+		});
+		
+		scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 676, 418);
 		
-		NastavnikTableModel model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
-		JTable table = new JTable(model);
+		model = new NastavnikTableModel();
+		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -74,9 +107,15 @@ public class NastavniciPregled extends JFrame{
 		edit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				Nastavnik n = model.getNastavnik(table.getSelectedRow());
-				NoviNastavnik nn = new NoviNastavnik(n);
-				nn.prikazi();
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow > -1){
+					Nastavnik n = model.getNastavnik(table.getSelectedRow());
+					NoviNastavnik nn = new NoviNastavnik(n);
+					nn.prikazi();
+				}else{
+					message = "No item selected!";
+					displayMessageDialogBox();
+				}
 			}
 		});
 		edit.setBorder(null);
@@ -101,6 +140,7 @@ public class NastavniciPregled extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnCancel.setBackground(Color.DARK_GRAY);
+				clearUIElements();
 				dispose();
 			}
 			@Override
@@ -143,8 +183,32 @@ public class NastavniciPregled extends JFrame{
 		});
 		return item;
 	}
+	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
+	}
+	
+	private void clearUIElements(){
+		txtSearchFilter.setText("");
+		txtSearchFilter.setBackground(Color.WHITE);
+		table.getSelectionModel().clearSelection();
+		
+		model = new NastavnikTableModel();
+		table.setModel(model);
+	}
 
 	private JPanel panel;
+	private String message;
+	
+	private JScrollPane scrollPane;
+	private NastavnikTableModel model;
+	private JTable table;
+	
+	private JLabel searchLabel;
+	private JTextField txtSearchFilter;
+	private JButton searchBtn;
+	
 	private NastavnikServiceBean nastavnikServiceBean = new NastavnikServiceBean();
 
 }
