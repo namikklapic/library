@@ -14,12 +14,43 @@ import jpa.RezervacijaPK;
 
 public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 	
-	public List<Rezervacija> getRezervacijeByKorisnik(Korisnik k){
+	public List<Rezervacija> getActiveRezervacijeByKorisnik(Korisnik k){
 		List<Rezervacija> result = null;
 		try {
 			result = em
 					.createQuery("Select r from Rezervacija r where r.korisnik = :k and r.isConfirmed=0")
 					.setParameter("k", k)
+					.getResultList();
+		} catch(NoResultException nre) {}
+		return result;	
+	}
+	
+	public List<Rezervacija> getRezervacijeByKorisnik(Korisnik k){
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r where r.korisnik = :k")
+					.setParameter("k", k)
+					.getResultList();
+		} catch(NoResultException nre) {}
+		return result;	
+	}
+	
+	public List<Rezervacija> getAllRezervacije(){
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r")
+					.getResultList();
+		} catch(NoResultException nre) {}
+		return result;	
+	}
+	
+	public List<Rezervacija> getAllActiveRezervacije(){
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r where r.isConfirmed=0")
 					.getResultList();
 		} catch(NoResultException nre) {}
 		return result;	

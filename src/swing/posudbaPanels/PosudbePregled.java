@@ -33,7 +33,7 @@ public class PosudbePregled extends JFrame {
 	
 	public PosudbePregled(Korisnik k){
 		
-		setTitle("Pregled posudbi za korisnika");
+		setTitle("Pregled posudbi");
 		setSize(800, 800);
 		
 		panel = new JPanel();	
@@ -47,17 +47,6 @@ public class PosudbePregled extends JFrame {
 			model = new PosudbeTableModel(posudbaServiceBean.getPosudbeByKorisnik(k));
 		table = new JTable(model);
 		currUser = k;
-		
-		JButton edit = new JButton("Uredi");
-		edit.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent event){
-				Posudba p = model.getPosudba(table.getSelectedRow());
-//				Knjiga k = knjigaServiceBean.getById(p.getPrimjerak().getKnjiga().getId());
-//				NovaKnjiga nk = new NovaKnjiga(k, false);
-//				nk.prikazi();
-			}
-		});
 		
 		class CheckboxAction extends AbstractAction {
 		    public CheckboxAction(String text) {
@@ -90,7 +79,6 @@ public class PosudbePregled extends JFrame {
 		
 		scrollPane.setViewportView(table);
 		panel.add(scrollPane);
-		panel.add(edit);
 		panel.add(onlyActive);
 		
 		add(panel);

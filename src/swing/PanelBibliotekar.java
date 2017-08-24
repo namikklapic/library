@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jpa.Bibliotekar;
+import swing.RezervacijaPanels.RezervacijePregled;
 import swing.VrstaKnjigePanels.NovaVrstaKnjige;
 import swing.VrstaKnjigePanels.VrstaKnjigePregled;
 import swing.autorPanels.AutorPregled;
@@ -380,12 +381,16 @@ public class PanelBibliotekar extends JFrame{
 		JMenu posudbe = new JMenu("Book loans");
 		posudbe.add(novaPosudba.getMenuItem());
 		posudbe.add(posudbePregled.getMenuItem(panel));
+		
+		JMenu rezervacije = new JMenu("Book reservations");
+		rezervacije.add(rezervacijePregled.getMenuItem(panel));
 				
 		menuBar.add(knjiga);
 		menuBar.add(nastavnici);
 		menuBar.add(studenti);
 		menuBar.add(predmeti);
 		menuBar.add(posudbe);
+		menuBar.add(rezervacije);
 		
 		setJMenuBar(menuBar);
 		
@@ -1411,4 +1416,5 @@ public class PanelBibliotekar extends JFrame{
 	
 	private NovaPosudba novaPosudba = new NovaPosudba();
 	private PosudbePregled posudbePregled = new PosudbePregled(null);
+	private RezervacijePregled rezervacijePregled = new RezervacijePregled(null);
 }

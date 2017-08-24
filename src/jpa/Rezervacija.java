@@ -28,7 +28,7 @@ public class Rezervacija implements Serializable {
 	public Rezervacija() {}
 	
 	public Rezervacija(RezervacijaPK id, Primjerak p, Korisnik k, Date datumRezervacije, Boolean isConfirmed) {
-		this.id = id;
+		this.setId(id);
 		this.setPrimjerak(p);
 		this.setKorisnik(k);
 		this.setDatumRezervacije(datumRezervacije);
@@ -65,5 +65,13 @@ public class Rezervacija implements Serializable {
 
 	public void setIsConfirmed(Boolean isConfirmed) {
 		this.isConfirmed = isConfirmed;
+	}
+
+	public RezervacijaPK getId() {
+		return id;
+	}
+
+	public void setId(RezervacijaPK id) {
+		this.id = id;
 	}
 }

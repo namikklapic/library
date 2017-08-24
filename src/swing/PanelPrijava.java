@@ -231,6 +231,7 @@ public class PanelPrijava extends JPanel {
 		lblNewLabel.setBounds(-165, -35, 663, 600);
 		add(lblNewLabel);
 		
+		
 		// Password enter field options -- END		
 		
 	}

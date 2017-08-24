@@ -425,7 +425,7 @@ public class NovaKnjiga extends JFrame {
 			JOptionPane.showMessageDialog(btnRezervisi.getParent(), "There are no available copies of that book.", "Oops!", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		List<Rezervacija> listaRezervacija = rezervacijaServiceBean.getRezervacijeByKorisnik(currUser);
+		List<Rezervacija> listaRezervacija = rezervacijaServiceBean.getActiveRezervacijeByKorisnik(currUser);
 		if(listaRezervacija.size() >= 3) {
 			JOptionPane.showMessageDialog(btnRezervisi.getParent(), "You can have only 3 books reserved at the same time.", "Oops!", JOptionPane.WARNING_MESSAGE);
 			return;

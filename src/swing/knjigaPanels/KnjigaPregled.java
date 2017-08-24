@@ -132,7 +132,7 @@ public class KnjigaPregled extends JFrame {
 			public void actionPerformed(ActionEvent event){
 				int selectedRow = table.getSelectedRow();
 				if(selectedRow > -1){
-					Knjiga k = model.getKnjiga(table.getSelectedRow());
+					Knjiga k = ((KnjigaTableModel) table.getModel()).getKnjiga(table.getSelectedRow());
 					NovaKnjiga nk = new NovaKnjiga(k, canEdit, currUser);
 					nk.prikazi();
 				}else{
