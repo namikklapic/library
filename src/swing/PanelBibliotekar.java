@@ -1410,5 +1410,5 @@ public class PanelBibliotekar extends JFrame{
 	private PredmetPregled predmetPregled = new PredmetPregled();
 	
 	private NovaPosudba novaPosudba = new NovaPosudba();
-	private PosudbePregled posudbePregled = new PosudbePregled();
+	private PosudbePregled posudbePregled = new PosudbePregled(null);
 }

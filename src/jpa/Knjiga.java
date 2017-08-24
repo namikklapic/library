@@ -117,4 +117,15 @@ public class Knjiga {
 	public void setBrojPrimjeraka(int brojPrimjeraka){
 		this.brojPrimjeraka = brojPrimjeraka;
 	}
+	
+	public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Knjiga)) {
+            return false;
+        }
+        Knjiga other = (Knjiga) obj;
+        return this.id == other.id;
+    }
 }

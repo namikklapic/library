@@ -21,6 +21,17 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		return c.intValue();
 	}
 	
+	public List<Posudba> getAllPosudbe(){
+		List<Posudba> result = null;
+		try {
+			result = em
+				.createQuery("Select p from Posudba p")
+				.getResultList();
+			}
+		catch(NoResultException nre) {}
+			return result;	
+	}
+	
 	public List<Posudba> getPosudbeByKorisnik(Korisnik k){
 		List<Posudba> result = null;
 		try {
@@ -48,9 +59,20 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		try {
 			result = em
 					.createQuery("Select p from Posudba p where p.korisnik = :k and p.datumVracanja IS NULL")
-					.setParameter('k', 	k)
+					.setParameter("k", 	k)
 					.getResultList();
 		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public List<Posudba> getActivePosudba(){
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p where p.datumVracanja IS NULL")
+					.getResultList();
+		} 
+		catch(NoResultException nre) {}
 		return result;
 	}
 	

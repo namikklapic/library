@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -48,9 +49,12 @@ import util.Lookup;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
 import java.beans.PropertyChangeEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
+
+import java.text.SimpleDateFormat;
 
 public class NovaKnjiga extends JFrame {
 	public NovaKnjiga(){
@@ -340,6 +344,33 @@ public class NovaKnjiga extends JFrame {
 		});
 		panel.add(btnOdustani);
 		
+		
+		btnRezervisi = new JButton("Reserve");
+		btnRezervisi.setBounds(234, 499, 82, 36);
+		btnRezervisi.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				onReserveBookClicked(user);
+			}
+		});
+		btnRezervisi.setBorder(null);
+		btnRezervisi.setFocusPainted(false);
+		btnRezervisi.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		btnRezervisi.setForeground(new Color(255, 255, 255));
+		btnRezervisi.setBackground(Color.DARK_GRAY);
+		btnRezervisi.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btnRezervisi.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnRezervisi.setBackground(Color.DARK_GRAY);
+			}
+		});
+		btnRezervisi.setVisible(false);
+		panel.add(btnRezervisi);
+		
 		getContentPane().setLayout(null);
 		
 		
@@ -380,21 +411,15 @@ public class NovaKnjiga extends JFrame {
 			cbVrstaKnjige.setEnabled(false);
 			cbIzdavac.setEnabled(false);
 			btnPotvrdi.setVisible(false);
-			lookupAutori.removeButtons();
-			
-			btnRezervisi = new JButton("Reserve");
-			btnRezervisi.addActionListener(new ActionListener(){
-				@Override
-				public void actionPerformed(ActionEvent event){
-					onReserveBookClicked(currUser);
-				}
-			});
-			
-			panel.add(btnRezervisi);
+			btnRezervisi.setVisible(true);
+			lookupAutori.removeButtons();		
+			user = currUser;
 		}
 	}
 	
 	private void onReserveBookClicked(Korisnik currUser) {
+		if(currUser == null)
+			return;
 		List<Primjerak> listaDostupnih = primjerakServiceBean.getAllAvailablePrimjerakByBook(knjiga);
 		if (listaDostupnih.size() == 0) {
 			JOptionPane.showMessageDialog(btnRezervisi.getParent(), "There are no available copies of that book.", "Oops!", JOptionPane.WARNING_MESSAGE);
@@ -412,39 +437,37 @@ public class NovaKnjiga extends JFrame {
 			}
 		}
 		
-			
-		Boolean isValidDate = false;
-		while(!isValidDate) {
-			String mess = "Please enter the motherfucking date in \"dd.mm.yyyy.\" format:\n";
-			String date = (String)JOptionPane.showInputDialog(btnRezervisi.getParent(), mess, "Make a reservation", JOptionPane.INFORMATION_MESSAGE );
-			if(date != null) {
-				String[] koefs = date.split("\\.");
-				/*(System.out.println(koefs[0]);
-				System.out.println(koefs[1]);
-				System.out.println(koefs[2]);*/
-				if(koefs.length == 3){
-					int d = Integer.parseInt(koefs[0]);
-					int m = Integer.parseInt(koefs[1]) - 1;
-					int y = Integer.parseInt(koefs[2]) - 1900;
-					Date datum = new Date(y,m,d);
-					Date today = new Date();
-					isValidDate = datum.getYear() == today.getYear() && datum.getMonth() == today.getMonth() && datum.getDate()-today.getDate() >= 0 && datum.getDate()-today.getDate() <= 5;
-					if(!isValidDate)
-						JOptionPane.showMessageDialog(btnRezervisi.getParent(), "Date must not be more than 5 days from today!", "Invalid date!", JOptionPane.ERROR_MESSAGE);
-					else {
-						RezervacijaPK id = new RezervacijaPK(listaDostupnih.get(0).getInventarskiBroj(), currUser.getSifraKorisnika());
-						Rezervacija entity = new Rezervacija(id, listaDostupnih.get(0), currUser, datum);
-						rezervacijaServiceBean.save(entity);
-						Primjerak p = listaDostupnih.get(0);
-						p.setRezervisan(true);
-						primjerakServiceBean.save(p);
-					}
-				}
-				else
-					JOptionPane.showMessageDialog(btnRezervisi.getParent(), "Date must be in \"dd.mm.yyyy.\" format", "Invalid date!", JOptionPane.ERROR_MESSAGE);
-			}
-			else
-				isValidDate = true;
+		String mess = "Please select last date of your resevation:\n";
+		String[] dates = new String[5];
+		Calendar cal = Calendar.getInstance();
+		//cal.add(Calendar.DATE, 1);
+		SimpleDateFormat format1 = new SimpleDateFormat("dd.MM.yyyy");
+		for(int i=0; i<5; i++) {
+			dates[i] = format1.format(cal.getTime());
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+		}	
+		String date = (String) JOptionPane.showInputDialog(btnRezervisi.getParent(), 
+		        mess,
+		        "Make a reservation",
+		        JOptionPane.QUESTION_MESSAGE, 
+		        null, 
+		        dates, 
+		        dates[0]);
+		if(date != null) {
+			String[] koefs = date.split("\\.");
+			int d = Integer.parseInt(koefs[0]);
+			int m = Integer.parseInt(koefs[1]) - 1;
+			int y = Integer.parseInt(koefs[2]) - 1900;
+			Date datum = new Date(y,m,d);
+			RezervacijaPK id = new RezervacijaPK(listaDostupnih.get(0).getInventarskiBroj(), currUser.getSifraKorisnika());
+			Rezervacija entity = new Rezervacija(id, listaDostupnih.get(0), currUser, datum, false);
+			rezervacijaServiceBean.save(entity);
+			Primjerak p = listaDostupnih.get(0);
+			p.setRezervisan(true);
+			primjerakServiceBean.save(p);
+			initializeUIElements();
+			dispose();
+			btnRezervisi.setBackground(Color.DARK_GRAY);
 		}
 	}
 	
@@ -626,6 +649,8 @@ public class NovaKnjiga extends JFrame {
 	private Knjiga knjiga;
 	
 	private String message;
+	
+	private Korisnik user;
 	
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
 	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();

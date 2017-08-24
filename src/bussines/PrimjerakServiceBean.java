@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.ArrayList;
 import java.util.List;
 import jpa.Knjiga;
 
@@ -31,6 +32,23 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			result = query.getResultList();
 		} catch(NoResultException nre) {}
 		return result;
+	}
+	
+	public List<Knjiga> getAllAvailableKnjige() {
+		List<Knjiga> result = null;
+		List<Knjiga> available = new ArrayList<Knjiga>();
+		try {
+			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
+			result = query.getResultList();
+			for (Knjiga knjiga: result)
+			{
+			  if (!available.contains(knjiga)) 
+			  {
+				  available.add(knjiga);
+			  }
+			}
+		} catch(NoResultException nre) {}
+		return available;	
 	}
 	
 	public List<Primjerak> getAllPrimjerak(){

@@ -8,7 +8,9 @@ import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import jpa.Korisnik;
 import jpa.Posudba;
+import jpa.Primjerak;
 import jpa.Rezervacija;
+import jpa.RezervacijaPK;
 
 public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 	
@@ -16,7 +18,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 		List<Rezervacija> result = null;
 		try {
 			result = em
-					.createQuery("Select r from Rezervacija r where r.korisnik = :k")
+					.createQuery("Select r from Rezervacija r where r.korisnik = :k and r.isConfirmed=0")
 					.setParameter("k", k)
 					.getResultList();
 		} catch(NoResultException nre) {}
@@ -27,7 +29,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 		Long c = (long) 0;
 		try {
 			c = (Long) em
-					.createQuery("Select count(r) from Rezervacija r where r.korisnik = :k")
+					.createQuery("Select count(r) from Rezervacija r where r.korisnik = :k and r.isConfirmed=0")
 					.setParameter("k", k)
 					.getSingleResult();
 		} catch(NoResultException nre) {}
@@ -57,5 +59,22 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 			return true;
 		
 		return false;
+	}
+
+	public void setRezervacijaConfirmed(RezervacijaPK id) {
+		Rezervacija find = em.find(Rezervacija.class, id);
+		if(find != null){
+			em.getTransaction().begin();
+			find.setIsConfirmed(true);
+			em.getTransaction().commit();
+		}
+	}
+
+	public boolean doesReservationExist(RezervacijaPK id) {
+		Rezervacija find = em.find(Rezervacija.class, id);
+		if(find != null)
+			return true;
+		else
+			return false;
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -24,6 +25,7 @@ import bussines.KnjigaServiceBean;
 import bussines.LiteraturaServiceBean;
 import bussines.PredmetServiceBean;
 import bussines.VrstaKnjigeServiceBean;
+import bussines.PrimjerakServiceBean;
 import jpa.Knjiga;
 import jpa.Korisnik;
 import jpa.VrstaKnjige;
@@ -140,9 +142,31 @@ public class KnjigaPregled extends JFrame {
 			}
 		});
 		
+		class CheckboxAction extends AbstractAction {
+		    public CheckboxAction(String text) {
+		        super(text);
+		    }
+				 
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        JCheckBox chkbox = (JCheckBox) e.getSource();
+		        if (chkbox.isSelected()) {
+		        	KnjigaTableModel availableBooks = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjige());
+			        table.setModel(availableBooks);
+		        } else {	
+			        KnjigaTableModel books = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
+		        	table.setModel(books);
+			        }
+			    }
+		}
+				
+		JCheckBox onlyAvail = new JCheckBox(new CheckboxAction("Show only available books"));
+		onlyAvail.setSelected(false);
+		
 		scrollPane.setViewportView(table);
 		panel.add(scrollPane);
 		panel.add(edit);
+		panel.add(onlyAvail);
 		
 		cancel = new JButton("Cancel");
 		cancel.addActionListener(new ActionListener(){
@@ -201,4 +225,5 @@ public class KnjigaPregled extends JFrame {
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();
 	private AutorKnjigaServiceBean autorKnjigaServiceBean = new AutorKnjigaServiceBean();
 	private LiteraturaServiceBean literaturaServiceBean = new LiteraturaServiceBean();
+	private PrimjerakServiceBean primjerakServiceBean = new PrimjerakServiceBean();
 }

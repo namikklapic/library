@@ -24,6 +24,7 @@ import bussines.KnjigaServiceBean;
 import bussines.NastavnikServiceBean;
 import bussines.PosudbaServiceBean;
 import bussines.PrimjerakServiceBean;
+import bussines.RezervacijaServiceBean;
 import bussines.StudentServiceBean;
 import jpa.Knjiga;
 import jpa.Korisnik;
@@ -31,6 +32,8 @@ import jpa.Nastavnik;
 import jpa.Posudba;
 import jpa.PosudbaPK;
 import jpa.Primjerak;
+import jpa.Rezervacija;
+import jpa.RezervacijaPK;
 import jpa.Student;
 
 public class NovaPosudba extends JFrame {
@@ -217,9 +220,19 @@ public class NovaPosudba extends JFrame {
 			message = "The book copy with specified ID does not exist!";
 			return false;
 		}
-		if((primjerak != null) && (primjerak.isPosudjen() || primjerak.isRezervisan())){
+		if(primjerak.isPosudjen()){
 			message = "The requested book copy is not available at the moment!";
 			return false;
+		}
+		if(primjerak.isRezervisan()) {
+			RezervacijaPK id = new RezervacijaPK(primjerak.getInventarskiBroj(), korisnik.getSifraKorisnika());
+			boolean isThisUsersReservation = rezervacijaServiceBean.doesReservationExist(id);
+			if(isThisUsersReservation)
+				return true;
+			else {
+				message = "The requested book copy is not available at the moment!";
+				return false;
+			}
 		}
 		return true;
 	}
@@ -230,6 +243,10 @@ public class NovaPosudba extends JFrame {
 		Posudba p = new Posudba(id, primjerak, korisnik, krajnjiDatumVracanja);
 		posudbaServiceBean.save(p);
 		primjerakServiceBean.setPrimjerakPosudjen(primjerak, true);
+		if(primjerak.isRezervisan()) {
+			RezervacijaPK id = new RezervacijaPK(primjerak.getInventarskiBroj(), korisnik.getSifraKorisnika());
+			rezervacijaServiceBean.setRezervacijaConfirmed(id);
+		}
 		message = "The book loan has been successfully saved!";
 	}
 	
@@ -286,4 +303,5 @@ public class NovaPosudba extends JFrame {
 	private NastavnikServiceBean nastavnikServiceBean = new NastavnikServiceBean();
 	private PosudbaServiceBean posudbaServiceBean = new PosudbaServiceBean();
 	private PrimjerakServiceBean primjerakServiceBean = new PrimjerakServiceBean();
+	private RezervacijaServiceBean rezervacijaServiceBean = new RezervacijaServiceBean();
 }
