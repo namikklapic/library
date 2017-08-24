@@ -4,6 +4,8 @@ import javax.persistence.NoResultException;
 
 import jpa.Bibliotekar;
 import jpa.EntityManagerProducer;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class BibliotekarServiceBean extends EntityManagerProducer<Bibliotekar>{
 	
@@ -37,7 +39,8 @@ public class BibliotekarServiceBean extends EntityManagerProducer<Bibliotekar>{
 		} else {
 			super.save(entity);
 		}
-		
+		MyEvent evt = new MyEvent(this, "Update Bibliotekar");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 }

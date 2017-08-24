@@ -39,8 +39,15 @@ public class PanelNastavnik extends JFrame {
 		
 		
 	}
+	
+	public void updateInterface(String reason) {
+		
+	}
+	
 	private Nastavnik nastavnik;
 	
 	private KnjigaPregled knjigaPregled;
 	private PosudbePregled posudbePregled;
 }
+
+

@@ -59,25 +59,7 @@ public class AutorPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				String filter = txtSearchFilter.getText();
-				if(filter.equals(null) || filter.equals("")){
-					model = new AutorTableModel(autorServiceBean.getAllAutor());
-				}else{
-					String[] spliter = filter.split(" ");
-					if(spliter.length != 2){
-						message = "Please, enter author's first and last name!";
-						txtSearchFilter.setBackground(Color.RED);
-						displayMessageDialogBox();
-					}else
-						model = new AutorTableModel(autorServiceBean.getAutorByFullName(spliter[0], spliter[1]));
-				}
-				
-				table.setModel(model);
-				
-				if(table.getRowCount() == 0){
-					message = "No result found!";
-					displayMessageDialogBox();
-				}
+				refreshTable();
 			}
 		});
 		
@@ -209,6 +191,28 @@ public class AutorPregled extends JFrame {
 		
 		model = new AutorTableModel();
 		table.setModel(model);
+	}
+	
+	public void refreshTable() {
+		String filter = txtSearchFilter.getText();
+		if(filter.equals(null) || filter.equals("")){
+			model = new AutorTableModel(autorServiceBean.getAllAutor());
+		}else{
+			String[] spliter = filter.split(" ");
+			if(spliter.length != 2){
+				message = "Please, enter author's first and last name!";
+				txtSearchFilter.setBackground(Color.RED);
+				displayMessageDialogBox();
+			}else
+				model = new AutorTableModel(autorServiceBean.getAutorByFullName(spliter[0], spliter[1]));
+		}
+		
+		table.setModel(model);
+		
+		if(table.getRowCount() == 0){
+			message = "No result found!";
+			displayMessageDialogBox();
+		}
 	}
 	
 	public void prikazi() { setVisible(true); }

@@ -35,6 +35,10 @@ import bussines.StudentServiceBean;
 import jpa.Bibliotekar;
 import jpa.Nastavnik;
 import jpa.Student;
+import util.MyClass;
+import util.MyEvent;
+import util.MyEventListener;
+
 import javax.swing.SwingConstants;
 
 
@@ -47,6 +51,8 @@ public class PanelPrijava extends JPanel {
 	private JPasswordField txtPass = new JPasswordField(13);
 	private JFrame mainFrame;
 	private JTextField textField;
+	
+	public static MyClass realTime = new MyClass();;
 
 	
 	
@@ -231,6 +237,8 @@ public class PanelPrijava extends JPanel {
 		lblNewLabel.setBounds(-165, -35, 663, 600);
 		add(lblNewLabel);
 		
+		this.txtUser.setText("Mujo.Mujic");
+		this.txtPass.setText("14000");
 		
 		// Password enter field options -- END		
 		
@@ -270,6 +278,12 @@ public class PanelPrijava extends JPanel {
 					    bibliotekarLogin.setLocation(x, y);
 						bibliotekarLogin.setVisible(true);
 						bibliotekarLogin.addWindowListener(new UserPanelClosingAction());
+						realTime.addMyEventListener(new MyEventListener() {
+						      public void myEventOccurred(MyEvent evt) {
+						    	  System.out.println(evt.getEventMessage());
+						    	  ((PanelBibliotekar) bibliotekarLogin).updateInterface(evt.getEventMessage());
+						      }
+						    });
 					}
 					else if (n != null){
 						mainFrame.setVisible(false);
@@ -277,6 +291,12 @@ public class PanelPrijava extends JPanel {
 						nastavnikLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						nastavnikLogin.setVisible(true);
 						nastavnikLogin.addWindowListener(new UserPanelClosingAction());
+						realTime.addMyEventListener(new MyEventListener() {
+						      public void myEventOccurred(MyEvent evt) {
+						    	  System.out.println(evt.getEventMessage());
+						    	  ((PanelNastavnik) nastavnikLogin).updateInterface(evt.getEventMessage());
+						      }
+						    });
 					}
 					else if(s != null){
 						mainFrame.setVisible(false);
@@ -284,6 +304,12 @@ public class PanelPrijava extends JPanel {
 						studentLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						studentLogin.setVisible(true);
 						studentLogin.addWindowListener(new UserPanelClosingAction());
+						realTime.addMyEventListener(new MyEventListener() {
+						      public void myEventOccurred(MyEvent evt) {
+						    	  System.out.println(evt.getEventMessage());
+						    	  ((PanelStudent) studentLogin).updateInterface(evt.getEventMessage());
+						      }
+						    });
 						
 					}
 					else {						

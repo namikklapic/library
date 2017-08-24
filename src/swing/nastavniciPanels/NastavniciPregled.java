@@ -53,25 +53,7 @@ public class NastavniciPregled extends JFrame{
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				String filter = txtSearchFilter.getText();
-				if(filter.equals(null) || filter.equals("")){
-					model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
-				}else{
-					String[] spliter = filter.split(" ");
-					if(spliter.length != 2){
-						message = "Please, enter teacher's first and last name!";
-						txtSearchFilter.setBackground(Color.RED);
-						displayMessageDialogBox();
-					}else
-						model = new NastavnikTableModel(nastavnikServiceBean.getNastavniciByFullName(spliter[0], spliter[1]));
-				}
-				
-				table.setModel(model);
-				
-				if(table.getRowCount() == 0){
-					message = "No result found!";
-					displayMessageDialogBox();
-				}
+				refreshTable();
 			}
 		});
 		
@@ -196,6 +178,28 @@ public class NastavniciPregled extends JFrame{
 		
 		model = new NastavnikTableModel();
 		table.setModel(model);
+	}
+	
+	public void refreshTable() {
+		String filter = txtSearchFilter.getText();
+		if(filter.equals(null) || filter.equals("")){
+			model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
+		}else{
+			String[] spliter = filter.split(" ");
+			if(spliter.length != 2){
+				message = "Please, enter teacher's first and last name!";
+				txtSearchFilter.setBackground(Color.RED);
+				displayMessageDialogBox();
+			}else
+				model = new NastavnikTableModel(nastavnikServiceBean.getNastavniciByFullName(spliter[0], spliter[1]));
+		}
+		
+		table.setModel(model);
+		
+		if(table.getRowCount() == 0){
+			message = "No result found!";
+			displayMessageDialogBox();
+		}
 	}
 
 	private JPanel panel;

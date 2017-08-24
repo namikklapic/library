@@ -11,6 +11,8 @@ import jpa.Posudba;
 import jpa.Primjerak;
 import jpa.Rezervacija;
 import jpa.RezervacijaPK;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 	
@@ -70,6 +72,8 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 	public Rezervacija save(Rezervacija entity) {
 		// Once added, rezervacija can not be changed. That is the reason we are not trying to find existing Rezervacija
 		super.save(entity);
+		MyEvent evt = new MyEvent(this, "Update Rezervacija");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	
@@ -98,6 +102,8 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 			em.getTransaction().begin();
 			find.setIsConfirmed(true);
 			em.getTransaction().commit();
+			MyEvent evt = new MyEvent(this, "Update Rezervacija");
+			PanelPrijava.realTime.fireMyEvent(evt);
 		}
 	}
 

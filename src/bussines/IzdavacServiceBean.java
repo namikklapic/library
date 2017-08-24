@@ -6,6 +6,8 @@ import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
 import jpa.Izdavac;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 	/**
@@ -93,6 +95,8 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 		else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Izdavac");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	

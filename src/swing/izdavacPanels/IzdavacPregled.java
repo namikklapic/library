@@ -55,18 +55,7 @@ public class IzdavacPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				String filter = txtSearchFilter.getText();
-				if(filter.equals(null) || filter.equals("")){
-					model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
-				}else
-					model = new IzdavacTableModel(izdavacServiceBean.getIzdavacByNaziv(filter));
-				
-				table.setModel(model);
-				
-				if(table.getRowCount() == 0){
-					message = "No result found!";
-					displayMessageDialogBox();
-				}
+				refreshTable();
 				
 			}
 		});
@@ -196,6 +185,21 @@ public class IzdavacPregled extends JFrame {
 		
 		model = new IzdavacTableModel();
 		table.setModel(model);
+	}
+	
+	public void refreshTable() {
+		String filter = txtSearchFilter.getText();
+		if(filter.equals(null) || filter.equals("")){
+			model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
+		}else
+			model = new IzdavacTableModel(izdavacServiceBean.getIzdavacByNaziv(filter));
+		
+		table.setModel(model);
+		
+		if(table.getRowCount() == 0){
+			message = "No result found!";
+			displayMessageDialogBox();
+		}
 	}
 	
 	public void prikazi() { setVisible(true); }

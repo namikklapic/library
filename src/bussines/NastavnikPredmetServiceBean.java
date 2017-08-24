@@ -8,6 +8,8 @@ import jpa.EntityManagerProducer;
 import jpa.Nastavnik;
 import jpa.NastavnikPredmet;
 import jpa.Predmet;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class NastavnikPredmetServiceBean extends EntityManagerProducer<NastavnikPredmet>{
 	
@@ -45,6 +47,8 @@ public class NastavnikPredmetServiceBean extends EntityManagerProducer<Nastavnik
 		}else{
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update NastavnikPredmet");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return find;			
 	}
 }

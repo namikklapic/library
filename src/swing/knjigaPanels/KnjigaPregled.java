@@ -79,43 +79,7 @@ public class KnjigaPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				String criteria = (String)cbSearchFilters.getSelectedItem();
-				String filter = txtSearchFilter.getText();
-				
-				if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
-					txtSearchFilter.setBackground(Color.RED);
-					message = "Please, enter the value in search filter!";
-					displayMessageDialogBox();
-				}
-				else{
-					if(criteria.equals("Book title"))
-						model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByNaslov(filter));
-					
-					else if(criteria.equals("Author")){
-						String[] spliter = filter.split(" ");
-						if(spliter.length != 2){
-							txtSearchFilter.setBackground(Color.RED);
-							message = "Please, enter the author's first and last name!";
-							displayMessageDialogBox();
-						}else{							
-							model = new KnjigaTableModel(autorKnjigaServiceBean.getKnjigeByAutor(spliter[0], spliter[1]));
-						}		
-					}
-					else if(criteria.equals("Publisher")){
-						model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByIzdavac(filter));
-					}
-					else if(criteria.equals("Subject")){
-						model = new KnjigaTableModel(literaturaServiceBean.getLiteraturaByPredmet(filter));
-					}
-					else
-						model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
-					
-					table.setModel(model);
-					if(table.getRowCount() == 0){
-						message = "No result found!";
-						displayMessageDialogBox();
-					}
-				}
+				refreshTable();
 			}
 		});
 		panel.add(searchBtn);
@@ -149,7 +113,7 @@ public class KnjigaPregled extends JFrame {
 				 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        JCheckBox chkbox = (JCheckBox) e.getSource();
+		        /*(JCheckBox chkbox = (JCheckBox) e.getSource();
 		        if (chkbox.isSelected()) {
 		        	KnjigaTableModel availableBooks = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjige());
 			        table.setModel(availableBooks);
@@ -157,10 +121,12 @@ public class KnjigaPregled extends JFrame {
 			        KnjigaTableModel books = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
 		        	table.setModel(books);
 			        }
-			    }
+			    }*/
+		    	refreshTable();
+		}
 		}
 				
-		JCheckBox onlyAvail = new JCheckBox(new CheckboxAction("Show only available books"));
+		onlyAvail = new JCheckBox(new CheckboxAction("Show only available books"));
 		onlyAvail.setSelected(false);
 		
 		scrollPane.setViewportView(table);
@@ -197,6 +163,63 @@ public class KnjigaPregled extends JFrame {
 		dialogBox.showMessageDialog(panel, message);
 	}
 	
+	public void refreshTable() {
+		String criteria = (String)cbSearchFilters.getSelectedItem();
+		String filter = txtSearchFilter.getText();
+		
+		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
+			txtSearchFilter.setBackground(Color.RED);
+			message = "Please, enter the value in search filter!";
+			displayMessageDialogBox();
+		}
+		else{
+			if(criteria.equals("Book title")) {
+				if(onlyAvail.isSelected())
+					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByNaslov(filter));
+				else
+					model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByNaslov(filter));
+			}
+			
+			else if(criteria.equals("Author")){
+				String[] spliter = filter.split(" ");
+				if(spliter.length != 2){
+					txtSearchFilter.setBackground(Color.RED);
+					message = "Please, enter the author's first and last name!";
+					displayMessageDialogBox();
+				}else{
+					if(onlyAvail.isSelected())
+						model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByAutor(spliter[0], spliter[1]));
+					else
+						model = new KnjigaTableModel(autorKnjigaServiceBean.getKnjigeByAutor(spliter[0], spliter[1]));		
+				}		
+			}
+			else if(criteria.equals("Publisher")){
+				if(onlyAvail.isSelected())
+					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByIzdavac(filter));
+				else
+					model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByIzdavac(filter));	
+			}
+			else if(criteria.equals("Subject")){
+				if(onlyAvail.isSelected())
+					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByPredmet(filter));
+				else
+					model = new KnjigaTableModel(literaturaServiceBean.getLiteraturaByPredmet(filter));	
+			}
+			else {
+				if(onlyAvail.isSelected())
+					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjige());
+				else
+					model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
+			}
+			
+			table.setModel(model);
+			if(table.getRowCount() == 0){
+				message = "No result found!";
+				displayMessageDialogBox();
+			}
+		}
+	}
+	
 	private void clearUIElements(){
 		txtSearchFilter.setText("");
 		txtSearchFilter.setBackground(Color.WHITE);
@@ -220,6 +243,7 @@ public class KnjigaPregled extends JFrame {
 	private JComboBox<String> cbSearchFilters;
 	private JTextField txtSearchFilter;
 	private JButton searchBtn;
+	private JCheckBox onlyAvail;
 	
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();

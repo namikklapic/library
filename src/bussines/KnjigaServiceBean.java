@@ -8,6 +8,8 @@ import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import jpa.Primjerak;
 import jpa.VrstaKnjige;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 	/**
@@ -95,6 +97,8 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 		} else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Knjiga");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	

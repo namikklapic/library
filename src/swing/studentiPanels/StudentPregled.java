@@ -63,40 +63,7 @@ public class StudentPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				String criteria = (String)cbSearchFilters.getSelectedItem();
-				String filter = txtSearchFilter.getText();
-				
-				if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
-					txtSearchFilter.setBackground(Color.RED);
-					message = "Please, enter the value in search filter!";
-					displayMessageDialogBox();
-				}
-				else{
-					if(criteria.equals("Student number"))
-						model = new StudentTableModel(studentServiceBean.getStudentByIndexNumber(filter));
-					
-					else if(criteria.equals("Full name")){
-						String[] spliter = filter.split(" ");
-						if(spliter.length != 2){
-							txtSearchFilter.setBackground(Color.RED);
-							message = "Please, enter the student's first and last name!";
-							displayMessageDialogBox();
-						}else{							
-							model = new StudentTableModel(studentServiceBean.getStudentByFullName(spliter[0], spliter[1]));
-						}		
-					}
-					else if(criteria.equals("Negative points")){
-						model = new StudentTableModel(studentServiceBean.getStudentByNegativePoints(Integer.parseInt(filter)));
-					}
-					else
-						model = new StudentTableModel(studentServiceBean.getAllStudent());
-					
-					table.setModel(model);
-					if(table.getRowCount() == 0){
-						message = "No result found!";
-						displayMessageDialogBox();
-					}
-				}
+				refreshTable();
 			}
 		});
 		panel.add(searchBtn);
@@ -159,6 +126,43 @@ public class StudentPregled extends JFrame {
 		table.getSelectionModel().clearSelection();
 		model = new StudentTableModel();
 		table.setModel(model);
+	}
+	
+	public void refreshTable() {
+		String criteria = (String)cbSearchFilters.getSelectedItem();
+		String filter = txtSearchFilter.getText();
+		
+		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
+			txtSearchFilter.setBackground(Color.RED);
+			message = "Please, enter the value in search filter!";
+			displayMessageDialogBox();
+		}
+		else{
+			if(criteria.equals("Student number"))
+				model = new StudentTableModel(studentServiceBean.getStudentByIndexNumber(filter));
+			
+			else if(criteria.equals("Full name")){
+				String[] spliter = filter.split(" ");
+				if(spliter.length != 2){
+					txtSearchFilter.setBackground(Color.RED);
+					message = "Please, enter the student's first and last name!";
+					displayMessageDialogBox();
+				}else{							
+					model = new StudentTableModel(studentServiceBean.getStudentByFullName(spliter[0], spliter[1]));
+				}		
+			}
+			else if(criteria.equals("Negative points")){
+				model = new StudentTableModel(studentServiceBean.getStudentByNegativePoints(Integer.parseInt(filter)));
+			}
+			else
+				model = new StudentTableModel(studentServiceBean.getAllStudent());
+			
+			table.setModel(model);
+			if(table.getRowCount() == 0){
+				message = "No result found!";
+				displayMessageDialogBox();
+			}
+		}
 	}
 	
 	

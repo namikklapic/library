@@ -6,6 +6,8 @@ import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
 import jpa.Predmet;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 	/**
@@ -59,6 +61,8 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 		}else{
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Predmet");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	

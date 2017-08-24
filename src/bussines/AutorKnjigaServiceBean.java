@@ -9,6 +9,8 @@ import jpa.Autor;
 import jpa.AutorKnjiga;
 import jpa.EntityManagerProducer;
 import jpa.Knjiga;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 	
@@ -24,7 +26,8 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 		} else {
 			super.save(entity);
 		}
-		
+		MyEvent evt = new MyEvent(this, "Update AuthorKnjiga");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return find;
 	}
 	

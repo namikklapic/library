@@ -69,26 +69,11 @@ public RezervacijePregled(Korisnik k){
 	 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-	        JCheckBox chkbox = (JCheckBox) e.getSource();
-	        if (chkbox.isSelected()) {
-	        	RezervacijeTableModel activeLoans;
-	        	if(currUser == null) 
-	        		activeLoans = new RezervacijeTableModel(rezervacijaServiceBean.getAllActiveRezervacije());
-	        	else 
-	        		activeLoans = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijeByKorisnik(currUser));	
-		        table.setModel(activeLoans);
-	        } else {	
-	        	RezervacijeTableModel loans;
-	        	if(currUser == null) 
-	        		loans = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacije());
-	        	else 
-	        		loans = new RezervacijeTableModel(rezervacijaServiceBean.getRezervacijeByKorisnik(currUser));
-		        table.setModel(loans);
-	        }
+	    	refreshTable();
 	    }
 	}
 	
-	JCheckBox onlyActive = new JCheckBox(new CheckboxAction("Show only active reservations"));
+	onlyActive = new JCheckBox(new CheckboxAction("Show only active reservations"));
 	onlyActive.setSelected(false);
 	
 	scrollPane.setViewportView(table);
@@ -111,6 +96,25 @@ public RezervacijePregled(Korisnik k){
 		return item;
 	}
 	
+	public void refreshTable() {
+		 if (onlyActive.isSelected()) {
+	        	RezervacijeTableModel activeLoans;
+	        	if(currUser == null) 
+	        		activeLoans = new RezervacijeTableModel(rezervacijaServiceBean.getAllActiveRezervacije());
+	        	else 
+	        		activeLoans = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijeByKorisnik(currUser));	
+		        table.setModel(activeLoans);
+	        } else {	
+	        	RezervacijeTableModel loans;
+	        	if(currUser == null) 
+	        		loans = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacije());
+	        	else 
+	        		loans = new RezervacijeTableModel(rezervacijaServiceBean.getRezervacijeByKorisnik(currUser));
+		        table.setModel(loans);
+	        }	
+	}
+	
+	private JCheckBox onlyActive;
 	private JPanel panel;
 	private RezervacijaServiceBean rezervacijaServiceBean = new RezervacijaServiceBean();
 	JTable table;

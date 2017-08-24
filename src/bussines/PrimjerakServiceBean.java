@@ -3,12 +3,16 @@ package bussines;
 import java.util.ArrayList;
 import java.util.List;
 import jpa.Knjiga;
+import jpa.Literatura;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import jpa.AutorKnjiga;
 import jpa.EntityManagerProducer;
 import jpa.Primjerak;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 	
@@ -51,6 +55,103 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		return available;	
 	}
 	
+	public List<Knjiga> getAllAvailableKnjigeByNaslov(String naslov) {
+		List<Knjiga> result = null;
+		List<Knjiga> available = new ArrayList<Knjiga>();
+		try {
+			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
+			result = query.getResultList();
+			for (Knjiga knjiga: result)
+			{
+			  if (!available.contains(knjiga) && knjiga.getNaslov() == naslov) 
+			  {
+				  available.add(knjiga);
+			  }
+			}
+		} catch(NoResultException nre) {}
+		return available;	
+	}
+	
+	public List<Knjiga> getAllAvailableKnjigeByIzdavac(String izdavac) {
+		List<Knjiga> result = null;
+		List<Knjiga> available = new ArrayList<Knjiga>();
+		try {
+			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
+			result = query.getResultList();
+			for (Knjiga knjiga: result)
+			{
+			  if (!available.contains(knjiga) && knjiga.getIzdavac().getNazivIzdavaca() == izdavac) 
+			  {
+				  available.add(knjiga);
+			  }
+			}
+		} catch(NoResultException nre) {}
+		return available;	
+	}
+
+	
+	public List<Knjiga> getAllAvailableKnjigeByAutor(String ime, String prezime) {
+		List<Knjiga> result = null;
+		List<AutorKnjiga> lista = null;
+		List<Knjiga> available = new ArrayList<Knjiga>();
+		
+		try{
+			lista = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora=:ime and ak.autor.prezimeAutora=:prezime")
+					.setParameter("ime", ime)
+					.setParameter("prezime", prezime)
+					.getResultList();
+		}catch(NoResultException nre) {}
+		
+		try {
+			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
+			result = query.getResultList();
+			for (Knjiga knjiga: result)
+			{
+			  if (!available.contains(knjiga)) 
+			  {
+				  for(int i=0; i<lista.size(); i++){
+					  if(lista.get(i).getKnjiga() == knjiga) {
+						  available.add(knjiga);
+						  break;
+					  }
+				  }
+			  }
+			}
+		} catch(NoResultException nre) {}
+		return available;	
+	}
+	
+	public List<Knjiga> getAllAvailableKnjigeByPredmet(String predmet) {
+		List<Knjiga> result = null;
+		List<Literatura> lista = null;
+		List<Knjiga> available = new ArrayList<Knjiga>();
+		
+		try{
+			lista = em.createQuery("Select l from Literatura l where l.predmet.nazivPredmeta=:predmet")
+					.setParameter("predmet", predmet)
+					.getResultList();
+		}catch(NoResultException nre) {}
+		
+		try {
+			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
+			result = query.getResultList();
+			for (Knjiga knjiga: result)
+			{
+			  if (!available.contains(knjiga)) 
+			  {
+				  for(int i=0; i<lista.size(); i++){
+					  if(lista.get(i).getKnjiga() == knjiga) {
+						  available.add(knjiga);
+						  break;
+					  }
+				  }
+			  }
+			}
+		} catch(NoResultException nre) {}
+		return available;	
+	}
+	
+	
 	public List<Primjerak> getAllPrimjerak(){
 		List<Primjerak> result = null;
 		try {
@@ -79,6 +180,8 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		} else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Primjerak");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	
@@ -88,6 +191,8 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			em.getTransaction().begin();
 			find.setPosudjen(state);
 			em.getTransaction().commit();
+			MyEvent evt = new MyEvent(this, "Update Primjerak");
+			PanelPrijava.realTime.fireMyEvent(evt);
 		}
 	}
 	
@@ -97,6 +202,8 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			em.getTransaction().begin();
 			find.setRezervisan(state);
 			em.getTransaction().commit();
+			MyEvent evt = new MyEvent(this, "Update Primjerak");
+			PanelPrijava.realTime.fireMyEvent(evt);
 		}
 	}
 	

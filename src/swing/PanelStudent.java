@@ -52,6 +52,55 @@ public class PanelStudent extends JFrame {
 		
 	}
 	
+	public void updateInterface(String reason) {
+		if(reason == "Update AuthorKnjiga") {
+			knjigaPregled.refreshTable();
+		}
+		else if(reason == "Update Author") {
+			knjigaPregled.refreshTable();
+		}
+		else if(reason == "Update Bibliotekar") {
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Izdavac") {
+			knjigaPregled.refreshTable();
+		}
+		else if(reason == "Update Knjiga") {
+			knjigaPregled.refreshTable();
+			posudbePregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update NastavnikPredmet") {
+			
+		}
+		else if(reason == "Update Nastavnik") {
+			rezervacijePregled.refreshTable();
+			
+		}
+		else if(reason == "Update Posudba") {
+			knjigaPregled.refreshTable();
+			posudbePregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Predmet") {
+		}
+		else if(reason == "Update Primjerak") {
+			knjigaPregled.refreshTable();
+			posudbePregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Rezervacija") {
+			knjigaPregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Student") {
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update VrstaKnjige") {
+			knjigaPregled.refreshTable();
+		}
+	}
+	
 	private PanelStudent panel;
 	private Student student;
 	private KnjigaPregled knjigaPregled;

@@ -6,6 +6,8 @@ import javax.persistence.NoResultException;
 
 import jpa.Autor;
 import jpa.EntityManagerProducer;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class AutorServiceBean extends EntityManagerProducer<Autor> {
 	
@@ -76,6 +78,8 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 		} else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Author");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	/**

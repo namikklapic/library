@@ -6,6 +6,8 @@ import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
 import jpa.Student;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class StudentServiceBean extends EntityManagerProducer<Student> {
 	
@@ -107,6 +109,8 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 		} else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Student");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 }

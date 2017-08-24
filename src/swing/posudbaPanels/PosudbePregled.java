@@ -55,26 +55,11 @@ public class PosudbePregled extends JFrame {
 		 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        JCheckBox chkbox = (JCheckBox) e.getSource();
-		        if (chkbox.isSelected()) {
-		        	PosudbeTableModel activeLoans;
-		        	if(currUser == null) 
-		        		activeLoans = new PosudbeTableModel(posudbaServiceBean.getActivePosudba());
-		        	else 
-		        		activeLoans = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByKorisnik(currUser));	
-			        table.setModel(activeLoans);
-		        } else {	
-		        	PosudbeTableModel loans;
-		        	if(currUser == null) 
-		        		loans = new PosudbeTableModel(posudbaServiceBean.getAllPosudbe());
-		        	else 
-		        		loans = new PosudbeTableModel(posudbaServiceBean.getPosudbeByKorisnik(currUser));
-			        table.setModel(loans);
-		        }
+		        refreshTable();
 		    }
 		}
 		
-		JCheckBox onlyActive = new JCheckBox(new CheckboxAction("Show only active loans"));
+		onlyActive = new JCheckBox(new CheckboxAction("Show only active loans"));
 		onlyActive.setSelected(false);
 		
 		scrollPane.setViewportView(table);
@@ -95,7 +80,26 @@ public class PosudbePregled extends JFrame {
 		return item;
 	}
 	
+	public void refreshTable() {
+		if (onlyActive.isSelected()) {
+        	PosudbeTableModel activeLoans;
+        	if(currUser == null) 
+        		activeLoans = new PosudbeTableModel(posudbaServiceBean.getActivePosudba());
+        	else 
+        		activeLoans = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByKorisnik(currUser));	
+	        table.setModel(activeLoans);
+        } else {	
+        	PosudbeTableModel loans;
+        	if(currUser == null) 
+        		loans = new PosudbeTableModel(posudbaServiceBean.getAllPosudbe());
+        	else 
+        		loans = new PosudbeTableModel(posudbaServiceBean.getPosudbeByKorisnik(currUser));
+	        table.setModel(loans);
+        }
+	}
+	
 	private JPanel panel;
+	private JCheckBox onlyActive;
 	private PosudbaServiceBean posudbaServiceBean = new PosudbaServiceBean();
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
 	JTable table;

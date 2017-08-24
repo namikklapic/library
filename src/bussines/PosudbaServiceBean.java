@@ -9,6 +9,8 @@ import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import jpa.Korisnik;
 import jpa.Posudba;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 	
@@ -102,6 +104,8 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 	public Posudba save(Posudba entity) {
 		// Once added, posudba can not be changed. That is the reason we are not trying to find existing Posudba
 		super.save(entity);
+		MyEvent evt = new MyEvent(this, "Update Posudba");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 }
