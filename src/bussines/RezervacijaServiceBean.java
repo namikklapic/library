@@ -46,7 +46,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 		List<Rezervacija> result = null;
 		try {
 			result = em
-					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where pr.knjiga = :k")
+					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where pr.knjiga = :k and r.isConfirmed=0")
 					.setParameter('k', 	k)
 					.getResultList();
 		} catch(NoResultException nre) {}
@@ -72,8 +72,12 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 
 	public boolean doesReservationExist(RezervacijaPK id) {
 		Rezervacija find = em.find(Rezervacija.class, id);
-		if(find != null)
-			return true;
+		if(find != null) {
+			if(find.getIsConfirmed() == false)
+				return true;
+			else 
+				return false;
+		}
 		else
 			return false;
 	}
