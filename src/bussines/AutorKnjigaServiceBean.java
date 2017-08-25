@@ -62,5 +62,18 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 		
 		return result;
 	}
+	public List<Autor>  getAutorsOnKnjiga(Knjiga k ) {
+		List<Autor> result = new ArrayList<Autor>();
+		List<AutorKnjiga> akList = new ArrayList<AutorKnjiga>();
+		try {
+			akList = em.createQuery("select ak from AutorKnjiga ak where ak.knjiga=:k")
+					.setParameter("k", k)
+					.getResultList();
+			for(AutorKnjiga ak : akList) {
+				result.add(ak.getAutor());
+			}
+		} catch(NoResultException nre) {}
+		return result;
+	}
 
 }

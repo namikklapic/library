@@ -31,6 +31,7 @@ public class Lookup<T> extends JPanel {
 
 	public Lookup (List<T> items){
 		// this section will be visible when lookup is opened
+		this.items = items;
 		
 		DefaultListModel<T> listModel = new DefaultListModel<T>();
 		DefaultListModel<T> selectedItemsListModel = new DefaultListModel<T>();
@@ -50,7 +51,7 @@ public class Lookup<T> extends JPanel {
 		scrollOptions.setBackground(new Color(255,255,255,70));
 		scrollOptions.setBounds(12, 13, 173, 265);
 		scrollOptions.setPreferredSize(new Dimension(120, 180));
-		JList<T> selectionLista = new JList<T>(listModel);
+		selectionLista.setModel(listModel);
 		selectionLista.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		selectionLista.setBackground(new Color(255,255,255,70));
 		selectionLista.setSize(118, 215);
@@ -106,7 +107,7 @@ public class Lookup<T> extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				setSelectionText();
-				options.dispose();
+				options.setVisible(false);
 			}
 		});
 		potvrdi.setBorder(null);
@@ -125,13 +126,18 @@ public class Lookup<T> extends JPanel {
 		});
 		potvrdi.setBackground(Color.DARK_GRAY);
 		
-		ponisti = new JButton("Cancel");
+		ponisti = new JButton("Clear");
 		ponisti.setBounds(195, 324, 89, 37);
 		ponisti.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				selectedItemsListModel.removeAllElements();
-				options.dispose();
+				listModel.removeAllElements();
+				for(T element : items) {
+					listModel.addElement(element);
+				}
+				options.setVisible(false);
+				setSelectionText();
 				ponisti.setBackground(Color.DARK_GRAY);
 			}
 		});
@@ -204,6 +210,17 @@ public class Lookup<T> extends JPanel {
 		
 	}
 	
+	public void setSelectedItems(List<T> selectedItems) {
+		for(T item : selectedItems) {
+			((DefaultListModel<T>)this.selectedItemsList.getModel()).addElement(item);
+		}
+		for(T item : selectedItems) {
+			((DefaultListModel<T>)this.selectionLista.getModel()).removeElement(item);
+		}
+		setSelectionText();
+
+	}
+	
 	public List<T> getSelectedValues(){
 		List<T> values = new ArrayList<T>();
 		for(int i = 0; i < selectedItemsList.getModel().getSize(); ++i) {
@@ -215,7 +232,7 @@ public class Lookup<T> extends JPanel {
 	public void setSelectionText() {
 		String selectionText = "";
 		for(int i = 0; i < selectedItemsList.getModel().getSize(); ++i) {
-			selectionText += selectedItemsList.getModel().getElementAt(i).toString() + ";"; 
+			selectionText += selectedItemsList.getModel().getElementAt(i).toString() + "; "; 
 		}
 		selected.setText(selectionText);
 	}
@@ -239,6 +256,8 @@ public class Lookup<T> extends JPanel {
 			
 	private JFrame options = new JFrame();
 	private JList<T> selectedItemsList = new JList<T>();
+	private JList<T> selectionLista = new JList<T>();
+	private List<T> items;
 	private JTextField selected = new JTextField(10);
 	private JButton potvrdi;
 	private JButton ponisti;

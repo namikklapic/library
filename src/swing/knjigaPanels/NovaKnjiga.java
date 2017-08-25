@@ -395,6 +395,7 @@ public class NovaKnjiga extends JFrame {
 		txtBrPrimjeraka.setText(Integer.toString(k.getBrojPrimjeraka()));
 		cbVrstaKnjige.setSelectedIndex(vrstaKnjigeServiceBean.getIndexOfVrstaKnjige(k.getVrsta()));
 		cbIzdavac.setSelectedIndex(izdavacServiceBean.getIndexOfIzdavac(k.getIzdavac()));
+		lookupAutori.setSelectedItems(autorKnjigaServiceBean.getAutorsOnKnjiga(k));
 		
 		if(isEditable){
 			setTitle("Edit book");
