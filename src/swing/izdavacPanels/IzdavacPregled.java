@@ -49,14 +49,33 @@ public class IzdavacPregled extends JFrame {
 		panel.setBounds(12, 13, 676, 574);
 		panel.setLayout(null);
 		
-		searchLabel = new JLabel("Publisher: ");
+		searchLabel = new JLabel("Type name to search :");
+		searchLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		searchLabel.setBounds(470, 30, 194, 25);
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.setBounds(470, 68, 194, 25);
 		searchBtn = new JButton("Search");
+		searchBtn.setBounds(522, 106, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				refreshTable();
 				
+			}
+		});
+		searchBtn.setBorder(null);
+		searchBtn.setFocusPainted(false);
+		searchBtn.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		searchBtn.setForeground(new Color(255, 255, 255));
+		searchBtn.setBackground(Color.DARK_GRAY);
+		searchBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				searchBtn.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchBtn.setBackground(Color.DARK_GRAY);
 			}
 		});
 		
@@ -200,6 +219,9 @@ public class IzdavacPregled extends JFrame {
 			message = "No result found!";
 			displayMessageDialogBox();
 		}
+		
+		getContentPane().repaint();
+		getContentPane().revalidate();
 	}
 	
 	public void prikazi() { setVisible(true); }

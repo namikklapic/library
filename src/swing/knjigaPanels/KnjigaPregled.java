@@ -1,11 +1,17 @@
 package swing.knjigaPanels;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -29,8 +35,11 @@ import bussines.PrimjerakServiceBean;
 import jpa.Knjiga;
 import jpa.Korisnik;
 import jpa.VrstaKnjige;
+import swing.autorPanels.AutorPregled;
 import jpa.Predmet;
 import tableModel.KnjigaTableModel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class KnjigaPregled extends JFrame {
 	
@@ -39,22 +48,67 @@ public class KnjigaPregled extends JFrame {
 		
 		currUser = k;
 		setTitle("Pregled knjiga");
-		setSize(800, 800);
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension velicinaEkrana = kit.getScreenSize();
+		int visinaProzora = 600;
+		int sirinaProzora = 1000;
+		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+		setUndecorated(true);
+		
+		setSize(1000, 600);
+		setResizable(false);
 		
 		panel = new JPanel();
-		panel.setSize(800, 800);
+		panel.setBackground(new Color(255, 255, 255,150));
+		panel.setBounds(12, 13, 976, 574);
+		panel.setLayout(null);
 		
 		scrollPane = new JScrollPane();
+		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
+		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
+		scrollPane.setOpaque(false);
+		scrollPane.setBounds(0, 0, 758, 574);
 		model = new KnjigaTableModel();
 		table = new JTable(model);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				getContentPane().repaint();
+				getContentPane().revalidate();
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				getContentPane().repaint();
+				getContentPane().revalidate();
+			}
+		});
+		table.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
+		table.setRowHeight(30);
+		table.setBackground(new Color(255, 255, 255,150));
+		table.getTableHeader().setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
+		table.getTableHeader().setOpaque(false);
+		table.getTableHeader().setBackground(new Color(255, 255, 255,150));
+		panel.setLayout(null);
 		
 		searchCriteriaLabel = new JLabel("Choose search criteria: ");
+		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		searchCriteriaLabel.setBounds(770, 13, 198, 28);
 		panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtSearchFilter.setBackground(Color.WHITE);
+			}
+		});
+		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtSearchFilter.setBounds(770, 95, 198, 28);
 		//ovdje Ismare dodaj action da se boja promijeni kad kliknes na polje
 	
 		cbSearchFilters = new JComboBox<String>();
+		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		cbSearchFilters.setBounds(770, 54, 198, 28);
 		cbSearchFilters.addItem("Book title");
 		cbSearchFilters.addItem("Author");
 		cbSearchFilters.addItem("Publisher");
@@ -76,10 +130,27 @@ public class KnjigaPregled extends JFrame {
 		panel.add(txtSearchFilter);
 		
 		searchBtn = new JButton("Search");
+		searchBtn.setBounds(822, 139, 97, 37);
+		
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				refreshTable();
+			}
+		});
+		searchBtn.setBorder(null);
+		searchBtn.setFocusPainted(false);
+		searchBtn.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		searchBtn.setForeground(new Color(255, 255, 255));
+		searchBtn.setBackground(Color.DARK_GRAY);
+		searchBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				searchBtn.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchBtn.setBackground(Color.DARK_GRAY);
 			}
 		});
 		panel.add(searchBtn);
@@ -91,6 +162,7 @@ public class KnjigaPregled extends JFrame {
 		else
 			editBtnName = "View details";
 		JButton edit = new JButton(editBtnName);
+		edit.setBounds(822, 346, 97, 37);
 		edit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -103,6 +175,21 @@ public class KnjigaPregled extends JFrame {
 					message = "No item selected!";
 					displayMessageDialogBox();
 				}
+			}
+		});
+		edit.setBorder(null);
+		edit.setFocusPainted(false);
+		edit.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		edit.setForeground(new Color(255, 255, 255));
+		edit.setBackground(Color.DARK_GRAY);
+		edit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				edit.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				edit.setBackground(Color.DARK_GRAY);
 			}
 		});
 		
@@ -127,6 +214,8 @@ public class KnjigaPregled extends JFrame {
 		}
 				
 		onlyAvail = new JCheckBox(new CheckboxAction("Show only available books"));
+		onlyAvail.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		onlyAvail.setBounds(780, 204, 188, 25);
 		onlyAvail.setSelected(false);
 		
 		scrollPane.setViewportView(table);
@@ -135,17 +224,38 @@ public class KnjigaPregled extends JFrame {
 		panel.add(onlyAvail);
 		
 		cancel = new JButton("Cancel");
-		cancel.addActionListener(new ActionListener(){
+		cancel.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent event){
+			public void mouseClicked(MouseEvent arg0) {
+				cancel.setBackground(Color.DARK_GRAY);
 				clearUIElements();
 				dispose();
 			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				cancel.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				cancel.setBackground(Color.DARK_GRAY);
+			}
 		});
+		cancel.setForeground(Color.WHITE);
+		cancel.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		cancel.setFocusPainted(false);
+		cancel.setBorder(null);
+		cancel.setBackground(Color.DARK_GRAY);
+		cancel.setBounds(822, 409, 97, 37);
+		
+		getContentPane().setLayout(null);
 		panel.add(cancel);
 		
-		add(panel);
+		getContentPane().add(panel);
 			
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
+		lblNewLabel.setBounds(0, 0, 1000, 800);
+		getContentPane().add(lblNewLabel);
 	}
 	
 	public JMenuItem getMenuItem(JPanel parent){
@@ -168,7 +278,7 @@ public class KnjigaPregled extends JFrame {
 		String filter = txtSearchFilter.getText();
 		
 		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
-			txtSearchFilter.setBackground(Color.RED);
+			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter the value in search filter!";
 			displayMessageDialogBox();
 		}
@@ -183,7 +293,7 @@ public class KnjigaPregled extends JFrame {
 			else if(criteria.equals("Author")){
 				String[] spliter = filter.split(" ");
 				if(spliter.length != 2){
-					txtSearchFilter.setBackground(Color.RED);
+					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 					message = "Please, enter the author's first and last name!";
 					displayMessageDialogBox();
 				}else{
@@ -218,6 +328,9 @@ public class KnjigaPregled extends JFrame {
 				displayMessageDialogBox();
 			}
 		}
+		
+		getContentPane().repaint();
+		getContentPane().revalidate();
 	}
 	
 	private void clearUIElements(){
@@ -230,6 +343,8 @@ public class KnjigaPregled extends JFrame {
 		model = new KnjigaTableModel();
 		table.setModel(model);
 	}
+	
+	public void prikazi() { setVisible(true); }
 	
 	private JPanel panel;
 	private String message;

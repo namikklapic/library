@@ -47,15 +47,38 @@ public class NastavniciPregled extends JFrame{
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
 		
-		searchLabel = new JLabel("Author: ");
+		searchLabel = new JLabel("Type name to search :");
+		searchLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		searchLabel.setBounds(78, 446, 176, 30);
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.setBounds(266, 449, 176, 30);
 		searchBtn = new JButton("Search");
+		searchBtn.setBounds(454, 446, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				refreshTable();
 			}
 		});
+		searchBtn.setBorder(null);
+		searchBtn.setFocusPainted(false);
+		searchBtn.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		searchBtn.setForeground(new Color(255, 255, 255));
+		searchBtn.setBackground(Color.DARK_GRAY);
+		searchBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				searchBtn.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchBtn.setBackground(Color.DARK_GRAY);
+			}
+		});	
+
+		panel.add(searchBtn);
+		panel.add(txtSearchFilter);
+		panel.add(searchLabel);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
@@ -202,6 +225,8 @@ public class NastavniciPregled extends JFrame{
 		}
 	}
 
+	public void prikazi() { setVisible(true); }
+	
 	private JPanel panel;
 	private String message;
 	

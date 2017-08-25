@@ -90,6 +90,7 @@ public class PanelPrijava extends JPanel {
 		});
 		txtUser.setForeground(new Color(255, 255, 255));
 		txtUser.setOpaque(false);
+		txtUser.setCaretColor(Color.WHITE);
 		txtUser.setToolTipText("");
 		txtUser.setBounds(99, 209, 253, 23);
 		
@@ -155,6 +156,7 @@ public class PanelPrijava extends JPanel {
 				// Password enter field options -- BEGIN
 				txtPass.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 				txtPass.setBorder(null);
+				txtPass.setCaretColor(Color.WHITE);
 				txtPass.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusGained(FocusEvent e) {
@@ -237,10 +239,11 @@ public class PanelPrijava extends JPanel {
 		lblNewLabel.setBounds(-165, -35, 663, 600);
 		add(lblNewLabel);
 		
-		this.txtUser.setText("Mujo.Mujic");
-		this.txtPass.setText("14000");
 		
 		// Password enter field options -- END		
+		
+		txtUser.setText("Ismar.Ramic");
+		txtPass.setText("0203996180083");
 		
 	}
 	
@@ -321,11 +324,11 @@ public class PanelPrijava extends JPanel {
 						
 						Toolkit kit = Toolkit.getDefaultToolkit();
 						Dimension velicinaEkrana = kit.getScreenSize();
-						int visinaProzora = 600;
-						int sirinaProzora = 400;
+						int visinaProzora = 530;
+						int sirinaProzora = 470;
 						
 						PanelPrijava panelPrijava = new PanelPrijava(frame);
-						frame.setSize(400, 600);
+						frame.setSize(470, 530);
 						frame.setResizable(false);
 
 						frame.setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
