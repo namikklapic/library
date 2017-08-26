@@ -905,26 +905,33 @@ public class PanelBibliotekar extends JFrame{
 			lineNewLoan.setOpaque(true);
 			lineNewLoan.setVisible(false);
 			lineNewLoan.setBackground(new Color(255, 255, 255));
-			lineNewLoan.setBounds(162, 367, 194, 3);
+			lineNewLoan.setBounds(161, 213, 194, 3);
 			panelLoans.add(lineNewLoan);
 			
 			Box lineViewLoans = Box.createHorizontalBox();
 			lineViewLoans.setOpaque(true);
 			lineViewLoans.setVisible(false);
 			lineViewLoans.setBackground(Color.WHITE);
-			lineViewLoans.setBounds(504, 367, 254, 3);
+			lineViewLoans.setBounds(503, 213, 254, 3);
 			panelLoans.add(lineViewLoans);
+			
+			Box lineViewReservations = Box.createHorizontalBox();
+			lineViewReservations.setVisible(false);
+			lineViewReservations.setOpaque(true);
+			lineViewReservations.setBackground(new Color(255, 255, 255));
+			lineViewReservations.setBounds(304, 386, 291, 3);
+			panelLoans.add(lineViewReservations);
 			
 			JLabel newLoanIcon = new JLabel("");
 			newLoanIcon.setHorizontalAlignment(SwingConstants.CENTER);
 			newLoanIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/icons8-Borrow Book-48.png")));
-			newLoanIcon.setBounds(223, 279, 75, 63);
+			newLoanIcon.setBounds(222, 125, 75, 63);
 			panelLoans.add(newLoanIcon);
 			
 			JLabel viewLoansIcon = new JLabel("");
 			viewLoansIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
 			viewLoansIcon.setHorizontalAlignment(SwingConstants.CENTER);
-			viewLoansIcon.setBounds(596, 279, 75, 63);
+			viewLoansIcon.setBounds(595, 125, 75, 63);
 			panelLoans.add(viewLoansIcon);
 			
 			JLabel lblNewLoan = new JLabel("New book loan");
@@ -949,7 +956,7 @@ public class PanelBibliotekar extends JFrame{
 			lblNewLoan.setForeground(new Color(255, 255, 255));
 			lblNewLoan.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
 			lblNewLoan.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLoan.setBounds(94, 305, 332, 103);
+			lblNewLoan.setBounds(93, 151, 332, 103);
 			panelLoans.add(lblNewLoan);
 			
 			JLabel lblViewLoans = new JLabel("View all book loans");
@@ -966,12 +973,47 @@ public class PanelBibliotekar extends JFrame{
 					repaint();
 					revalidate();
 				}
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					posudbePregled.prikazi();
+				}
 			});
 			lblViewLoans.setHorizontalAlignment(SwingConstants.CENTER);
 			lblViewLoans.setForeground(Color.WHITE);
 			lblViewLoans.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-			lblViewLoans.setBounds(467, 305, 332, 103);
+			lblViewLoans.setBounds(466, 151, 332, 103);
 			panelLoans.add(lblViewLoans);
+			
+			JLabel lblViewReservations = new JLabel("View book reservations");
+			lblViewReservations.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					lineViewReservations.setVisible(true);
+					repaint();
+					revalidate();
+				}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					lineViewReservations.setVisible(false);
+					repaint();
+					revalidate();
+				}
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					rezervacijePregled.prikazi();
+				}
+			});
+			lblViewReservations.setHorizontalAlignment(SwingConstants.CENTER);
+			lblViewReservations.setForeground(Color.WHITE);
+			lblViewReservations.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+			lblViewReservations.setBounds(275, 323, 332, 103);
+			panelLoans.add(lblViewReservations);
+			
+			JLabel viewReservationsIcon = new JLabel("");
+			viewReservationsIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/edit-property-48.png")));
+			viewReservationsIcon.setHorizontalAlignment(SwingConstants.CENTER);
+			viewReservationsIcon.setBounds(404, 293, 75, 63);
+			panelLoans.add(viewReservationsIcon);
 			
 		// Panel Loans items -- END
 		

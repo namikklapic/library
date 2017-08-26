@@ -99,7 +99,7 @@ public class PanelNastavnik extends JFrame {
 				// Disappearing panel items -- BEGIN
 					// Lines -- BEGIN
 						Box lineBooks = Box.createHorizontalBox();
-						lineBooks.setBounds(10, 153, 74, 3);
+						lineBooks.setBounds(13, 224, 74, 3);
 						lineBooks.setVisible(false);
 						lineBooks.setOpaque(true);
 						lineBooks.setForeground(Color.WHITE);
@@ -111,7 +111,7 @@ public class PanelNastavnik extends JFrame {
 						lineLoans.setVisible(false);
 						lineLoans.setForeground(Color.WHITE);
 						lineLoans.setBackground(Color.WHITE);
-						lineLoans.setBounds(10, 63, 141, 3);
+						lineLoans.setBounds(13, 122, 141, 3);
 						panel_2.add(lineLoans);
 						
 						Box lineClasses = Box.createHorizontalBox();
@@ -119,7 +119,7 @@ public class PanelNastavnik extends JFrame {
 						lineClasses.setVisible(false);
 						lineClasses.setForeground(Color.WHITE);
 						lineClasses.setBackground(Color.WHITE);
-						lineClasses.setBounds(10, 246, 119, 3);
+						lineClasses.setBounds(12, 325, 119, 3);
 						panel_2.add(lineClasses);
 						// Lines -- END			
 						// Buttons -- BEGIN
@@ -147,7 +147,7 @@ public class PanelNastavnik extends JFrame {
 										
 									}
 								});
-								lblBooks.setBounds(10, 105, 154, 80);
+								lblBooks.setBounds(13, 173, 154, 80);
 								lblBooks.setHorizontalAlignment(SwingConstants.LEFT);
 								lblBooks.setForeground(new Color(255, 255, 255));
 								lblBooks.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
@@ -175,7 +175,7 @@ public class PanelNastavnik extends JFrame {
 								lblLoans_1.setHorizontalAlignment(SwingConstants.LEFT);
 								lblLoans_1.setForeground(Color.WHITE);
 								lblLoans_1.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
-								lblLoans_1.setBounds(9, 15, 154, 80);
+								lblLoans_1.setBounds(12, 73, 154, 80);
 								panel_2.add(lblLoans_1);
 								
 								JLabel lblClasses = new JLabel("LITERATURE");
@@ -199,7 +199,7 @@ public class PanelNastavnik extends JFrame {
 								lblClasses.setHorizontalAlignment(SwingConstants.LEFT);
 								lblClasses.setForeground(Color.WHITE);
 								lblClasses.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
-								lblClasses.setBounds(10, 198, 154, 80);
+								lblClasses.setBounds(13, 273, 154, 80);
 								panel_2.add(lblClasses);
 				
 				// Right panel 
@@ -669,7 +669,7 @@ public class PanelNastavnik extends JFrame {
 									lblLoans.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/external-link-48.png")));
 									lblLoans.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
 									lblLoans.setForeground(Color.WHITE);
-									lblLoans.setBounds(0, 0, 78, 110);
+									lblLoans.setBounds(0, 58, 78, 110);
 									panel.add(lblLoans);
 									
 									JLabel lblBooks_1 = new JLabel("");
@@ -694,7 +694,7 @@ public class PanelNastavnik extends JFrame {
 									lblBooks_1.setHorizontalAlignment(SwingConstants.CENTER);
 									lblBooks_1.setForeground(Color.WHITE);
 									lblBooks_1.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-									lblBooks_1.setBounds(0, 90, 78, 110);
+									lblBooks_1.setBounds(0, 158, 78, 110);
 									panel.add(lblBooks_1);
 									
 									JLabel lblSubject = new JLabel("");
@@ -718,7 +718,7 @@ public class PanelNastavnik extends JFrame {
 									lblSubject.setHorizontalAlignment(SwingConstants.CENTER);
 									lblSubject.setForeground(Color.WHITE);
 									lblSubject.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-									lblSubject.setBounds(0, 180, 78, 110);
+									lblSubject.setBounds(0, 258, 78, 110);
 									panel.add(lblSubject);
 							// Buttons -- END
 				// Overall panel items -- END

@@ -216,7 +216,7 @@ public class NastavniciPregled extends JFrame{
 			String[] spliter = filter.split(" ");
 			if(spliter.length != 2){
 				message = "Please, enter teacher's first and last name!";
-				txtSearchFilter.setBackground(Color.RED);
+				txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 				displayMessageDialogBox();
 			}else
 				model = new NastavnikTableModel(nastavnikServiceBean.getNastavniciByFullName(spliter[0], spliter[1]));

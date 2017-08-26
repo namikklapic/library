@@ -10,7 +10,7 @@ import jpa.PosudbaPK;
 
 public class PosudbeTableModel extends AbstractTableModel {
 	
-	private String [] columnNames = {"Naslov", "Inventarni broj", "Godina izdavanja", "Negativni bodovi", "Datum posudbe", "Krajnji datum vracanja", "Datum vracanja" };
+	private String [] columnNames = {"Title", "Inventory number", "Year of publishing", "Negative points", "Date of loan", "Ultimate date of return", "Date of return" };
 	private List<Posudba> posudbe;
 	
 	public PosudbeTableModel(){

@@ -36,16 +36,16 @@ public class StudentPregled extends JFrame {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension velicinaEkrana = kit.getScreenSize();
 		int visinaProzora = 600;
-		int sirinaProzora = 1200;
+		int sirinaProzora = 1300;
 		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
 		setUndecorated(true);
 		
-		setSize(1200, 600);
+		setSize(1300, 600);
 		setResizable(false);
 		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
-		panel.setBounds(12, 13, 1176, 574);
+		panel.setBounds(12, 13, 1276, 574);
 		panel.setLayout(null);
 		
 		scrollPane = new JScrollPane();
@@ -77,7 +77,7 @@ public class StudentPregled extends JFrame {
 		
 		searchCriteriaLabel = new JLabel("Choose search criteria: ");
 		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchCriteriaLabel.setBounds(966, 13, 198, 28);
+		searchCriteriaLabel.setBounds(1024, 13, 198, 28);
 		panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
@@ -88,12 +88,12 @@ public class StudentPregled extends JFrame {
 			}
 		});
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtSearchFilter.setBounds(966, 95, 198, 28);
+		txtSearchFilter.setBounds(1024, 95, 198, 28);
 		//ovdje Ismare dodaj action da se boja promijeni kad kliknes na polje
 	
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		cbSearchFilters.setBounds(966, 54, 198, 28);
+		cbSearchFilters.setBounds(1024, 54, 198, 28);
 		cbSearchFilters.addItem("Student number");
 		cbSearchFilters.addItem("Full name");
 		cbSearchFilters.addItem("Negative points");
@@ -114,7 +114,7 @@ public class StudentPregled extends JFrame {
 		panel.add(txtSearchFilter);
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(1018, 136, 97, 37);
+		searchBtn.setBounds(1076, 136, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -139,7 +139,7 @@ public class StudentPregled extends JFrame {
 		panel.add(searchBtn);
 		
 		edit = new JButton("Edit");
-		edit.setBounds(1018, 346, 97, 37);
+		edit.setBounds(1076, 346, 97, 37);
 		edit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -192,7 +192,7 @@ public class StudentPregled extends JFrame {
 		cancel.setFocusPainted(false);
 		cancel.setBorder(null);
 		cancel.setBackground(Color.DARK_GRAY);
-		cancel.setBounds(1018, 409, 97, 37);
+		cancel.setBounds(1076, 409, 97, 37);
 		getContentPane().setLayout(null);
 		
 		scrollPane.setViewportView(table);
@@ -204,7 +204,7 @@ public class StudentPregled extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
-		lblNewLabel.setBounds(0, 0, 1200, 800);
+		lblNewLabel.setBounds(0, 0, 1300, 800);
 		getContentPane().add(lblNewLabel);
 	}
 	

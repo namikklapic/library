@@ -305,11 +305,11 @@ public class NovaPosudba extends JFrame {
 	private boolean isPosudbaDataEmpty(){
 		boolean success = false;
 		if(txtUser.getText().equals("") || txtUser.getText().equals(null)){
-			txtUser.setBackground(Color.RED);
+			txtUser.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		if(txtPrimjerak.getText().equals("") || txtPrimjerak.getText().equals(null)){
-			txtPrimjerak.setBackground(Color.RED);
+			txtPrimjerak.setBackground(Color.LIGHT_GRAY);
 			success = true;
 		}
 		return success;
