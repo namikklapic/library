@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -68,8 +69,13 @@ public class LiteraturaPregled extends JFrame {
 	}
 
 	public void prikazi() {
-		setVisible(true);
+		
 		List<Predmet> predmeti = nastavnikPredmetServiceBean.getPredmetiByNastavnik(this.nastavnik);
+		if(predmeti == null) {
+			JOptionPane.showMessageDialog(this, "You must first add some Predmets", "No Predmets", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		setVisible(true);
 		this.currentPredmet = predmeti.get(0);
 		for (Predmet p : predmeti) {
 			this.cbPredmeti.addItem(p);
