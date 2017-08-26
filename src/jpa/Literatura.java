@@ -32,6 +32,16 @@ public class Literatura implements Serializable {
 
 	public Literatura() {}
 	
+	public Literatura(Knjiga k , Predmet p, Integer bv, Boolean mandatory) {
+		this.id = new LiteraturaPK();
+		this.id.setKnjigaId(k.getId());
+		this.id.setSifraPredmeta(p.getSifraPredmeta());
+		this.knjiga = k;
+		this.predmet = p;
+		this.brojVaznosti = bv;
+		this.obavezna = mandatory;
+	}
+	
 	public LiteraturaPK getId() {
 		return id;
 	}

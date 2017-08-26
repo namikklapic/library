@@ -117,7 +117,9 @@ public class Knjiga {
 	public void setBrojPrimjeraka(int brojPrimjeraka){
 		this.brojPrimjeraka = brojPrimjeraka;
 	}
-	
+	public String toString() {
+		return this.naslov;
+	}
 	public boolean equals(Object obj) {
         if (obj == this) {
             return true;

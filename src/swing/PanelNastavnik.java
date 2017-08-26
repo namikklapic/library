@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import jpa.Nastavnik;
 import swing.knjigaPanels.KnjigaPregled;
+import swing.literaturaPanels.LiteraturaPregled;
 import swing.posudbaPanels.PosudbePregled;
 
 public class PanelNastavnik extends JFrame {
@@ -15,6 +16,7 @@ public class PanelNastavnik extends JFrame {
 		knjigaPregled = new KnjigaPregled(false, nastavnik.getKorisnik());
 		this.posudbePregled = new PosudbePregled(n.getKorisnik());
 		setTitle(n.getKorisnik().getImeKorisnika() + " " + n.getKorisnik().getPrezimeKorisnika());
+		this.literaturaPregled = new LiteraturaPregled(this.nastavnik);
 		
 		JPanel panel = new JPanel();
 		
@@ -26,10 +28,15 @@ public class PanelNastavnik extends JFrame {
 		JMenu posudba = new JMenu("Loans");
 		posudba.add(posudbePregled.getMenuItem(panel));
 		
+		JMenu literatura = new JMenu("Reading lists");
+		literatura.add(literaturaPregled.getMenuItem());
+		
 		
 		
 		
 		menuBar.add(knjiga);
+		menuBar.add(posudba);
+		menuBar.add(literatura);
 		
 		setJMenuBar(menuBar);
 		
@@ -48,6 +55,7 @@ public class PanelNastavnik extends JFrame {
 	
 	private KnjigaPregled knjigaPregled;
 	private PosudbePregled posudbePregled;
+	private LiteraturaPregled literaturaPregled;
 }
 
 

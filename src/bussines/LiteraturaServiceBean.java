@@ -30,6 +30,25 @@ public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 		
 		return result;
 	}
+	public List<Literatura> getLiteraturaOnPredmet (Predmet p){
+		List<Literatura> lista = null;
+		try {
+			lista = em.createQuery("Select l from Literatura l where l.predmet = :predmet")
+					.setParameter("predmet", p)
+					.getResultList();
+		} catch(NoResultException nre) {}
+		return lista;
+	}
 	
+	public Literatura save(Literatura entity) {
+		Literatura find = em.find(Literatura.class, entity.getId());
+		if(find != null) {
+			find.setBrojVaznosti(entity.getBrojVaznosti());
+			find.setObavezna(entity.isObavezna());
+		} else {
+			super.save(entity);
+		}
+		return entity;
+	}
 	
 }

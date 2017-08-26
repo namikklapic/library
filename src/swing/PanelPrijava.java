@@ -242,8 +242,8 @@ public class PanelPrijava extends JPanel {
 		
 		// Password enter field options -- END		
 		
-		txtUser.setText("Ismar.Ramic");
-		txtPass.setText("0203996180083");
+		txtUser.setText("Nermin.Sarajlic");
+		txtPass.setText("1");
 		
 	}
 	
