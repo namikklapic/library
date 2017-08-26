@@ -28,7 +28,7 @@ public class Knjiga {
 	private int negBodovi;
 	private int brojPrimjeraka;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private VrstaKnjige vrsta;
 	
 	@ManyToOne

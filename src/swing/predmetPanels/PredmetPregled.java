@@ -111,7 +111,9 @@ public class PredmetPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
+				searchClicked = true;
 				refreshTable();
+				searchClicked = false;
 			}
 		});
 		searchBtn.setFocusPainted(false);
@@ -266,6 +268,8 @@ public class PredmetPregled extends JFrame {
 	}
 	
 	private void displayMessageDialogBox(){
+		if(this.isVisible() ==  false || searchClicked == false)
+			return;
 		JOptionPane dialogBox = new JOptionPane();
 		dialogBox.showMessageDialog(panel_1, message);
 	}
@@ -286,6 +290,8 @@ public class PredmetPregled extends JFrame {
 	private JPanel panel;
 	private JPanel panel_1;
 	private String message;
+	
+	private Boolean searchClicked; //needed for msgbox search bug on adding anything
 	
 	private JTable table;
 	private JScrollPane scrollPane;
