@@ -187,9 +187,9 @@ public class Lookup<T, U> extends JPanel {
 				for(int i = 0; i< selectedItemsList.getModel().getSize(); ++i) {
 					selectedItems.add(selectedItemsList.getModel().getElementAt(i));
 				}
+				((DefaultListModel<T>)selectionLista.getModel()).removeAllElements();
+				((DefaultListModel<T>)selectedItemsList.getModel()).removeAllElements();
 				options.setVisible(true);
-				selectedItemsList.removeAll();
-				selectionLista.removeAll();
 				java.lang.reflect.Method m;
 				try {
 					m = serviceBean.getClass().getMethod("getAll");
