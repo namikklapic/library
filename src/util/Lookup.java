@@ -251,7 +251,7 @@ public class Lookup<T, U> extends JPanel {
 
 	public void setSelectedItems(List<T> selectedItems) {
 		if (selectionLista.getModel().getSize() == 0)
-			throw new IllegalStateException("Cannot set selected items if selection list is empty.");
+			throw new IllegalStateException("Cannot set selected items if selection list is empty!");
 		for (T item : selectedItems) {
 			((DefaultListModel<T>) this.selectedItemsList.getModel()).addElement(item);
 		}
