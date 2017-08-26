@@ -48,6 +48,8 @@ public class NoviIzdavac extends JFrame {
 		panel.setBounds(12, 16, 376, 271);
 		panel.setBackground(new Color(255,255,255,70));
 		
+		izdavac = null;
+		
 		imeIzdavaca = new JLabel("Name of publisher");
 		imeIzdavaca.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		imeIzdavaca.setForeground(Color.BLACK);
@@ -131,6 +133,7 @@ public class NoviIzdavac extends JFrame {
 	
 	public NoviIzdavac(Izdavac i) {
 		this();
+		izdavac = i;
 		txtIzdavac.setText(i.getNazivIzdavaca());
 	}
 	
@@ -150,8 +153,14 @@ public class NoviIzdavac extends JFrame {
 	}
 	
 	public void saveIzdavac(){
-		izdavacServiceBean.save(new Izdavac(izdavacServiceBean.getCount()+1, txtIzdavac.getText()));
-		message = "The publisher has been successfully saved!";
+		
+		int id = izdavac != null ? izdavac.getId() : izdavacServiceBean.getCount() + 1;
+		izdavacServiceBean.save(new Izdavac(id, txtIzdavac.getText()));
+		
+		if(izdavac != null)
+			message = "Changes were successfully saved!";
+		else
+			message = "The publisher has been successfully saved!";
 	}
 	
 	private boolean isValidIzdavac(){
@@ -176,6 +185,7 @@ public class NoviIzdavac extends JFrame {
 	
 	private String message;
 	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
+	private Izdavac izdavac;
 	
 	private JTextField txtIzdavac = new JTextField(15);
 	private JLabel imeIzdavaca;
