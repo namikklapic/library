@@ -86,6 +86,4 @@ public class Autor implements Serializable, Cloneable, Comparable {
 		return 0;
 	}
 	
-	
-	
 }

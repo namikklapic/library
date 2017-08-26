@@ -85,6 +85,17 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 		return result;
 	}
 	
+	public List<Predmet> getPredmetiByNaziv(String naziv){
+		List<Predmet> result = null;
+		try{
+			result = em.createQuery("Select p from Predmet p where p.nazivPredmeta=:naziv")
+					.setParameter("naziv", naziv)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
 	public Predmet getBySkraceniNaziv(String skrNaziv){
 		Predmet result = null;
 		try{
@@ -93,6 +104,28 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 					.setParameter("skrNaziv", skrNaziv)
 					.getSingleResult();
 		}catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
+	public List<Predmet> getPredmetiBySkracenica(String skracenica){
+		List<Predmet> result = null;
+		try{
+			result = em.createQuery("Select p from Predmet p where p.skraceniNazivPredmeta=:skracenica")
+					.setParameter("skracenica", skracenica)
+					.getResultList();
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
+	public List<Predmet> getPredmetiBySemestar(int sem){
+		List<Predmet> result = null;
+		try{
+			result = em.createQuery("Select p from Predmet p where p.brojSemestra=:sem")
+					.setParameter("sem", sem)
+					.getResultList();
+		}catch(NoResultException nre){}
 		
 		return result;
 	}
