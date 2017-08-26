@@ -9,6 +9,8 @@ import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import jpa.Korisnik;
 import jpa.Posudba;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 	
@@ -19,6 +21,17 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 			c = (Long) em.createQuery("Select count(p) from Posudba p").getSingleResult();
 		} catch(NoResultException nre) {}
 		return c.intValue();
+	}
+	
+	public List<Posudba> getAllPosudbe(){
+		List<Posudba> result = null;
+		try {
+			result = em
+				.createQuery("Select p from Posudba p")
+				.getResultList();
+			}
+		catch(NoResultException nre) {}
+			return result;	
 	}
 	
 	public List<Posudba> getPosudbeByKorisnik(Korisnik k){
@@ -48,9 +61,20 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		try {
 			result = em
 					.createQuery("Select p from Posudba p where p.korisnik = :k and p.datumVracanja IS NULL")
-					.setParameter('k', 	k)
+					.setParameter("k", 	k)
 					.getResultList();
 		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public List<Posudba> getActivePosudba(){
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p where p.datumVracanja IS NULL")
+					.getResultList();
+		} 
+		catch(NoResultException nre) {}
 		return result;
 	}
 	
@@ -80,6 +104,8 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 	public Posudba save(Posudba entity) {
 		// Once added, posudba can not be changed. That is the reason we are not trying to find existing Posudba
 		super.save(entity);
+		MyEvent evt = new MyEvent(this, "Update Posudba");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 }

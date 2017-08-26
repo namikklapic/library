@@ -7,6 +7,8 @@ import javax.persistence.NoResultException;
 import jpa.EntityManagerProducer;
 import jpa.Izdavac;
 import jpa.Nastavnik;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 	
@@ -78,6 +80,8 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		} else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Nastavnik");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	

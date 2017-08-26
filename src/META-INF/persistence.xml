@@ -13,6 +13,7 @@
 	<class>jpa.Posudba</class>
 	<class>jpa.Predmet</class>
 	<class>jpa.Primjerak</class>
+	<class>jpa.Rezervacija</class>
 	<class>jpa.Student</class>
 	<class>jpa.VrstaKnjige</class>
 		<properties>

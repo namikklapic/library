@@ -45,25 +45,32 @@ public class VrstaKnjigePregled extends JFrame {
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
 		
-		searchLabel = new JLabel("Book type title: ");
+		searchLabel = new JLabel("Type name to search :");
+		searchLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		searchLabel.setBounds(470, 31, 194, 25);
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.setBounds(470, 69, 194, 25);
 		searchBtn = new JButton("Search");
+		searchBtn.setBounds(521, 107, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				String filter = txtSearchFilter.getText();
-				if(filter.equals(null) || filter.equals("")){
-					model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
-				}else{
-					model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getVrstaKnjigeByNaziv(filter));
+				refreshTable();
+			}
+		});
+		searchBtn.setBorder(null);
+		searchBtn.setFocusPainted(false);
+		searchBtn.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		searchBtn.setForeground(new Color(255, 255, 255));
+		searchBtn.setBackground(Color.DARK_GRAY);
+		searchBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				searchBtn.setBackground(Color.GRAY);			
 				}
-				
-				table.setModel(model);
-				
-				if(table.getRowCount() == 0){
-					message = "No result found!";
-					displayMessageDialogBox();
-				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchBtn.setBackground(Color.DARK_GRAY);
 			}
 		});
 		panel.add(searchLabel);
@@ -185,6 +192,25 @@ public class VrstaKnjigePregled extends JFrame {
 		table.getSelectionModel().clearSelection();
 		model = new VrstaKnjigeTableModel();
 		table.setModel(model);
+	}
+	
+	public void refreshTable() {
+		String filter = txtSearchFilter.getText();
+		if(filter.equals(null) || filter.equals("")){
+			model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
+		}else{
+			model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getVrstaKnjigeByNaziv(filter));
+		}
+		
+		table.setModel(model);
+		
+		if(table.getRowCount() == 0){
+			message = "No result found!";
+			displayMessageDialogBox();
+		}
+		
+		getContentPane().repaint();
+		getContentPane().revalidate();
 	}
 	
 	private void displayMessageDialogBox(){

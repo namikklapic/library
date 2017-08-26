@@ -9,6 +9,8 @@ import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
 import jpa.VrstaKnjige;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 	/**
@@ -99,6 +101,8 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 		else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update VrstaKnjige");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	

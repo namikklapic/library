@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import jpa.Bibliotekar;
+import swing.RezervacijaPanels.RezervacijePregled;
 import swing.VrstaKnjigePanels.NovaVrstaKnjige;
 import swing.VrstaKnjigePanels.VrstaKnjigePregled;
 import swing.autorPanels.AutorPregled;
@@ -380,12 +381,16 @@ public class PanelBibliotekar extends JFrame{
 		JMenu posudbe = new JMenu("Book loans");
 		posudbe.add(novaPosudba.getMenuItem());
 		posudbe.add(posudbePregled.getMenuItem(panel));
+		
+		JMenu rezervacije = new JMenu("Book reservations");
+		rezervacije.add(rezervacijePregled.getMenuItem(panel));
 				
 		menuBar.add(knjiga);
 		menuBar.add(nastavnici);
 		menuBar.add(studenti);
 		menuBar.add(predmeti);
 		menuBar.add(posudbe);
+		menuBar.add(rezervacije);
 		
 		setJMenuBar(menuBar);
 		
@@ -661,6 +666,10 @@ public class PanelBibliotekar extends JFrame{
 					repaint();
 					revalidate();
 				}
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					noviStudent.prikazi();
+				}
 			});				
 			lblAddNewStudent.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAddNewStudent.setForeground(Color.WHITE);
@@ -681,6 +690,10 @@ public class PanelBibliotekar extends JFrame{
 					lineViewStudents.setVisible(false);
 					repaint();
 					revalidate();
+				}
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					studentPregled.prikazi();
 				}
 			});	
 			lblViewAllStudents.setHorizontalAlignment(SwingConstants.CENTER);
@@ -739,6 +752,10 @@ public class PanelBibliotekar extends JFrame{
 							lineAddSubject.setVisible(false);
 							repaint();
 							revalidate();
+						}
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							noviPredmet.prikazi();
 						}
 					});				
 					lblAddNewSubject.setHorizontalAlignment(SwingConstants.CENTER);
@@ -819,6 +836,10 @@ public class PanelBibliotekar extends JFrame{
 					repaint();
 					revalidate();
 				}
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					noviNastavnik.prikazi();
+				}
 			});				
 			lblAddNewProfessor.setHorizontalAlignment(SwingConstants.CENTER);
 			lblAddNewProfessor.setForeground(Color.WHITE);
@@ -839,6 +860,10 @@ public class PanelBibliotekar extends JFrame{
 					lineViewProfessors.setVisible(false);
 					repaint();
 					revalidate();
+				}
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					nastavniciPregled.prikazi();
 				}
 			});	
 			lblViewAllProfessors.setHorizontalAlignment(SwingConstants.CENTER);
@@ -916,11 +941,15 @@ public class PanelBibliotekar extends JFrame{
 					repaint();
 					revalidate();
 				}
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					novaPosudba.prikazi();
+				}
 			});
 			lblNewLoan.setForeground(new Color(255, 255, 255));
 			lblNewLoan.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
 			lblNewLoan.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLoan.setBounds(94, 330, 332, 52);
+			lblNewLoan.setBounds(94, 305, 332, 103);
 			panelLoans.add(lblNewLoan);
 			
 			JLabel lblViewLoans = new JLabel("View all book loans");
@@ -941,7 +970,7 @@ public class PanelBibliotekar extends JFrame{
 			lblViewLoans.setHorizontalAlignment(SwingConstants.CENTER);
 			lblViewLoans.setForeground(Color.WHITE);
 			lblViewLoans.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-			lblViewLoans.setBounds(467, 330, 332, 52);
+			lblViewLoans.setBounds(467, 305, 332, 103);
 			panelLoans.add(lblViewLoans);
 			
 		// Panel Loans items -- END
@@ -1059,8 +1088,7 @@ public class PanelBibliotekar extends JFrame{
 							}
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
-								//cl.show(panel_1, "defaultPanel");
-								//pregledKnjiga.run();
+								pregledKnjiga.prikazi();
 							}
 						});
 						viewAllBooks.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1279,11 +1307,15 @@ public class PanelBibliotekar extends JFrame{
 									panel_2.setVisible(true);
 									lblLoans_1.setVisible(true);
 									lineLoans.setVisible(true);
+									repaint();
+									revalidate();
 								}
 								@Override
 								public void mouseExited(MouseEvent e) {
 									panel_2.setVisible(false);
 									lineLoans.setVisible(false);
+									repaint();
+									revalidate();
 								}
 							});
 							lblLoans.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/external-link-48.png")));
@@ -1300,11 +1332,15 @@ public class PanelBibliotekar extends JFrame{
 									panel_2.setVisible(true);
 									lblBooks.setVisible(true);
 									lineBooks.setVisible(true);
+									repaint();
+									revalidate();
 								}
 								@Override
 								public void mouseExited(MouseEvent e) {
 									panel_2.setVisible(false);
 									lineBooks.setVisible(false);
+									repaint();
+									revalidate();
 								}
 							});						
 							lblBooks_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1320,11 +1356,15 @@ public class PanelBibliotekar extends JFrame{
 								public void mouseEntered(MouseEvent arg0) {
 									panel_2.setVisible(true);
 									lineAuthors.setVisible(true);
+									repaint();
+									revalidate();
 								}
 								@Override
 								public void mouseExited(MouseEvent e) {
 									panel_2.setVisible(false);
 									lineAuthors.setVisible(false);
+									repaint();
+									revalidate();
 								}
 							});
 							lblAuthor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1340,12 +1380,16 @@ public class PanelBibliotekar extends JFrame{
 								public void mouseEntered(MouseEvent arg0) {
 									panel_2.setVisible(true);
 									lineProffessors.setVisible(true);
+									repaint();
+									revalidate();
 
 								}
 								@Override
 								public void mouseExited(MouseEvent e) {
 									panel_2.setVisible(false);
 									lineProffessors.setVisible(false);
+									repaint();
+									revalidate();
 								}
 							});
 							lblProffesor.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1361,11 +1405,15 @@ public class PanelBibliotekar extends JFrame{
 								public void mouseEntered(MouseEvent arg0) {
 									panel_2.setVisible(true);
 									lineClasses.setVisible(true);
+									repaint();
+									revalidate();
 								}
 								@Override
 								public void mouseExited(MouseEvent e) {
 									panel_2.setVisible(true);
 									lineClasses.setVisible(false);
+									repaint();
+									revalidate();
 								}
 							});
 							lblSubject.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1386,6 +1434,63 @@ public class PanelBibliotekar extends JFrame{
 	// Main menu background options -- END
 							
 	}
+	
+	public void updateInterface(String reason) {
+		if(reason == "Update AuthorKnjiga") {
+			pregledKnjiga.refreshTable();
+		}
+		else if(reason == "Update Author") {
+			pregledKnjiga.refreshTable();
+			autorPregled.refreshTable();
+		}
+		else if(reason == "Update Bibliotekar") {
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Izdavac") {
+			pregledKnjiga.refreshTable();
+			pregledIzdavac.refreshTable();
+		}
+		else if(reason == "Update Knjiga") {
+			pregledKnjiga.refreshTable();
+			posudbePregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update NastavnikPredmet") {
+			
+		}
+		else if(reason == "Update Nastavnik") {
+			nastavniciPregled.refreshTable();
+			rezervacijePregled.refreshTable();
+			
+		}
+		else if(reason == "Update Posudba") {
+			pregledKnjiga.refreshTable();
+			posudbePregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Predmet") {
+			predmetPregled.refreshTable();
+		}
+		else if(reason == "Update Primjerak") {
+			pregledKnjiga.refreshTable();
+			posudbePregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Rezervacija") {
+			pregledKnjiga.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update Student") {
+			studentPregled.refreshTable();
+			rezervacijePregled.refreshTable();
+		}
+		else if(reason == "Update VrstaKnjige") {
+			pregledKnjiga.refreshTable();
+			vrstaKnjigePregled.refreshTable();
+		}
+	}
+	
+	
 	private Bibliotekar bibliotekar;
 
 	private NovaKnjiga novaKnjiga = new NovaKnjiga();
@@ -1410,5 +1515,6 @@ public class PanelBibliotekar extends JFrame{
 	private PredmetPregled predmetPregled = new PredmetPregled();
 	
 	private NovaPosudba novaPosudba = new NovaPosudba();
-	private PosudbePregled posudbePregled = new PosudbePregled();
+	private PosudbePregled posudbePregled = new PosudbePregled(null);
+	private RezervacijePregled rezervacijePregled = new RezervacijePregled(null);
 }

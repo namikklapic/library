@@ -53,31 +53,33 @@ public class AutorPregled extends JFrame {
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
 		
-		searchLabel = new JLabel("Author: ");
+		searchLabel = new JLabel("Type name to search :");
+		searchLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		searchLabel.setBounds(470, 32, 194, 25);
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtSearchFilter.setBounds(470, 70, 194, 25);
 		searchBtn = new JButton("Search");
+		searchBtn.setBounds(521, 108, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				String filter = txtSearchFilter.getText();
-				if(filter.equals(null) || filter.equals("")){
-					model = new AutorTableModel(autorServiceBean.getAllAutor());
-				}else{
-					String[] spliter = filter.split(" ");
-					if(spliter.length != 2){
-						message = "Please, enter author's first and last name!";
-						txtSearchFilter.setBackground(Color.RED);
-						displayMessageDialogBox();
-					}else
-						model = new AutorTableModel(autorServiceBean.getAutorByFullName(spliter[0], spliter[1]));
+				refreshTable();
+			}
+		});
+		searchBtn.setBorder(null);
+		searchBtn.setFocusPainted(false);
+		searchBtn.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		searchBtn.setForeground(new Color(255, 255, 255));
+		searchBtn.setBackground(Color.DARK_GRAY);
+		searchBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				searchBtn.setBackground(Color.GRAY);			
 				}
-				
-				table.setModel(model);
-				
-				if(table.getRowCount() == 0){
-					message = "No result found!";
-					displayMessageDialogBox();
-				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchBtn.setBackground(Color.DARK_GRAY);
 			}
 		});
 		
@@ -209,6 +211,33 @@ public class AutorPregled extends JFrame {
 		
 		model = new AutorTableModel();
 		table.setModel(model);
+	}
+	
+	public void refreshTable() {
+		String filter = txtSearchFilter.getText();
+		if(filter.equals(null) || filter.equals("")){
+			model = new AutorTableModel(autorServiceBean.getAllAutor());
+		}else{
+			String[] spliter = filter.split(" ");
+			if(spliter.length != 2){
+				message = "Please, enter author's first and last name!";
+				txtSearchFilter.setBackground(Color.RED);
+				displayMessageDialogBox();
+				getContentPane().repaint();
+				getContentPane().revalidate();
+			}else
+				model = new AutorTableModel(autorServiceBean.getAutorByFullName(spliter[0], spliter[1]));
+		}
+		
+		table.setModel(model);
+		
+		if(table.getRowCount() == 0){
+			message = "No result found!";
+			displayMessageDialogBox();
+		}
+		getContentPane().repaint();
+		getContentPane().revalidate();
+		
 	}
 	
 	public void prikazi() { setVisible(true); }

@@ -9,6 +9,8 @@ import jpa.Autor;
 import jpa.AutorKnjiga;
 import jpa.EntityManagerProducer;
 import jpa.Knjiga;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 	
@@ -24,7 +26,8 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 		} else {
 			super.save(entity);
 		}
-		
+		MyEvent evt = new MyEvent(this, "Update AuthorKnjiga");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return find;
 	}
 	
@@ -57,6 +60,19 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 				result.add(ak.getKnjiga());
 		}
 		
+		return result;
+	}
+	public List<Autor>  getAutorsOnKnjiga(Knjiga k ) {
+		List<Autor> result = new ArrayList<Autor>();
+		List<AutorKnjiga> akList = new ArrayList<AutorKnjiga>();
+		try {
+			akList = em.createQuery("select ak from AutorKnjiga ak where ak.knjiga=:k")
+					.setParameter("k", k)
+					.getResultList();
+			for(AutorKnjiga ak : akList) {
+				result.add(ak.getAutor());
+			}
+		} catch(NoResultException nre) {}
 		return result;
 	}
 

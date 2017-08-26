@@ -6,6 +6,8 @@ import javax.persistence.NoResultException;
 
 import jpa.Autor;
 import jpa.EntityManagerProducer;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class AutorServiceBean extends EntityManagerProducer<Autor> {
 	
@@ -35,6 +37,9 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 			result = em.createQuery("select a from Autor a").getResultList();
 		} catch(NoResultException nre) {}
 		return result;
+	}
+	public List<Autor> getAll(){
+		return getAllAutor();
 	}
 	
 	public List<Autor> getAutorByFullName(String firstname, String lastname){
@@ -76,6 +81,8 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 		} else {
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update Author");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
 	/**

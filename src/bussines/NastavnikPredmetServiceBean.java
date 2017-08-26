@@ -8,15 +8,17 @@ import jpa.EntityManagerProducer;
 import jpa.Nastavnik;
 import jpa.NastavnikPredmet;
 import jpa.Predmet;
+import swing.PanelPrijava;
+import util.MyEvent;
 
 public class NastavnikPredmetServiceBean extends EntityManagerProducer<NastavnikPredmet>{
 	
-	public List<Predmet> getPredmetiByNastavnik(Integer sifraNastavnika ) {
+	public List<Predmet> getPredmetiByNastavnik(Nastavnik n ) {
 		List<Predmet> result = null;
 		
 		try {
-			result = em.createQuery("Select np from NastavnikPredmet where np.sifraNastavnik =:sifraNastavnika")
-					.setParameter("sifraNastavnika", sifraNastavnika)
+			result = em.createQuery("Select np from NastavnikPredmet where np.n =:n")
+					.setParameter("n", n)
 					.getResultList();
 		} catch(NoResultException nre) {}
 		
@@ -45,6 +47,8 @@ public class NastavnikPredmetServiceBean extends EntityManagerProducer<Nastavnik
 		}else{
 			super.save(entity);
 		}
+		MyEvent evt = new MyEvent(this, "Update NastavnikPredmet");
+		PanelPrijava.realTime.fireMyEvent(evt);
 		return find;			
 	}
 }

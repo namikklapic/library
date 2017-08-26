@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import bussines.PredmetServiceBean;
 import jpa.Predmet;
 import tableModel.PredmetTableModel;
+import tableModel.StudentTableModel;
 
 public class PredmetPregled extends JFrame {
 	
@@ -29,7 +30,7 @@ public class PredmetPregled extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		
 		PredmetTableModel model = new PredmetTableModel(predmetServiceBean.getAllPredmeti());
-		JTable table = new JTable(model);
+		table = new JTable(model);
 		
 		JButton edit = new JButton("Uredi");
 		edit.addActionListener(new ActionListener(){
@@ -59,7 +60,13 @@ public class PredmetPregled extends JFrame {
 		});
 		return menuItem;
 	}
+	
+	public void refreshTable() {
+		PredmetTableModel model = new PredmetTableModel(predmetServiceBean.getAllPredmeti());
+		table.setModel(model);
+	}
 
 	private JPanel panel;
+	private JTable table;
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();
 }
