@@ -37,7 +37,7 @@ public class Lookup<T, U> extends JPanel {
 		DefaultListModel<T> listModel = new DefaultListModel<T>();
 		DefaultListModel<T> selectedItemsListModel = new DefaultListModel<T>();
 		for (T element : items) {
-//			listModel.addElement(element);
+			listModel.addElement(element);
 		}
 
 		Toolkit kit = Toolkit.getDefaultToolkit();
@@ -137,7 +137,7 @@ public class Lookup<T, U> extends JPanel {
 				selectedItemsListModel.removeAllElements();
 				listModel.removeAllElements();
 				for (T element : items) {
-//					listModel.addElement(element);
+					listModel.addElement(element);
 				}
 				options.setVisible(false);
 				setSelectionText();
