@@ -10,7 +10,7 @@ import jpa.Predmet;
 
 public class PredmetTableModel extends AbstractTableModel {
 	
-	private String [] columnNames = {"Title", "Short title", "Semester"};
+	private String [] columnNames = {"ID", "Title", "Short title", "Semester"};
 	private List<Predmet> predmeti;
 	
 	public PredmetTableModel(){
@@ -44,10 +44,12 @@ public class PredmetTableModel extends AbstractTableModel {
 		Predmet p = getPredmet(row);
 		switch(column){
 		case 0:
-			return p.getNazivPredmeta();
+			return p.getSifraPredmeta();
 		case 1:
-			return p.getSkraceniNazivPredmeta();
+			return p.getNazivPredmeta();
 		case 2:
+			return p.getSkraceniNazivPredmeta();
+		case 3:
 			return p.getBrojSemestra();
 			
 		default:

@@ -46,6 +46,7 @@ public class NoviPredmet extends JFrame {
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setLocation(12, 16);
 
+		predmet = null;
 		
 		sifraPredmeta = new JLabel("Subject ID: ");
 		sifraPredmeta.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -166,8 +167,9 @@ public class NoviPredmet extends JFrame {
 	
 	public NoviPredmet(Predmet p) {
 		this();
-		
+		predmet = p;
 		txtSifra.setText(p.getSifraPredmeta());
+		txtSifra.setEditable(false);
 		txtNaziv.setText(p.getNazivPredmeta());
 		txtSkrNaziv.setText(p.getSkraceniNazivPredmeta());
 		txtSemestar.setText(Integer.toString(p.getBrojSemestra()));
@@ -190,13 +192,16 @@ public class NoviPredmet extends JFrame {
 	
 	private void savePredmet(){
 		
-		String sifra = txtSifra.getText();
+		String sifra = predmet != null ? predmet.getSifraPredmeta() : txtSifra.getText();
 		String naziv = txtNaziv.getText();
 		String skrNaziv = txtSkrNaziv.getText();
 		int semestar = Integer.parseInt(txtSemestar.getText());
 		predmetServiceBean.save(new Predmet(sifra, naziv, skrNaziv, semestar));
 		
-		message = "The subject has been successfully saved!";
+		if(predmet != null)
+			message = "Changes were successfully saved!";
+		else
+			message = "The subject has been successfully saved!";
 	}
 	
 	private boolean isNumeric(String s){
@@ -225,18 +230,18 @@ public class NoviPredmet extends JFrame {
 			message = "Invalid value for semester!";
 			return false;
 		}
-		else if(predmetServiceBean.existsPredmetBySifra(txtSifra.getText())){
+		else if(predmet == null && predmetServiceBean.existsPredmetBySifra(txtSifra.getText())){
 			message = "Subject with the entered ID already exists!";
 			return false;
 		}
-		else if(predmetServiceBean.existsPredmetByNaziv(txtNaziv.getText())){
-			message = "Subject with the entered title alreday exists!";
-			return false;
-		}
-		else if(predmetServiceBean.existsPredmetBySkraceniNaziv(txtSkrNaziv.getText())){
-			message = "Subject with the entered short title alreday exists!";
-			return false;
-		}
+//		else if(predmet == null && predmetServiceBean.existsPredmetByNaziv(txtNaziv.getText())){
+//			message = "Subject with the entered title alreday exists!";
+//			return false;
+//		}
+//		else if(predmet == null && predmetServiceBean.existsPredmetBySkraceniNaziv(txtSkrNaziv.getText())){
+//			message = "Subject with the entered short title alreday exists!";
+//			return false;
+//		}
 		return true;
 	}
 	
@@ -288,6 +293,7 @@ public class NoviPredmet extends JFrame {
 	
 	private String message;
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();
+	private Predmet predmet;
 	
 	private JLabel sifraPredmeta;
 	private JLabel nazivPredmeta;
