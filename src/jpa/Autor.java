@@ -79,5 +79,13 @@ public class Autor implements Serializable, Cloneable, Comparable {
 		Autor a = (Autor) other;
 		return this.id == a.getId();
 	}
+
+	@Override
+	public int compareTo(Object o) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 	
 }

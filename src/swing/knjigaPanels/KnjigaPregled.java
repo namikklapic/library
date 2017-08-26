@@ -130,7 +130,7 @@ public class KnjigaPregled extends JFrame {
 		panel.add(txtSearchFilter);
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(822, 139, 97, 37);
+		searchBtn.setBounds(802, 139, 145, 37);
 		
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
@@ -162,7 +162,7 @@ public class KnjigaPregled extends JFrame {
 		else
 			editBtnName = "View details";
 		JButton edit = new JButton(editBtnName);
-		edit.setBounds(822, 346, 97, 37);
+		edit.setBounds(802, 346, 145, 37);
 		edit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -245,7 +245,7 @@ public class KnjigaPregled extends JFrame {
 		cancel.setFocusPainted(false);
 		cancel.setBorder(null);
 		cancel.setBackground(Color.DARK_GRAY);
-		cancel.setBounds(822, 409, 97, 37);
+		cancel.setBounds(802, 409, 145, 37);
 		
 		getContentPane().setLayout(null);
 		panel.add(cancel);

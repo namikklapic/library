@@ -242,8 +242,8 @@ public class PanelPrijava extends JPanel {
 		
 		// Password enter field options -- END		
 		
-		txtUser.setText("Nermin.Sarajlic");
-		txtPass.setText("1");
+		txtUser.setText("Ismar.Ramic");
+		txtPass.setText("0203996180083");
 		
 	}
 	
@@ -291,7 +291,11 @@ public class PanelPrijava extends JPanel {
 					else if (n != null){
 						mainFrame.setVisible(false);
 						JFrame nastavnikLogin = new PanelNastavnik(n);
-						nastavnikLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						nastavnikLogin.setSize(1200, 800);
+						Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+					    int x = (int) ((dimension.getWidth() - nastavnikLogin.getWidth()) / 2);
+					    int y = (int) ((dimension.getHeight() - nastavnikLogin.getHeight()) / 2);
+					    nastavnikLogin.setLocation(x, y);
 						nastavnikLogin.setVisible(true);
 						nastavnikLogin.addWindowListener(new UserPanelClosingAction());
 						realTime.addMyEventListener(new MyEventListener() {
