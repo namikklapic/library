@@ -39,12 +39,21 @@ public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 		} catch(NoResultException nre) {}
 		return lista;
 	}
+	public Literatura delete (Literatura l) {
+		em.getTransaction().begin();
+		em.createQuery("Delete from Literatura l where l = :literatura")
+		.setParameter("literatura", l).executeUpdate();
+		em.getTransaction().commit();
+		return l;
+	}
 	
 	public Literatura save(Literatura entity) {
 		Literatura find = em.find(Literatura.class, entity.getId());
 		if(find != null) {
+			em.getTransaction().begin();
 			find.setBrojVaznosti(entity.getBrojVaznosti());
 			find.setObavezna(entity.isObavezna());
+			em.getTransaction().commit();
 		} else {
 			super.save(entity);
 		}

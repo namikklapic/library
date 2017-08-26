@@ -9,7 +9,7 @@ import jpa.Autor;
 import jpa.Literatura;
 
 public class LiteraturaTableModel extends AbstractTableModel {
-	private String [] columnNames = {"Knjiga", "Broj vaznosti", "Obavezna"};
+	private String [] columnNames = {"Book", "Importance", "Mandatory"};
 	private List<Literatura> literatura;
 	
 	public LiteraturaTableModel(){
@@ -46,7 +46,7 @@ public class LiteraturaTableModel extends AbstractTableModel {
 		case 1:
 			return l.getBrojVaznosti();
 		case 2:
-			return l.isObavezna();
+			return l.isObavezna() == true ? "YES" : "NO";
 		default: return null;
 		}
 	}

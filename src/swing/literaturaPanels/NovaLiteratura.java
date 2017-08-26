@@ -41,6 +41,7 @@ public class NovaLiteratura extends JFrame {
 				Literatura l = validateForm();
 				if(l != null) {
 					literaturaServiceBean.save(l);
+					dispose();
 					if(parent != null) {
 						parent.update();
 					}

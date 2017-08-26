@@ -9,10 +9,12 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import bussines.LiteraturaServiceBean;
 import bussines.NastavnikPredmetServiceBean;
+import jpa.Literatura;
 import jpa.Nastavnik;
 import jpa.Predmet;
 import tableModel.LiteraturaTableModel;
@@ -30,13 +32,27 @@ public class LiteraturaPregled extends JFrame {
 		panel.add(cbPredmeti);
 		that = this;
 	
-		panel.add(table);
+		panel.add(new JScrollPane(table));
 		addLiteratura.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				novaLiteratura.prikazi();
 			}
 		});
+		delete.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				Literatura l = null;
+				try{
+					l = ((LiteraturaTableModel)table.getModel()).getLiteratura(table.getSelectedRow());
+				} catch(ArrayIndexOutOfBoundsException exception) {}
+				if(l != null) {
+					literaturaServiceBean.delete(l);
+				}
+				update();
+			}
+		});
+		
 		cbPredmeti.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -46,6 +62,7 @@ public class LiteraturaPregled extends JFrame {
 			}
 		});
 		panel.add(addLiteratura);
+		panel.add(delete);
 		
 		add(panel);
 	}
@@ -83,6 +100,7 @@ public class LiteraturaPregled extends JFrame {
 	
 	private LiteraturaPregled that;
 	private JButton addLiteratura = new JButton("Add");
+	private JButton delete = new JButton("Delete");
 	private NovaLiteratura novaLiteratura;
 	private Predmet currentPredmet;
 	
