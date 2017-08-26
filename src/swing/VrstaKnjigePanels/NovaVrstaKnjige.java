@@ -80,9 +80,15 @@ public class NovaVrstaKnjige extends JFrame {
 		potvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e){
-				if(isValidVrstaKnjige())
+				boolean valid = isValidVrstaKnjige();
+				if(valid)
 					saveVrstaKnjige();
 				displayMessageDialogBox();
+				
+				if(valid){
+					initializeUIElements();
+					dispose();
+				}
 			}
 		});
 		panel.add(potvrdi);

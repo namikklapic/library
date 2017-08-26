@@ -294,9 +294,15 @@ public class NovaKnjiga extends JFrame {
 		btnPotvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				if(isValidBook() == true)
+				boolean valid = isValidBook();
+				if(valid)
 					saveBook();
 				displayMessageDialogBox();
+				
+				if(valid){
+					initializeUIElements();
+					dispose();
+				}
 			}
 		});
 		btnPotvrdi.setBorder(null);

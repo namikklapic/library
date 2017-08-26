@@ -104,10 +104,16 @@ public class NoviIzdavac extends JFrame {
 		potvrdi.setBackground(Color.DARK_GRAY);
 		potvrdi.setBounds(80, 214, 97, 41);
 		potvrdi.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent event) {				
-				if(isValidIzdavac())
+			public void actionPerformed(ActionEvent event) {
+				boolean valid = isValidIzdavac();
+				if(valid)
 					saveIzdavac();
 				displayMessageDialogBox();
+				
+				if(valid){
+					txtIzdavac.setText("");
+					dispose();
+				}
 			}
 		});
 		

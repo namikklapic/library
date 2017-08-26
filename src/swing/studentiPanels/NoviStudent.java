@@ -126,9 +126,15 @@ public class NoviStudent extends JFrame {
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				if(isValidStudent())
+				boolean valid = isValidStudent();
+				if(valid)
 					saveStudent();
 				displayMessageDialogBox();
+				
+				if(valid){
+					initializeUIElements();
+					dispose();
+				}
 			}
 		});
 		potvrdi.addMouseListener(new MouseAdapter() {
@@ -320,7 +326,7 @@ public class NoviStudent extends JFrame {
 	
 	private JPanel panel;
 	
-	String message;
+	private String message;
 	
 	private JLabel ime;
 	private JLabel prezime;

@@ -124,9 +124,15 @@ public class NoviNastavnik extends JFrame{
 		potvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				if(isValidNastavnik())
+				boolean valid = isValidNastavnik();
+				if(valid)
 					saveNastavnik();
 				displayMessageDialogBox();
+				
+				if(valid){
+					initializeUIElements();
+					dispose();
+				}
 			}
 		});
 		potvrdi.addMouseListener(new MouseAdapter() {

@@ -62,9 +62,15 @@ public class NoviAutor extends JFrame {
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				if(isValidAutor())
+				boolean valid = isValidAutor();
+				if(valid)
 					saveAutor();
 				displayMessageDialogBox();
+				
+				if(valid){
+					initializeUIElements();
+					dispose();
+				}
 			}
 		});
 		potvrdi.setBorder(null);

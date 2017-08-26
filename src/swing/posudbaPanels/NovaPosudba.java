@@ -233,9 +233,15 @@ public class NovaPosudba extends JFrame {
 		potvrdi.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
-				if(isValidPosudba())
+				boolean valid = isValidPosudba();
+				if(valid)
 					savePosudba();
 				displayMessageDialogBox();
+				
+				if(valid){
+					initializeView();
+					dispose();
+				}
 			}
 		});
 		potvrdi.addMouseListener(new MouseAdapter() {

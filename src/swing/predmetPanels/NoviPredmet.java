@@ -69,9 +69,15 @@ public class NoviPredmet extends JFrame {
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				if(isValidPredmet())
+				boolean valid = isValidPredmet();
+				if(valid)
 					savePredmet();
 				displayMessageDialogBox();
+				
+				if(valid){
+					initializeUIElements();
+					dispose();
+				}
 			}
 		});
 		potvrdi.addMouseListener(new MouseAdapter() {
