@@ -47,6 +47,8 @@ public class NoviAutor extends JFrame {
 
 		panel.setSize(376, 271);
 		
+		autor = null;
+		
 		JLabel imeAutora = new JLabel("Author's First name");
 		imeAutora.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		imeAutora.setBounds(12, 62, 154, 19);
@@ -141,6 +143,7 @@ public class NoviAutor extends JFrame {
 	
 	public NoviAutor(Autor a) {
 		this();
+		autor = a;
 		txtIme.setText(a.getImeAutora());
 		txtPrezime.setText(a.getPrezimeAutora());
 	}
@@ -161,8 +164,14 @@ public class NoviAutor extends JFrame {
 	}
 	
 	public void saveAutor(){
-		autorServiceBean.save(new Autor(autorServiceBean.getCount()+1, txtIme.getText(), txtPrezime.getText()));
-		message = "The author has been successfully saved!";
+		
+		int id = autor != null ? autor.getId() : autorServiceBean.getCount() + 1;
+		autorServiceBean.save(new Autor(id, txtIme.getText(), txtPrezime.getText()));
+		
+		if(autor != null)
+			message = "Changes were successfully saved!";
+		else
+			message = "The author has been successfully saved!";
 	}
 	
 	private void displayMessageDialogBox(){
@@ -200,6 +209,7 @@ public class NoviAutor extends JFrame {
 	
 	private String message;
 	
+	private Autor autor;
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
 	
 	private JPanel panel;
