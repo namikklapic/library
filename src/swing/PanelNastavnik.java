@@ -18,6 +18,7 @@ import java.util.Date;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -43,6 +44,7 @@ public class PanelNastavnik extends JFrame {
 		this.literaturaPregled = new LiteraturaPregled(this.nastavnik);
 		setResizable(false);
 		getContentPane().setLayout(null);
+		setUndecorated(true);
 
 		
 		// Panels definition and options -- BEGIN
@@ -53,7 +55,7 @@ public class PanelNastavnik extends JFrame {
 				panel.setBorder(null);
 				panel.setBackground(new Color(51, 51, 51,180));
 				panel.setForeground(Color.WHITE);
-				panel.setBounds(0, 0, 78, 790);
+				panel.setBounds(0, 0, 78, 804);
 				getContentPane().add(panel);
 			
 			
@@ -85,7 +87,7 @@ public class PanelNastavnik extends JFrame {
 				JPanel panel_1 = new JPanel();
 				panel_1.setBackground(new Color(192, 192, 192,30));
 				panel_1.setLayout(new CardLayout(0, 0));
-				panel_1.setBounds(90, 13, 883, 713);
+				panel_1.setBounds(90, 13, 883, 774);
 				getContentPane().add(panel_1);
 				
 				CardLayout cl = (CardLayout)(panel_1.getLayout());
@@ -204,10 +206,86 @@ public class PanelNastavnik extends JFrame {
 				
 				// Right panel 
 				JPanel infoPanel = new JPanel();
-				infoPanel.setBounds(985, 0, 215, 761);
+				infoPanel.setBounds(985, 0, 215, 804);
 				getContentPane().add(infoPanel);
 				infoPanel.setBackground(new Color(51,51,51,180));
 				infoPanel.setLayout(null);
+				
+				// Right panel minimize and exit buttons -- BEGIN
+				JButton btnMinimize = new JButton("__");
+				btnMinimize.setOpaque(false);
+				btnMinimize.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent arg0) {
+						btnMinimize.setBackground(new Color(197,223,208));	
+						btnMinimize.setForeground(new Color(197,223,208));
+						
+						repaint();
+						revalidate();
+						}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnMinimize.setBackground(Color.DARK_GRAY);
+						btnMinimize.setForeground(Color.WHITE);
+						repaint();
+						revalidate();
+					}
+				});
+				btnMinimize.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						setExtendedState(JFrame.ICONIFIED);
+						repaint();
+						revalidate();
+						
+					}
+				});
+				btnMinimize.setForeground(Color.WHITE);
+				btnMinimize.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+				btnMinimize.setFocusPainted(false);
+				btnMinimize.setBorder(null);
+				btnMinimize.setBackground(Color.DARK_GRAY);
+				btnMinimize.setBounds(144, 9, 26, 23);
+				infoPanel.add(btnMinimize);
+				
+				
+				
+				JButton btnExit = new JButton("x");
+				btnExit.setOpaque(false);
+				btnExit.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent arg0) {
+						btnExit.setBackground(new Color(197,223,208));	
+						btnExit.setForeground(new Color(197,223,208));
+
+						repaint();
+						revalidate();
+						}
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnExit.setBackground(Color.DARK_GRAY);
+						btnExit.setForeground(Color.WHITE);
+
+						repaint();
+						revalidate();
+					}
+				});
+				btnExit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						System.exit(1);
+						
+						repaint();
+						revalidate();
+					}
+				});
+				btnExit.setForeground(Color.WHITE);
+				btnExit.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+				btnExit.setFocusPainted(false);
+				btnExit.setBorder(null);
+				btnExit.setBackground(Color.DARK_GRAY);
+				btnExit.setBounds(177, 11, 26, 23);
+				infoPanel.add(btnExit);
+				
+			// Right panel minimize and exit buttons -- END
 				
 				// Implementation of clock in right panel -- BEGIN
 				
@@ -241,7 +319,7 @@ public class PanelNastavnik extends JFrame {
 									JLabel Clock = new ClockLabel();
 									Clock.setFont(new Font("Segoe UI Emoji", Font.BOLD, 67));
 									Clock.setForeground(Color.WHITE);
-									Clock.setBounds(12, 13, 202, 104);
+									Clock.setBounds(12, 100, 202, 104);
 									Clock.setOpaque(false);
 									
 									
@@ -256,7 +334,8 @@ public class PanelNastavnik extends JFrame {
 				
 				
 				// Panels definition end options -- END
-		
+		/*
+							
 		JMenuBar menuBar = new JMenuBar();
 		
 		JMenu knjiga = new JMenu("Books");
@@ -276,7 +355,7 @@ public class PanelNastavnik extends JFrame {
 		menuBar.add(literatura);
 		
 		setJMenuBar(menuBar);
-		
+		*/
 		getContentPane().add(panel);
 		
 		// Items on right panel -- BEGIN
@@ -382,11 +461,11 @@ public class PanelNastavnik extends JFrame {
 				lineChangePic.setVisible(false);
 				lineChangePic.setOpaque(true);
 				lineChangePic.setBackground(new Color(255, 255, 255));
-				lineChangePic.setBounds(19, 328, 177, 2);
+				lineChangePic.setBounds(12, 385, 177, 2);
 				infoPanel.add(lineChangePic);
 				
 				JLabel profilePictureBox = new JLabel("");
-				profilePictureBox.setBounds(34, 150, 140, 140);
+				profilePictureBox.setBounds(27, 207, 140, 140);
 				infoPanel.add(profilePictureBox);
 				
 				File profilePicture = new File(PanelBibliotekar.class.getResource("/swing/profileImages/").toString().substring(6) + n.getKorisnik().getSifraKorisnika() + ".jpg");
@@ -457,7 +536,7 @@ public class PanelNastavnik extends JFrame {
 				
 				lblChangeProfilePicture.setForeground(new Color(255, 255, 255));
 				lblChangeProfilePicture.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-				lblChangeProfilePicture.setBounds(19, 296, 177, 35);
+				lblChangeProfilePicture.setBounds(12, 353, 177, 35);
 				infoPanel.add(lblChangeProfilePicture);
 				
 				JLabel lblName = new JLabel("First name :");
@@ -465,7 +544,7 @@ public class PanelNastavnik extends JFrame {
 				lblName.setForeground(Color.WHITE);
 				lblName.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 				lblName.setAlignmentX(200.0f);
-				lblName.setBounds(19, 354, 87, 35);
+				lblName.setBounds(12, 411, 87, 35);
 				infoPanel.add(lblName);
 				
 				JLabel lblLastName = new JLabel("Last name :");
@@ -473,21 +552,21 @@ public class PanelNastavnik extends JFrame {
 				lblLastName.setForeground(Color.WHITE);
 				lblLastName.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 				lblLastName.setAlignmentX(200.0f);
-				lblLastName.setBounds(19, 395, 87, 35);
+				lblLastName.setBounds(12, 452, 87, 35);
 				infoPanel.add(lblLastName);
 				
 				JLabel lblNameEntry = new JLabel(n.getKorisnik().getImeKorisnika());
 				lblNameEntry.setHorizontalAlignment(SwingConstants.LEFT);
 				lblNameEntry.setForeground(new Color(255, 255, 255));
 				lblNameEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-				lblNameEntry.setBounds(109, 354, 94, 35);
+				lblNameEntry.setBounds(102, 411, 94, 35);
 				infoPanel.add(lblNameEntry);
 				
 				JLabel lblSurnameEntry = new JLabel(n.getKorisnik().getPrezimeKorisnika());
 				lblSurnameEntry.setHorizontalAlignment(SwingConstants.LEFT);
 				lblSurnameEntry.setForeground(Color.WHITE);
 				lblSurnameEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-				lblSurnameEntry.setBounds(109, 395, 94, 35);
+				lblSurnameEntry.setBounds(102, 452, 94, 35);
 				infoPanel.add(lblSurnameEntry);
 				
 				JLabel lblNegativePoints = new JLabel("Negative points :");
@@ -495,14 +574,14 @@ public class PanelNastavnik extends JFrame {
 				lblNegativePoints.setForeground(Color.WHITE);
 				lblNegativePoints.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 				lblNegativePoints.setAlignmentX(200.0f);
-				lblNegativePoints.setBounds(19, 436, 140, 35);
+				lblNegativePoints.setBounds(12, 493, 140, 35);
 				infoPanel.add(lblNegativePoints);
 				
 				JLabel lblNegPtsEntry = new JLabel(String.valueOf(n.getKorisnik().getBrojNegativnihBodova()));
 				lblNegPtsEntry.setHorizontalAlignment(SwingConstants.LEFT);
 				lblNegPtsEntry.setForeground(Color.WHITE);
 				lblNegPtsEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-				lblNegPtsEntry.setBounds(155, 436, 48, 35);
+				lblNegPtsEntry.setBounds(148, 493, 48, 35);
 				infoPanel.add(lblNegPtsEntry);
 			
 				// Panel Students items -- END
@@ -521,7 +600,7 @@ public class PanelNastavnik extends JFrame {
 							lineViewSubjects.setBounds(315, 375, 253, 3);
 							panelClasses.add(lineViewSubjects);
 							
-							JLabel lblViewAllSubjects = new JLabel("View your literature");
+							JLabel lblViewAllSubjects = new JLabel("View my literature");
 							lblViewAllSubjects.addMouseListener(new MouseAdapter() {
 								@Override
 								public void mouseEntered(MouseEvent e) {
@@ -576,7 +655,7 @@ public class PanelNastavnik extends JFrame {
 					viewLoansIcon.setBounds(404, 279, 75, 63);
 					panelLoans.add(viewLoansIcon);
 					
-					JLabel lblViewLoans = new JLabel("View your book loans");
+					JLabel lblViewLoans = new JLabel("View my book loans");
 					lblViewLoans.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseEntered(MouseEvent arg0) {

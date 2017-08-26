@@ -1,12 +1,20 @@
 package swing.literaturaPanels;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,6 +25,7 @@ import bussines.NastavnikPredmetServiceBean;
 import jpa.Literatura;
 import jpa.Nastavnik;
 import jpa.Predmet;
+import swing.autorPanels.AutorPregled;
 import tableModel.LiteraturaTableModel;
 
 public class LiteraturaPregled extends JFrame {
@@ -25,20 +34,41 @@ public class LiteraturaPregled extends JFrame {
 	}
 
 	public LiteraturaPregled(Nastavnik n) {
-		setSize(400, 400);
+
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension velicinaEkrana = kit.getScreenSize();
+		int visinaProzora = 600;
+		int sirinaProzora = 1000;
+		setLocation(velicinaEkrana.width/2 - sirinaProzora/2, velicinaEkrana.height/2 - visinaProzora/2);
+		setUndecorated(true);
+		
+		setSize(1000, 600);
+		setResizable(false);
+
+		
 		this.nastavnik = n;
 		setTitle("Pregled literature");
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(255, 255, 255,150));
+		panel.setBounds(12, 13, 976, 574);
+		panel.setLayout(null);
+		cbPredmeti.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		cbPredmeti.setBounds(682, 13, 282, 37);
+		
 		panel.add(cbPredmeti);
 		that = this;
 	
-		panel.add(new JScrollPane(table));
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 0, 670, 574);
+		panel.add(scrollPane);
+		addLiteratura.setBounds(771, 232, 145, 37);
 		addLiteratura.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				novaLiteratura.prikazi();
 			}
 		});
+		delete.setBounds(771, 282, 145, 37);
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
@@ -52,6 +82,22 @@ public class LiteraturaPregled extends JFrame {
 				update();
 			}
 		});
+		delete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				delete.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				delete.setBackground(Color.DARK_GRAY);
+			}
+		});
+		delete.setForeground(Color.WHITE);
+		delete.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		delete.setFocusPainted(false);
+		delete.setBorder(null);
+		delete.setBackground(Color.DARK_GRAY);
+		
 		
 		cbPredmeti.addActionListener(new ActionListener() {
 			@Override
@@ -61,10 +107,58 @@ public class LiteraturaPregled extends JFrame {
 				update();
 			}
 		});
+		getContentPane().setLayout(null);
 		panel.add(addLiteratura);
 		panel.add(delete);
 		
-		add(panel);
+		getContentPane().add(panel);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
+		lblNewLabel.setBounds(0, 0, 1000, 800);
+		getContentPane().add(lblNewLabel);
+		
+		JButton cancel = new JButton("Cancel");
+	
+		cancel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				cancel.setBackground(Color.DARK_GRAY);
+				dispose();
+			}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				cancel.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				cancel.setBackground(Color.DARK_GRAY);
+			}
+		});
+		cancel.setForeground(Color.WHITE);
+		cancel.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		cancel.setFocusPainted(false);
+		cancel.setBorder(null);
+		cancel.setBackground(Color.DARK_GRAY);
+		cancel.setBounds(771, 393, 145, 37);
+		
+		panel.add(cancel);
+		
+		addLiteratura.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				addLiteratura.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				addLiteratura.setBackground(Color.DARK_GRAY);
+			}
+		});
+		addLiteratura.setForeground(Color.WHITE);
+		addLiteratura.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		addLiteratura.setFocusPainted(false);
+		addLiteratura.setBorder(null);
+		addLiteratura.setBackground(Color.DARK_GRAY);
 	}
 
 	public void prikazi() {
