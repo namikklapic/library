@@ -648,6 +648,17 @@ public class NovaKnjiga extends JFrame {
 		message = "The book has been successfully saved!";
 	}
 	
+	public void refreshTable() {
+		cbVrstaKnjige.removeAllItems();
+		cbIzdavac.removeAllItems();
+		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige())
+			cbVrstaKnjige.addItem(vk);
+		for(Izdavac i : izdavacServiceBean.getAllIzdavac())
+			cbIzdavac.addItem(i);
+		cbVrstaKnjige.setSelectedItem(null);
+		cbIzdavac.setSelectedItem(null);
+	}
+	
 	private JPanel panel;
 	
 	private Knjiga knjiga;
