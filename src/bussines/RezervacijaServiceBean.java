@@ -23,7 +23,10 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.createQuery("Select r from Rezervacija r where r.korisnik = :k and r.isConfirmed=0")
 					.setParameter("k", k)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;	
 	}
 	
@@ -34,7 +37,10 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.createQuery("Select r from Rezervacija r where r.korisnik = :k")
 					.setParameter("k", k)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;	
 	}
 	
@@ -44,7 +50,10 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 			result = em
 					.createQuery("Select r from Rezervacija r")
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;	
 	}
 	
@@ -54,7 +63,10 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 			result = em
 					.createQuery("Select r from Rezervacija r where r.isConfirmed=0")
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;	
 	}
 	
@@ -84,7 +96,10 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where pr.knjiga = :k and r.isConfirmed=0")
 					.setParameter('k', 	k)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	

@@ -39,6 +39,7 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 					.setParameter("k", k)
 					.setParameter("rbAutora", rbAutora)
 					.getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre) {}
 		
 		return result.getAutor();
@@ -53,13 +54,14 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 					.setParameter("ime", ime)
 					.setParameter("prezime", prezime)
 					.getResultList();
+			for(int i=0; i<lista.size(); i++)
+				em.refresh(lista.get(i));
 		}catch(NoResultException nre) {}
 		
 		if(lista != null){
 			for(AutorKnjiga ak : lista)
 				result.add(ak.getKnjiga());
 		}
-		
 		return result;
 	}
 	public List<Autor>  getAutorsOnKnjiga(Knjiga k ) {
@@ -69,6 +71,8 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 			akList = em.createQuery("select ak from AutorKnjiga ak where ak.knjiga=:k")
 					.setParameter("k", k)
 					.getResultList();
+			for(int i=0; i<akList.size(); i++)
+				em.refresh(akList.get(i));
 			for(AutorKnjiga ak : akList) {
 				result.add(ak.getAutor());
 			}

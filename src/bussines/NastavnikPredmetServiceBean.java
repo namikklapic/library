@@ -20,8 +20,9 @@ public class NastavnikPredmetServiceBean extends EntityManagerProducer<Nastavnik
 			result = em.createQuery("Select np.predmet from NastavnikPredmet np where np.nastavnik =:n")
 					.setParameter("n", n)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
-		
 		return result;
 	}
 	
@@ -32,8 +33,10 @@ public class NastavnikPredmetServiceBean extends EntityManagerProducer<Nastavnik
 			result = em.createQuery("Select np from NastavnikPredmet np where np.sifraPredmeta =:sifraPredmeta")
 					.setParameter("sifraPredmeta", sifraPredmeta)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
-		
+
 		return result;
 	}
 	

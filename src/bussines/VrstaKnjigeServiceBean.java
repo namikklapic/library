@@ -25,9 +25,11 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 					.createQuery("select vk from VrstaKnjige vk where vk.id = :id")
 					.setParameter("id", id)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre) {
 			
 		}
+
 		return result;
 	}
 	/**
@@ -42,9 +44,11 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 					.createQuery("select vk from VrstaKnjige vk where vk.nazivVrste = :name")
 					.setParameter("name", name)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre) {
 			
 		}
+
 		return result;
 	}
 	
@@ -54,9 +58,11 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 			result = em.createQuery("Select vk from VrstaKnjige vk where vk.nazivVrste=:naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 			
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	
@@ -68,7 +74,10 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 		List<VrstaKnjige> result = null;
 		try {
 			result = em.createQuery("select vk from VrstaKnjige vk").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	

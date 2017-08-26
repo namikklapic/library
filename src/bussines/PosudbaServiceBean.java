@@ -29,9 +29,11 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 			result = em
 				.createQuery("Select p from Posudba p")
 				.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 			}
 		catch(NoResultException nre) {}
-			return result;	
+		return result;	
 	}
 	
 	public List<Posudba> getPosudbeByKorisnik(Korisnik k){
@@ -41,7 +43,10 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 					.createQuery("Select p from Posudba p where p.korisnik = :k")
 					.setParameter("k", k)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;	
 	}
 	
@@ -63,6 +68,8 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 					.createQuery("Select p from Posudba p where p.korisnik = :k and p.datumVracanja IS NULL")
 					.setParameter("k", 	k)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
 		return result;
 	}
@@ -73,8 +80,11 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 			result = em
 					.createQuery("Select p from Posudba p where p.datumVracanja IS NULL")
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} 
 		catch(NoResultException nre) {}
+
 		return result;
 	}
 	
@@ -97,7 +107,10 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 					.createQuery("Select p from Posudba p inner join p.primjerak pr where pr.knjiga=:k and p.datumVracanja IS NULL")
 					.setParameter("k", k)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+		
 		return result;
 	}
 	

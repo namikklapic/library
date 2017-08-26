@@ -21,13 +21,14 @@ public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 			lista = em.createQuery("Select l from Literatura l where l.predmet.nazivPredmeta=:predmet")
 					.setParameter("predmet", predmet)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre) {}
 		
 		if(lista != null){
 			for(Literatura l : lista)
 				result.add(l.getKnjiga());
 		}
-		
 		return result;
 	}
 	public List<Literatura> getLiteraturaOnPredmet (Predmet p){
@@ -36,6 +37,8 @@ public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 			lista = em.createQuery("Select l from Literatura l where l.predmet = :predmet")
 					.setParameter("predmet", p)
 					.getResultList();
+			for(int i=0; i<lista.size(); i++)
+				em.refresh(lista.get(i));
 		} catch(NoResultException nre) {}
 		return lista;
 	}

@@ -24,7 +24,9 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 					.createQuery("Select k from Knjiga k where k.id =:id")
 					.setParameter("id", id)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	/**
@@ -46,6 +48,8 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 		List<Knjiga> result = null;
 		try {
 			result = em.createQuery("Select k from Knjiga k").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
 		return result;
 	}
@@ -59,8 +63,9 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 			result = em.createQuery("Select k from Knjiga k where k.naslov=:naslov")
 					.setParameter("naslov", naslov)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre) {}
-		
 		return result;
 	}
 	/**
@@ -73,8 +78,10 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 			result = em.createQuery("Select k from Knjiga k where k.izdavac.nazivIzdavaca=:naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre) {}
-		
+
 		return result;
 	}
 	/**

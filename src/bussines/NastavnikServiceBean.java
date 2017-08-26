@@ -23,6 +23,7 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 					.setParameter("prezime", prezime)
 					.setParameter("password", password)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre){
 			
 		} catch(ArrayIndexOutOfBoundsException err){
@@ -38,8 +39,9 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 					.setParameter("ime", ime)
 					.setParameter("prezime", prezime)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
 		return result;
 	}
 	
@@ -50,6 +52,7 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 					.createQuery("Select n from Nastavnik n inner join n.korisnik k where k.sifra=:sifra")
 					.setParameter("sifra", sifra)
 					.getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre) {}
 		
 		return result;
@@ -93,6 +96,8 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		List<Nastavnik> result = null;
 		try {
 			result = em.createQuery("select n from Nastavnik n").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
 		return result;
 	}

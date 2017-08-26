@@ -22,6 +22,7 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 					.createQuery("select i from Izdavac i where i.id = :id")
 					.setParameter("id", id)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre) {
 			
 		}
@@ -40,6 +41,7 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 					.createQuery("select i from Izdavac i where i.nazivIzdavaca=:name")
 					.setParameter("name", name)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre) {
 			
 		}
@@ -52,8 +54,9 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 			result = em.createQuery("Select i from Izdavac i where i.nazivIzdavaca=:naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
 		return result;
 	}
 	
@@ -65,7 +68,10 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 		List<Izdavac> result = null;
 		try {
 			result = em.createQuery("select i from Izdavac i").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	

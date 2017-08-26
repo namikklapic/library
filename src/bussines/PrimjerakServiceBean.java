@@ -24,7 +24,9 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 					.createQuery("Select p from Primjerak p where p.inventarskiBroj=:invBroj")
 					.setParameter("invBroj", invBroj)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	
@@ -34,7 +36,10 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			Query query = em.createQuery("select p from Primjerak p where p.knjiga=:k and p.posudjen=0 and p.rezervisan=0");
 			query.setParameter("k",k);
 			result = query.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	
@@ -44,6 +49,8 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		try {
 			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
 			result = query.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 			for (Knjiga knjiga: result)
 			{
 			  if (!available.contains(knjiga)) 
@@ -61,6 +68,8 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		try {
 			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
 			result = query.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 			for (Knjiga knjiga: result)
 			{
 			  if (!available.contains(knjiga) && knjiga.getNaslov() == naslov) 
@@ -78,6 +87,8 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		try {
 			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
 			result = query.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 			for (Knjiga knjiga: result)
 			{
 			  if (!available.contains(knjiga) && knjiga.getIzdavac().getNazivIzdavaca() == izdavac) 
@@ -100,11 +111,15 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 					.setParameter("ime", ime)
 					.setParameter("prezime", prezime)
 					.getResultList();
+			for(int i=0; i<lista.size(); i++)
+				em.refresh(lista.get(i));
 		}catch(NoResultException nre) {}
 		
 		try {
 			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
 			result = query.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 			for (Knjiga knjiga: result)
 			{
 			  if (!available.contains(knjiga)) 
@@ -130,11 +145,15 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			lista = em.createQuery("Select l from Literatura l where l.predmet.nazivPredmeta=:predmet")
 					.setParameter("predmet", predmet)
 					.getResultList();
+			for(int i=0; i<lista.size(); i++)
+				em.refresh(lista.get(i));
 		}catch(NoResultException nre) {}
 		
 		try {
 			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
 			result = query.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 			for (Knjiga knjiga: result)
 			{
 			  if (!available.contains(knjiga)) 
@@ -156,7 +175,10 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		List<Primjerak> result = null;
 		try {
 			result = em.createQuery("select p from Primjerak p").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	

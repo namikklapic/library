@@ -22,7 +22,9 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 							  .createQuery("Select p from Predmet p where p.sifraPredmeta=:sifraPredmeta")
 							  .setParameter("sifraPredmeta", sifraPredmeta)
 							  .getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre) {}
+
 		return result;
 	}	
 	/**
@@ -44,6 +46,8 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 		List<Predmet> result = null;
 		try{
 			result = em.createQuery("Select p from Predmet p").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre) {}
 		return result;
 	}
@@ -80,8 +84,8 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 					.createQuery("Select p from Predmet p where p.nazivPredmeta=:naziv")
 					.setParameter("naziv", naziv)
 					.getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre){}
-		
 		return result;
 	}
 	
@@ -91,8 +95,10 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 			result = em.createQuery("Select p from Predmet p where p.nazivPredmeta=:naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	
@@ -103,8 +109,9 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 					.createQuery("Select p from Predmet p where p.skraceniNazivPredmeta=:skrNaziv")
 					.setParameter("skrNaziv", skrNaziv)
 					.getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre) {}
-		
+
 		return result;
 	}
 	
@@ -114,8 +121,10 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 			result = em.createQuery("Select p from Predmet p where p.skraceniNazivPredmeta=:skracenica")
 					.setParameter("skracenica", skracenica)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	
@@ -125,8 +134,10 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 			result = em.createQuery("Select p from Predmet p where p.brojSemestra=:sem")
 					.setParameter("sem", sem)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	

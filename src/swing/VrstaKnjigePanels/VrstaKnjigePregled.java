@@ -201,7 +201,6 @@ public class VrstaKnjigePregled extends JFrame {
 		}else{
 			model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getVrstaKnjigeByNaziv(filter));
 		}
-		
 		table.setModel(model);
 		
 		if(table.getRowCount() == 0){

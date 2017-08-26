@@ -19,6 +19,7 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 					.setParameter("brojIndeksa", brojIndeksa)
 					.setParameter("password", password)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre){
 			
 		}
@@ -32,8 +33,9 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 					.createQuery("Select s from Student s where s.brojIndeksa=:brojIndeksa")
 					.setParameter("brojIndeksa", brojIndeksa)
 					.getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre) { }
-		
+
 		return result;
 	}
 	
@@ -43,8 +45,10 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 			result = em.createQuery("Select s from Student s where s.brojIndeksa=:brojIndeksa")
 					.setParameter("brojIndeksa", index)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	
@@ -55,8 +59,10 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 					.setParameter("ime", ime)
 					.setParameter("prezime", prezime)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	
@@ -66,8 +72,10 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 			result = em.createQuery("Select s from Student s inner join s.korisnik k where k.brojNegativnihBodova=:bodovi")
 					.setParameter("bodovi", bodovi)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	
@@ -78,8 +86,9 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 					.createQuery("Select s from Student s inner join s.korisnik k where k.sifra=:jmbg")
 					.setParameter("jmbg", jmbg)
 					.getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre){}
-		
+
 		return result;
 	}
 	
@@ -93,7 +102,10 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 		List<Student> result = null;
 		try {
 			result = em.createQuery("Select s from Student s").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
+
 		return result;
 	}
 	

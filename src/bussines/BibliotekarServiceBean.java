@@ -20,6 +20,7 @@ public class BibliotekarServiceBean extends EntityManagerProducer<Bibliotekar>{
 					.setParameter("prezime", prezime)
 					.setParameter("password", password)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre){
 			
 		} catch(ArrayIndexOutOfBoundsException err){

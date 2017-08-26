@@ -23,7 +23,9 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 					.createQuery("select a from Autor a where a.id = :id")
 					.setParameter("id", id)
 					.getSingleResult();
+			em.refresh(result);
 		} catch(NoResultException nre) {}
+		
 		return result;
 	}
 	
@@ -35,6 +37,8 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 		List<Autor> result = null;
 		try {
 			result = em.createQuery("select a from Autor a").getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
 		return result;
 	}
@@ -49,6 +53,8 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 					.setParameter("firstname", firstname)
 					.setParameter("lastname", lastname)
 					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
 		}catch(NoResultException nre){}
 		
 		return result;
@@ -96,8 +102,8 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 					.setParameter("ime", ime)
 					.setParameter("prezime", prezime)
 					.getSingleResult();
+			em.refresh(result);
 		}catch(NoResultException nre){}
-		
 		return result;
 	}
 	
