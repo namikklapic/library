@@ -31,6 +31,7 @@ import javax.swing.Timer;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import jpa.Nastavnik;
+import swing.RezervacijaPanels.RezervacijePregled;
 import swing.knjigaPanels.KnjigaPregled;
 import swing.literaturaPanels.LiteraturaPregled;
 import swing.posudbaPanels.PosudbePregled;
@@ -40,6 +41,7 @@ public class PanelNastavnik extends JFrame {
 		this.nastavnik = n;
 		knjigaPregled = new KnjigaPregled(false, nastavnik.getKorisnik());
 		this.posudbePregled = new PosudbePregled(n.getKorisnik());
+		this.rezervacijePregled = new RezervacijePregled(n.getKorisnik());
 		setTitle(n.getKorisnik().getImeKorisnika() + " " + n.getKorisnik().getPrezimeKorisnika());
 		this.literaturaPregled = new LiteraturaPregled(this.nastavnik);
 		setResizable(false);
@@ -650,13 +652,20 @@ public class PanelNastavnik extends JFrame {
 					lineViewLoans.setOpaque(true);
 					lineViewLoans.setVisible(false);
 					lineViewLoans.setBackground(Color.WHITE);
-					lineViewLoans.setBounds(314, 367, 254, 3);
+					lineViewLoans.setBounds(118, 375, 254, 3);
 					panelLoans.add(lineViewLoans);
+					
+					Box lineViewReservations = Box.createHorizontalBox();
+					lineViewReservations.setVisible(false);
+					lineViewReservations.setOpaque(true);
+					lineViewReservations.setBackground(new Color(255, 255, 255));
+					lineViewReservations.setBounds(500, 375, 280, 3);
+					panelLoans.add(lineViewReservations);
 					
 					JLabel viewLoansIcon = new JLabel("");
 					viewLoansIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
 					viewLoansIcon.setHorizontalAlignment(SwingConstants.CENTER);
-					viewLoansIcon.setBounds(404, 279, 75, 63);
+					viewLoansIcon.setBounds(211, 286, 56, 52);
 					panelLoans.add(viewLoansIcon);
 					
 					JLabel lblViewLoans = new JLabel("View my book loans");
@@ -673,12 +682,47 @@ public class PanelNastavnik extends JFrame {
 							repaint();
 							revalidate();
 						}
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							posudbePregled.prikazi();
+						}
 					});
 					lblViewLoans.setHorizontalAlignment(SwingConstants.CENTER);
 					lblViewLoans.setForeground(Color.WHITE);
 					lblViewLoans.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-					lblViewLoans.setBounds(275, 305, 332, 103);
+					lblViewLoans.setBounds(76, 309, 332, 96);
 					panelLoans.add(lblViewLoans);
+					
+					JLabel lblViewReservations = new JLabel("View book reservations");
+					lblViewReservations.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseEntered(MouseEvent e) {
+							lineViewReservations.setVisible(true);
+							repaint();
+							revalidate();
+						}
+						@Override
+						public void mouseExited(MouseEvent e) {
+							lineViewReservations.setVisible(false);
+							repaint();
+							revalidate();
+						}
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							rezervacijePregled.prikazi();
+						}
+					});
+					lblViewReservations.setHorizontalAlignment(SwingConstants.CENTER);
+					lblViewReservations.setForeground(Color.WHITE);
+					lblViewReservations.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
+					lblViewReservations.setBounds(473, 309, 332, 96);
+					panelLoans.add(lblViewReservations);
+					
+					JLabel viewReservationsIcon = new JLabel("");
+					viewReservationsIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/edit-property-48.png")));
+					viewReservationsIcon.setHorizontalAlignment(SwingConstants.CENTER);
+					viewReservationsIcon.setBounds(616, 286, 56, 52);
+					panelLoans.add(viewReservationsIcon);
 					
 				// Panel Loans items -- END
 				
@@ -711,7 +755,7 @@ public class PanelNastavnik extends JFrame {
 									}
 									@Override
 									public void mouseClicked(MouseEvent arg0) {
-										//pregledKnjiga.prikazi();
+										knjigaPregled.prikazi();
 									}
 								});
 								viewAllBooks.setHorizontalAlignment(SwingConstants.CENTER);
@@ -828,6 +872,7 @@ public class PanelNastavnik extends JFrame {
 	private KnjigaPregled knjigaPregled;
 	private PosudbePregled posudbePregled;
 	private LiteraturaPregled literaturaPregled;
+	private RezervacijePregled rezervacijePregled;
 }
 
 
