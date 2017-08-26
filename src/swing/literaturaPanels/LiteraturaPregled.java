@@ -197,6 +197,17 @@ public class LiteraturaPregled extends JFrame {
 		return item;
 	}
 	
+	public void refreshTable() {
+		currentPredmet = (Predmet)cbPredmeti.getSelectedItem();
+		novaLiteratura = new NovaLiteratura(currentPredmet, that);
+		update();
+		cbPredmeti.removeAll();
+		List<Predmet> predmeti = nastavnikPredmetServiceBean.getPredmetiByNastavnik(this.nastavnik);
+		for (Predmet p : predmeti) {
+			this.cbPredmeti.addItem(p);
+		}
+	}
+	
 	private LiteraturaPregled that;
 	private JButton addLiteratura = new JButton("Add");
 	private JButton delete = new JButton("Delete");
