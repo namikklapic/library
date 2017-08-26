@@ -614,6 +614,10 @@ public class PanelNastavnik extends JFrame {
 									repaint();
 									revalidate();
 								}
+								@Override
+								public void mouseClicked(MouseEvent arg0) {
+									literaturaPregled.prikazi();
+								}
 							});	
 							lblViewAllSubjects.setHorizontalAlignment(SwingConstants.CENTER);
 							lblViewAllSubjects.setForeground(Color.WHITE);
