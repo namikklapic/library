@@ -74,6 +74,9 @@ public class NastavniciPregled extends JFrame{
 				}
 			}
 		});
+		panel.add(searchLabel);
+		panel.add(txtSearchFilter);
+		panel.add(searchBtn);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
