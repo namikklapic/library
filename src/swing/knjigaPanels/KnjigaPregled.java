@@ -135,7 +135,9 @@ public class KnjigaPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
+				searchClicked = true;
 				refreshTable();
+				searchClicked = false;
 			}
 		});
 		searchBtn.setBorder(null);
@@ -269,6 +271,8 @@ public class KnjigaPregled extends JFrame {
 	}
 	
 	private void displayMessageDialogBox(){
+		if(this.isVisible() ==  false || searchClicked == false)
+			return;
 		JOptionPane dialogBox = new JOptionPane();
 		dialogBox.showMessageDialog(panel, message);
 	}
@@ -359,6 +363,8 @@ public class KnjigaPregled extends JFrame {
 	private JTextField txtSearchFilter;
 	private JButton searchBtn;
 	private JCheckBox onlyAvail;
+	
+	private Boolean searchClicked; //needed for msgbox search bug on adding anything
 	
 	private KnjigaServiceBean knjigaServiceBean = new KnjigaServiceBean();
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();
