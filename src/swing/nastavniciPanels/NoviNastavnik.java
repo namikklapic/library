@@ -312,7 +312,7 @@ public class NoviNastavnik extends JFrame{
 	private JTextField txtZvanje = new JTextField(15);
 	private JTextField txtNegBodovi = new JTextField(2);
 	private JTextField txtJmbg = new JTextField(13);
-	private Lookup<Predmet> predmetiLookup = new Lookup<Predmet>(predmetServiceBean.getAllPredmeti());
+	private Lookup<Predmet, PredmetServiceBean> predmetiLookup = new Lookup<Predmet, PredmetServiceBean>(predmetServiceBean.getAllPredmeti(), predmetServiceBean);
 	private JButton potvrdi;
 	private JButton ponisti;
 	

@@ -237,7 +237,7 @@ public class NovaKnjiga extends JFrame {
 		lbAutori = new JLabel("Authors: ");
 		lbAutori.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		lbAutori.setBounds(83, 357, 145, 27);
-		lookupAutori = new Lookup<Autor>(autorServiceBean.getAllAutor());
+		lookupAutori = new Lookup<Autor, AutorServiceBean>(autorServiceBean.getAllAutor(), autorServiceBean);
 		lookupAutori.getSelected().addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent arg0) {
 				lookupAutori.getSelected().setBackground(Color.WHITE);
@@ -678,7 +678,7 @@ public class NovaKnjiga extends JFrame {
 	private JComboBox<Izdavac> cbIzdavac;
 	private JButton btnAddNoviIzdavac;
 	private JLabel lbAutori;
-	private Lookup<Autor> lookupAutori;
+	private Lookup<Autor, AutorServiceBean> lookupAutori;
 	private JButton btnAddNoviAutor;
 	private JLabel lbBrPrimjeraka;
 	private JTextField txtBrPrimjeraka;

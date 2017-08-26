@@ -47,6 +47,13 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 		}catch(NoResultException nre) {}
 		return result;
 	}
+	
+	public List<Predmet> getAll(){
+		return this.getAllPredmeti();
+	}
+	
+	
+	
 	/**
 	 * Save Predmet to database or change existing one.
 	 */

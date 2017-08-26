@@ -47,7 +47,7 @@ public class KnjigaPregled extends JFrame {
 	public KnjigaPregled(Boolean canEdit, Korisnik k){
 		
 		currUser = k;
-		setTitle("Pregled knjiga");
+		setTitle("Books overview");
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension velicinaEkrana = kit.getScreenSize();
 		int visinaProzora = 600;

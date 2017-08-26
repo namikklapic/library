@@ -38,6 +38,9 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 		} catch(NoResultException nre) {}
 		return result;
 	}
+	public List<Autor> getAll(){
+		return getAllAutor();
+	}
 	
 	public List<Autor> getAutorByFullName(String firstname, String lastname){
 		List<Autor> result = null;
