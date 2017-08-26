@@ -10,7 +10,7 @@ import jpa.Predmet;
 
 public class PredmetTableModel extends AbstractTableModel {
 	
-	private String [] columnNames = {"Naziv predmeta", "Skracenica", "Broj semestra"};
+	private String [] columnNames = {"Title", "Short title", "Semester"};
 	private List<Predmet> predmeti;
 	
 	public PredmetTableModel(){
