@@ -89,7 +89,6 @@ public class StudentPregled extends JFrame {
 		});
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtSearchFilter.setBounds(1024, 95, 198, 28);
-		//ovdje Ismare dodaj action da se boja promijeni kad kliknes na polje
 	
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -238,6 +237,7 @@ public class StudentPregled extends JFrame {
 	public void refreshTable() {
 		String criteria = (String)cbSearchFilters.getSelectedItem();
 		String filter = txtSearchFilter.getText();
+		boolean success = true;
 		
 		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
@@ -259,15 +259,25 @@ public class StudentPregled extends JFrame {
 				}		
 			}
 			else if(criteria.equals("Negative points")){
-				model = new StudentTableModel(studentServiceBean.getStudentByNegativePoints(Integer.parseInt(filter)));
+				try{
+					int bodovi = Integer.parseInt(filter);
+					model = new StudentTableModel(studentServiceBean.getStudentByNegativePoints(bodovi));
+				}catch(Exception e){
+					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+					message = "Invalid value for negative points!";
+					success = false;
+					displayMessageDialogBox();
+				}	
 			}
 			else
 				model = new StudentTableModel(studentServiceBean.getAllStudent());
 			
-			table.setModel(model);
-			if(table.getRowCount() == 0){
-				message = "No result found!";
-				displayMessageDialogBox();
+			if(success){
+				table.setModel(model);
+				if(table.getRowCount() == 0){
+					message = "No result found!";
+					displayMessageDialogBox();
+				}
 			}
 		}
 		

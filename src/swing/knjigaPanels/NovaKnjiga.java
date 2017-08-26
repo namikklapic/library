@@ -395,7 +395,10 @@ public class NovaKnjiga extends JFrame {
 		txtBrPrimjeraka.setText(Integer.toString(k.getBrojPrimjeraka()));
 		cbVrstaKnjige.setSelectedIndex(vrstaKnjigeServiceBean.getIndexOfVrstaKnjige(k.getVrsta()));
 		cbIzdavac.setSelectedIndex(izdavacServiceBean.getIndexOfIzdavac(k.getIzdavac()));
-		lookupAutori.setSelectedItems(autorKnjigaServiceBean.getAutorsOnKnjiga(k));
+		try{
+			lookupAutori.setSelectedItems(autorKnjigaServiceBean.getAutorsOnKnjiga(k));
+		}catch(IllegalStateException e){}
+		
 		
 		if(isEditable){
 			setTitle("Edit book");
@@ -643,6 +646,17 @@ public class NovaKnjiga extends JFrame {
 			primjerakServiceBean.save(temp);
 		}
 		message = "The book has been successfully saved!";
+	}
+	
+	public void refreshTable() {
+		cbVrstaKnjige.removeAllItems();
+		cbIzdavac.removeAllItems();
+		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige())
+			cbVrstaKnjige.addItem(vk);
+		for(Izdavac i : izdavacServiceBean.getAllIzdavac())
+			cbIzdavac.addItem(i);
+		cbVrstaKnjige.setSelectedItem(null);
+		cbIzdavac.setSelectedItem(null);
 	}
 	
 	private JPanel panel;

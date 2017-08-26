@@ -1575,7 +1575,7 @@ public class PanelBibliotekar extends JFrame{
 		else if(reason == "Update Izdavac") {
 			pregledKnjiga.refreshTable();
 			pregledIzdavac.refreshTable();
-			//novaKnjiga.refreshTable();
+			novaKnjiga.refreshTable();
 		}
 		else if(reason == "Update Knjiga") {
 			pregledKnjiga.refreshTable();
@@ -1614,7 +1614,7 @@ public class PanelBibliotekar extends JFrame{
 		else if(reason == "Update VrstaKnjige") {
 			pregledKnjiga.refreshTable();
 			vrstaKnjigePregled.refreshTable();
-			//novaKnjiga.refreshTable();
+			novaKnjiga.refreshTable();
 		}
 	}
 	

@@ -35,7 +35,7 @@ public class PanelStudent extends JFrame {
 		
 		JMenu posudbeMenu = new JMenu("Posudbe");
 		JMenuItem pregledPosudbi = new JMenuItem("Pregled Posudbi");
-		posudbeMenu.add(rezervacijePregled.getMenuItem(p));
+		posudbeMenu.add(posudbePregled.getMenuItem(p));
 		menuBar.add(posudbeMenu);
 		
 		JMenu rezervacijeMenu = new JMenu("Rezervacije");
