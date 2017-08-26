@@ -2,6 +2,7 @@ package swing;
 
 import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -62,6 +63,7 @@ public class PanelBibliotekar extends JFrame{
 		setTitle("Welcome "+ b.getKorisnik().getImeKorisnika() + " " + b.getKorisnik().getPrezimeKorisnika());
 		setResizable(false);
 		getContentPane().setLayout(null);		
+		setUndecorated(true);
 		
 		// Frame options -- END
 		
@@ -73,7 +75,7 @@ public class PanelBibliotekar extends JFrame{
 		panel.setBorder(null);
 		panel.setBackground(new Color(51, 51, 51,180));
 		panel.setForeground(Color.WHITE);
-		panel.setBounds(0, 0, 78, 790);
+		panel.setBounds(0, 0, 78, 815);
 		getContentPane().add(panel);
 	
 	
@@ -105,7 +107,7 @@ public class PanelBibliotekar extends JFrame{
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(192, 192, 192,30));
 		panel_1.setLayout(new CardLayout(0, 0));
-		panel_1.setBounds(90, 13, 883, 713);
+		panel_1.setBounds(90, 13, 883, 774);
 		getContentPane().add(panel_1);
 		
 		CardLayout cl = (CardLayout)(panel_1.getLayout());
@@ -290,10 +292,86 @@ public class PanelBibliotekar extends JFrame{
 		
 		// Right panel 
 		JPanel infoPanel = new JPanel();
-		infoPanel.setBounds(985, 0, 215, 761);
+		infoPanel.setBounds(985, 0, 215, 804);
 		getContentPane().add(infoPanel);
 		infoPanel.setBackground(new Color(51,51,51,180));
 		infoPanel.setLayout(null);
+		
+		// Right panel minimize and exit buttons -- BEGIN
+			JButton btnMinimize = new JButton("__");
+			btnMinimize.setOpaque(false);
+			btnMinimize.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					btnMinimize.setBackground(new Color(197,223,208));	
+					btnMinimize.setForeground(new Color(197,223,208));
+					
+					repaint();
+					revalidate();
+					}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btnMinimize.setBackground(Color.DARK_GRAY);
+					btnMinimize.setForeground(Color.WHITE);
+					repaint();
+					revalidate();
+				}
+			});
+			btnMinimize.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					setExtendedState(JFrame.ICONIFIED);
+					repaint();
+					revalidate();
+					
+				}
+			});
+			btnMinimize.setForeground(Color.WHITE);
+			btnMinimize.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
+			btnMinimize.setFocusPainted(false);
+			btnMinimize.setBorder(null);
+			btnMinimize.setBackground(Color.DARK_GRAY);
+			btnMinimize.setBounds(144, 9, 26, 23);
+			infoPanel.add(btnMinimize);
+			
+			
+			
+			JButton btnExit = new JButton("x");
+			btnExit.setOpaque(false);
+			btnExit.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					btnExit.setBackground(new Color(197,223,208));	
+					btnExit.setForeground(new Color(197,223,208));
+
+					repaint();
+					revalidate();
+					}
+				@Override
+				public void mouseExited(MouseEvent e) {
+					btnExit.setBackground(Color.DARK_GRAY);
+					btnExit.setForeground(Color.WHITE);
+
+					repaint();
+					revalidate();
+				}
+			});
+			btnExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					System.exit(1);
+					
+					repaint();
+					revalidate();
+				}
+			});
+			btnExit.setForeground(Color.WHITE);
+			btnExit.setFont(new Font("Segoe UI Black", Font.PLAIN, 20));
+			btnExit.setFocusPainted(false);
+			btnExit.setBorder(null);
+			btnExit.setBackground(Color.DARK_GRAY);
+			btnExit.setBounds(177, 11, 26, 23);
+			infoPanel.add(btnExit);
+			
+		// Right panel minimize and exit buttons -- END
 		
 		// Implementation of clock in right panel -- BEGIN
 		
@@ -327,7 +405,7 @@ public class PanelBibliotekar extends JFrame{
 							JLabel Clock = new ClockLabel();
 							Clock.setFont(new Font("Segoe UI Emoji", Font.BOLD, 67));
 							Clock.setForeground(Color.WHITE);
-							Clock.setBounds(12, 13, 202, 104);
+							Clock.setBounds(12, 100, 202, 104);
 							Clock.setOpaque(false);
 							
 							
@@ -344,6 +422,8 @@ public class PanelBibliotekar extends JFrame{
 		// Panels definition end options -- END
 		
 		// Menu bar options -- BEGIN
+			
+		/*
 		JMenuBar menuBar = new JMenuBar();
 		
 		
@@ -393,7 +473,7 @@ public class PanelBibliotekar extends JFrame{
 		menuBar.add(rezervacije);
 		
 		setJMenuBar(menuBar);
-		
+		*/
 		// Menu bar options -- END
 		
 		// Items on right panel -- BEGIN
@@ -499,11 +579,11 @@ public class PanelBibliotekar extends JFrame{
 		lineChangePic.setVisible(false);
 		lineChangePic.setOpaque(true);
 		lineChangePic.setBackground(new Color(255, 255, 255));
-		lineChangePic.setBounds(19, 328, 177, 2);
+		lineChangePic.setBounds(19, 391, 177, 2);
 		infoPanel.add(lineChangePic);
 		
 		JLabel profilePictureBox = new JLabel("");
-		profilePictureBox.setBounds(34, 150, 140, 140);
+		profilePictureBox.setBounds(34, 213, 140, 140);
 		infoPanel.add(profilePictureBox);
 		
 		File profilePicture = new File(PanelBibliotekar.class.getResource("/swing/profileImages/").toString().substring(6) + b.getKorisnik().getSifraKorisnika() + ".jpg");
@@ -574,7 +654,7 @@ public class PanelBibliotekar extends JFrame{
 		
 		lblChangeProfilePicture.setForeground(new Color(255, 255, 255));
 		lblChangeProfilePicture.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblChangeProfilePicture.setBounds(19, 296, 177, 35);
+		lblChangeProfilePicture.setBounds(19, 359, 177, 35);
 		infoPanel.add(lblChangeProfilePicture);
 		
 		JLabel lblName = new JLabel("First name :");
@@ -582,7 +662,7 @@ public class PanelBibliotekar extends JFrame{
 		lblName.setForeground(Color.WHITE);
 		lblName.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		lblName.setAlignmentX(200.0f);
-		lblName.setBounds(19, 354, 87, 35);
+		lblName.setBounds(19, 417, 87, 35);
 		infoPanel.add(lblName);
 		
 		JLabel lblLastName = new JLabel("Last name :");
@@ -590,21 +670,21 @@ public class PanelBibliotekar extends JFrame{
 		lblLastName.setForeground(Color.WHITE);
 		lblLastName.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		lblLastName.setAlignmentX(200.0f);
-		lblLastName.setBounds(19, 395, 87, 35);
+		lblLastName.setBounds(19, 458, 87, 35);
 		infoPanel.add(lblLastName);
 		
 		JLabel lblNameEntry = new JLabel(b.getKorisnik().getImeKorisnika());
 		lblNameEntry.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNameEntry.setForeground(new Color(255, 255, 255));
 		lblNameEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblNameEntry.setBounds(109, 354, 94, 35);
+		lblNameEntry.setBounds(109, 417, 94, 35);
 		infoPanel.add(lblNameEntry);
 		
 		JLabel lblSurnameEntry = new JLabel(b.getKorisnik().getPrezimeKorisnika());
 		lblSurnameEntry.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSurnameEntry.setForeground(Color.WHITE);
 		lblSurnameEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblSurnameEntry.setBounds(109, 395, 94, 35);
+		lblSurnameEntry.setBounds(109, 458, 94, 35);
 		infoPanel.add(lblSurnameEntry);
 		
 		JLabel lblNegativePoints = new JLabel("Negative points :");
@@ -612,14 +692,14 @@ public class PanelBibliotekar extends JFrame{
 		lblNegativePoints.setForeground(Color.WHITE);
 		lblNegativePoints.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		lblNegativePoints.setAlignmentX(200.0f);
-		lblNegativePoints.setBounds(19, 436, 140, 35);
+		lblNegativePoints.setBounds(19, 499, 140, 35);
 		infoPanel.add(lblNegativePoints);
 		
 		JLabel lblNegPtsEntry = new JLabel(String.valueOf(b.getKorisnik().getBrojNegativnihBodova()));
 		lblNegPtsEntry.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNegPtsEntry.setForeground(Color.WHITE);
 		lblNegPtsEntry.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblNegPtsEntry.setBounds(155, 436, 48, 35);
+		lblNegPtsEntry.setBounds(155, 499, 48, 35);
 		infoPanel.add(lblNegPtsEntry);
 		
 		// CHANGE PROFILE PICTURE TEST -- END
@@ -778,6 +858,10 @@ public class PanelBibliotekar extends JFrame{
 							repaint();
 							revalidate();
 						}
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							predmetPregled.prikazi();
+						}
 					});	
 					lblViewAllSubjects.setHorizontalAlignment(SwingConstants.CENTER);
 					lblViewAllSubjects.setForeground(Color.WHITE);
@@ -905,33 +989,33 @@ public class PanelBibliotekar extends JFrame{
 			lineNewLoan.setOpaque(true);
 			lineNewLoan.setVisible(false);
 			lineNewLoan.setBackground(new Color(255, 255, 255));
-			lineNewLoan.setBounds(161, 213, 194, 3);
+			lineNewLoan.setBounds(161, 277, 194, 3);
 			panelLoans.add(lineNewLoan);
 			
 			Box lineViewLoans = Box.createHorizontalBox();
 			lineViewLoans.setOpaque(true);
 			lineViewLoans.setVisible(false);
 			lineViewLoans.setBackground(Color.WHITE);
-			lineViewLoans.setBounds(503, 213, 254, 3);
+			lineViewLoans.setBounds(503, 277, 254, 3);
 			panelLoans.add(lineViewLoans);
 			
 			Box lineViewReservations = Box.createHorizontalBox();
 			lineViewReservations.setVisible(false);
 			lineViewReservations.setOpaque(true);
 			lineViewReservations.setBackground(new Color(255, 255, 255));
-			lineViewReservations.setBounds(304, 386, 291, 3);
+			lineViewReservations.setBounds(304, 450, 291, 3);
 			panelLoans.add(lineViewReservations);
 			
 			JLabel newLoanIcon = new JLabel("");
 			newLoanIcon.setHorizontalAlignment(SwingConstants.CENTER);
 			newLoanIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/icons8-Borrow Book-48.png")));
-			newLoanIcon.setBounds(222, 125, 75, 63);
+			newLoanIcon.setBounds(222, 189, 75, 63);
 			panelLoans.add(newLoanIcon);
 			
 			JLabel viewLoansIcon = new JLabel("");
 			viewLoansIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/search-9-48.png")));
 			viewLoansIcon.setHorizontalAlignment(SwingConstants.CENTER);
-			viewLoansIcon.setBounds(595, 125, 75, 63);
+			viewLoansIcon.setBounds(595, 189, 75, 63);
 			panelLoans.add(viewLoansIcon);
 			
 			JLabel lblNewLoan = new JLabel("New book loan");
@@ -956,7 +1040,7 @@ public class PanelBibliotekar extends JFrame{
 			lblNewLoan.setForeground(new Color(255, 255, 255));
 			lblNewLoan.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
 			lblNewLoan.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLoan.setBounds(93, 151, 332, 103);
+			lblNewLoan.setBounds(93, 215, 332, 103);
 			panelLoans.add(lblNewLoan);
 			
 			JLabel lblViewLoans = new JLabel("View all book loans");
@@ -981,7 +1065,7 @@ public class PanelBibliotekar extends JFrame{
 			lblViewLoans.setHorizontalAlignment(SwingConstants.CENTER);
 			lblViewLoans.setForeground(Color.WHITE);
 			lblViewLoans.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-			lblViewLoans.setBounds(466, 151, 332, 103);
+			lblViewLoans.setBounds(466, 215, 332, 103);
 			panelLoans.add(lblViewLoans);
 			
 			JLabel lblViewReservations = new JLabel("View book reservations");
@@ -1006,13 +1090,13 @@ public class PanelBibliotekar extends JFrame{
 			lblViewReservations.setHorizontalAlignment(SwingConstants.CENTER);
 			lblViewReservations.setForeground(Color.WHITE);
 			lblViewReservations.setFont(new Font("Segoe UI Emoji", Font.BOLD, 25));
-			lblViewReservations.setBounds(275, 323, 332, 103);
+			lblViewReservations.setBounds(275, 387, 332, 103);
 			panelLoans.add(lblViewReservations);
 			
 			JLabel viewReservationsIcon = new JLabel("");
 			viewReservationsIcon.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/edit-property-48.png")));
 			viewReservationsIcon.setHorizontalAlignment(SwingConstants.CENTER);
-			viewReservationsIcon.setBounds(404, 293, 75, 63);
+			viewReservationsIcon.setBounds(404, 357, 75, 63);
 			panelLoans.add(viewReservationsIcon);
 			
 		// Panel Loans items -- END
@@ -1471,7 +1555,7 @@ public class PanelBibliotekar extends JFrame{
 		MenuBackground.setHorizontalAlignment(SwingConstants.CENTER);
 		MenuBackground.setIcon(new ImageIcon(PanelBibliotekar.class.getResource("/swing/images/background.jpg")));
 		MenuBackground.setOpaque(true);
-		MenuBackground.setBounds(0, -11, 1200, 815);
+		MenuBackground.setBounds(0, -40, 1200, 895);
 		getContentPane().add(MenuBackground);
 	// Main menu background options -- END
 							
@@ -1491,6 +1575,7 @@ public class PanelBibliotekar extends JFrame{
 		else if(reason == "Update Izdavac") {
 			pregledKnjiga.refreshTable();
 			pregledIzdavac.refreshTable();
+			novaKnjiga.refreshTable();
 		}
 		else if(reason == "Update Knjiga") {
 			pregledKnjiga.refreshTable();
@@ -1529,6 +1614,7 @@ public class PanelBibliotekar extends JFrame{
 		else if(reason == "Update VrstaKnjige") {
 			pregledKnjiga.refreshTable();
 			vrstaKnjigePregled.refreshTable();
+			novaKnjiga.refreshTable();
 		}
 	}
 	
