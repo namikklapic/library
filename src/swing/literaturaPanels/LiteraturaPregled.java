@@ -164,7 +164,7 @@ public class LiteraturaPregled extends JFrame {
 
 	public void prikazi() {
 		List<Predmet> predmeti = nastavnikPredmetServiceBean.getPredmetiByNastavnik(this.nastavnik);
-		if(predmeti == null) {
+		if(predmeti == null || predmeti.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "No Predmets assigned to you", "No Predmets", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
