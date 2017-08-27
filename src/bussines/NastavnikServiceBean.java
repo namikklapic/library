@@ -76,9 +76,7 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 		Nastavnik find = em.find(Nastavnik.class, entity.getKorisnik().getSifraKorisnika());
 		if (find != null) {
 			em.getTransaction().begin();
-			find.setAkademskoZvanje(entity.getAkademskoZvanje());
-			find.setKorisnik(entity.getKorisnik());
-			find.setPassword(entity.getPassword());
+			em.merge(entity);
 			em.getTransaction().commit();
 		} else {
 			super.save(entity);

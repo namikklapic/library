@@ -228,9 +228,11 @@ public class NoviNastavnik extends JFrame{
 		List<Predmet> predmeti = predmetiLookup.getSelectedValues();
 		String password = txtJmbg.getText();
 		
-		Korisnik k = nastavnik != null ? nastavnik.getKorisnik() : new Korisnik(sifra, ime, prezime, 0);
+		Integer brojNeg = nastavnik != null ? nastavnik.getKorisnik().getBrojNegativnihBodova() : 0;
 		
-		Nastavnik n = nastavnik != null ? nastavnikServiceBean.save(nastavnik) :  nastavnikServiceBean.save(new Nastavnik(k, zvanje, password));
+		Korisnik k = new Korisnik(sifra, ime, prezime, brojNeg);
+		
+		Nastavnik n = nastavnikServiceBean.save(new Nastavnik(k, zvanje, password));
 		
 		if(nastavnik != null)
 			nastavnikPredmetServiceBean.deletePredmetiForNastavnik(n);

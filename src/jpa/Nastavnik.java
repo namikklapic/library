@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name="nastavnik")
 public class Nastavnik {
 
-	@OneToOne(cascade=CascadeType.PERSIST)
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@Id
 	private Korisnik korisnik;
 	private String password;
