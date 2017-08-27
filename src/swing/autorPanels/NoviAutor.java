@@ -188,7 +188,6 @@ public class NoviAutor extends JFrame {
 	private boolean isValidAutor(){
 		String ime = txtIme.getText();
 		String prezime = txtPrezime.getText();
-	
 		if(ime.equals("") || ime.equals(null)){
 			txtIme.setBackground(Color.LIGHT_GRAY);
 			message = "First name is missing!";

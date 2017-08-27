@@ -61,6 +61,13 @@ public class AutorPregled extends JFrame {
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtSearchFilter.setBounds(470, 70, 194, 25);
+		txtSearchFilter.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtSearchFilter.setBackground(Color.WHITE);
+			}
+		});
+		
 		searchBtn = new JButton("Search");
 		searchBtn.setBounds(521, 108, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
@@ -223,13 +230,16 @@ public class AutorPregled extends JFrame {
 	
 	public void refreshTable() {
 		String filter = txtSearchFilter.getText();
+		boolean success = true;
+		
 		if(filter.equals(null) || filter.equals("")){
 			model = new AutorTableModel(autorServiceBean.getAllAutor());
 		}else{
 			String[] spliter = filter.split(" ");
 			if(spliter.length != 2){
 				message = "Please, enter author's first and last name!";
-				txtSearchFilter.setBackground(Color.RED);
+				txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+				success = false;
 				displayMessageDialogBox();
 				getContentPane().repaint();
 				getContentPane().revalidate();
@@ -237,11 +247,12 @@ public class AutorPregled extends JFrame {
 				model = new AutorTableModel(autorServiceBean.getAutorByFullName(spliter[0], spliter[1]));
 		}
 		
-		table.setModel(model);
-		
-		if(table.getRowCount() == 0){
-			message = "No result found!";
-			displayMessageDialogBox();
+		if(success){
+			table.setModel(model);
+			if(table.getRowCount() == 0){
+				message = "No result found!";
+				displayMessageDialogBox();
+			}
 		}
 		getContentPane().repaint();
 		getContentPane().revalidate();
