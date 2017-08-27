@@ -49,6 +49,8 @@ public class PredmetPregled extends JFrame {
 		panel_1.setBackground(new Color(255, 255, 255,150));
 		panel_1.setBounds(12, 16, 676, 571);
 		
+		searchClicked = false;
+		
 		scrollPane = new JScrollPane();
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
