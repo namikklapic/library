@@ -408,6 +408,7 @@ public class NovaKnjiga extends JFrame {
 		
 		if(isEditable){
 			setTitle("Edit book");
+			lookupAutori.removeButtons();
 			btnPotvrdi.setText("Save changes");
 		}
 		else{

@@ -19,8 +19,6 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 		
 		if(find != null) {
 			em.getTransaction().begin();
-			find.setAutor(entity.getAutor());
-			find.setKnjiga(entity.getKnjiga());
 			find.setRedniBrojAutoraNaKnjizi(entity.getRedniBrojAutoraNaKnjizi());
 			em.getTransaction().commit();
 		} else {
