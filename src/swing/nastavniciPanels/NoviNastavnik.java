@@ -54,6 +54,8 @@ public class NoviNastavnik extends JFrame{
 		panel.setLocation(12, 16);
 		panel.setLayout(null);
 		
+		nastavnik = null;
+		
 		ime = new JLabel("First name: ");
 		ime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		ime.setBounds(32, 118, 127, 16);
@@ -191,6 +193,7 @@ public class NoviNastavnik extends JFrame{
 	
 	public NoviNastavnik(Nastavnik n){
 		this();
+		nastavnik = n;
 		txtIme.setText(n.getKorisnik().getImeKorisnika());
 		txtPrezime.setText(n.getKorisnik().getPrezimeKorisnika());
 		txtZvanje.setText(n.getAkademskoZvanje());
@@ -249,9 +252,18 @@ public class NoviNastavnik extends JFrame{
 			message = "Personal ID must contain 13 digits!";
 			return false;
 		}
-		else if(nastavnikServiceBean.existsNastavnik(txtJmbg.getText())){
+		else if(nastavnik == null && nastavnikServiceBean.existsNastavnik(txtJmbg.getText())){
 			message = "Teacher with entered personal ID alreday exists!";
 			return false;
+		}
+		else if(nastavnik != null){
+			if(nastavnik.getKorisnik().getSifraKorisnika().equals(txtJmbg.getText())){
+				return true;
+			}
+			else if(nastavnikServiceBean.existsNastavnik(txtJmbg.getText())){
+				message = "The entered teacher already exists!";
+				return false;
+			}			
 		}
 		return true;
 	}
@@ -313,6 +325,7 @@ public class NoviNastavnik extends JFrame{
 	private NastavnikPredmetPK nastavnikPredmetPK;
 	private NastavnikPredmetServiceBean nastavnikPredmetServiceBean = new NastavnikPredmetServiceBean();
 	private KorisnikServiceBean korisnikServiceBean = new KorisnikServiceBean();
+	private Nastavnik nastavnik;
 	
 	private JLabel ime;
 	private JLabel prezime;

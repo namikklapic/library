@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -54,6 +56,13 @@ public class NastavniciPregled extends JFrame{
 		searchLabel.setBounds(78, 446, 176, 30);
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setBounds(266, 449, 176, 30);
+		txtSearchFilter.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtSearchFilter.setBackground(Color.WHITE);
+			}
+		});
+		
 		searchBtn = new JButton("Search");
 		searchBtn.setBounds(454, 446, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
@@ -218,6 +227,8 @@ public class NastavniciPregled extends JFrame{
 	
 	public void refreshTable() {
 		String filter = txtSearchFilter.getText();
+		boolean success = true;
+		
 		if(filter.equals(null) || filter.equals("")){
 			model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
 		}else{
@@ -225,16 +236,18 @@ public class NastavniciPregled extends JFrame{
 			if(spliter.length != 2){
 				message = "Please, enter teacher's first and last name!";
 				txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+				success = false;
 				displayMessageDialogBox();
 			}else
 				model = new NastavnikTableModel(nastavnikServiceBean.getNastavniciByFullName(spliter[0], spliter[1]));
 		}
 		
-		table.setModel(model);
-		
-		if(table.getRowCount() == 0){
-			message = "No result found!";
-			displayMessageDialogBox();
+		if(success){
+			table.setModel(model);
+			if(table.getRowCount() == 0){
+				message = "No result found!";
+				displayMessageDialogBox();
+			}	
 		}
 	}
 
