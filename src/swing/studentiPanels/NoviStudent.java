@@ -47,6 +47,8 @@ public class NoviStudent extends JFrame {
 		panel.setLocation(12, 16);
 		panel.setLayout(null);
 		
+		student = null;
+		
 		ime = new JLabel ("First name: ");
 		ime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		ime.setBounds(36, 101, 171, 25);
@@ -193,6 +195,7 @@ public class NoviStudent extends JFrame {
 	
 	public NoviStudent(Student s) {
 		this();
+		student = s;
 		txtIme.setText(s.getKorisnik().getImeKorisnika());
 		txtPrezime.setText(s.getKorisnik().getPrezimeKorisnika());
 		txtBrojIndeksa.setText(s.getBrojIndeksa());
@@ -207,19 +210,23 @@ public class NoviStudent extends JFrame {
 	}
 	
 	private void saveStudent() {
+		
 		String ime = txtIme.getText();
 		String prezime = txtPrezime.getText();
 		String pass = txtJmbg.getText();
 		String brojIndeksa = txtBrojIndeksa.getText();
 		int upisaniSem = Integer.parseInt(txtUpisaniSem.getText());
 		
-		String sifra = txtJmbg.getText();
+		String sifra = student != null ? student.getKorisnik().getSifraKorisnika() : txtJmbg.getText();
 		
-		Korisnik k = new Korisnik(sifra, ime, prezime, 0);
+		Korisnik k = student != null ? student.getKorisnik() : new Korisnik(sifra, ime, prezime, 0);
 		
 		studentServiceBean.save(new Student(k, brojIndeksa, pass, upisaniSem));
 		
-		message = "Student has been successfully saved!";
+		if(student != null)
+			message = "Changes were successfully saved!";
+		else
+			message = "Student has been successfully saved!";
 	}
 	
 	public JMenuItem getMenuItem() {
@@ -253,9 +260,26 @@ public class NoviStudent extends JFrame {
 			message = "Invalid value for registered semester!";
 			return false;
 		}
-		else if(studentServiceBean.existsStudent(txtJmbg.getText())){
+		else if(student == null && studentServiceBean.existsStudent(txtJmbg.getText())){
 			message = "Student with the entered personal ID alreday exists!";
 			return false;
+		}
+		else if(student == null && studentServiceBean.existsStudentByIndexNum(txtBrojIndeksa.getText())){
+			message = "Student with the entered index number alreday exists!";
+			return false;
+		}	
+		else if(student != null){
+			if(student.getKorisnik().getSifraKorisnika().equals(txtJmbg.getText()) && student.getBrojIndeksa().equals(txtBrojIndeksa.getText())) {
+				return true;
+			}
+			else if(studentServiceBean.existsStudentByIndexNum(txtBrojIndeksa.getText())){
+				message = "Student with the entered index number already exists!";
+				return false;
+			}
+			else if(studentServiceBean.existsStudent(txtJmbg.getText())){
+				message = "The entered student already exists!";
+				return false;
+			}
 		}
 		return true;
 	}
@@ -343,4 +367,5 @@ public class NoviStudent extends JFrame {
 	
 	private KorisnikServiceBean korisnikServiceBean = new KorisnikServiceBean();
 	private StudentServiceBean studentServiceBean = new StudentServiceBean();
+	private Student student;
 }

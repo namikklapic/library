@@ -98,6 +98,12 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 		return false;
 	}
 	
+	public boolean existsStudentByIndexNum(String index){
+		if(searchByIndexNumber(index) != null)
+			return true;
+		return false;
+	}
+	
 	public List<Student> getAllStudent(){
 		List<Student> result = null;
 		try {
