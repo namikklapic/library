@@ -40,18 +40,17 @@ public class NastavnikPredmetServiceBean extends EntityManagerProducer<Nastavnik
 		return result;
 	}
 	
+	public void deletePredmetiForNastavnik(Nastavnik n) {
+		em.getTransaction().begin();
+		em.createQuery("Delete from NastavnikPredmet np where np.nastavnik =:n").setParameter("n", n).executeUpdate();
+		em.getTransaction().commit();
+	}
+	
 	public NastavnikPredmet save(NastavnikPredmet entity){
-		NastavnikPredmet find = em.find(NastavnikPredmet.class, entity.getId());
-		if( find != null){
-			em.getTransaction().begin();
-			find.setNastavnik(entity.getNastavnik());
-			find.setPredmet(entity.getPredmet());
-			em.getTransaction().commit();
-		}else{
-			super.save(entity);
-		}
+
+		super.save(entity);
 		MyEvent evt = new MyEvent(this, "Update NastavnikPredmet");
 		PanelPrijava.realTime.fireMyEvent(evt);
-		return find;			
+		return entity;			
 	}
 }

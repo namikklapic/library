@@ -195,7 +195,7 @@ public class NoviNastavnik extends JFrame{
 		txtPrezime.setText(n.getKorisnik().getPrezimeKorisnika());
 		txtZvanje.setText(n.getAkademskoZvanje());
 		txtNegBodovi.setText(Integer.toString(n.getKorisnik().getBrojNegativnihBodova()));
-		txtJmbg.setText(n.getPassword());
+		txtJmbg.setText(n.getKorisnik().getSifraKorisnika());
 		txtJmbg.setEditable(false);
 		List<Predmet> mySubjects = nastavnikPredmetServiceBean.getPredmetiByNastavnik(n);
 		predmetiLookup.setSelectedItems(mySubjects);
@@ -227,6 +227,8 @@ public class NoviNastavnik extends JFrame{
 		
 		Nastavnik n = nastavnikServiceBean
 				.save(new Nastavnik(k, zvanje, password));
+		
+		nastavnikPredmetServiceBean.deletePredmetiForNastavnik(n);
 		
 		for(Predmet p : predmeti)
 		{
