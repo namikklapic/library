@@ -172,7 +172,8 @@ public class PosudbePregled extends JFrame {
 				closeLoan.setBackground(Color.DARK_GRAY);
 			}
 		});
-		panel.add(closeLoan);
+		if(currUser == null)
+			panel.add(closeLoan);
 		
 		//end---------------------------------------------------------------------------------------------
 		

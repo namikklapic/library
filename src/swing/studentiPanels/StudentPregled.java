@@ -218,6 +218,25 @@ public class StudentPregled extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
 		lblNewLabel.setBounds(0, 0, 1300, 800);
 		getContentPane().add(lblNewLabel);
+		
+		anulirajBodove = new JButton("Reset negative points");
+		anulirajBodove.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				
+			}
+		});
+		anulirajBodove.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				anulirajBodove.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				anulirajBodove.setBackground(Color.DARK_GRAY);
+			}
+		});
+		panel.add(anulirajBodove);
 	}
 	
 	public JMenuItem getMenuItem(JPanel parent) {
@@ -321,5 +340,6 @@ public class StudentPregled extends JFrame {
 	
 	private StudentServiceBean studentServiceBean = new StudentServiceBean();	
 	private JLabel lblViewAllStudents;
-
+	
+	private JButton anulirajBodove;
 }

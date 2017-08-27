@@ -205,6 +205,25 @@ public class NastavniciPregled extends JFrame{
 		lblNewLabel.setBounds(0, 0, 800, 800);
 		getContentPane().add(lblNewLabel);
 		
+		anulirajBodove = new JButton("Reset negative points");
+		anulirajBodove.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				
+			}
+		});
+		anulirajBodove.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				anulirajBodove.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				anulirajBodove.setBackground(Color.DARK_GRAY);
+			}
+		});
+		panel.add(anulirajBodove);
+		
 	}
 	public JMenuItem getMenuItem(JPanel parent){
 		JMenuItem item = new JMenuItem("Teacher review");
@@ -282,6 +301,8 @@ public class NastavniciPregled extends JFrame{
 	
 	private NastavnikServiceBean nastavnikServiceBean = new NastavnikServiceBean();
 	private JLabel lblViewAllProfessors;
+	
+	private JButton anulirajBodove;
 
 }
 
