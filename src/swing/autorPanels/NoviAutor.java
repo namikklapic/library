@@ -61,7 +61,7 @@ public class NoviAutor extends JFrame {
 		potvrdi.setBounds(88, 222, 82, 36);
 		potvrdi.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent event) {
+			public void actionPerformed(ActionEvent event) {			
 				boolean valid = isValidAutor();
 				if(valid)
 					saveAutor();
@@ -198,10 +198,20 @@ public class NoviAutor extends JFrame {
 			message = "Last name is missing!";
 			return false;
 		}
-		if(autorServiceBean.existsAutor(ime, prezime)){
+		if(autor == null && autorServiceBean.existsAutor(ime, prezime)){
 			message = "The entered author already exists!";
 			return false;
 		}
+		if(autor != null){
+			if(autor.getImeAutora().equals(ime) && autor.getPrezimeAutora().equals(prezime)){
+				return true;
+			}
+			else if(autorServiceBean.existsAutor(ime, prezime)){
+				message = "The entered author already exists!";
+				return false;	
+			}		
+		}
+		
 		return true;
 	}
 	

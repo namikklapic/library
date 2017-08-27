@@ -166,15 +166,24 @@ public class NovaVrstaKnjige extends JFrame {
 	
 	private boolean isValidVrstaKnjige(){
 		String vk = txtVrstaKnjige.getText();
-		if(vrstaKnjigeServiceBean.existsVrstaKnjige(vk)){
-			message = "The entered book type already exists!";
-			return false;
-		}
+		
 		if(vk.equals(null) || vk.equals("")){
 			txtVrstaKnjige.setBackground(Color.LIGHT_GRAY);
 			message = "Book type title is missing!";
 			return false;
 		}
+		if(vrstaKnjige == null && vrstaKnjigeServiceBean.existsVrstaKnjige(vk)){
+			message = "The entered book type already exists!";
+			return false;
+		}
+		if(vrstaKnjige != null){
+			if(vrstaKnjige.getNazivVrste().equals(vk))
+				return true;
+			else if(vrstaKnjigeServiceBean.existsVrstaKnjige(vk)){
+				message = "The entered book type already exists!";
+				return false;	
+			}
+		}	
 		return true;
 	}
 	

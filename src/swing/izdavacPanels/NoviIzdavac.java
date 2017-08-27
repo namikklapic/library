@@ -170,14 +170,23 @@ public class NoviIzdavac extends JFrame {
 	}
 	
 	private boolean isValidIzdavac(){
-		if(txtIzdavac.getText().equals("") || txtIzdavac.getText().equals(null)){
+		String izd = txtIzdavac.getText();
+		if(izd.equals("") || izd.equals(null)){
 			txtIzdavac.setBackground(Color.LIGHT_GRAY);
 			message = "Publisher name is missing!";
 			return false;
 		}
-		if(izdavacServiceBean.existsIzdavac(txtIzdavac.getText())){
+		if(izdavac == null && izdavacServiceBean.existsIzdavac(txtIzdavac.getText())){
 			message = "Entered publisher alreday exists!";
 			return false;
+		}
+		if(izdavac != null){
+			if(izdavac.getNazivIzdavaca().equals(izd))
+				return true;
+			else if(izdavacServiceBean.existsIzdavac(izd)){
+				message = "The entered publisher already exists!";
+				return false;	
+			}		
 		}
 		return true;
 	}
