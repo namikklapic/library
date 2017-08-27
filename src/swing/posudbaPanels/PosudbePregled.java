@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,12 +15,14 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import bussines.KnjigaServiceBean;
 import bussines.PosudbaServiceBean;
@@ -98,6 +102,79 @@ public class PosudbePregled extends JFrame {
 		    }
 		}
 		getContentPane().setLayout(null);
+		
+		//book review --------- search criteria ----------------------------------------------------------
+		searchCriteriaLabel = new JLabel("Choose search criteria: ");
+		panel.add(searchCriteriaLabel);
+		
+		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtSearchFilter.setBackground(Color.WHITE);
+			}
+		});
+		
+		cbSearchFilters = new JComboBox<String>();
+		cbSearchFilters.addItem("Student");
+		cbSearchFilters.addItem("Teacher");
+		cbSearchFilters.addItem("Show all");
+		cbSearchFilters.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				String option = (String)cbSearchFilters.getSelectedItem();
+				txtSearchFilter.setText("");
+				txtSearchFilter.setBackground(Color.WHITE);
+				if(option.equals("Show all"))		
+					txtSearchFilter.setEditable(false);
+				else
+					txtSearchFilter.setEditable(true);
+			}
+		});
+		panel.add(cbSearchFilters);
+		panel.add(txtSearchFilter);
+		
+		searchBtn = new JButton("Search");
+		searchBtn.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				//searchClicked = true;
+				//refreshTable();
+				//searchClicked = false;
+			}
+		});
+		searchBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				searchBtn.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				searchBtn.setBackground(Color.DARK_GRAY);
+			}
+		});
+		panel.add(searchBtn);
+		
+		closeLoan = new JButton("Close the loan");
+		closeLoan.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent event){
+				
+			}
+		});
+		closeLoan.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				closeLoan.setBackground(Color.GRAY);			
+				}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				closeLoan.setBackground(Color.DARK_GRAY);
+			}
+		});
+		panel.add(closeLoan);
+		
+		//end---------------------------------------------------------------------------------------------
 		
 		onlyActive = new JCheckBox(new CheckboxAction("Show only active loans"));
 		onlyActive.addMouseListener(new MouseAdapter() {
@@ -200,4 +277,9 @@ public class PosudbePregled extends JFrame {
 	JTable table;
 	Korisnik currUser; //can be null if bibliotekar is logged in
 	
+	private JLabel searchCriteriaLabel;
+	private JComboBox<String> cbSearchFilters;
+	private JTextField txtSearchFilter;
+	private JButton searchBtn;
+	private JButton closeLoan;
 }

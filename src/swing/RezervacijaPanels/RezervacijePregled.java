@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -13,6 +15,7 @@ import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
@@ -20,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import bussines.RezervacijaServiceBean;
 import jpa.Rezervacija;
@@ -53,7 +57,7 @@ public RezervacijePregled(Korisnik k){
 	panel.setBounds(12, 13, 1276, 574);
 	panel.setLayout(null);
 	
-	JScrollPane scrollPane = new JScrollPane();
+	scrollPane = new JScrollPane();
 	scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 	scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 	scrollPane.setOpaque(false);
@@ -84,14 +88,13 @@ public RezervacijePregled(Korisnik k){
 	table.getTableHeader().setBackground(new Color(255, 255, 255,150));
 	currUser = k;
 	
-	JButton confirm = new JButton("Confirm reservation");
+	confirm = new JButton("Create a loan");
 	confirm.setBounds(433, 524, 197, 37);
 	confirm.setForeground(Color.WHITE);
 	confirm.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
 	confirm.setFocusPainted(false);
 	confirm.setBorder(null);
 	confirm.setBackground(Color.DARK_GRAY);
-	
 	
 	confirm.addActionListener(new ActionListener(){
 		@Override
@@ -144,6 +147,60 @@ public RezervacijePregled(Korisnik k){
 	panel.add(onlyActive);
 	
 	getContentPane().add(panel);
+	
+	//rezervacija review ------- search criteria -------------------------------------------------------
+	searchCriteriaLabel = new JLabel("Choose search criteria: ");
+	panel.add(searchCriteriaLabel);
+	
+	txtSearchFilter = new JTextField(10);
+	txtSearchFilter.addFocusListener(new FocusAdapter() {
+		@Override
+		public void focusGained(FocusEvent arg0) {
+			txtSearchFilter.setBackground(Color.WHITE);
+		}
+	});
+	
+	cbSearchFilters = new JComboBox<String>();
+	cbSearchFilters.addItem("Student");
+	cbSearchFilters.addItem("Teacher");
+	cbSearchFilters.addItem("Show all");
+	cbSearchFilters.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent event){
+			String option = (String)cbSearchFilters.getSelectedItem();
+			txtSearchFilter.setText("");
+			txtSearchFilter.setBackground(Color.WHITE);
+			if(option.equals("Show all"))		
+				txtSearchFilter.setEditable(false);
+			else
+				txtSearchFilter.setEditable(true);
+		}
+	});
+	panel.add(cbSearchFilters);
+	panel.add(txtSearchFilter);
+	
+	searchBtn = new JButton("Search");
+	searchBtn.addActionListener(new ActionListener(){
+		@Override
+		public void actionPerformed(ActionEvent event){
+//			searchClicked = true;
+//			refreshTable();
+//			searchClicked = false;
+		}
+	});
+	searchBtn.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseEntered(MouseEvent arg0) {
+			searchBtn.setBackground(Color.GRAY);			
+			}
+		@Override
+		public void mouseExited(MouseEvent e) {
+			searchBtn.setBackground(Color.DARK_GRAY);
+		}
+	});
+	panel.add(searchBtn);
+	
+	//end-----------------------------------------------------------------------------------------------
 	
 	JLabel lblNewLabel = new JLabel("");
 	lblNewLabel.setIcon(new ImageIcon(PosudbePregled.class.getResource("/swing/images/background.jpg")));
@@ -219,8 +276,17 @@ public RezervacijePregled(Korisnik k){
 	
 	private JCheckBox onlyActive;
 	private JPanel panel;
+	private JScrollPane scrollPane;
+	private JTable table;
+
+	private JLabel searchCriteriaLabel;
+	private JComboBox<String> cbSearchFilters;
+	private JTextField txtSearchFilter;
+	private JButton searchBtn;
+	private JButton confirm;
+	
 	private RezervacijaServiceBean rezervacijaServiceBean = new RezervacijaServiceBean();
-	JTable table;
+	
 	Korisnik currUser; //can be null if bibliotekar is logged in
 
 }
