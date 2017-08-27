@@ -27,6 +27,7 @@ import jpa.VrstaKnjige;
 import swing.autorPanels.AutorPregled;
 import tableModel.KnjigaTableModel;
 import tableModel.VrstaKnjigeTableModel;
+import javax.swing.SwingConstants;
 
 public class VrstaKnjigePregled extends JFrame {
 	
@@ -51,9 +52,9 @@ public class VrstaKnjigePregled extends JFrame {
 		
 		searchLabel = new JLabel("Type name to search :");
 		searchLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchLabel.setBounds(470, 31, 194, 25);
+		searchLabel.setBounds(470, 58, 194, 25);
 		txtSearchFilter = new JTextField(10);
-		txtSearchFilter.setBounds(470, 69, 194, 25);
+		txtSearchFilter.setBounds(470, 96, 194, 25);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -62,7 +63,7 @@ public class VrstaKnjigePregled extends JFrame {
 		});
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(521, 107, 97, 37);
+		searchBtn.setBounds(521, 134, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -94,7 +95,7 @@ public class VrstaKnjigePregled extends JFrame {
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 0, 458, 571);
+		scrollPane.setBounds(0, 59, 458, 512);
 		
 		model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
 		table = new JTable(model);
@@ -185,6 +186,12 @@ public class VrstaKnjigePregled extends JFrame {
 		
 		getContentPane().add(panel);
 		
+		lblViewAllBook = new JLabel("View all book types");
+		lblViewAllBook.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllBook.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllBook.setBounds(160, 13, 355, 32);
+		panel.add(lblViewAllBook);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
 		lblNewLabel.setBounds(0, 0, 800, 800);
@@ -256,5 +263,6 @@ public class VrstaKnjigePregled extends JFrame {
 	private JButton searchBtn;
 	
 	private VrstaKnjigeServiceBean vrstaKnjigeServiceBean = new VrstaKnjigeServiceBean();
+	private JLabel lblViewAllBook;
 
 }

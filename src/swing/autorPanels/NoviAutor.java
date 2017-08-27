@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
 
 public class NoviAutor extends JFrame {
 	
@@ -49,13 +50,13 @@ public class NoviAutor extends JFrame {
 		
 		autor = null;
 		
-		JLabel imeAutora = new JLabel("Author's First name");
+		JLabel imeAutora = new JLabel("First name");
 		imeAutora.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		imeAutora.setBounds(12, 62, 154, 19);
+		imeAutora.setBounds(12, 83, 154, 19);
 		
-		JLabel prezimeAutora = new JLabel("Author's Last name");
+		JLabel prezimeAutora = new JLabel("Last name");
 		prezimeAutora.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		prezimeAutora.setBounds(12, 122, 154, 16);
+		prezimeAutora.setBounds(12, 143, 154, 16);
 		
 		JButton potvrdi = new JButton("Save");
 		potvrdi.setBounds(88, 222, 82, 36);
@@ -123,7 +124,7 @@ public class NoviAutor extends JFrame {
 			}
 		});
 		txtIme.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtIme.setBounds(178, 56, 186, 30);
+		txtIme.setBounds(108, 77, 256, 30);
 		panel.add(txtIme);
 		panel.add(prezimeAutora);
 		txtPrezime.addFocusListener(new FocusAdapter() {
@@ -133,12 +134,18 @@ public class NoviAutor extends JFrame {
 			}
 		});
 		txtPrezime.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtPrezime.setBounds(178, 115, 186, 30);
+		txtPrezime.setBounds(108, 136, 256, 30);
 		panel.add(txtPrezime);
 		panel.add(potvrdi);
 		panel.add(ponisti);
 		
 		getContentPane().add(panel);
+		
+		JLabel lblAddANew = new JLabel("Add a new author");
+		lblAddANew.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddANew.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblAddANew.setBounds(12, 13, 355, 32);
+		panel.add(lblAddANew);
 		
 		JLabel backgroundPicture = new JLabel("");
 		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));

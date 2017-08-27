@@ -30,6 +30,7 @@ import swing.autorPanels.AutorPregled;
 import swing.autorPanels.NoviAutor;
 import tableModel.AutorTableModel;
 import tableModel.IzdavacTableModel;
+import javax.swing.SwingConstants;
 
 public class IzdavacPregled extends JFrame {
 	
@@ -55,9 +56,9 @@ public class IzdavacPregled extends JFrame {
 		
 		searchLabel = new JLabel("Type name to search :");
 		searchLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchLabel.setBounds(470, 30, 194, 25);
+		searchLabel.setBounds(470, 56, 194, 25);
 		txtSearchFilter = new JTextField(10);
-		txtSearchFilter.setBounds(470, 68, 194, 25);
+		txtSearchFilter.setBounds(470, 94, 194, 25);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -66,7 +67,7 @@ public class IzdavacPregled extends JFrame {
 		});
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(522, 106, 97, 37);
+		searchBtn.setBounds(522, 132, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -100,7 +101,7 @@ public class IzdavacPregled extends JFrame {
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 0, 458, 574);
+		scrollPane.setBounds(0, 56, 458, 518);
 		
 		model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
 		table = new JTable(model);
@@ -190,6 +191,12 @@ public class IzdavacPregled extends JFrame {
 		
 		getContentPane().add(panel);
 		
+		lblViewAllPublishers = new JLabel("View all publishers");
+		lblViewAllPublishers.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllPublishers.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllPublishers.setBounds(165, 13, 355, 32);
+		panel.add(lblViewAllPublishers);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
 		lblNewLabel.setBounds(0, 0, 800, 800);
@@ -262,5 +269,6 @@ public class IzdavacPregled extends JFrame {
 	private JButton searchBtn;
 	
 	private IzdavacServiceBean izdavacServiceBean = new IzdavacServiceBean();
+	private JLabel lblViewAllPublishers;
 
 }

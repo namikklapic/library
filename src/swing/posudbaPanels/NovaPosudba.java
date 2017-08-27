@@ -44,6 +44,7 @@ import jpa.Rezervacija;
 import jpa.RezervacijaPK;
 import jpa.Student;
 import swing.autorPanels.NoviAutor;
+import javax.swing.SwingConstants;
 
 public class NovaPosudba extends JFrame {
 	
@@ -71,11 +72,11 @@ public class NovaPosudba extends JFrame {
 		studentRadBtn = new JRadioButton("Student", true);
 		studentRadBtn.setFocusPainted(false);
 		studentRadBtn.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		studentRadBtn.setBounds(205, 76, 104, 25);
+		studentRadBtn.setBounds(172, 76, 137, 25);
 		nastavnikRadBtn = new JRadioButton("Teacher", false);
 		nastavnikRadBtn.setFocusPainted(false);
 		nastavnikRadBtn.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		nastavnikRadBtn.setBounds(315, 76, 104, 25);
+		nastavnikRadBtn.setBounds(315, 76, 137, 25);
 		buttonGroup.add(studentRadBtn);
 		buttonGroup.add(nastavnikRadBtn);
 		
@@ -311,6 +312,12 @@ public class NovaPosudba extends JFrame {
 		panel.add(ponisti);
 		
 		getContentPane().add(panel);
+		
+		JLabel lblNewBookLoan = new JLabel("New book loan");
+		lblNewBookLoan.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewBookLoan.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblNewBookLoan.setBounds(60, 13, 355, 32);
+		panel.add(lblNewBookLoan);
 		
 		JLabel backgroundPicture = new JLabel("");
 		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));

@@ -23,6 +23,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import bussines.AutorKnjigaServiceBean;
 import bussines.AutorServiceBean;
@@ -386,6 +387,13 @@ public class NovaKnjiga extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
 		lblNewLabel.setBounds(0, 0, 800, 800);
 		getContentPane().add(lblNewLabel);
+		
+		
+		JLabel lblViewAllBook = new JLabel("Add a new book");
+		lblViewAllBook.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllBook.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllBook.setBounds(160, 13, 355, 32);
+		panel.add(lblViewAllBook);
 	}
 	
 	public NovaKnjiga(Knjiga k, Boolean isEditable, Korisnik currUser){

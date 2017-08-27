@@ -27,6 +27,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
 
 public class NoviPredmet extends JFrame {
 
@@ -163,6 +164,12 @@ public class NoviPredmet extends JFrame {
 		getContentPane().setLayout(null);
 		
 		getContentPane().add(panel);
+		
+		lblAddANew = new JLabel("Add a new subject");
+		lblAddANew.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddANew.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblAddANew.setBounds(60, 33, 355, 32);
+		panel.add(lblAddANew);
 		
 		JLabel backgroundPicture = new JLabel("");
 		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
@@ -309,4 +316,5 @@ public class NoviPredmet extends JFrame {
 	private JTextField txtNaziv = new JTextField(15);
 	private JTextField txtSkrNaziv = new JTextField(15);
 	private JTextField txtSemestar = new JTextField(15);
+	private JLabel lblAddANew;
 }

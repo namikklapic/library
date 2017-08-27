@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import bussines.KorisnikServiceBean;
 import bussines.NastavnikPredmetServiceBean;
@@ -189,6 +190,12 @@ public class NoviNastavnik extends JFrame{
 		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
 		backgroundPicture.setBounds(0, 0, 500, 500);
 		getContentPane().add(backgroundPicture);
+		
+		JLabel lblViewAllBook = new JLabel("Add a new professor");
+		lblViewAllBook.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllBook.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllBook.setBounds(65, 13, 355, 32);
+		panel.add(lblViewAllBook);
 	}
 	
 	public NoviNastavnik(Nastavnik n){

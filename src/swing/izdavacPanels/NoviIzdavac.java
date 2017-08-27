@@ -27,6 +27,7 @@ import java.awt.BorderLayout;
 import javax.swing.ImageIcon;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
 
 public class NoviIzdavac extends JFrame {
 
@@ -46,7 +47,7 @@ public class NoviIzdavac extends JFrame {
 		
 		panel = new JPanel();
 		panel.setBounds(12, 16, 376, 271);
-		panel.setBackground(new Color(255,255,255,70));
+		panel.setBackground(new Color(255,255,255,150));
 		
 		izdavac = null;
 		
@@ -130,6 +131,12 @@ public class NoviIzdavac extends JFrame {
 		panel.add(ponisti);
 		getContentPane().add(panel);
 		
+		lblAddANew = new JLabel("Add a new publisher");
+		lblAddANew.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddANew.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblAddANew.setBounds(12, 13, 355, 32);
+		panel.add(lblAddANew);
+		
 		JLabel backgroundPicture = new JLabel("");
 		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
 		backgroundPicture.setBounds(0, 0, 400, 300);
@@ -206,4 +213,5 @@ public class NoviIzdavac extends JFrame {
 	private JLabel imeIzdavaca;
 	private JButton ponisti;
 	private JButton potvrdi;
+	private JLabel lblAddANew;
 }

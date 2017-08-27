@@ -30,6 +30,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class AutorPregled extends JFrame {
 	
@@ -57,10 +58,10 @@ public class AutorPregled extends JFrame {
 		
 		searchLabel = new JLabel("Type name to search :");
 		searchLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchLabel.setBounds(470, 32, 194, 25);
+		searchLabel.setBounds(470, 62, 194, 25);
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtSearchFilter.setBounds(470, 70, 194, 25);
+		txtSearchFilter.setBounds(470, 100, 194, 25);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -69,7 +70,7 @@ public class AutorPregled extends JFrame {
 		});
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(521, 108, 97, 37);
+		searchBtn.setBounds(521, 138, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -102,7 +103,7 @@ public class AutorPregled extends JFrame {
 			scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 			scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 			scrollPane.setOpaque(false);
-			scrollPane.setBounds(0, 0, 458, 571);
+			scrollPane.setBounds(0, 62, 458, 509);
 			
 			model = new AutorTableModel(autorServiceBean.getAll());
 			table = new JTable(model);
@@ -193,6 +194,12 @@ public class AutorPregled extends JFrame {
 			btnCancel.setBorder(null);		
 			btnCancel.setBounds(521, 408, 97, 37);
 			panel.add(btnCancel);
+			
+			lblViewAllAuthors = new JLabel("View all authors");
+			lblViewAllAuthors.setHorizontalAlignment(SwingConstants.CENTER);
+			lblViewAllAuthors.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+			lblViewAllAuthors.setBounds(170, 13, 355, 32);
+			panel.add(lblViewAllAuthors);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
@@ -282,4 +289,5 @@ public class AutorPregled extends JFrame {
 	private JButton searchBtn;
 	
 	private AutorServiceBean autorServiceBean = new AutorServiceBean();
+	private JLabel lblViewAllAuthors;
 }

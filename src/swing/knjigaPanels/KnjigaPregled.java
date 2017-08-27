@@ -40,6 +40,7 @@ import jpa.Predmet;
 import tableModel.KnjigaTableModel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
 
 public class KnjigaPregled extends JFrame {
 	
@@ -69,7 +70,7 @@ public class KnjigaPregled extends JFrame {
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 0, 758, 574);
+		scrollPane.setBounds(0, 53, 758, 521);
 		model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
@@ -94,12 +95,12 @@ public class KnjigaPregled extends JFrame {
 		
 		searchCriteriaLabel = new JLabel("Choose search criteria: ");
 		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchCriteriaLabel.setBounds(770, 13, 198, 28);
+		searchCriteriaLabel.setBounds(770, 50, 198, 28);
 		panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtSearchFilter.setBounds(770, 95, 198, 28);
+		txtSearchFilter.setBounds(770, 132, 198, 28);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -109,7 +110,7 @@ public class KnjigaPregled extends JFrame {
 	
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		cbSearchFilters.setBounds(770, 54, 198, 28);
+		cbSearchFilters.setBounds(770, 91, 198, 28);
 		cbSearchFilters.addItem("Book title");
 		cbSearchFilters.addItem("Book type");
 		cbSearchFilters.addItem("Author");
@@ -132,7 +133,7 @@ public class KnjigaPregled extends JFrame {
 		panel.add(txtSearchFilter);
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(802, 139, 145, 37);
+		searchBtn.setBounds(802, 176, 145, 37);
 		
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
@@ -221,7 +222,7 @@ public class KnjigaPregled extends JFrame {
 				
 		onlyAvail = new JCheckBox(new CheckboxAction("Show only available books"));
 		onlyAvail.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		onlyAvail.setBounds(780, 204, 188, 25);
+		onlyAvail.setBounds(770, 241, 198, 25);
 		onlyAvail.setSelected(false);
 		
 		scrollPane.setViewportView(table);
@@ -257,6 +258,12 @@ public class KnjigaPregled extends JFrame {
 		panel.add(cancel);
 		
 		getContentPane().add(panel);
+		
+		lblViewAllBooks = new JLabel("View all books");
+		lblViewAllBooks.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllBooks.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllBooks.setBounds(310, 8, 355, 32);
+		panel.add(lblViewAllBooks);
 			
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
@@ -388,4 +395,5 @@ public class KnjigaPregled extends JFrame {
 	private AutorKnjigaServiceBean autorKnjigaServiceBean = new AutorKnjigaServiceBean();
 	private LiteraturaServiceBean literaturaServiceBean = new LiteraturaServiceBean();
 	private PrimjerakServiceBean primjerakServiceBean = new PrimjerakServiceBean();
+	private JLabel lblViewAllBooks;
 }

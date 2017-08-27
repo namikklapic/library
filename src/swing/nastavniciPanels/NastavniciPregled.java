@@ -29,6 +29,7 @@ import swing.autorPanels.AutorPregled;
 import swing.autorPanels.NoviAutor;
 import tableModel.AutorTableModel;
 import tableModel.NastavnikTableModel;
+import javax.swing.SwingConstants;
 
 public class NastavniciPregled extends JFrame{
 	
@@ -102,7 +103,7 @@ public class NastavniciPregled extends JFrame{
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 0, 676, 418);
+		scrollPane.setBounds(0, 59, 676, 359);
 		
 		model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
 		table = new JTable(model);
@@ -193,6 +194,12 @@ public class NastavniciPregled extends JFrame{
 		
 		getContentPane().add(panel);
 		
+		lblViewAllProfessors = new JLabel("View all professors");
+		lblViewAllProfessors.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllProfessors.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllProfessors.setBounds(160, 13, 355, 32);
+		panel.add(lblViewAllProfessors);
+		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
 		lblNewLabel.setBounds(0, 0, 800, 800);
@@ -272,6 +279,7 @@ public class NastavniciPregled extends JFrame{
 	private JButton searchBtn;
 	
 	private NastavnikServiceBean nastavnikServiceBean = new NastavnikServiceBean();
+	private JLabel lblViewAllProfessors;
 
 }
 

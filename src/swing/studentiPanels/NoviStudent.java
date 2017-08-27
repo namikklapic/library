@@ -26,6 +26,7 @@ import jpa.Student;
 import swing.autorPanels.NoviAutor;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
 
 public class NoviStudent extends JFrame {
 	
@@ -186,6 +187,12 @@ public class NoviStudent extends JFrame {
 		getContentPane().setLayout(null);
 							
 		getContentPane().add(panel);
+		
+		lblAddANew = new JLabel("Add a new student");
+		lblAddANew.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddANew.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblAddANew.setBounds(60, 30, 355, 32);
+		panel.add(lblAddANew);
 		
 		JLabel backgroundPicture = new JLabel("");
 		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
@@ -371,4 +378,5 @@ public class NoviStudent extends JFrame {
 	private KorisnikServiceBean korisnikServiceBean = new KorisnikServiceBean();
 	private StudentServiceBean studentServiceBean = new StudentServiceBean();
 	private Student student;
+	private JLabel lblAddANew;
 }

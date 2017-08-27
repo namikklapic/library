@@ -28,6 +28,7 @@ import jpa.Predmet;
 import swing.autorPanels.AutorPregled;
 import tableModel.PredmetTableModel;
 import tableModel.StudentTableModel;
+import javax.swing.SwingConstants;
 
 public class PredmetPregled extends JFrame {
 	
@@ -55,7 +56,7 @@ public class PredmetPregled extends JFrame {
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 0, 422, 571);
+		scrollPane.setBounds(0, 52, 422, 519);
 		model = new PredmetTableModel(predmetServiceBean.getAll());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
@@ -81,11 +82,11 @@ public class PredmetPregled extends JFrame {
 		
 		searchCriteriaLabel = new JLabel("Choose search criteria: ");
 		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchCriteriaLabel.setBounds(468, 26, 196, 22);
+		searchCriteriaLabel.setBounds(468, 53, 196, 22);
 		panel_1.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
-		txtSearchFilter.setBounds(468, 121, 196, 22);
+		txtSearchFilter.setBounds(468, 148, 196, 22);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -95,7 +96,7 @@ public class PredmetPregled extends JFrame {
 		
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		cbSearchFilters.setBounds(468, 59, 196, 22);
+		cbSearchFilters.setBounds(468, 86, 196, 22);
 		cbSearchFilters.addItem("Title");
 		cbSearchFilters.addItem("Short title");
 		cbSearchFilters.addItem("Semester");
@@ -117,7 +118,7 @@ public class PredmetPregled extends JFrame {
 		panel_1.add(txtSearchFilter);
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(521, 156, 97, 37);
+		searchBtn.setBounds(521, 183, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -209,8 +210,14 @@ public class PredmetPregled extends JFrame {
 		
 		JLabel lblTypeToSearch = new JLabel("Type to search");
 		lblTypeToSearch.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblTypeToSearch.setBounds(468, 94, 196, 22);
+		lblTypeToSearch.setBounds(468, 121, 196, 22);
 		panel_1.add(lblTypeToSearch);
+		
+		lblViewAllSubjects = new JLabel("View all subjects");
+		lblViewAllSubjects.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllSubjects.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllSubjects.setBounds(160, 13, 355, 32);
+		panel_1.add(lblViewAllSubjects);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
@@ -317,4 +324,5 @@ public class PredmetPregled extends JFrame {
 	private JButton cancel;
 	
 	private PredmetServiceBean predmetServiceBean = new PredmetServiceBean();
+	private JLabel lblViewAllSubjects;
 }

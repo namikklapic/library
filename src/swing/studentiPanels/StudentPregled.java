@@ -27,6 +27,7 @@ import bussines.StudentServiceBean;
 import jpa.Student;
 import swing.autorPanels.AutorPregled;
 import tableModel.StudentTableModel;
+import javax.swing.SwingConstants;
 
 public class StudentPregled extends JFrame {
 	
@@ -54,7 +55,7 @@ public class StudentPregled extends JFrame {
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 0, 954, 574);
+		scrollPane.setBounds(0, 68, 954, 506);
 		model = new StudentTableModel(studentServiceBean.getAllStudent());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
@@ -79,12 +80,12 @@ public class StudentPregled extends JFrame {
 		
 		searchCriteriaLabel = new JLabel("Choose search criteria: ");
 		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchCriteriaLabel.setBounds(1024, 13, 198, 28);
+		searchCriteriaLabel.setBounds(1024, 70, 198, 28);
 		panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtSearchFilter.setBounds(1024, 95, 198, 28);
+		txtSearchFilter.setBounds(1024, 152, 198, 28);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -94,7 +95,7 @@ public class StudentPregled extends JFrame {
 
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		cbSearchFilters.setBounds(1024, 54, 198, 28);
+		cbSearchFilters.setBounds(1024, 111, 198, 28);
 		cbSearchFilters.addItem("Student number");
 		cbSearchFilters.addItem("Full name");
 		cbSearchFilters.addItem("Negative points");
@@ -115,7 +116,7 @@ public class StudentPregled extends JFrame {
 		panel.add(txtSearchFilter);
 		
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(1076, 136, 97, 37);
+		searchBtn.setBounds(1076, 193, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -206,6 +207,12 @@ public class StudentPregled extends JFrame {
 		panel.add(cancel);
 		
 		getContentPane().add(panel);
+		
+		lblViewAllStudents = new JLabel("View all students");
+		lblViewAllStudents.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAllStudents.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAllStudents.setBounds(460, 23, 355, 32);
+		panel.add(lblViewAllStudents);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(AutorPregled.class.getResource("/swing/images/background.jpg")));
@@ -311,5 +318,6 @@ public class StudentPregled extends JFrame {
 	private JButton searchBtn;
 	
 	private StudentServiceBean studentServiceBean = new StudentServiceBean();	
+	private JLabel lblViewAllStudents;
 
 }

@@ -30,6 +30,7 @@ import jpa.Knjiga;
 import jpa.Korisnik;
 import tableModel.KnjigaTableModel;
 import tableModel.PosudbeTableModel;
+import javax.swing.SwingConstants;
 
 public class PosudbePregled extends JFrame {
 	
@@ -59,7 +60,7 @@ public class PosudbePregled extends JFrame {
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 0, 1276, 434);
+		scrollPane.setBounds(0, 52, 1276, 382);
 		PosudbeTableModel model;
 		if(k == null) //it is bibliotekar panel, and we want all users
 			model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbe());
@@ -149,6 +150,12 @@ public class PosudbePregled extends JFrame {
 		
 
 		panel.add(cancel);
+		
+		JLabel lblViewAll = new JLabel("View all book loans");
+		lblViewAll.setHorizontalAlignment(SwingConstants.CENTER);
+		lblViewAll.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblViewAll.setBounds(460, 13, 355, 32);
+		panel.add(lblViewAll);
 	}
 	
 	public JMenuItem getMenuItem(JPanel parent){

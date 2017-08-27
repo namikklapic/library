@@ -23,6 +23,7 @@ import swing.autorPanels.NoviAutor;
 import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.SwingConstants;
 
 public class NovaVrstaKnjige extends JFrame {
 	
@@ -39,7 +40,7 @@ public class NovaVrstaKnjige extends JFrame {
 		
 		panel = new JPanel();
 		panel.setBounds(12, 16, 376, 271);
-		panel.setBackground(new Color(255,255,255,70));
+		panel.setBackground(new Color(255,255,255,150));
 		panel.setLayout(null);
 		
 		vrstaKnjige = null;
@@ -122,6 +123,12 @@ public class NovaVrstaKnjige extends JFrame {
 		
 		
 		getContentPane().add(panel);
+		
+		lblAddANew = new JLabel("Add a new book type");
+		lblAddANew.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAddANew.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
+		lblAddANew.setBounds(10, 13, 355, 32);
+		panel.add(lblAddANew);
 		
 		JLabel backgroundPicture = new JLabel("");
 		backgroundPicture.setIcon(new ImageIcon(NoviAutor.class.getResource("/swing/images/background.jpg")));
@@ -207,4 +214,5 @@ public class NovaVrstaKnjige extends JFrame {
 	private JTextField txtVrstaKnjige;
 	private JButton potvrdi;
 	private JButton ponisti;
+	private JLabel lblAddANew;
 }

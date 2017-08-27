@@ -819,7 +819,7 @@ public class PanelBibliotekar extends JFrame{
 					lineViewSubjects.setBounds(519, 375, 253, 3);
 					panelClasses.add(lineViewSubjects);
 				
-					JLabel lblAddNewSubject = new JLabel("Add a new class");
+					JLabel lblAddNewSubject = new JLabel("Add a new subject");
 					lblAddNewSubject.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseEntered(MouseEvent e) {
@@ -844,7 +844,7 @@ public class PanelBibliotekar extends JFrame{
 					lblAddNewSubject.setBounds(76, 309, 332, 96);
 					panelClasses.add(lblAddNewSubject);
 					
-					JLabel lblViewAllSubjects = new JLabel("View all classes");
+					JLabel lblViewAllSubjects = new JLabel("View all subjects");
 					lblViewAllSubjects.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseEntered(MouseEvent e) {
