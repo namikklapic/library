@@ -219,19 +219,21 @@ public class NoviNastavnik extends JFrame{
 	}
 	
 	private void saveNastavnik(){
+		
+		String sifra = nastavnik != null ? nastavnik.getKorisnik().getSifraKorisnika() : txtJmbg.getText();
+		
 		String ime = txtIme.getText();
 		String prezime = txtPrezime.getText();
 		String zvanje = txtZvanje.getText();
 		List<Predmet> predmeti = predmetiLookup.getSelectedValues();
 		String password = txtJmbg.getText();
-		String sifra = txtJmbg.getText();
 		
-		Korisnik k = new Korisnik(sifra, ime, prezime, 0);
+		Korisnik k = nastavnik != null ? nastavnik.getKorisnik() : new Korisnik(sifra, ime, prezime, 0);
 		
-		Nastavnik n = nastavnikServiceBean
-				.save(new Nastavnik(k, zvanje, password));
+		Nastavnik n = nastavnik != null ? nastavnikServiceBean.save(nastavnik) :  nastavnikServiceBean.save(new Nastavnik(k, zvanje, password));
 		
-		nastavnikPredmetServiceBean.deletePredmetiForNastavnik(n);
+		if(nastavnik != null)
+			nastavnikPredmetServiceBean.deletePredmetiForNastavnik(n);
 		
 		for(Predmet p : predmeti)
 		{
@@ -239,7 +241,10 @@ public class NoviNastavnik extends JFrame{
 			nastavnikPredmetServiceBean.save(new NastavnikPredmet(nastavnikPredmetPK, n, p));
 		}
 		
-		message = "The teacher has been successfully saved!";
+		if(nastavnik != null)
+			message = "Changes were successfully saved!";
+		else
+			message = "The teacher has been successfully saved!";
 	}
 	
 	private boolean isValidNastavnik(){
