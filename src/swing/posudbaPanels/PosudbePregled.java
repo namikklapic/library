@@ -169,6 +169,7 @@ public class PosudbePregled extends JFrame {
 	}
 	
 	public void refreshTable(boolean isAutomatic) {
+		//trebas imat boolean gore :(
 		if (onlyActive.isSelected()) {
         	PosudbeTableModel activeLoans;
         	if(currUser == null) 
