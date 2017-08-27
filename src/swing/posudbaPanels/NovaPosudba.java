@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
@@ -108,6 +110,13 @@ public class NovaPosudba extends JFrame {
 		txtSearchKorisnik = new JTextField(10);
 		txtSearchKorisnik.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtSearchKorisnik.setBounds(172, 115, 183, 22);
+		txtSearchKorisnik.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtSearchKorisnik.setBackground(Color.WHITE);
+			}
+		});
+		
 		searchKorisnikButton = new JButton("Search");
 		searchKorisnikButton.setBounds(381, 114, 73, 25);
 		searchKorisnikButton.addMouseListener(new MouseAdapter() {
@@ -139,27 +148,33 @@ public class NovaPosudba extends JFrame {
 				if(studentRadBtn.isSelected()){
 					if(txtSearchKorisnik.getText().equals("") || txtSearchKorisnik.getText().equals(null)){
 						message = "Please, enter the student number!";
+						txtSearchKorisnik.setBackground(Color.LIGHT_GRAY);
 						displayMessageDialogBox();
 					}else{
 						try{
 							korisnik = studentServiceBean.searchByIndexNumber(txtSearchKorisnik.getText()).getKorisnik();
 							txtUser.setText(korisnik.getImeKorisnika() + ' ' + korisnik.getPrezimeKorisnika());
+							txtUser.setBackground(Color.WHITE);
 						}catch(Exception e){
 							message = "No user found!";
 							displayMessageDialogBox();
+							txtUser.setText("");
 						}
 					}
 				}else{
 					if(txtSearchKorisnik.getText().equals("") || txtSearchKorisnik.getText().equals(null)){
 						message = "Please, enter the teacher's personal ID!";
+						txtSearchKorisnik.setBackground(Color.LIGHT_GRAY);
 						displayMessageDialogBox();
 					}else{
 						try{
-							korisnik = studentServiceBean.searchByIndexNumber(txtSearchKorisnik.getText()).getKorisnik();
+							korisnik = nastavnikServiceBean.searchByJMBG(txtSearchKorisnik.getText()).getKorisnik();
 							txtUser.setText(korisnik.getImeKorisnika() + ' ' + korisnik.getPrezimeKorisnika());
+							txtUser.setBackground(Color.WHITE);
 						}catch(Exception e){
 							message = "No user found!";
 							displayMessageDialogBox();
+							txtUser.setText("");
 						}
 					}
 				}
@@ -179,6 +194,12 @@ public class NovaPosudba extends JFrame {
 		txtPrimjerak = new JTextField(10);
 		txtPrimjerak.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		txtPrimjerak.setBounds(172, 191, 282, 22);
+		txtPrimjerak.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtPrimjerak.setBackground(Color.WHITE);
+			}
+		});
 		panel.add(primjerakLabel);
 		panel.add(txtPrimjerak);
 		
