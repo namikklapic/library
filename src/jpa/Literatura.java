@@ -2,7 +2,7 @@ package jpa;
 
 import java.io.Serializable;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -18,11 +18,11 @@ public class Literatura implements Serializable {
 	@EmbeddedId
 	private LiteraturaPK id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="knjigaid")
 	private Knjiga knjiga;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="sifraPredmeta")
 	private Predmet predmet;
 	

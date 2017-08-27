@@ -470,6 +470,8 @@ public class NovaKnjiga extends JFrame {
 			int m = Integer.parseInt(koefs[1]) - 1;
 			int y = Integer.parseInt(koefs[2]) - 1900;
 			Date datum = new Date(y,m,d);
+			//String tempDate = koefs[2] + "-" + koefs[1] + "-" + koefs[0];
+			//Date datum = java.sql.Date.valueOf(tempDate);
 			RezervacijaPK id = new RezervacijaPK(listaDostupnih.get(0).getInventarskiBroj(), currUser.getSifraKorisnika());
 			Rezervacija entity = new Rezervacija(id, listaDostupnih.get(0), currUser, datum, false);
 			rezervacijaServiceBean.save(entity);

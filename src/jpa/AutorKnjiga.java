@@ -2,6 +2,7 @@ package jpa;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -21,11 +22,11 @@ public class AutorKnjiga implements Serializable {
 	@Column(name="redniBrojAutoraNaKnjizi")
 	private int redniBrojAutoraNaKnjizi;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="knjigaid")
 	private Knjiga knjiga;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="autorid")
 	private Autor autor;
 	

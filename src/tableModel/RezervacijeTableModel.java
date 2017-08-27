@@ -1,5 +1,6 @@
 package tableModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +53,7 @@ public class RezervacijeTableModel extends AbstractTableModel {
 		case 3:
 			return r.getPrimjerak().getKnjiga().getNegBodovi();
 		case 4:
-			return r.getDatumRezervacije();
+			return new SimpleDateFormat("dd-MM-yyyy").format(r.getDatumRezervacije());
 		case 5:
 			return r.getKorisnik().getImeKorisnika();
 		case 6:

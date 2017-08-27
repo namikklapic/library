@@ -9,11 +9,11 @@ public class NastavnikPredmet {
 	@EmbeddedId
 	private NastavnikPredmetPK id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="sifraNastavnika")
 	private Nastavnik nastavnik;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="sifraPredmeta")
 	private Predmet predmet;
 	

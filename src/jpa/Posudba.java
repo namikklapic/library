@@ -14,11 +14,11 @@ public class Posudba implements Serializable {
 	@EmbeddedId
 	private PosudbaPK id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="inventarskiBroj")
 	private Primjerak primjerak;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="sifraKorisnika")
 	private Korisnik korisnik;
 	

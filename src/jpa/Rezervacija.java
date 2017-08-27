@@ -12,11 +12,11 @@ public class Rezervacija implements Serializable {
 	@EmbeddedId
 	private RezervacijaPK id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="inventarskiBroj")
 	private Primjerak primjerak;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name="sifraKorisnika")
 	private Korisnik korisnik;
 	

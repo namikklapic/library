@@ -28,10 +28,10 @@ public class Knjiga {
 	private int negBodovi;
 	private int brojPrimjeraka;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	private VrstaKnjige vrsta;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Izdavac izdavac;
 	
 	

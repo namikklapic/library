@@ -17,7 +17,7 @@ public class Primjerak implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date datumnabavke;
 	private String stanje;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Knjiga knjiga;
 	private Boolean rezervisan;
 	private Boolean posudjen;

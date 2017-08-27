@@ -139,7 +139,7 @@ public RezervacijePregled(Korisnik k){
 		
 		scrollPane.setViewportView(table);
 		panel.add(scrollPane);
-		//if(currUser == null)
+		if(currUser == null)
 			panel.add(confirm);
 		panel.add(onlyActive);
 		

@@ -1,5 +1,6 @@
 package tableModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,11 +54,13 @@ public class PosudbeTableModel extends AbstractTableModel {
 		case 3:
 			return p.getPrimjerak().getKnjiga().getNegBodovi();
 		case 4:
-			return p.getId().getDatumPosudbe();
+			return new SimpleDateFormat("dd-MM-yyyy").format(p.getId().getDatumPosudbe());
 		case 5:
-			return p.getKrajnjiDatumVracanja();
+			return new SimpleDateFormat("dd-MM-yyyy").format(p.getKrajnjiDatumVracanja());
 		case 6:
-			return p.getDatumVracanja();
+			if(p.getDatumVracanja() != null)
+				return new SimpleDateFormat("dd-MM-yyyy").format(p.getDatumVracanja());
+			else return "";
 		default:
 			return null;
 		}
