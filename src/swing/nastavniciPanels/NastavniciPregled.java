@@ -43,6 +43,8 @@ public class NastavniciPregled extends JFrame{
 		setSize(700, 600);
 		setResizable(false);
 		
+		searchClicked = false;
+		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
@@ -57,7 +59,9 @@ public class NastavniciPregled extends JFrame{
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
+				searchClicked = true;
 				refreshTable();
+				searchClicked = false;
 			}
 		});
 
@@ -123,8 +127,10 @@ public class NastavniciPregled extends JFrame{
 					NoviNastavnik nn = new NoviNastavnik(n);
 					nn.prikazi();
 				}else{
+					searchClicked = true;
 					message = "No item selected!";
 					displayMessageDialogBox();
+					searchClicked = false;
 				}
 			}
 		});
@@ -195,6 +201,8 @@ public class NastavniciPregled extends JFrame{
 	}
 	
 	private void displayMessageDialogBox(){
+		if(this.isVisible() ==  false || searchClicked == false)
+			return;
 		JOptionPane dialogBox = new JOptionPane();
 		dialogBox.showMessageDialog(panel, message);
 	}
@@ -234,6 +242,7 @@ public class NastavniciPregled extends JFrame{
 	
 	private JPanel panel;
 	private String message;
+	private boolean searchClicked;
 	
 	private JScrollPane scrollPane;
 	private NastavnikTableModel model;

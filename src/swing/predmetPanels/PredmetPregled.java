@@ -143,8 +143,10 @@ public class PredmetPregled extends JFrame {
 					NoviPredmet np = new NoviPredmet(p);
 					np.prikazi();
 				}else{
+					searchClicked = true;
 					message = "No item selected!";
 					displayMessageDialogBox();
+					searchClicked = false;
 				}	
 			}
 		});

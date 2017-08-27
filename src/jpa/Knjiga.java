@@ -41,7 +41,7 @@ public class Knjiga {
 			int negBodovi, int brojPrimjeraka, Izdavac izdavac, VrstaKnjige vrsta){
 		this.id = id;
 		this.naslov = naslov;
-		this.originalniNaslov = orgNaslov;
+		this.originalniNaslov = orgNaslov; 
 		this.brojStranica = brojStranica;
 		this.godinaIzdavanja = godinaIzdavanja;
 		this.negBodovi = negBodovi;

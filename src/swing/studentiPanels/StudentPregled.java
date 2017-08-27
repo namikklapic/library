@@ -43,6 +43,8 @@ public class StudentPregled extends JFrame {
 		setSize(1300, 600);
 		setResizable(false);
 		
+		searchClicked = false;
+		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 13, 1276, 574);
@@ -117,7 +119,9 @@ public class StudentPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
+				searchClicked = true;
 				refreshTable();
+				searchClicked = false;
 			}
 		});
 		searchBtn.setBorder(null);
@@ -148,8 +152,10 @@ public class StudentPregled extends JFrame {
 					NoviStudent ns = new NoviStudent(s);
 					ns.prikazi();
 				}else{
+					searchClicked = true;
 					message = "No item selected!";
 					displayMessageDialogBox();
+					searchClicked = false;
 				}	
 			}
 		});
@@ -219,6 +225,8 @@ public class StudentPregled extends JFrame {
 	}
 	
 	private void displayMessageDialogBox(){
+		if(this.isVisible() ==  false || searchClicked == false)
+			return;
 		JOptionPane dialogBox = new JOptionPane();
 		dialogBox.showMessageDialog(panel, message);
 	}
@@ -289,6 +297,7 @@ public class StudentPregled extends JFrame {
 	
 	private JPanel panel;
 	private String message;
+	private boolean searchClicked;
 	
 	private JScrollPane scrollPane;
 	private StudentTableModel model;

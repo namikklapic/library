@@ -44,6 +44,8 @@ public class IzdavacPregled extends JFrame {
 		setSize(700, 600);
 		setResizable(false);
 		
+		searchClicked = false;
+		
 		panel  = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 13, 676, 574);
@@ -59,7 +61,9 @@ public class IzdavacPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
+				searchClicked = true;
 				refreshTable();
+				searchClicked = false;
 				
 			}
 		});
@@ -121,8 +125,10 @@ public class IzdavacPregled extends JFrame {
 					NoviIzdavac ni = new NoviIzdavac(i);
 					ni.prikazi();
 				}else{
+					searchClicked = true;
 					message = "No item selected!";
 					displayMessageDialogBox();
+					searchClicked = false;
 				}
 			}
 		});
@@ -193,6 +199,8 @@ public class IzdavacPregled extends JFrame {
 	}
 	
 	private void displayMessageDialogBox(){
+		if(this.isVisible() ==  false || searchClicked == false)
+			return;
 		JOptionPane dialogBox = new JOptionPane();
 		dialogBox.showMessageDialog(panel, message);
 	}
@@ -228,6 +236,7 @@ public class IzdavacPregled extends JFrame {
 	
 	private JPanel panel;
 	private String message;
+	private Boolean searchClicked; //needed for msgbox search bug on adding anything
 	
 	private JScrollPane scrollPane;
 	private IzdavacTableModel model;

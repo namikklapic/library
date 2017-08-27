@@ -41,6 +41,8 @@ public class VrstaKnjigePregled extends JFrame {
 		setSize(700, 600);
 		setResizable(false);
 		
+		searchClicked = false;
+		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 16, 676, 571);
@@ -55,7 +57,9 @@ public class VrstaKnjigePregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
+				searchClicked = true;
 				refreshTable();
+				searchClicked = false;
 			}
 		});
 		searchBtn.setBorder(null);
@@ -115,8 +119,10 @@ public class VrstaKnjigePregled extends JFrame {
 					NovaVrstaKnjige nvk = new NovaVrstaKnjige(vk);
 					nvk.prikazi();
 				}else{
+					searchClicked = true;
 					message = "No item selected!";
 					displayMessageDialogBox();
+					searchClicked = false;
 				}	
 			}
 		});
@@ -213,6 +219,8 @@ public class VrstaKnjigePregled extends JFrame {
 	}
 	
 	private void displayMessageDialogBox(){
+		if(this.isVisible() ==  false || searchClicked == false)
+			return;
 		JOptionPane dialogBox = new JOptionPane();
 		dialogBox.showMessageDialog(panel, message);
 	}
@@ -221,6 +229,7 @@ public class VrstaKnjigePregled extends JFrame {
 	
 	private JPanel panel;
 	private String message;
+	private boolean searchClicked;
 	
 	private JScrollPane scrollPane;
 	private VrstaKnjigeTableModel model;

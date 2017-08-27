@@ -47,6 +47,8 @@ public class AutorPregled extends JFrame {
 		setSize(700, 600);
 		setResizable(false);
 		
+		searchClicked = false;
+		
 		getContentPane().setLayout(null);
 		
 		panel = new JPanel();
@@ -64,7 +66,9 @@ public class AutorPregled extends JFrame {
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
+				searchClicked = true;
 				refreshTable();
+				searchClicked = false;
 			}
 		});
 		searchBtn.setBorder(null);
@@ -125,8 +129,10 @@ public class AutorPregled extends JFrame {
 						NoviAutor na = new NoviAutor(a);
 						na.prikazi();
 					}else{
+						searchClicked = true;
 						message = "No item selected!";
 						displayMessageDialogBox();
+						searchClicked = false;
 					}
 					
 				}
@@ -200,6 +206,8 @@ public class AutorPregled extends JFrame {
 	}
 	
 	private void displayMessageDialogBox(){
+		if(this.isVisible() ==  false || searchClicked == false)
+			return;
 		JOptionPane dialogBox = new JOptionPane();
 		dialogBox.showMessageDialog(panel, message);
 	}
@@ -248,6 +256,8 @@ public class AutorPregled extends JFrame {
 	private AutorTableModel model;
 	private JScrollPane scrollPane;
 	private JTable table;
+	
+	private Boolean searchClicked;
 	
 	private JLabel searchLabel;
 	private JTextField txtSearchFilter;
