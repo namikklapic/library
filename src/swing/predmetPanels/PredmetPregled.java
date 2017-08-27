@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -82,6 +84,12 @@ public class PredmetPregled extends JFrame {
 		
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setBounds(468, 121, 196, 22);
+		txtSearchFilter.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtSearchFilter.setBackground(Color.WHITE);
+			}
+		});
 		
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
