@@ -58,6 +58,8 @@ public class KnjigaPregled extends JFrame {
 		setSize(1000, 600);
 		setResizable(false);
 		
+		searchClicked = false;
+		
 		panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255,150));
 		panel.setBounds(12, 13, 976, 574);
@@ -174,8 +176,10 @@ public class KnjigaPregled extends JFrame {
 					NovaKnjiga nk = new NovaKnjiga(k, canEdit, currUser);
 					nk.prikazi();
 				}else{
+					searchClicked = true;
 					message = "No item selected!";
 					displayMessageDialogBox();
+					searchClicked = false;
 				}
 			}
 		});
@@ -280,10 +284,12 @@ public class KnjigaPregled extends JFrame {
 	public void refreshTable() {
 		String criteria = (String)cbSearchFilters.getSelectedItem();
 		String filter = txtSearchFilter.getText();
+		boolean success = true;
 		
 		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter the value in search filter!";
+			success = false;
 			displayMessageDialogBox();
 		}
 		else{
@@ -299,6 +305,7 @@ public class KnjigaPregled extends JFrame {
 				if(spliter.length != 2){
 					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 					message = "Please, enter the author's first and last name!";
+					success = false;
 					displayMessageDialogBox();
 				}else{
 					if(onlyAvail.isSelected())
@@ -326,10 +333,12 @@ public class KnjigaPregled extends JFrame {
 					model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
 			}
 			
-			table.setModel(model);
-			if(table.getRowCount() == 0){
-				message = "No result found!";
-				displayMessageDialogBox();
+			if(success){
+				table.setModel(model);
+				if(table.getRowCount() == 0){
+					message = "No result found!";
+					displayMessageDialogBox();
+				}
 			}
 		}
 		
@@ -343,6 +352,7 @@ public class KnjigaPregled extends JFrame {
 		cbSearchFilters.setSelectedItem("Book title");
 		txtSearchFilter.setEditable(true);
 		table.getSelectionModel().clearSelection();
+		onlyAvail.setSelected(false);
 		
 		model = new KnjigaTableModel();
 		table.setModel(model);
