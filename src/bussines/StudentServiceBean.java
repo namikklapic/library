@@ -116,13 +116,10 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 	}
 	
 	public Student save(Student entity) {
-		Student find = em.find(Student.class, entity.getBrojIndeksa());
+		Student find = em.find(Student.class, entity.getKorisnik().getSifraKorisnika());
 		if (find != null) {
 			em.getTransaction().begin();
-			find.setBrojIndeksa(entity.getBrojIndeksa());
-			find.setKorisnik(entity.getKorisnik());
-			find.setPassword(entity.getPassword());
-			find.setUpisaniSemestar(entity.getUpisaniSemestar());
+			em.merge(entity);
 			em.getTransaction().commit();
 		} else {
 			super.save(entity);

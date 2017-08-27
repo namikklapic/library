@@ -10,13 +10,11 @@ public class Student implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private String brojIndeksa;
-	
-	private String password;
-	
 	@OneToOne(cascade=CascadeType.PERSIST)
+	@Id
 	private Korisnik korisnik;
+	private String password;
+	private String brojIndeksa;
 	private int uspisaniSemestar;
 	
 	public Student() {}

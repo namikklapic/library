@@ -199,6 +199,7 @@ public class NoviStudent extends JFrame {
 		txtIme.setText(s.getKorisnik().getImeKorisnika());
 		txtPrezime.setText(s.getKorisnik().getPrezimeKorisnika());
 		txtBrojIndeksa.setText(s.getBrojIndeksa());
+		txtBrojIndeksa.setEditable(false);
 		txtUpisaniSem.setText(Integer.toString(s.getUpisaniSemestar()));
 		
 		txtJmbg.setText(s.getPassword());
@@ -211,15 +212,17 @@ public class NoviStudent extends JFrame {
 	
 	private void saveStudent() {
 		
+		String sifra = student != null ? student.getKorisnik().getSifraKorisnika() : txtJmbg.getText();
+		String brojIndeksa = student != null ? student.getBrojIndeksa() : txtBrojIndeksa.getText();
+		
 		String ime = txtIme.getText();
 		String prezime = txtPrezime.getText();
 		String pass = txtJmbg.getText();
-		String brojIndeksa = txtBrojIndeksa.getText();
 		int upisaniSem = Integer.parseInt(txtUpisaniSem.getText());
 		
-		String sifra = student != null ? student.getKorisnik().getSifraKorisnika() : txtJmbg.getText();
+		Integer brojNeg = student != null ? student.getKorisnik().getBrojNegativnihBodova() : 0;
 		
-		Korisnik k = student != null ? student.getKorisnik() : new Korisnik(sifra, ime, prezime, 0);
+		Korisnik k = new Korisnik(sifra, ime, prezime, brojNeg);
 		
 		studentServiceBean.save(new Student(k, brojIndeksa, pass, upisaniSem));
 		
@@ -268,19 +271,19 @@ public class NoviStudent extends JFrame {
 			message = "Student with the entered index number alreday exists!";
 			return false;
 		}	
-		else if(student != null){
-			if(student.getKorisnik().getSifraKorisnika().equals(txtJmbg.getText()) && student.getBrojIndeksa().equals(txtBrojIndeksa.getText())) {
-				return true;
-			}
-			else if(studentServiceBean.existsStudentByIndexNum(txtBrojIndeksa.getText())){
-				message = "Student with the entered index number already exists!";
-				return false;
-			}
-			else if(studentServiceBean.existsStudent(txtJmbg.getText())){
-				message = "The entered student already exists!";
-				return false;
-			}
-		}
+//		else if(student != null){
+//			if(student.getKorisnik().getSifraKorisnika().equals(txtJmbg.getText()) && student.getBrojIndeksa().equals(txtBrojIndeksa.getText())) {
+//				return true;
+//			}
+//			else if(studentServiceBean.existsStudentByIndexNum(txtBrojIndeksa.getText())){
+//				message = "Student with the entered index number already exists!";
+//				return false;
+//			}
+//			else if(studentServiceBean.existsStudent(txtJmbg.getText())){
+//				message = "The entered student already exists!";
+//				return false;
+//			}
+//		}
 		return true;
 	}
 	

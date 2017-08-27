@@ -212,8 +212,9 @@ public class Lookup<T, U> extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				setSelectedItems(selectedItems);
-
+				try{
+					setSelectedItems(selectedItems);
+				}catch(IllegalStateException ise) {}
 			}
 		});
 		openDialog.setBorder(null);

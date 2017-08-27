@@ -232,6 +232,7 @@ public class NastavniciPregled extends JFrame{
 		if(filter.equals(null) || filter.equals("")){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter value in the search filter!";
+			success = false;
 			displayMessageDialogBox();
 		}
 		else if(filter.equals("*"))
