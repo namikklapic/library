@@ -652,7 +652,11 @@ public class NovaKnjiga extends JFrame {
 			temp.setPosudjen(false);
 			primjerakServiceBean.save(temp);
 		}
-		message = "The book has been successfully saved!";
+		
+		if(knjiga != null)
+			message = "Changes were successfully saved!";
+		else
+			message = "The book has been successfully saved!";
 	}
 	
 	public void refreshTable() {
