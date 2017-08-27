@@ -125,5 +125,21 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 		return entity;
 	}
 	
+	public boolean existsKnjiga(String naslov, String orignaslov, int godina, String vrsta, String izdavac){
+		Knjiga result = null;
+		try{
+			result = (Knjiga)em.createQuery("Select k from Knjiga k where k.naslov=:naslov and k.originalniNaslov=:orignaslov and k.godinaIzdavanja=:godina and k.vrsta.nazivVrste=:vrsta and k.izdavac.nazivIzdavaca=:izdavac")
+					.setParameter("naslov", naslov)
+					.setParameter("orignaslov", orignaslov)
+					.setParameter("godina", godina)
+					.setParameter("vrsta", vrsta)
+					.setParameter("izdavac", izdavac)
+					.getSingleResult();
+		}catch(NoResultException nre){}
+		
+		if(result != null)
+			return true;
+		return false;
+	}
 	
 }

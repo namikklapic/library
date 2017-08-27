@@ -609,6 +609,11 @@ public class NovaKnjiga extends JFrame {
 			txtBrPrimjeraka.setBackground(Color.LIGHT_GRAY);
 			return false;
 		}
+		else if(knjiga == null && knjigaServiceBean.existsKnjiga(txtNaslov.getText(), txtOrgNaslov.getText(), Integer.parseInt(txtGodIzdavanja.getText()), cbVrstaKnjige.getSelectedItem().toString(), cbIzdavac.getSelectedItem().toString())){
+			message = "The entered book already exists!";
+			return false;
+		}
+		
 		return true;
 	}
 	
