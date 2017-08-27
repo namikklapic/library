@@ -116,7 +116,7 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 	}
 	
 	public Student save(Student entity) {
-		Student find = em.find(Student.class, entity.getKorisnik().getSifraKorisnika());
+		Student find = em.find(Student.class, entity.getBrojIndeksa());
 		if (find != null) {
 			em.getTransaction().begin();
 			em.merge(entity);
