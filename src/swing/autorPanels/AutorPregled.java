@@ -104,7 +104,7 @@ public class AutorPregled extends JFrame {
 			scrollPane.setOpaque(false);
 			scrollPane.setBounds(0, 0, 458, 571);
 			
-			model = new AutorTableModel();
+			model = new AutorTableModel(autorServiceBean.getAll());
 			table = new JTable(model);
 			table.addMouseListener(new MouseAdapter() {
 				@Override
@@ -224,7 +224,7 @@ public class AutorPregled extends JFrame {
 		txtSearchFilter.setBackground(Color.WHITE);
 		table.getSelectionModel().clearSelection();
 		
-		model = new AutorTableModel();
+		model = new AutorTableModel(autorServiceBean.getAll());
 		table.setModel(model);
 	}
 	
@@ -233,8 +233,15 @@ public class AutorPregled extends JFrame {
 		boolean success = true;
 		
 		if(filter.equals(null) || filter.equals("")){
-			model = new AutorTableModel(autorServiceBean.getAllAutor());
-		}else{
+			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+			message = "Please, enter the value in search filter!";
+			success = false;
+			displayMessageDialogBox();
+		}
+		else if(filter.equals("*")){
+			model = new AutorTableModel(autorServiceBean.getAll());
+		}
+		else{
 			String[] spliter = filter.split(" ");
 			if(spliter.length != 2){
 				message = "Please, enter author's first and last name!";

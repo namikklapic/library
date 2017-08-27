@@ -104,7 +104,7 @@ public class NastavniciPregled extends JFrame{
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 676, 418);
 		
-		model = new NastavnikTableModel();
+		model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -221,7 +221,7 @@ public class NastavniciPregled extends JFrame{
 		txtSearchFilter.setBackground(Color.WHITE);
 		table.getSelectionModel().clearSelection();
 		
-		model = new NastavnikTableModel();
+		model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
 		table.setModel(model);
 	}
 	
@@ -230,8 +230,13 @@ public class NastavniciPregled extends JFrame{
 		boolean success = true;
 		
 		if(filter.equals(null) || filter.equals("")){
+			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+			message = "Please, enter value in the search filter!";
+			displayMessageDialogBox();
+		}
+		else if(filter.equals("*"))
 			model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
-		}else{
+		else{
 			String[] spliter = filter.split(" ");
 			if(spliter.length != 2){
 				message = "Please, enter teacher's first and last name!";

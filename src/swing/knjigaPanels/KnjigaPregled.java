@@ -70,7 +70,7 @@ public class KnjigaPregled extends JFrame {
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 758, 574);
-		model = new KnjigaTableModel();
+		model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -98,20 +98,20 @@ public class KnjigaPregled extends JFrame {
 		panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtSearchFilter.setBounds(770, 95, 198, 28);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				txtSearchFilter.setBackground(Color.WHITE);
 			}
 		});
-		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtSearchFilter.setBounds(770, 95, 198, 28);
-		//ovdje Ismare dodaj action da se boja promijeni kad kliknes na polje
 	
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		cbSearchFilters.setBounds(770, 54, 198, 28);
 		cbSearchFilters.addItem("Book title");
+		cbSearchFilters.addItem("Book type");
 		cbSearchFilters.addItem("Author");
 		cbSearchFilters.addItem("Publisher");
 		cbSearchFilters.addItem("Subject");
@@ -300,6 +300,13 @@ public class KnjigaPregled extends JFrame {
 					model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByNaslov(filter));
 			}
 			
+			else if(criteria.equals("Book type")){
+				if(onlyAvail.isSelected())
+					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByVrsta(filter));
+				else
+					model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByVrsta(filter));
+			}
+			
 			else if(criteria.equals("Author")){
 				String[] spliter = filter.split(" ");
 				if(spliter.length != 2){
@@ -354,7 +361,7 @@ public class KnjigaPregled extends JFrame {
 		table.getSelectionModel().clearSelection();
 		onlyAvail.setSelected(false);
 		
-		model = new KnjigaTableModel();
+		model = new KnjigaTableModel(knjigaServiceBean.getAllKnjige());
 		table.setModel(model);
 	}
 	

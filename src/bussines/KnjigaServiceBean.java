@@ -85,6 +85,22 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 		return result;
 	}
 	/**
+	 * 
+	 * @return List of Knjiga with the specified izdavac
+	 */
+	public List<Knjiga> getKnjigaByVrsta(String vrsta) {
+		List<Knjiga> result = null;
+		try{
+			result = em.createQuery("Select k from Knjiga k where k.vrsta.nazivVrste=:vrsta")
+					.setParameter("vrsta", vrsta)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+		}catch(NoResultException nre) {}
+
+		return result;
+	}
+	/**
 	 * Save Knjiga to database or change existing one.
 	 */
 	public Knjiga save(Knjiga entity) {

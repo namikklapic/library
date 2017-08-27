@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -56,6 +58,13 @@ public class IzdavacPregled extends JFrame {
 		searchLabel.setBounds(470, 30, 194, 25);
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setBounds(470, 68, 194, 25);
+		txtSearchFilter.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtSearchFilter.setBackground(Color.WHITE);
+			}
+		});
+		
 		searchBtn = new JButton("Search");
 		searchBtn.setBounds(522, 106, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
@@ -93,7 +102,7 @@ public class IzdavacPregled extends JFrame {
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 458, 574);
 		
-		model = new IzdavacTableModel();
+		model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -210,15 +219,21 @@ public class IzdavacPregled extends JFrame {
 		txtSearchFilter.setBackground(Color.WHITE);
 		table.getSelectionModel().clearSelection();
 		
-		model = new IzdavacTableModel();
+		model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
 		table.setModel(model);
 	}
 	
 	public void refreshTable() {
 		String filter = txtSearchFilter.getText();
+		
 		if(filter.equals(null) || filter.equals("")){
+			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+			message = "Please, enter value in the search filter!";
+			displayMessageDialogBox();
+		}
+		else if(filter.equals("*"))
 			model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
-		}else
+		else
 			model = new IzdavacTableModel(izdavacServiceBean.getIzdavacByNaziv(filter));
 		
 		table.setModel(model);

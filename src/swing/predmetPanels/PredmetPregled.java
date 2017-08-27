@@ -54,7 +54,7 @@ public class PredmetPregled extends JFrame {
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 422, 571);
-		model = new PredmetTableModel();
+		model = new PredmetTableModel(predmetServiceBean.getAll());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -291,7 +291,7 @@ public class PredmetPregled extends JFrame {
 		txtSearchFilter.setEditable(true);
 		
 		table.getSelectionModel().clearSelection();
-		model = new PredmetTableModel();
+		model = new PredmetTableModel(predmetServiceBean.getAll());
 		table.setModel(model);
 	}
 

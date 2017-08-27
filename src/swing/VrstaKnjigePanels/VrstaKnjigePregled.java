@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -52,6 +54,13 @@ public class VrstaKnjigePregled extends JFrame {
 		searchLabel.setBounds(470, 31, 194, 25);
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setBounds(470, 69, 194, 25);
+		txtSearchFilter.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtSearchFilter.setBackground(Color.WHITE);
+			}
+		});
+		
 		searchBtn = new JButton("Search");
 		searchBtn.setBounds(521, 107, 97, 37);
 		searchBtn.addActionListener(new ActionListener(){
@@ -87,7 +96,7 @@ public class VrstaKnjigePregled extends JFrame {
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 458, 571);
 		
-		model = new VrstaKnjigeTableModel();
+		model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -196,15 +205,22 @@ public class VrstaKnjigePregled extends JFrame {
 	private void clearUIElements(){
 		txtSearchFilter.setText("");
 		table.getSelectionModel().clearSelection();
-		model = new VrstaKnjigeTableModel();
+		model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
 		table.setModel(model);
 	}
 	
 	public void refreshTable() {
+		
 		String filter = txtSearchFilter.getText();
+		
 		if(filter.equals(null) || filter.equals("")){
+			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+			message = "Please, enter value in the search filter!";
+			displayMessageDialogBox();
+		}
+		else if(filter.equals("*"))
 			model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
-		}else{
+		else{
 			model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getVrstaKnjigeByNaziv(filter));
 		}
 		table.setModel(model);

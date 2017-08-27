@@ -99,6 +99,23 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		} catch(NoResultException nre) {}
 		return available;	
 	}
+	
+	public List<Knjiga> getAllAvailableKnjigeByVrsta(String vrsta){
+		List<Knjiga> result = null;
+		List<Knjiga> available = new ArrayList<Knjiga>();
+		try{
+			result = em.createQuery("Select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0")
+					.getResultList();
+			for(int i = 0; i < result.size(); i++)
+				em.refresh(result.get(i));
+			for(Knjiga k : result){
+				if(!available.contains(k) && k.getVrsta().getNazivVrste().equals(vrsta))
+					available.add(k);
+			}
+		}catch(NoResultException nre){}
+		
+		return available;
+	}
 
 	
 	public List<Knjiga> getAllAvailableKnjigeByAutor(String ime, String prezime) {

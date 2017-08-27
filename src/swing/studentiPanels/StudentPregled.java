@@ -55,7 +55,7 @@ public class StudentPregled extends JFrame {
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
 		scrollPane.setBounds(0, 0, 954, 574);
-		model = new StudentTableModel();
+		model = new StudentTableModel(studentServiceBean.getAllStudent());
 		table = new JTable(model);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -83,15 +83,15 @@ public class StudentPregled extends JFrame {
 		panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtSearchFilter.setBounds(1024, 95, 198, 28);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
 				txtSearchFilter.setBackground(Color.WHITE);
 			}
 		});
-		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtSearchFilter.setBounds(1024, 95, 198, 28);
-	
+
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		cbSearchFilters.setBounds(1024, 54, 198, 28);
@@ -238,7 +238,7 @@ public class StudentPregled extends JFrame {
 		txtSearchFilter.setEditable(true);
 		
 		table.getSelectionModel().clearSelection();
-		model = new StudentTableModel();
+		model = new StudentTableModel(studentServiceBean.getAllStudent());
 		table.setModel(model);
 	}
 	
