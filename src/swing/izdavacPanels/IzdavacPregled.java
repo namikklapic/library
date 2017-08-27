@@ -247,6 +247,8 @@ public class IzdavacPregled extends JFrame {
 		
 		if(table.getRowCount() == 0){
 			message = "No result found!";
+			getContentPane().repaint();
+			getContentPane().revalidate();
 			displayMessageDialogBox();
 		}
 		

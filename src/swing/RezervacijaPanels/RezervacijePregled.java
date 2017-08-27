@@ -201,6 +201,8 @@ public RezervacijePregled(Korisnik k){
 	        	else 
 	        		activeLoans = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijeByKorisnik(currUser));	
 		        table.setModel(activeLoans);
+		    	getContentPane().repaint();
+				getContentPane().revalidate();
 	        } else {	
 	        	RezervacijeTableModel loans;
 	        	if(currUser == null) 
@@ -208,6 +210,8 @@ public RezervacijePregled(Korisnik k){
 	        	else 
 	        		loans = new RezervacijeTableModel(rezervacijaServiceBean.getRezervacijeByKorisnik(currUser));
 		        table.setModel(loans);
+		    	getContentPane().repaint();
+				getContentPane().revalidate();
 	        }	
 	}
 	

@@ -176,6 +176,8 @@ public class PosudbePregled extends JFrame {
         	else 
         		activeLoans = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByKorisnik(currUser));	
 	        table.setModel(activeLoans);
+	    	getContentPane().repaint();
+			getContentPane().revalidate();
         } else {	
         	PosudbeTableModel loans;
         	if(currUser == null) 
@@ -183,6 +185,8 @@ public class PosudbePregled extends JFrame {
         	else 
         		loans = new PosudbeTableModel(posudbaServiceBean.getPosudbeByKorisnik(currUser));
 	        table.setModel(loans);
+	    	getContentPane().repaint();
+			getContentPane().revalidate();
         }
 	}
 	
