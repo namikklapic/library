@@ -1563,57 +1563,57 @@ public class PanelBibliotekar extends JFrame{
 	
 	public void updateInterface(String reason) {
 		if(reason == "Update AuthorKnjiga") {
-			pregledKnjiga.refreshTable();
+			pregledKnjiga.refreshTable(true);
 		}
 		else if(reason == "Update Author") {
-			pregledKnjiga.refreshTable();
-			autorPregled.refreshTable();
+			pregledKnjiga.refreshTable(true);
+			autorPregled.refreshTable(true);
 		}
 		else if(reason == "Update Bibliotekar") {
-			rezervacijePregled.refreshTable();
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Izdavac") {
-			pregledKnjiga.refreshTable();
-			pregledIzdavac.refreshTable();
+			pregledKnjiga.refreshTable(true);
+			pregledIzdavac.refreshTable(true);
 			novaKnjiga.refreshTable();
 		}
 		else if(reason == "Update Knjiga") {
-			pregledKnjiga.refreshTable();
-			posudbePregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			pregledKnjiga.refreshTable(true);
+			posudbePregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update NastavnikPredmet") {
-			
+			nastavniciPregled.refreshTable(false);
 		}
 		else if(reason == "Update Nastavnik") {
-			nastavniciPregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			nastavniciPregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 			
 		}
 		else if(reason == "Update Posudba") {
-			pregledKnjiga.refreshTable();
-			posudbePregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			pregledKnjiga.refreshTable(true);
+			posudbePregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Predmet") {
-			predmetPregled.refreshTable();
+			predmetPregled.refreshTable(true);
 		}
 		else if(reason == "Update Primjerak") {
-			pregledKnjiga.refreshTable();
-			posudbePregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			pregledKnjiga.refreshTable(true);
+			posudbePregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Rezervacija") {
-			pregledKnjiga.refreshTable();
-			rezervacijePregled.refreshTable();
+			pregledKnjiga.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Student") {
-			studentPregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			studentPregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update VrstaKnjige") {
-			pregledKnjiga.refreshTable();
-			vrstaKnjigePregled.refreshTable();
+			pregledKnjiga.refreshTable(true);
+			vrstaKnjigePregled.refreshTable(true);
 			novaKnjiga.refreshTable();
 		}
 	}

@@ -54,50 +54,50 @@ public class PanelStudent extends JFrame {
 	
 	public void updateInterface(String reason) {
 		if(reason == "Update AuthorKnjiga") {
-			knjigaPregled.refreshTable();
+			knjigaPregled.refreshTable(true);
 		}
 		else if(reason == "Update Author") {
-			knjigaPregled.refreshTable();
+			knjigaPregled.refreshTable(true);
 		}
 		else if(reason == "Update Bibliotekar") {
-			rezervacijePregled.refreshTable();
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Izdavac") {
-			knjigaPregled.refreshTable();
+			knjigaPregled.refreshTable(true);
 		}
 		else if(reason == "Update Knjiga") {
-			knjigaPregled.refreshTable();
-			posudbePregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			knjigaPregled.refreshTable(true);
+			posudbePregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update NastavnikPredmet") {
 			
 		}
 		else if(reason == "Update Nastavnik") {
-			rezervacijePregled.refreshTable();
+			rezervacijePregled.refreshTable(true);
 			
 		}
 		else if(reason == "Update Posudba") {
-			knjigaPregled.refreshTable();
-			posudbePregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			knjigaPregled.refreshTable(true);
+			posudbePregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Predmet") {
 		}
 		else if(reason == "Update Primjerak") {
-			knjigaPregled.refreshTable();
-			posudbePregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			knjigaPregled.refreshTable(true);
+			posudbePregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Rezervacija") {
-			knjigaPregled.refreshTable();
-			rezervacijePregled.refreshTable();
+			knjigaPregled.refreshTable(true);
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update Student") {
-			rezervacijePregled.refreshTable();
+			rezervacijePregled.refreshTable(true);
 		}
 		else if(reason == "Update VrstaKnjige") {
-			knjigaPregled.refreshTable();
+			knjigaPregled.refreshTable(true);
 		}
 	}
 	

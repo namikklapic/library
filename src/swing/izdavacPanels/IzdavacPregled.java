@@ -72,7 +72,7 @@ public class IzdavacPregled extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent event){
 				searchClicked = true;
-				refreshTable();
+				refreshTable(false);
 				searchClicked = false;
 				
 			}
@@ -230,15 +230,15 @@ public class IzdavacPregled extends JFrame {
 		table.setModel(model);
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		String filter = txtSearchFilter.getText();
 		
-		if(filter.equals(null) || filter.equals("")){
+		if(!isAutomatic && filter.equals(null) || filter.equals("")){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter value in the search filter!";
 			displayMessageDialogBox();
 		}
-		else if(filter.equals("*"))
+		else if(filter.equals("*") || isAutomatic)
 			model = new IzdavacTableModel(izdavacServiceBean.getAllIzdavac());
 		else
 			model = new IzdavacTableModel(izdavacServiceBean.getIzdavacByNaziv(filter));

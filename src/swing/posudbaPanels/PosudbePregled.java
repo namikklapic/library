@@ -94,7 +94,7 @@ public class PosudbePregled extends JFrame {
 		 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        refreshTable();
+		        refreshTable(false);
 		    }
 		}
 		getContentPane().setLayout(null);
@@ -168,7 +168,7 @@ public class PosudbePregled extends JFrame {
 		return item;
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		if (onlyActive.isSelected()) {
         	PosudbeTableModel activeLoans;
         	if(currUser == null) 

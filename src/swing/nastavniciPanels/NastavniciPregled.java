@@ -70,7 +70,7 @@ public class NastavniciPregled extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent event){
 				searchClicked = true;
-				refreshTable();
+				refreshTable(false);
 				searchClicked = false;
 			}
 		});
@@ -232,17 +232,17 @@ public class NastavniciPregled extends JFrame{
 		table.setModel(model);
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		String filter = txtSearchFilter.getText();
 		boolean success = true;
 		
-		if(filter.equals(null) || filter.equals("")){
+		if(!isAutomatic && filter.equals(null) || filter.equals("")){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter value in the search filter!";
 			success = false;
 			displayMessageDialogBox();
 		}
-		else if(filter.equals("*"))
+		else if(filter.equals("*") || isAutomatic)
 			model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
 		else{
 			String[] spliter = filter.split(" ");

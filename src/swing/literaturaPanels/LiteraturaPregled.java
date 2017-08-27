@@ -197,7 +197,7 @@ public class LiteraturaPregled extends JFrame {
 		return item;
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		currentPredmet = (Predmet)cbPredmeti.getSelectedItem();
 		novaLiteratura = new NovaLiteratura(currentPredmet, that);
 		update();

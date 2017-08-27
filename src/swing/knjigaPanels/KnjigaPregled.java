@@ -139,7 +139,7 @@ public class KnjigaPregled extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent event){
 				searchClicked = true;
-				refreshTable();
+				refreshTable(false);
 				searchClicked = false;
 			}
 		});
@@ -216,7 +216,7 @@ public class KnjigaPregled extends JFrame {
 		        	table.setModel(books);
 			        }
 			    }*/
-		    	refreshTable();
+		    	refreshTable(false);
 		}
 		}
 				
@@ -288,33 +288,33 @@ public class KnjigaPregled extends JFrame {
 		dialogBox.showMessageDialog(panel, message);
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		String criteria = (String)cbSearchFilters.getSelectedItem();
 		String filter = txtSearchFilter.getText();
 		boolean success = true;
 		
-		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
+		if(!isAutomatic && !criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter the value in search filter!";
 			success = false;
 			displayMessageDialogBox();
 		}
 		else{
-			if(criteria.equals("Book title")) {
+			if(!isAutomatic && criteria.equals("Book title")) {
 				if(onlyAvail.isSelected())
 					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByNaslov(filter));
 				else
 					model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByNaslov(filter));
 			}
 			
-			else if(criteria.equals("Book type")){
+			else if(!isAutomatic && criteria.equals("Book type")){
 				if(onlyAvail.isSelected())
 					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByVrsta(filter));
 				else
 					model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByVrsta(filter));
 			}
 			
-			else if(criteria.equals("Author")){
+			else if(!isAutomatic && criteria.equals("Author")){
 				String[] spliter = filter.split(" ");
 				if(spliter.length != 2){
 					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
@@ -328,13 +328,13 @@ public class KnjigaPregled extends JFrame {
 						model = new KnjigaTableModel(autorKnjigaServiceBean.getKnjigeByAutor(spliter[0], spliter[1]));		
 				}		
 			}
-			else if(criteria.equals("Publisher")){
+			else if(!isAutomatic && criteria.equals("Publisher")){
 				if(onlyAvail.isSelected())
 					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByIzdavac(filter));
 				else
 					model = new KnjigaTableModel(knjigaServiceBean.getKnjigaByIzdavac(filter));	
 			}
-			else if(criteria.equals("Subject")){
+			else if(!isAutomatic && criteria.equals("Subject")){
 				if(onlyAvail.isSelected())
 					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByPredmet(filter));
 				else

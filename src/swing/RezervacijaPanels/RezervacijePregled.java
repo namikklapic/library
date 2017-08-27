@@ -128,7 +128,7 @@ public RezervacijePregled(Korisnik k){
 	 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-	    	refreshTable();
+	    	refreshTable(false);
 	    }
 	}
 	
@@ -193,7 +193,7 @@ public RezervacijePregled(Korisnik k){
 		return item;
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		 if (onlyActive.isSelected()) {
 	        	RezervacijeTableModel activeLoans;
 	        	if(currUser == null) 

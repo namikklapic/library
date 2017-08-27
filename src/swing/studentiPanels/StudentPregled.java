@@ -121,7 +121,7 @@ public class StudentPregled extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent event){
 				searchClicked = true;
-				refreshTable();
+				refreshTable(false);
 				searchClicked = false;
 			}
 		});
@@ -249,21 +249,21 @@ public class StudentPregled extends JFrame {
 		table.setModel(model);
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		String criteria = (String)cbSearchFilters.getSelectedItem();
 		String filter = txtSearchFilter.getText();
 		boolean success = true;
 		
-		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
+		if(!isAutomatic && !criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter the value in search filter!";
 			displayMessageDialogBox();
 		}
 		else{
-			if(criteria.equals("Student number"))
+			if(!isAutomatic && criteria.equals("Student number"))
 				model = new StudentTableModel(studentServiceBean.getStudentByIndexNumber(filter));
 			
-			else if(criteria.equals("Full name")){
+			else if(!isAutomatic && criteria.equals("Full name")){
 				String[] spliter = filter.split(" ");
 				if(spliter.length != 2){
 					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
@@ -273,7 +273,7 @@ public class StudentPregled extends JFrame {
 					model = new StudentTableModel(studentServiceBean.getStudentByFullName(spliter[0], spliter[1]));
 				}		
 			}
-			else if(criteria.equals("Negative points")){
+			else if(!isAutomatic && criteria.equals("Negative points")){
 				try{
 					int bodovi = Integer.parseInt(filter);
 					model = new StudentTableModel(studentServiceBean.getStudentByNegativePoints(bodovi));

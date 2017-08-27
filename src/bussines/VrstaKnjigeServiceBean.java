@@ -77,7 +77,7 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
 		} catch(NoResultException nre) {}
-
+		
 		return result;
 	}
 	

@@ -123,7 +123,7 @@ public class PredmetPregled extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent event){
 				searchClicked = true;
-				refreshTable();
+				refreshTable(false);
 				searchClicked = false;
 			}
 		});
@@ -237,24 +237,24 @@ public class PredmetPregled extends JFrame {
 		return menuItem;
 	}
 	
-	public void refreshTable() {
+	public void refreshTable(boolean isAutomatic) {
 		String criteria = (String)cbSearchFilters.getSelectedItem();
 		String filter = txtSearchFilter.getText();
 		boolean success = true;
 		
-		if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
+		if(!isAutomatic && !criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter the value in search filter!";
 			displayMessageDialogBox();
 		}
 		else{
-			if(criteria.equals("Title"))
+			if(!isAutomatic && criteria.equals("Title"))
 				model = new PredmetTableModel(predmetServiceBean.getPredmetiByNaziv(filter));
 			
-			else if(criteria.equals("Short title"))				
+			else if(!isAutomatic && criteria.equals("Short title"))				
 				model = new PredmetTableModel(predmetServiceBean.getPredmetiBySkracenica(filter));	
 	
-			else if(criteria.equals("Semester")){
+			else if(!isAutomatic && criteria.equals("Semester")){
 				try{
 					int sem = Integer.parseInt(filter);
 					if(sem < 1 || sem > 8){
