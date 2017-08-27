@@ -195,6 +195,10 @@ public class NoviNastavnik extends JFrame{
 		txtPrezime.setText(n.getKorisnik().getPrezimeKorisnika());
 		txtZvanje.setText(n.getAkademskoZvanje());
 		txtNegBodovi.setText(Integer.toString(n.getKorisnik().getBrojNegativnihBodova()));
+		txtJmbg.setText(n.getPassword());
+		txtJmbg.setEditable(false);
+		List<Predmet> mySubjects = nastavnikPredmetServiceBean.getPredmetiByNastavnik(n);
+		predmetiLookup.setSelectedItems(mySubjects);
 	}
 	
 	public JMenuItem getMenuItem(){
