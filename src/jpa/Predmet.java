@@ -57,4 +57,14 @@ public class Predmet {
 	public String toString(){
 		return nazivPredmeta;
 	}
+	public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Predmet)) {
+            return false;
+        }
+        Predmet other = (Predmet) obj;
+        return this.sifraPredmeta.equals(other.sifraPredmeta);
+    }
 }
