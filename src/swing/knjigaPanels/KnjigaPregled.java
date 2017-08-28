@@ -91,6 +91,7 @@ public class KnjigaPregled extends JFrame {
 		table.getTableHeader().setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
 		table.getTableHeader().setOpaque(false);
 		table.getTableHeader().setBackground(new Color(255, 255, 255,150));
+		table.getTableHeader().setEnabled(false);
 		panel.setLayout(null);
 		
 		searchCriteriaLabel = new JLabel("Choose search criteria: ");

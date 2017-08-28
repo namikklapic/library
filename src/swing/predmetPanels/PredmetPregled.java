@@ -77,6 +77,7 @@ public class PredmetPregled extends JFrame {
 		table.getTableHeader().setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
 		table.getTableHeader().setOpaque(false);
 		table.getTableHeader().setBackground(new Color(255, 255, 255,150));
+		table.getTableHeader().setEnabled(false);
 		scrollPane.setViewportView(table);
 		panel_1.setLayout(null);
 		

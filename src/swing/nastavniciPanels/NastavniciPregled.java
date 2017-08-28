@@ -125,6 +125,7 @@ public class NastavniciPregled extends JFrame{
 		table.getTableHeader().setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
 		table.getTableHeader().setOpaque(false);
 		table.getTableHeader().setBackground(new Color(255, 255, 255,150));
+		table.getTableHeader().setEnabled(false);
 		
 		JButton edit = new JButton("Edit");
 		edit.setBounds(225, 521, 97, 37);

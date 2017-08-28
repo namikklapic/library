@@ -86,6 +86,7 @@ public RezervacijePregled(Korisnik k){
 	table.getTableHeader().setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
 	table.getTableHeader().setOpaque(false);
 	table.getTableHeader().setBackground(new Color(255, 255, 255,150));
+	table.getTableHeader().setEnabled(false);
 	currUser = k;
 	
 	confirm = new JButton("Create a loan");

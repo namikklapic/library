@@ -175,6 +175,7 @@ public class LiteraturaPregled extends JFrame {
 		}
 		model = new LiteraturaTableModel(literaturaServiceBean.getLiteraturaOnPredmet(this.currentPredmet));
 		table.setModel(this.model);
+		table.getTableHeader().setEnabled(false);
 		novaLiteratura = new NovaLiteratura(this.currentPredmet, this);
 		this.repaint();
 		this.revalidate();
