@@ -739,7 +739,7 @@ public class PanelNastavnik extends JFrame {
 								lineViewAllBooks.setBounds(341, 370, 201, 3);
 								panelBooks.add(lineViewAllBooks);
 								
-								JLabel viewAllBooks = new JLabel("View my books");
+								JLabel viewAllBooks = new JLabel("View all books");
 								viewAllBooks.addMouseListener(new MouseAdapter() {
 									@Override
 									public void mouseEntered(MouseEvent arg0) {

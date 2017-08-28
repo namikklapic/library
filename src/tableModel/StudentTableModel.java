@@ -9,7 +9,7 @@ import jpa.Student;
 
 public class StudentTableModel extends AbstractTableModel {
 
-	private String[] columnNames = {"JMBG", "First name", "Last name", "Index number", "Current semester", "Negative numbers" };
+	private String[] columnNames = {"JMBG", "First name", "Last name", "Index number", "Current semester", "Negative points" };
 	private List<Student> studenti;
 
 	public StudentTableModel() {
