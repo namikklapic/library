@@ -72,6 +72,8 @@ public class NastavniciPregled extends JFrame{
 				searchClicked = true;
 				refreshTable(false);
 				searchClicked = false;
+				getContentPane().repaint();
+				getContentPane().revalidate();
 			}
 		});
 

@@ -447,10 +447,13 @@ public class PanelPrijava extends JPanel {
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.getContentPane().add(panelPrijava);
 			frame.setTitle("Login");
+			
+			
 		}
 		@Override
 		public void windowClosing(WindowEvent event){
-			frame.setVisible(true);
+			//frame.setVisible(true);
+			System.exit(1);
 		}
 		private JFrame frame;
 	}
