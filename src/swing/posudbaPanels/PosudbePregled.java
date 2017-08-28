@@ -104,10 +104,14 @@ public class PosudbePregled extends JFrame {
 		getContentPane().setLayout(null);
 		
 		//book review --------- search criteria ----------------------------------------------------------
-		searchCriteriaLabel = new JLabel("Choose search criteria: ");
+		searchCriteriaLabel = new JLabel("Choose search criteria : ");
+		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		searchCriteriaLabel.setBounds(32, 458, 195, 33);
 		panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
+		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		txtSearchFilter.setBounds(598, 458, 195, 33);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -116,6 +120,8 @@ public class PosudbePregled extends JFrame {
 		});
 		
 		cbSearchFilters = new JComboBox<String>();
+		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		cbSearchFilters.setBounds(213, 458, 195, 33);
 		cbSearchFilters.addItem("Student");
 		cbSearchFilters.addItem("Teacher");
 		cbSearchFilters.addItem("Show all");
@@ -135,6 +141,7 @@ public class PosudbePregled extends JFrame {
 		panel.add(txtSearchFilter);
 		
 		searchBtn = new JButton("Search");
+		searchBtn.setBounds(805, 456, 156, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -153,6 +160,11 @@ public class PosudbePregled extends JFrame {
 				searchBtn.setBackground(Color.DARK_GRAY);
 			}
 		});
+		searchBtn.setForeground(Color.WHITE);
+		searchBtn.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		searchBtn.setFocusPainted(false);
+		searchBtn.setBorder(null);
+		searchBtn.setBackground(Color.DARK_GRAY);
 		panel.add(searchBtn);
 		
 		closeLoan = new JButton("Close the loan");
@@ -188,7 +200,7 @@ public class PosudbePregled extends JFrame {
 		onlyActive.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		onlyActive.setFocusPainted(false);
 		onlyActive.setOpaque(true);
-		onlyActive.setBounds(537, 443, 202, 33);
+		onlyActive.setBounds(1010, 458, 232, 33);
 		onlyActive.setSelected(false);
 		panel.setLayout(null);
 		
@@ -234,6 +246,11 @@ public class PosudbePregled extends JFrame {
 		lblViewAll.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
 		lblViewAll.setBounds(460, 13, 355, 32);
 		panel.add(lblViewAll);
+		
+		JLabel lblTypeToSearch = new JLabel("Type to search :");
+		lblTypeToSearch.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+		lblTypeToSearch.setBounds(468, 458, 134, 33);
+		panel.add(lblTypeToSearch);
 	}
 	
 	public JMenuItem getMenuItem(JPanel parent){

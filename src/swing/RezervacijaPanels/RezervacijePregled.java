@@ -137,7 +137,7 @@ public RezervacijePregled(Korisnik k){
 	
 	onlyActive = new JCheckBox(new CheckboxAction("Show only active reservations"));
 	onlyActive.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-	onlyActive.setBounds(534, 457, 280, 33);
+	onlyActive.setBounds(988, 461, 280, 33);
 	onlyActive.setSelected(false);
 	
 	scrollPane.setViewportView(table);
@@ -149,10 +149,14 @@ public RezervacijePregled(Korisnik k){
 	getContentPane().add(panel);
 	
 	//rezervacija review ------- search criteria -------------------------------------------------------
-	searchCriteriaLabel = new JLabel("Choose search criteria: ");
+	searchCriteriaLabel = new JLabel("Choose search criteria : ");
+	searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+	searchCriteriaLabel.setBounds(10, 461, 191, 33);
 	panel.add(searchCriteriaLabel);
 	
 	txtSearchFilter = new JTextField(10);
+	txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+	txtSearchFilter.setBounds(552, 461, 238, 33);
 	txtSearchFilter.addFocusListener(new FocusAdapter() {
 		@Override
 		public void focusGained(FocusEvent arg0) {
@@ -161,6 +165,8 @@ public RezervacijePregled(Korisnik k){
 	});
 	
 	cbSearchFilters = new JComboBox<String>();
+	cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+	cbSearchFilters.setBounds(197, 461, 191, 33);
 	cbSearchFilters.addItem("Student");
 	cbSearchFilters.addItem("Teacher");
 	cbSearchFilters.addItem("Show all");
@@ -180,6 +186,7 @@ public RezervacijePregled(Korisnik k){
 	panel.add(txtSearchFilter);
 	
 	searchBtn = new JButton("Search");
+	searchBtn.setBounds(802, 459, 140, 37);
 	searchBtn.addActionListener(new ActionListener(){
 		@Override
 		public void actionPerformed(ActionEvent event){
@@ -189,6 +196,7 @@ public RezervacijePregled(Korisnik k){
 		}
 	});
 	searchBtn.addMouseListener(new MouseAdapter() {
+
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
 			searchBtn.setBackground(Color.GRAY);			
@@ -198,6 +206,11 @@ public RezervacijePregled(Korisnik k){
 			searchBtn.setBackground(Color.DARK_GRAY);
 		}
 	});
+	searchBtn.setForeground(Color.WHITE);
+	searchBtn.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+	searchBtn.setFocusPainted(false);
+	searchBtn.setBorder(null);
+	searchBtn.setBackground(Color.DARK_GRAY);
 	panel.add(searchBtn);
 	
 	//end-----------------------------------------------------------------------------------------------
@@ -238,6 +251,11 @@ public RezervacijePregled(Korisnik k){
 	lblViewAllReservations.setFont(new Font("Segoe UI Light", Font.PLAIN, 25));
 	lblViewAllReservations.setBounds(460, 13, 355, 32);
 	panel.add(lblViewAllReservations);
+	
+	lblTypeToSerach = new JLabel("Type to search :");
+	lblTypeToSerach.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
+	lblTypeToSerach.setBounds(420, 461, 140, 33);
+	panel.add(lblTypeToSerach);
 }
 	
 	public JMenuItem getMenuItem(JPanel parent){
@@ -288,5 +306,6 @@ public RezervacijePregled(Korisnik k){
 	private RezervacijaServiceBean rezervacijaServiceBean = new RezervacijaServiceBean();
 	
 	Korisnik currUser; //can be null if bibliotekar is logged in
+	private JLabel lblTypeToSerach;
 
 }
