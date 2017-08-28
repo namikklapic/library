@@ -51,9 +51,10 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 	
 	public List<Student> getStudentByIndexNumber(String index){
 		List<Student> result = null;
+		index = "%" + index + "%";
 		try{
-			result = em.createQuery("Select s from Student s where s.brojIndeksa=:brojIndeksa")
-					.setParameter("brojIndeksa", index)
+			result = em.createQuery("Select s from Student s where s.brojIndeksa LIKE :index")
+					.setParameter("index", index)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
@@ -141,5 +142,20 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 		MyEvent evt = new MyEvent(this, "Update Student");
 		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
+	}
+
+	public List<Student> getStudentByFilter(String filter) {
+		List<Student> result = null;
+		filter = "%" + filter + "%";
+		try{
+			result = em.createQuery("Select s from Student s inner join s.korisnik k where k.imeKorisnika LIKE :filter or k.prezimeKorisnika LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new StudentComparator());
+		}catch(NoResultException nre){}
+
+		return result;
 	}
 }

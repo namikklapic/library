@@ -62,8 +62,9 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 	
 	public List<VrstaKnjige> getVrstaKnjigeByNaziv(String naziv){
 		List<VrstaKnjige> result = null;
+		naziv = "%" + naziv + "%";
 		try{
-			result = em.createQuery("Select vk from VrstaKnjige vk where vk.nazivVrste=:naziv")
+			result = em.createQuery("Select vk from VrstaKnjige vk where vk.nazivVrste LIKE :naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)

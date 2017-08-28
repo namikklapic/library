@@ -87,109 +87,71 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		return result;
 	}
 	
-	public List<Posudba> getActivePosudbaByUser(String name){
+	public List<Posudba> getActivePosudbaByUserBookFilter(Korisnik k, String filter){
+		filter = "%" + filter + "%";
 		List<Posudba> result = null;
-		String[] parts = name.split(" ");
-		if(parts.length == 1){
-			try{
-				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:name and p.datumVracanja IS NULL")
-						.setParameter("name", name)
-						.getResultList();
-				for(int i=0; i<result.size(); i++)
-					em.refresh(result.get(i));
-				Collections.sort(result, new PosudbaComparator());
-			}catch(NoResultException nre) {}
-			if(result == null){
-				try{
-					result = em.createQuery("Select p from Posudba p where p.korisnik.prezimeKorisnika=:name and p.datumVracanja IS NULL")
-							.setParameter("name", name)
-							.getResultList();
-					for(int i=0; i<result.size(); i++)
-						em.refresh(result.get(i));
-					Collections.sort(result, new PosudbaComparator());
-				}catch(NoResultException nre){}
-			}
-		}
-		else if(parts.length == 2){
-			String s1 = parts[0];
-			String s2 = parts[1];
-			try{
-				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s1 and p.korisnik.prezimeKorisnika=:s2 and p.datumVracanja IS NULL")
-						.setParameter("s1", s1)
-						.setParameter("s2", s2)
-						.getResultList();
-				for(int i=0; i<result.size(); i++)
-					em.refresh(result.get(i));
-				Collections.sort(result, new PosudbaComparator());
-			}catch(NoResultException nre){}
-			
-			if(result == null){
-				try{
-					result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s2 and p.korisnik.prezimeKorisnika=:s1 and p.datumVracanja IS NULL")
-							.setParameter("s1", s1)
-							.setParameter("s2", s2)
-							.getResultList();
-					for(int i=0; i<result.size(); i++)
-						em.refresh(result.get(i));
-					Collections.sort(result, new PosudbaComparator());
-				}catch(NoResultException nre){}
-			}
-		}
-		
+		try {
+			result = em
+					.createQuery("Select p from Posudba p inner join p.primjerak pr where p.korisnik = :k and pr.knjiga.naslov LIKE :filter and p.datumVracanja IS NULL")
+					.setParameter("k", 	k)
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
 		return result;
 	}
 	
-	public List<Posudba> getAllPosudbeByUser(String name){
+	public List<Posudba> getAllPosudbeByUserBookFilter(Korisnik k, String filter){
+		filter = "%" + filter + "%";
 		List<Posudba> result = null;
-		String[] parts = name.split(" ");
-		if(parts.length == 1){
-			try{
-				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:name")
-						.setParameter("name", name)
-						.getResultList();
-				for(int i=0; i<result.size(); i++)
-					em.refresh(result.get(i));
-				Collections.sort(result, new PosudbaComparator());
-			}catch(NoResultException nre) {}
-			if(result == null){
-				try{
-					result = em.createQuery("Select p from Posudba p where p.korisnik.prezimeKorisnika=:name")
-							.setParameter("name", name)
-							.getResultList();
-					for(int i=0; i<result.size(); i++)
-						em.refresh(result.get(i));
-					Collections.sort(result, new PosudbaComparator());
-				}catch(NoResultException nre){}
-			}
-		}
-		else if(parts.length == 2){
-			String s1 = parts[0];
-			String s2 = parts[1];
-			try{
-				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s1 and p.korisnik.prezimeKorisnika=:s2")
-						.setParameter("s1", s1)
-						.setParameter("s2", s2)
-						.getResultList();
-				for(int i=0; i<result.size(); i++)
-					em.refresh(result.get(i));
-				Collections.sort(result, new PosudbaComparator());
-			}catch(NoResultException nre){}
-			
-			if(result == null){
-				try{
-					result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s2 and p.korisnik.prezimeKorisnika=:s1")
-							.setParameter("s1", s1)
-							.setParameter("s2", s2)
-							.getResultList();
-					for(int i=0; i<result.size(); i++)
-						em.refresh(result.get(i));
-					Collections.sort(result, new PosudbaComparator());
-				}catch(NoResultException nre){}
-			}
-		}
-		
+		try {
+			result = em
+					.createQuery("Select p from Posudba p inner join p.primjerak pr where p.korisnik = :k and pr.knjiga.naslov LIKE :filter")
+					.setParameter("k", 	k)
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
 		return result;
 	}
+	
+	
+	public List<Posudba> getActivePosudbaByUserFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p where (p.korisnik.imeKorisnika LIKE :filter or p.korisnik.prezimeKorisnika LIKE :filter) and p.datumVracanja IS NULL")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public List<Posudba> getAllPosudbeByUserFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika LIKE :filter or p.korisnik.prezimeKorisnika LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			System.out.println(result.size());
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	
 	
 	public List<Posudba> getActivePosudba(){
 		List<Posudba> result = null;
@@ -232,6 +194,40 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		
 		return result;
 	}
+	
+	public List<Posudba> getActivePosudbaByBookFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p inner join p.primjerak pr where pr.knjiga.naslov LIKE :filter and p.datumVracanja IS NULL")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
+	public List<Posudba> getAllPosudbeByBookFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p inner join p.primjerak pr where pr.knjiga.naslov LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
+	
 	
 	public Posudba save(Posudba entity) {
 		// Once added, posudba can not be changed. That is the reason we are not trying to find existing Posudba

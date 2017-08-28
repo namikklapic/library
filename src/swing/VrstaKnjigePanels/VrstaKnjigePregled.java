@@ -28,6 +28,8 @@ import swing.autorPanels.AutorPregled;
 import tableModel.KnjigaTableModel;
 import tableModel.VrstaKnjigeTableModel;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class VrstaKnjigePregled extends JFrame {
 	
@@ -219,7 +221,6 @@ public class VrstaKnjigePregled extends JFrame {
 	
 	public void refreshTable(boolean isAutomatic) {
 		String filter = txtSearchFilter.getText();
-		
 		if(!isAutomatic && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter value in the search filter!";

@@ -73,6 +73,21 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 		return result;
 	}
 	
+	public List<Autor> getAutorsByFilter(String filter){
+		List<Autor> result = null;
+		filter = "%" + filter + "%";
+		try{
+			result = em.createQuery("Select a from Autor a where a.imeAutora LIKE :filter or a.prezimeAutora LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new AutorComparator());
+		}catch(NoResultException nre){}
+		
+		return result;
+	}
+	
 	/**
 	 * 
 	 * @return number of autors in database

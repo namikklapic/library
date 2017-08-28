@@ -84,7 +84,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				em.refresh(result.get(i));
 			for (Knjiga knjiga: result)
 			{
-			  if (!available.contains(knjiga) && knjiga.getNaslov() == naslov) 
+			  if (!available.contains(knjiga) && knjiga.getNaslov().contains(naslov)) 
 			  {
 				  available.add(knjiga);
 			  }
@@ -104,7 +104,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				em.refresh(result.get(i));
 			for (Knjiga knjiga: result)
 			{
-			  if (!available.contains(knjiga) && knjiga.getIzdavac().getNazivIzdavaca() == izdavac) 
+			  if (!available.contains(knjiga) && knjiga.getIzdavac().getNazivIzdavaca().contains(izdavac)) 
 			  {
 				  available.add(knjiga);
 			  }
@@ -123,7 +123,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			for(int i = 0; i < result.size(); i++)
 				em.refresh(result.get(i));
 			for(Knjiga k : result){
-				if(!available.contains(k) && k.getVrsta().getNazivVrste().equals(vrsta))
+				if(!available.contains(k) && k.getVrsta().getNazivVrste().contains(vrsta))
 					available.add(k);
 			}
 			Collections.sort(available, new KnjigaComparator());
@@ -169,13 +169,50 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 		return available;	
 	}
 	
+	public List<Knjiga> getAllAvailableKnjigeByAutorFilter(String filter) {
+		filter = "%" + filter + "%";
+		List<Knjiga> result = null;
+		List<AutorKnjiga> lista = null;
+		List<Knjiga> available = new ArrayList<Knjiga>();
+		
+		try{
+			lista = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora LIKE :filter or ak.autor.prezimeAutora LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<lista.size(); i++)
+				em.refresh(lista.get(i));
+		}catch(NoResultException nre) {}
+		
+		try {
+			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
+			result = query.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			for (Knjiga knjiga: result)
+			{
+			  if (!available.contains(knjiga)) 
+			  {
+				  for(int i=0; i<lista.size(); i++){
+					  if(lista.get(i).getKnjiga().getId() == knjiga.getId()) {
+						  available.add(knjiga);
+						  break;
+					  }
+				  }
+			  }
+			}
+			Collections.sort(available, new KnjigaComparator());
+		} catch(NoResultException nre) {}
+		return available;	
+	}
+	
 	public List<Knjiga> getAllAvailableKnjigeByPredmet(String predmet) {
+		predmet = "%" + predmet + "%";
 		List<Knjiga> result = null;
 		List<Literatura> lista = null;
 		List<Knjiga> available = new ArrayList<Knjiga>();
 		
 		try{
-			lista = em.createQuery("Select l from Literatura l where l.predmet.nazivPredmeta=:predmet")
+			lista = em.createQuery("Select l from Literatura l where l.predmet.nazivPredmeta LIKE :predmet")
 					.setParameter("predmet", predmet)
 					.getResultList();
 			for(int i=0; i<lista.size(); i++)

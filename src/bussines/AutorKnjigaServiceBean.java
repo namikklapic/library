@@ -75,6 +75,29 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 		}
 		return result;
 	}
+	
+	public List<Knjiga> getKnjigeByAutorFilter(String filter){
+		filter = "%" + filter + "%";
+		List<AutorKnjiga> lista = null;
+		List<Knjiga> result = new ArrayList<Knjiga>();
+		
+		try{
+			lista = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora LIKE :filter or ak.autor.prezimeAutora LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<lista.size(); i++)
+				em.refresh(lista.get(i));
+			Collections.sort(result, new KnjigaComparator());
+		}catch(NoResultException nre) {}
+		
+		if(lista != null){
+			for(AutorKnjiga ak : lista)
+				result.add(ak.getKnjiga());
+		}
+		return result;
+	}
+	
+	
 	public List<Autor>  getAutorsOnKnjiga(Knjiga k ) {
 		List<Autor> result = new ArrayList<Autor>();
 		List<AutorKnjiga> akList = new ArrayList<AutorKnjiga>();

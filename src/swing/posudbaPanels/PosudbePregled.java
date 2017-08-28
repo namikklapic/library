@@ -101,7 +101,7 @@ public class PosudbePregled extends JFrame {
 		 
 		    @Override
 		    public void actionPerformed(ActionEvent e) {
-		        refreshTable(false);
+		        //refreshTable(false);
 		    }
 		}
 		getContentPane().setLayout(null);
@@ -112,6 +112,7 @@ public class PosudbePregled extends JFrame {
 		searchCriteriaLabel.setBounds(32, 458, 195, 33);
 		if(currUser == null)
 			panel.add(searchCriteriaLabel);
+			
 		
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -143,16 +144,15 @@ public class PosudbePregled extends JFrame {
 		});
 		if(currUser == null){
 			panel.add(cbSearchFilters);
-			panel.add(txtSearchFilter);
 		}
-	
+		panel.add(txtSearchFilter);
 		searchBtn = new JButton("Search");
 		searchBtn.setBounds(805, 456, 156, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
 				//searchClicked = true;
-				refreshTable(true);
+				refreshTable(false);
 				//searchClicked = false;
 			}
 		});
@@ -171,7 +171,7 @@ public class PosudbePregled extends JFrame {
 		searchBtn.setFocusPainted(false);
 		searchBtn.setBorder(null);
 		searchBtn.setBackground(Color.DARK_GRAY);
-		if(currUser == null)
+		//if(currUser == null)
 			panel.add(searchBtn);
 		
 		closeLoan = new JButton("Close the loan");
@@ -273,7 +273,7 @@ public class PosudbePregled extends JFrame {
 		JLabel lblTypeToSearch = new JLabel("Type to search :");
 		lblTypeToSearch.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		lblTypeToSearch.setBounds(468, 458, 134, 33);
-		if(currUser == null)
+		//if(currUser == null)
 		panel.add(lblTypeToSearch);
 	}
 	
@@ -288,32 +288,31 @@ public class PosudbePregled extends JFrame {
 	}
 	
 	public void refreshTable(boolean isAutomatic) {
-		
 		boolean success = true;
 		
 		if(currUser == null){ //bibliotekar je logovan
 			String criteria = (String)cbSearchFilters.getSelectedItem();
 			String filter = txtSearchFilter.getText();
 			
-			if(!criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
+			if(!isAutomatic && !criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
 				txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 				message = "Please, enter the value in search filter!";
 				success = false;
 				displayMessageDialogBox();
 			}
 			else{
-				if(criteria.equals("User"))
+				if(!isAutomatic && criteria.equals("User"))
 				{
 					if(onlyActive.isSelected())
-						model = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByUser(filter));
+						model = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByUserFilter(filter));
 					else
-						model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbeByUser(filter));
+						model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbeByUserFilter(filter));
 				}
-				else if(criteria.equals("Book")){
+				else if(!isAutomatic && criteria.equals("Book")){
 					if(onlyActive.isSelected())
-						model = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByBook(filter));
+						model = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByBookFilter(filter));
 					else
-						model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbeByBook(filter));
+						model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbeByBookFilter(filter));
 				}
 				else {
 					if(onlyActive.isSelected())
@@ -324,10 +323,19 @@ public class PosudbePregled extends JFrame {
 			}
 		}
 		else{ //logovan je nastavnik ili student
+			String filter = txtSearchFilter.getText();
+			if(!isAutomatic) {
+				if(onlyActive.isSelected())
+					model = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByUserBookFilter(currUser, filter));
+				else
+					model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbeByUserBookFilter(currUser, filter));
+			}
+			else {
 			if(onlyActive.isSelected())
 				model = new PosudbeTableModel(posudbaServiceBean.getActivePosudbaByKorisnik(currUser));
 			else
 				model = new PosudbeTableModel(posudbaServiceBean.getPosudbeByKorisnik(currUser));
+			}
 		}
 			
 		if(success){
@@ -368,7 +376,7 @@ public class PosudbePregled extends JFrame {
 			message = "The loan is already closed!";
 			displayMessageDialogBox();
 		}else{
-			posudbaServiceBean.save(p);
+			posudbaServiceBean.zakljuciPosudbu(p);
 			primjerakServiceBean.setPrimjerakPosudjen(p.getPrimjerak(), false);
 			primjerakServiceBean.setPrimjerakRezervisan(p.getPrimjerak(), false);
 			message = "The loan has been successfully closed!";

@@ -677,7 +677,7 @@ public class NovaKnjiga extends JFrame {
 	public void refreshTable() {
 		cbVrstaKnjige.removeAllItems();
 		cbIzdavac.removeAllItems();
-		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige())
+		for(VrstaKnjige vk : vrstaKnjigeServiceBean.getAllVrstaKnjige()) 
 			cbVrstaKnjige.addItem(vk);
 		for(Izdavac i : izdavacServiceBean.getAllIzdavac())
 			cbIzdavac.addItem(i);

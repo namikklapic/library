@@ -217,7 +217,7 @@ public class KnjigaPregled extends JFrame {
 		        	table.setModel(books);
 			        }
 			    }*/
-		    	refreshTable(false);
+		    	//refreshTable(false);
 		}
 		}
 				
@@ -316,18 +316,10 @@ public class KnjigaPregled extends JFrame {
 			}
 			
 			else if(!isAutomatic && criteria.equals("Author")){
-				String[] spliter = filter.split(" ");
-				if(spliter.length != 2){
-					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
-					message = "Please, enter the author's first and last name!";
-					success = false;
-					displayMessageDialogBox();
-				}else{
-					if(onlyAvail.isSelected())
-						model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByAutor(spliter[0], spliter[1]));
-					else
-						model = new KnjigaTableModel(autorKnjigaServiceBean.getKnjigeByAutor(spliter[0], spliter[1]));		
-				}		
+				if(onlyAvail.isSelected())
+					model = new KnjigaTableModel(primjerakServiceBean.getAllAvailableKnjigeByAutorFilter(filter));
+				else
+					model = new KnjigaTableModel(autorKnjigaServiceBean.getKnjigeByAutorFilter(filter));				
 			}
 			else if(!isAutomatic && criteria.equals("Publisher")){
 				if(onlyAvail.isSelected())

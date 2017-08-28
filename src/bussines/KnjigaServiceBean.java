@@ -67,9 +67,10 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 	 * @return List of Knjiga with the specified naslov
 	 */
 	public List<Knjiga> getKnjigaByNaslov(String naslov) {
+		naslov = "%" + naslov + "%";
 		List<Knjiga> result = null;
 		try{
-			result = em.createQuery("Select k from Knjiga k where k.naslov=:naslov")
+			result = em.createQuery("Select k from Knjiga k where k.naslov LIKE :naslov")
 					.setParameter("naslov", naslov)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
@@ -83,9 +84,10 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 	 * @return List of Knjiga with the specified izdavac
 	 */
 	public List<Knjiga> getKnjigaByIzdavac(String naziv) {
+		naziv = "%" + naziv + "%";
 		List<Knjiga> result = null;
 		try{
-			result = em.createQuery("Select k from Knjiga k where k.izdavac.nazivIzdavaca=:naziv")
+			result = em.createQuery("Select k from Knjiga k where k.izdavac.nazivIzdavaca LIKE :naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
@@ -99,9 +101,10 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 	 * @return List of Knjiga with the specified izdavac
 	 */
 	public List<Knjiga> getKnjigaByVrsta(String vrsta) {
+		vrsta = "%" + vrsta + "%";
 		List<Knjiga> result = null;
 		try{
-			result = em.createQuery("Select k from Knjiga k where k.vrsta.nazivVrste=:vrsta")
+			result = em.createQuery("Select k from Knjiga k where k.vrsta.nazivVrste  LIKE :vrsta")
 					.setParameter("vrsta", vrsta)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)

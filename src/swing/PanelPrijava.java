@@ -327,7 +327,7 @@ public class PanelPrijava extends JPanel {
 							b.setLoginDatum(today);
 							bibliotekar.save(b);
 						}
-						if(today.getDate() == 1 && today.getMonth() == 9) {
+						if((today.getDate() >= 1 && today.getMonth() <= 9) && (login.getMonth() < 9)) {
 							List<Korisnik> korisnici = korisnikServiceBean.getAllKorisnik();
 							for(int index=0; index<korisnici.size(); index++) {
 								boolean notClear = false;

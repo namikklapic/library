@@ -59,9 +59,10 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 	}
 	
 	public List<Izdavac> getIzdavacByNaziv(String naziv){
+		naziv = "%" + naziv + "%";
 		List<Izdavac> result = null;
 		try{
-			result = em.createQuery("Select i from Izdavac i where i.nazivIzdavaca=:naziv")
+			result = em.createQuery("Select i from Izdavac i where i.nazivIzdavaca LIKE :naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)

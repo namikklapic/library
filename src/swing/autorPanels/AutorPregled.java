@@ -250,16 +250,7 @@ public class AutorPregled extends JFrame {
 			model = new AutorTableModel(autorServiceBean.getAll());
 		}
 		else{
-			String[] spliter = filter.split(" ");
-			if(spliter.length != 2){
-				message = "Please, enter author's first and last name!";
-				txtSearchFilter.setBackground(Color.LIGHT_GRAY);
-				success = false;
-				displayMessageDialogBox();
-				getContentPane().repaint();
-				getContentPane().revalidate();
-			}else
-				model = new AutorTableModel(autorServiceBean.getAutorByFullName(spliter[0], spliter[1]));
+			model = new AutorTableModel(autorServiceBean.getAutorsByFilter(filter));
 		}
 		
 		if(success){

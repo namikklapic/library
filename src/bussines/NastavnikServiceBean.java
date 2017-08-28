@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
+import jpa.Autor;
 import jpa.EntityManagerProducer;
 import jpa.Izdavac;
 import jpa.Literatura;
@@ -109,6 +110,20 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 				em.refresh(result.get(i));
 			Collections.sort(result, new NastavnikComparator());
 		} catch(NoResultException nre) {}
+		return result;
+	}
+
+	public List<Nastavnik> getNastavniciByFilter(String filter) {
+		filter = "%" + filter + "%";
+		List<Nastavnik> result = null;
+		try{
+			result = em.createQuery("Select n from Nastavnik n inner join n.korisnik k where k.imeKorisnika LIKE :filter or k.prezimeKorisnika LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new NastavnikComparator());
+		}catch(NoResultException nre){}
 		return result;
 	}
 	

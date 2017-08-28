@@ -284,14 +284,7 @@ public class StudentPregled extends JFrame {
 				model = new StudentTableModel(studentServiceBean.getStudentByIndexNumber(filter));
 			
 			else if(!isAutomatic && criteria.equals("Full name")){
-				String[] spliter = filter.split(" ");
-				if(spliter.length != 2){
-					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
-					message = "Please, enter the student's first and last name!";
-					displayMessageDialogBox();
-				}else{							
-					model = new StudentTableModel(studentServiceBean.getStudentByFullName(spliter[0], spliter[1]));
-				}		
+				model = new StudentTableModel(studentServiceBean.getStudentByFilter(filter));	
 			}
 			else if(!isAutomatic && criteria.equals("Negative points")){
 				try{

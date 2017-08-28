@@ -101,9 +101,10 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 	}
 	
 	public List<Predmet> getPredmetiByNaziv(String naziv){
+		naziv = "%" + naziv + "%";
 		List<Predmet> result = null;
 		try{
-			result = em.createQuery("Select p from Predmet p where p.nazivPredmeta=:naziv")
+			result = em.createQuery("Select p from Predmet p where p.nazivPredmeta LIKE :naziv")
 					.setParameter("naziv", naziv)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
@@ -128,9 +129,10 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 	}
 	
 	public List<Predmet> getPredmetiBySkracenica(String skracenica){
+		skracenica = "%" + skracenica + "%";
 		List<Predmet> result = null;
 		try{
-			result = em.createQuery("Select p from Predmet p where p.skraceniNazivPredmeta=:skracenica")
+			result = em.createQuery("Select p from Predmet p where p.skraceniNazivPredmeta LIKE :skracenica")
 					.setParameter("skracenica", skracenica)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)

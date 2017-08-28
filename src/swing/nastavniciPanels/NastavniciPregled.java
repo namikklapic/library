@@ -267,14 +267,7 @@ public class NastavniciPregled extends JFrame{
 		else if(filter.equals("*") || isAutomatic)
 			model = new NastavnikTableModel(nastavnikServiceBean.getAllNastavnik());
 		else{
-			String[] spliter = filter.split(" ");
-			if(spliter.length != 2){
-				message = "Please, enter teacher's first and last name!";
-				txtSearchFilter.setBackground(Color.LIGHT_GRAY);
-				success = false;
-				displayMessageDialogBox();
-			}else
-				model = new NastavnikTableModel(nastavnikServiceBean.getNastavniciByFullName(spliter[0], spliter[1]));
+			model = new NastavnikTableModel(nastavnikServiceBean.getNastavniciByFilter(filter));
 		}
 		
 		if(success){

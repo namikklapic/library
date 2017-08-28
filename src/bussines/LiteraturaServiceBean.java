@@ -23,12 +23,12 @@ class LiteraturaComparator implements Comparator<Literatura> {
 public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 	
 	public List<Knjiga> getLiteraturaByPredmet(String predmet){
-		
+		predmet = "%" + predmet + "%";
 		List<Literatura> lista = null;
 		List<Knjiga> result = new ArrayList<Knjiga>();
 		
 		try{
-			lista = em.createQuery("Select l from Literatura l where l.predmet.nazivPredmeta=:predmet")
+			lista = em.createQuery("Select l from Literatura l where l.predmet.nazivPredmeta LIKE :predmet")
 					.setParameter("predmet", predmet)
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
