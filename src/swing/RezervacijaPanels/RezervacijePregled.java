@@ -182,8 +182,10 @@ public RezervacijePregled(Korisnik k){
 				txtSearchFilter.setEditable(true);
 		}
 	});
-	panel.add(cbSearchFilters);
-	panel.add(txtSearchFilter);
+	if(currUser == null){
+		panel.add(cbSearchFilters);
+		panel.add(txtSearchFilter);
+	}
 	
 	searchBtn = new JButton("Search");
 	searchBtn.setBounds(802, 459, 140, 37);

@@ -137,9 +137,11 @@ public class PosudbePregled extends JFrame {
 					txtSearchFilter.setEditable(true);
 			}
 		});
-		panel.add(cbSearchFilters);
-		panel.add(txtSearchFilter);
-		
+		if(currUser == null){
+			panel.add(cbSearchFilters);
+			panel.add(txtSearchFilter);
+		}
+	
 		searchBtn = new JButton("Search");
 		searchBtn.setBounds(805, 456, 156, 37);
 		searchBtn.addActionListener(new ActionListener(){
