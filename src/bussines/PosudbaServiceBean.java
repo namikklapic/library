@@ -87,6 +87,110 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		return result;
 	}
 	
+	public List<Posudba> getActivePosudbaByUser(String name){
+		List<Posudba> result = null;
+		String[] parts = name.split(" ");
+		if(parts.length == 1){
+			try{
+				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:name and p.datumVracanja IS NULL")
+						.setParameter("name", name)
+						.getResultList();
+				for(int i=0; i<result.size(); i++)
+					em.refresh(result.get(i));
+				Collections.sort(result, new PosudbaComparator());
+			}catch(NoResultException nre) {}
+			if(result == null){
+				try{
+					result = em.createQuery("Select p from Posudba p where p.korisnik.prezimeKorisnika=:name and p.datumVracanja IS NULL")
+							.setParameter("name", name)
+							.getResultList();
+					for(int i=0; i<result.size(); i++)
+						em.refresh(result.get(i));
+					Collections.sort(result, new PosudbaComparator());
+				}catch(NoResultException nre){}
+			}
+		}
+		else if(parts.length == 2){
+			String s1 = parts[0];
+			String s2 = parts[1];
+			try{
+				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s1 and p.korisnik.prezimeKorisnika=:s2 and p.datumVracanja IS NULL")
+						.setParameter("s1", s1)
+						.setParameter("s2", s2)
+						.getResultList();
+				for(int i=0; i<result.size(); i++)
+					em.refresh(result.get(i));
+				Collections.sort(result, new PosudbaComparator());
+			}catch(NoResultException nre){}
+			
+			if(result == null){
+				try{
+					result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s2 and p.korisnik.prezimeKorisnika=:s1 and p.datumVracanja IS NULL")
+							.setParameter("s1", s1)
+							.setParameter("s2", s2)
+							.getResultList();
+					for(int i=0; i<result.size(); i++)
+						em.refresh(result.get(i));
+					Collections.sort(result, new PosudbaComparator());
+				}catch(NoResultException nre){}
+			}
+		}
+		
+		return result;
+	}
+	
+	public List<Posudba> getAllPosudbeByUser(String name){
+		List<Posudba> result = null;
+		String[] parts = name.split(" ");
+		if(parts.length == 1){
+			try{
+				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:name")
+						.setParameter("name", name)
+						.getResultList();
+				for(int i=0; i<result.size(); i++)
+					em.refresh(result.get(i));
+				Collections.sort(result, new PosudbaComparator());
+			}catch(NoResultException nre) {}
+			if(result == null){
+				try{
+					result = em.createQuery("Select p from Posudba p where p.korisnik.prezimeKorisnika=:name")
+							.setParameter("name", name)
+							.getResultList();
+					for(int i=0; i<result.size(); i++)
+						em.refresh(result.get(i));
+					Collections.sort(result, new PosudbaComparator());
+				}catch(NoResultException nre){}
+			}
+		}
+		else if(parts.length == 2){
+			String s1 = parts[0];
+			String s2 = parts[1];
+			try{
+				result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s1 and p.korisnik.prezimeKorisnika=:s2")
+						.setParameter("s1", s1)
+						.setParameter("s2", s2)
+						.getResultList();
+				for(int i=0; i<result.size(); i++)
+					em.refresh(result.get(i));
+				Collections.sort(result, new PosudbaComparator());
+			}catch(NoResultException nre){}
+			
+			if(result == null){
+				try{
+					result = em.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika=:s2 and p.korisnik.prezimeKorisnika=:s1")
+							.setParameter("s1", s1)
+							.setParameter("s2", s2)
+							.getResultList();
+					for(int i=0; i<result.size(); i++)
+						em.refresh(result.get(i));
+					Collections.sort(result, new PosudbaComparator());
+				}catch(NoResultException nre){}
+			}
+		}
+		
+		return result;
+	}
+	
 	public List<Posudba> getActivePosudba(){
 		List<Posudba> result = null;
 		try {
@@ -136,4 +240,48 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 		PanelPrijava.realTime.fireMyEvent(evt);
 		return entity;
 	}
+	
+	public void zakljuciPosudbu(Posudba entity){
+		Date datum = new Date(); //today's date
+		
+		Posudba find = em.find(Posudba.class, entity.getId());
+		if (find != null) {
+			em.getTransaction().begin();
+			find.setDatumVracanja(datum);
+			em.getTransaction().commit();
+			MyEvent evt = new MyEvent(this, "Close Posudba");
+			PanelPrijava.realTime.fireMyEvent(evt);
+		} 
+	}
+	
+	public List<Posudba> getActivePosudbaByBook(String book){
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p inner join p.primjerak pr where pr.knjiga.naslov=:book and p.datumVracanja IS NULL")
+					.setParameter("book", book)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
+	public List<Posudba> getAllPosudbeByBook(String book){
+		List<Posudba> result = null;
+		try {
+			result = em
+					.createQuery("Select p from Posudba p inner join p.primjerak pr where pr.knjiga.naslov=:book")
+					.setParameter("book", book)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
+		} catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
 }

@@ -11,8 +11,12 @@ import jpa.PosudbaPK;
 
 public class PosudbeTableModel extends AbstractTableModel {
 	
-	private String [] columnNames = {"Title", "Inventory number", "Year of publishing", "Negative points", "Date of loan", "Ultimate date of return", "Date of return" };
+	private String [] columnNames = {"User ID", "First name", "Last name", "Book title", "Copy ID", "Start date", "Ultimate return date", "Return date" };
 	private List<Posudba> posudbe;
+	
+	public void setColumnLabel(String label, int col){
+		columnNames[col] = label;
+	}
 	
 	public PosudbeTableModel(){
 		posudbe = new ArrayList<Posudba>();
@@ -46,18 +50,20 @@ public class PosudbeTableModel extends AbstractTableModel {
 		Posudba p = getPosudba(row);
 		switch(column){
 		case 0:
-			return p.getPrimjerak().getKnjiga().getNaslov();
+			return p.getKorisnik().getSifraKorisnika();
 		case 1:
-			return p.getPrimjerak().getInventarskiBroj();
+			return p.getKorisnik().getImeKorisnika();
 		case 2:
-			return p.getPrimjerak().getKnjiga().getGodinaIzdavanja();
+			return p.getKorisnik().getPrezimeKorisnika();
 		case 3:
-			return p.getPrimjerak().getKnjiga().getNegBodovi();
+			return p.getPrimjerak().getKnjiga().getNaslov();
 		case 4:
-			return new SimpleDateFormat("dd-MM-yyyy").format(p.getId().getDatumPosudbe());
+			return p.getPrimjerak().getInventarskiBroj();
 		case 5:
-			return new SimpleDateFormat("dd-MM-yyyy").format(p.getKrajnjiDatumVracanja());
+			return new SimpleDateFormat("dd-MM-yyyy").format(p.getId().getDatumPosudbe());
 		case 6:
+			return new SimpleDateFormat("dd-MM-yyyy").format(p.getKrajnjiDatumVracanja());
+		case 7:
 			if(p.getDatumVracanja() != null)
 				return new SimpleDateFormat("dd-MM-yyyy").format(p.getDatumVracanja());
 			else return "";
