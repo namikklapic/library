@@ -330,7 +330,7 @@ public RezervacijePregled(Korisnik k){
 				
 			if(success){
 				table.setModel(model);
-				if(table.getRowCount() == 0){
+				if(!isAutomatic && table.getRowCount() == 0){
 					message = "No result found!";
 					
 					getContentPane().repaint();

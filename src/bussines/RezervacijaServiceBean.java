@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -149,33 +150,48 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 	}
 	
 	public List<Rezervacija> getActiveRezervacijaByUserFilter(String filter){
-		filter = "%" + filter + "%";
-		List<Rezervacija> result = null;
-		try {
-			result = em
-					.createQuery("Select r from Rezervacija r where (r.korisnik.imeKorisnika LIKE :filter or r.korisnik.prezimeKorisnika LIKE :filter) and r.isConfirmed=0")
-					.setParameter("filter", filter)
+		String[] spliter = filter.split(" ");
+		List<Rezervacija> result = new ArrayList<Rezervacija>();
+		List<Rezervacija> temp = null;
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try {
+				temp = em
+					.createQuery("Select r from Rezervacija r where (r.korisnik.imeKorisnika LIKE :fil or r.korisnik.prezimeKorisnika LIKE :fil) and r.isConfirmed=0")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<result.size(); i++)
-				em.refresh(result.get(i));
-			Collections.sort(result, new RezervacijaComparator());
-		} catch(NoResultException nre) {}
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!result.contains(temp.get(i)))
+					result.add(temp.get(i));
+				}
+				
+			} catch(NoResultException nre) {}
+		}
+		Collections.sort(result, new RezervacijaComparator());
 		return result;
 	}
 	
 	public List<Rezervacija> getAllRezervacijeByUserFilter(String filter){
-		filter = "%" + filter + "%";
-		List<Rezervacija> result = null;
-		try {
-			result = em
-					.createQuery("Select r from Rezervacija r where r.korisnik.imeKorisnika LIKE :filter or r.korisnik.prezimeKorisnika LIKE :filter")
-					.setParameter("filter", filter)
+		String[] spliter = filter.split(" ");
+		List<Rezervacija> result = new ArrayList<Rezervacija>();
+		List<Rezervacija> temp = null;
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try {
+				temp = em
+					.createQuery("Select r from Rezervacija r where (r.korisnik.imeKorisnika LIKE :fil or r.korisnik.prezimeKorisnika LIKE :fil)")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<result.size(); i++)
-				em.refresh(result.get(i));
-			System.out.println(result.size());
-			Collections.sort(result, new RezervacijaComparator());
-		} catch(NoResultException nre) {}
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!result.contains(temp.get(i)))
+					result.add(temp.get(i));
+				}
+				
+			} catch(NoResultException nre) {}
+		}
+		Collections.sort(result, new RezervacijaComparator());
 		return result;
 	}
 	
