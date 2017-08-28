@@ -341,8 +341,8 @@ public class PosudbePregled extends JFrame {
 		if(success){
 			table.setModel(model);
 			if(!isAutomatic && table.getRowCount() == 0){
-				System.out.println("tu ga zajebe");
-				
+
+				message = "No result found!";
 				getContentPane().repaint();
 				getContentPane().revalidate();
 				
