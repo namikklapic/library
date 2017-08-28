@@ -340,8 +340,8 @@ public class PosudbePregled extends JFrame {
 			
 		if(success){
 			table.setModel(model);
-			if(table.getRowCount() == 0){
-				message = "No result found!";
+			if(!isAutomatic && table.getRowCount() == 0){
+				System.out.println("tu ga zajebe");
 				
 				getContentPane().repaint();
 				getContentPane().revalidate();
