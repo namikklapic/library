@@ -172,6 +172,7 @@ public class PosudbePregled extends JFrame {
 			panel.add(searchBtn);
 		
 		closeLoan = new JButton("Close the loan");
+		closeLoan.setBounds(12, 524, 145, 37);
 		closeLoan.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -188,6 +189,11 @@ public class PosudbePregled extends JFrame {
 				closeLoan.setBackground(Color.DARK_GRAY);
 			}
 		});
+		closeLoan.setForeground(Color.WHITE);
+		closeLoan.setFont(new Font("Segoe UI Light", Font.BOLD, 20));
+		closeLoan.setFocusPainted(false);
+		closeLoan.setBorder(null);
+		closeLoan.setBackground(Color.DARK_GRAY);
 		if(currUser == null)
 			panel.add(closeLoan);
 		
