@@ -308,7 +308,11 @@ public class PanelPrijava extends JPanel {
 					else if(s != null){
 						mainFrame.setVisible(false);
 						JFrame studentLogin = new PanelStudent(s);
-						studentLogin.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						studentLogin.setSize(1200,800);
+						Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+					    int x = (int) ((dimension.getWidth() - studentLogin.getWidth()) / 2);
+					    int y = (int) ((dimension.getHeight() - studentLogin.getHeight()) / 2);
+					    studentLogin.setLocation(x, y);
 						studentLogin.setVisible(true);
 						studentLogin.addWindowListener(new UserPanelClosingAction());
 						realTime.addMyEventListener(new MyEventListener() {
