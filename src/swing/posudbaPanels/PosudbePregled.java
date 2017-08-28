@@ -254,6 +254,7 @@ public class PosudbePregled extends JFrame {
 		JLabel lblTypeToSearch = new JLabel("Type to search :");
 		lblTypeToSearch.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		lblTypeToSearch.setBounds(468, 458, 134, 33);
+		if(currUser == null)
 		panel.add(lblTypeToSearch);
 	}
 	

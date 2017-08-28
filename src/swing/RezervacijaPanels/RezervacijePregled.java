@@ -259,6 +259,7 @@ public RezervacijePregled(Korisnik k){
 	lblTypeToSerach = new JLabel("Type to search :");
 	lblTypeToSerach.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 	lblTypeToSerach.setBounds(420, 461, 140, 33);
+	if(currUser == null)
 	panel.add(lblTypeToSerach);
 }
 	
