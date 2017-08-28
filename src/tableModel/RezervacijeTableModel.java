@@ -10,7 +10,7 @@ import jpa.Rezervacija;
 import jpa.RezervacijaPK;
 
 public class RezervacijeTableModel extends AbstractTableModel {
-	private String [] columnNames = {"Naslov", "Inventarni broj", "Godina izdavanja", "Negativni bodovi", "Datum rezervacije", "Ime korisnika", "Prezime korisnika"};
+	private String [] columnNames = {"User ID", "First name", "Last name", "Book title", "Copy ID", "Rezervation date", "Status"};
 	private List<Rezervacija> rezervacije;
 	
 	public RezervacijeTableModel(){
@@ -45,19 +45,23 @@ public class RezervacijeTableModel extends AbstractTableModel {
 		Rezervacija r = getRezervacija(row);
 		switch(column){
 		case 0:
-			return r.getPrimjerak().getKnjiga().getNaslov();
+			return r.getKorisnik().getSifraKorisnika();
 		case 1:
-			return r.getPrimjerak().getInventarskiBroj();
-		case 2:
-			return r.getPrimjerak().getKnjiga().getGodinaIzdavanja();
-		case 3:
-			return r.getPrimjerak().getKnjiga().getNegBodovi();
-		case 4:
-			return new SimpleDateFormat("dd-MM-yyyy").format(r.getDatumRezervacije());
-		case 5:
 			return r.getKorisnik().getImeKorisnika();
-		case 6:
+		case 2:
 			return r.getKorisnik().getPrezimeKorisnika();
+		case 3:
+			return r.getPrimjerak().getKnjiga().getNaslov();
+		case 4:
+			return r.getPrimjerak().getInventarskiBroj();
+		case 5:
+			return new SimpleDateFormat("dd-MM-yyyy").format(r.getDatumRezervacije());
+		case 6:
+			boolean flag = r.getIsConfirmed();
+			if(flag)
+				return "Closed";
+			else
+				return "Active";
 		default:
 			return null;
 		}

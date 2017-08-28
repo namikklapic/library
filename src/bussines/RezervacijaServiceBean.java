@@ -147,4 +147,99 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 		else
 			return false;
 	}
+	
+	public List<Rezervacija> getActiveRezervacijaByUserFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r where (r.korisnik.imeKorisnika LIKE :filter or r.korisnik.prezimeKorisnika LIKE :filter) and r.isConfirmed=0")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public List<Rezervacija> getAllRezervacijeByUserFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r where r.korisnik.imeKorisnika LIKE :filter or r.korisnik.prezimeKorisnika LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			System.out.println(result.size());
+			Collections.sort(result, new RezervacijaComparator());
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public List<Rezervacija> getActiveRezervacijaByBookFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where pr.knjiga.naslov LIKE :filter and r.isConfirmed=0")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
+		} catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
+	public List<Rezervacija> getAllRezervacijeByBookFilter(String filter){
+		filter = "%" + filter + "%";
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where pr.knjiga.naslov LIKE :filter")
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
+		} catch(NoResultException nre) {}
+		
+		return result;
+	}
+	
+	public List<Rezervacija> getActiveRezervacijaByUserBookFilter(Korisnik k, String filter){
+		filter = "%" + filter + "%";
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where r.korisnik = :k and pr.knjiga.naslov LIKE :filter and r.isConfirmed=0")
+					.setParameter("k", 	k)
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
+		} catch(NoResultException nre) {}
+		return result;
+	}
+	
+	public List<Rezervacija> getAllRezervacijeByUserBookFilter(Korisnik k, String filter){
+		filter = "%" + filter + "%";
+		List<Rezervacija> result = null;
+		try {
+			result = em
+					.createQuery("Select r from Rezervacija r inner join r.primjerak pr where r.korisnik = :k and pr.knjiga.naslov LIKE :filter")
+					.setParameter("k", 	k)
+					.setParameter("filter", filter)
+					.getResultList();
+			for(int i=0; i<result.size(); i++)
+				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
+		} catch(NoResultException nre) {}
+		return result;
+	}
 }

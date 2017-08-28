@@ -325,6 +325,23 @@ public class NovaPosudba extends JFrame {
 		getContentPane().add(backgroundPicture);
 	}
 	
+	public NovaPosudba(Rezervacija r){
+		this();
+		rezervacija = r;
+		korisnik = r.getKorisnik();
+		primjerak = r.getPrimjerak();
+		
+		selectUserLabel.setVisible(false);
+		studentRadBtn.setVisible(false);
+		nastavnikRadBtn.setVisible(false);
+		searchKorisnikLabel.setVisible(false);
+		txtSearchKorisnik.setVisible(false);
+		searchKorisnikButton.setVisible(false);
+		
+		txtUser.setText(korisnik.getImeKorisnika() + " " + korisnik.getPrezimeKorisnika());
+		txtPrimjerak.setText(r.getPrimjerak().getInventarskiBroj());
+	}
+	
 	public JMenuItem getMenuItem(){
 		JMenuItem item = new JMenuItem("New book loan");
 		item.addActionListener(new ActionListener(){
@@ -390,6 +407,13 @@ public class NovaPosudba extends JFrame {
 			rezervacijaServiceBean.setRezervacijaConfirmed(id);
 		}
 		message = "The book loan has been successfully saved!";
+		
+		if(rezervacija != null){
+			rezervacijaServiceBean.setRezervacijaConfirmed(rezervacija.getId());
+//			message = "Reservation has been successfully updated to the loan!";
+//			displayMessageDialogBox();
+		}
+			
 	}
 	
 	private void initializeView(){
@@ -411,6 +435,7 @@ public class NovaPosudba extends JFrame {
 	private JPanel panel;
 	private String message;
 	private String dateWithoutTime;
+	private Rezervacija rezervacija = null;
 	
 	private Korisnik korisnik = null;
 	private Primjerak primjerak = null;

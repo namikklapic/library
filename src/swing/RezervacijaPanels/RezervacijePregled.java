@@ -28,6 +28,7 @@ import javax.swing.JTextField;
 import bussines.RezervacijaServiceBean;
 import jpa.Rezervacija;
 import jpa.RezervacijaPK;
+import swing.posudbaPanels.NovaPosudba;
 import swing.posudbaPanels.PosudbePregled;
 import jpa.Korisnik;
 import tableModel.RezervacijeTableModel;
@@ -62,7 +63,7 @@ public RezervacijePregled(Korisnik k){
 	scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 	scrollPane.setOpaque(false);
 	scrollPane.setBounds(0, 49, 1276, 385);
-	RezervacijeTableModel model;
+	model = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacije());
 	if(k == null) //it is bibliotekar panel, and we want all users
 		model = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacije());
 	else //it is korisnik panel, show only for specific user 
@@ -103,14 +104,15 @@ public RezervacijePregled(Korisnik k){
 			if(table.getSelectedRow() > -1) {
 				Rezervacija r = ((RezervacijeTableModel) table.getModel()).getRezervacija(table.getSelectedRow());
 				if(r.getIsConfirmed() == false) {
-					rezervacijaServiceBean.setRezervacijaConfirmed(r.getId());
-					JOptionPane.showMessageDialog(confirm.getParent(), "Rezervation confirmed.", "Success!", JOptionPane.INFORMATION_MESSAGE);
+					NovaPosudba np = new NovaPosudba(r);
+					np.prikazi();
 				}
 				else
 					JOptionPane.showMessageDialog(confirm.getParent(), "That reservation is already confirmed.", "Oops!", JOptionPane.ERROR_MESSAGE);
 			}
-			else
+			else{
 				JOptionPane.showMessageDialog(confirm.getParent(), "No item selected!.", "Oops!", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	});
 	
@@ -132,7 +134,7 @@ public RezervacijePregled(Korisnik k){
 	 
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-	    	refreshTable(false);
+	    	//refreshTable(false);
 	    }
 	}
 	
@@ -169,8 +171,8 @@ public RezervacijePregled(Korisnik k){
 	cbSearchFilters = new JComboBox<String>();
 	cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 	cbSearchFilters.setBounds(197, 461, 191, 33);
-	cbSearchFilters.addItem("Student");
-	cbSearchFilters.addItem("Teacher");
+	cbSearchFilters.addItem("User");
+	cbSearchFilters.addItem("Book");
 	cbSearchFilters.addItem("Show all");
 	cbSearchFilters.addActionListener(new ActionListener(){
 		@Override
@@ -195,7 +197,7 @@ public RezervacijePregled(Korisnik k){
 		@Override
 		public void actionPerformed(ActionEvent event){
 //			searchClicked = true;
-//			refreshTable();
+			refreshTable(false);
 //			searchClicked = false;
 		}
 	});
@@ -230,6 +232,7 @@ public RezervacijePregled(Korisnik k){
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
 			cancel.setBackground(Color.DARK_GRAY);
+			clearUIElements();
 			dispose();
 		}
 		@Override
@@ -275,25 +278,87 @@ public RezervacijePregled(Korisnik k){
 	}
 	
 	public void refreshTable(boolean isAutomatic) {
-		 if (onlyActive.isSelected()) {
-	        	RezervacijeTableModel activeLoans;
-	        	if(currUser == null) 
-	        		activeLoans = new RezervacijeTableModel(rezervacijaServiceBean.getAllActiveRezervacije());
-	        	else 
-	        		activeLoans = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijeByKorisnik(currUser));	
-		        table.setModel(activeLoans);
+			boolean success = true;
+			
+			if(currUser == null){ //bibliotekar je logovan
+				String criteria = (String)cbSearchFilters.getSelectedItem();
+				String filter = txtSearchFilter.getText();
+				
+				if(!isAutomatic && !criteria.equals("Show all") && (filter.equals(null) || filter.equals(""))){
+					txtSearchFilter.setBackground(Color.LIGHT_GRAY);
+					message = "Please, enter the value in search filter!";
+					success = false;
+					displayMessageDialogBox();
+				}
+				else{
+					if(!isAutomatic && criteria.equals("User"))
+					{
+						if(onlyActive.isSelected())
+							model = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijaByUserFilter(filter));
+						else
+							model = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacijeByUserFilter(filter));
+					}
+					else if(!isAutomatic && criteria.equals("Book")){
+						if(onlyActive.isSelected())
+							model = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijaByBookFilter(filter));
+						else
+							model = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacijeByBookFilter(filter));
+					}
+					else {
+						if(onlyActive.isSelected())
+							model = new RezervacijeTableModel(rezervacijaServiceBean.getAllActiveRezervacije());
+						else
+							model = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacije());
+					}
+				}
+			}
+			else{ //logovan je nastavnik ili student
+				String filter = txtSearchFilter.getText();
+				if(!isAutomatic) {
+					if(onlyActive.isSelected())
+						model = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijaByUserBookFilter(currUser, filter));
+					else
+						model = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacijeByUserBookFilter(currUser, filter));
+				}
+				else {
+				if(onlyActive.isSelected())
+					model = new RezervacijeTableModel(rezervacijaServiceBean.getActiveRezervacijeByKorisnik(currUser));
+				else
+					model = new RezervacijeTableModel(rezervacijaServiceBean.getRezervacijeByKorisnik(currUser));
+				}
+			}
+				
+			if(success){
+				table.setModel(model);
+				if(table.getRowCount() == 0){
+					message = "No result found!";
+					
+					getContentPane().repaint();
+					getContentPane().revalidate();
+					
+					displayMessageDialogBox();
+				}
+			}
+			
 		    	getContentPane().repaint();
 				getContentPane().revalidate();
-	        } else {	
-	        	RezervacijeTableModel loans;
-	        	if(currUser == null) 
-	        		loans = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacije());
-	        	else 
-	        		loans = new RezervacijeTableModel(rezervacijaServiceBean.getRezervacijeByKorisnik(currUser));
-		        table.setModel(loans);
-		    	getContentPane().repaint();
-				getContentPane().revalidate();
-	        }	
+	}
+	
+	private void clearUIElements(){
+		txtSearchFilter.setText("");
+		txtSearchFilter.setBackground(Color.WHITE);
+		cbSearchFilters.setSelectedItem("User");
+		txtSearchFilter.setEditable(true);
+		table.getSelectionModel().clearSelection();
+		onlyActive.setSelected(false);
+		
+		model = new RezervacijeTableModel(rezervacijaServiceBean.getAllRezervacije());
+		table.setModel(model);
+	}
+	
+	private void displayMessageDialogBox(){
+		JOptionPane dialogBox = new JOptionPane();
+		dialogBox.showMessageDialog(panel, message);
 	}
 	
 	public void prikazi() { setVisible(true); }
@@ -302,6 +367,7 @@ public RezervacijePregled(Korisnik k){
 	private JPanel panel;
 	private JScrollPane scrollPane;
 	private JTable table;
+	private RezervacijeTableModel model;
 
 	private JLabel searchCriteriaLabel;
 	private JComboBox<String> cbSearchFilters;
@@ -313,5 +379,6 @@ public RezervacijePregled(Korisnik k){
 	
 	Korisnik currUser; //can be null if bibliotekar is logged in
 	private JLabel lblTypeToSerach;
+	private String message;
 
 }
