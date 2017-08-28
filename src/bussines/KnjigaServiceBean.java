@@ -1,15 +1,23 @@
 package bussines;
 
 import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.persistence.NoResultException;
-
 import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import jpa.Primjerak;
 import jpa.VrstaKnjige;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class KnjigaComparator implements Comparator<Knjiga> {
+    @Override
+    public int compare(Knjiga o1, Knjiga o2) {
+        return o1.getNaslov().compareToIgnoreCase(o2.getNaslov());
+    }
+}
 
 public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 	/**
@@ -50,6 +58,7 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 			result = em.createQuery("Select k from Knjiga k").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new KnjigaComparator());
 		} catch(NoResultException nre) {}
 		return result;
 	}
@@ -65,6 +74,7 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new KnjigaComparator());
 		}catch(NoResultException nre) {}
 		return result;
 	}
@@ -80,8 +90,8 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new KnjigaComparator());
 		}catch(NoResultException nre) {}
-
 		return result;
 	}
 	/**
@@ -96,8 +106,8 @@ public class KnjigaServiceBean extends EntityManagerProducer<Knjiga> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new KnjigaComparator());
 		}catch(NoResultException nre) {}
-
 		return result;
 	}
 	/**

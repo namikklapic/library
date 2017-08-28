@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.List;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
@@ -30,10 +31,16 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import bussines.BibliotekarServiceBean;
+import bussines.KorisnikServiceBean;
 import bussines.NastavnikServiceBean;
+import bussines.PosudbaServiceBean;
+import bussines.RezervacijaServiceBean;
 import bussines.StudentServiceBean;
 import jpa.Bibliotekar;
+import jpa.Korisnik;
 import jpa.Nastavnik;
+import jpa.Posudba;
+import jpa.Rezervacija;
 import jpa.Student;
 import util.MyClass;
 import util.MyEvent;
@@ -287,6 +294,55 @@ public class PanelPrijava extends JPanel {
 						    	  ((PanelBibliotekar) bibliotekarLogin).updateInterface(evt.getEventMessage());
 						      }
 						    });
+						java.util.Date login = b.getLoginDatum();
+						java.util.Date today = new java.util.Date();
+						KorisnikServiceBean korisnikServiceBean = new KorisnikServiceBean();
+						PosudbaServiceBean posudbeServiceBean = new PosudbaServiceBean();
+						List<Posudba> posudbe = posudbeServiceBean.getActivePosudba();
+						if(!(login.getYear() != 0 && (login.getYear() == today.getYear() && login.getMonth() == today.getMonth() && login.getDate() == today.getDate()))) {
+							RezervacijaServiceBean rezervacijeServiceBean = new RezervacijaServiceBean();
+							List<Rezervacija> rezervacije = rezervacijeServiceBean.getAllActiveRezervacije();
+							for(int i=0; i<posudbe.size(); i++) {
+								long diff = today.getYear() - posudbe.get(i).getKrajnjiDatumVracanja().getYear() + today.getMonth() - posudbe.get(i).getKrajnjiDatumVracanja().getMonth() + today.getDate() - posudbe.get(i).getKrajnjiDatumVracanja().getDate();
+								if(diff > 0) {
+									if(login.getYear() != 0) {
+										diff = today.getYear() - login.getYear() + today.getMonth() - login.getMonth() + today.getDate() - login.getDate();
+									}
+									int negBodovi = (int) (posudbe.get(i).getKorisnik().getBrojNegativnihBodova() + diff* posudbe.get(i).getPrimjerak().getKnjiga().getNegBodovi());
+									posudbe.get(i).getKorisnik().setBrojNegativnihBodova(negBodovi);
+									korisnikServiceBean.save(posudbe.get(i).getKorisnik());
+								}
+							}
+							for(int i=0; i<rezervacije.size(); i++) {
+								long diff = today.getYear() - rezervacije.get(i).getDatumRezervacije().getYear() + today.getMonth() - rezervacije.get(i).getDatumRezervacije().getMonth() + today.getDate() - rezervacije.get(i).getDatumRezervacije().getDate();
+								if(diff > 0) {
+									if(login.getYear() != 0) {
+										diff = today.getYear() - login.getYear() + today.getMonth() - login.getMonth() + today.getDate() - login.getDate();
+									}
+									int negBodovi = (int) (rezervacije.get(i).getKorisnik().getBrojNegativnihBodova() + diff* rezervacije.get(i).getPrimjerak().getKnjiga().getNegBodovi());
+									rezervacije.get(i).getKorisnik().setBrojNegativnihBodova(negBodovi);
+									korisnikServiceBean.save(rezervacije.get(i).getKorisnik());
+								}
+							}
+							b.setLoginDatum(today);
+							bibliotekar.save(b);
+						}
+						if(today.getDate() == 1 && today.getMonth() == 9) {
+							List<Korisnik> korisnici = korisnikServiceBean.getAllKorisnik();
+							for(int index=0; index<korisnici.size(); index++) {
+								boolean notClear = false;
+								for(int i=0; i<posudbe.size(); i++) {
+									if(posudbe.get(i).getKorisnik().getSifraKorisnika().equals(korisnici.get(index).getSifraKorisnika())) {
+										notClear = true;
+										break;
+									}
+								}
+								if(!notClear) {
+									korisnici.get(index).setBrojNegativnihBodova(0);
+									korisnikServiceBean.save(korisnici.get(index));
+								}
+							}
+						}
 					}
 					else if (n != null){
 						mainFrame.setVisible(false);

@@ -1,6 +1,8 @@
 package bussines;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -11,6 +13,16 @@ import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class AutorKnjigaComparator implements Comparator<AutorKnjiga> {
+    @Override
+    public int compare(AutorKnjiga o1, AutorKnjiga o2) {
+    	Integer i1,i2;
+    	i1 = o1.getRedniBrojAutoraNaKnjizi();
+    	i2 = o2.getRedniBrojAutoraNaKnjizi();
+        return i1.compareTo(i2);
+    }
+}
 
 public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 	
@@ -54,6 +66,7 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 					.getResultList();
 			for(int i=0; i<lista.size(); i++)
 				em.refresh(lista.get(i));
+			Collections.sort(result, new KnjigaComparator());
 		}catch(NoResultException nre) {}
 		
 		if(lista != null){
@@ -74,6 +87,7 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 			for(AutorKnjiga ak : akList) {
 				result.add(ak.getAutor());
 			}
+			Collections.sort(result, new AutorComparator());
 		} catch(NoResultException nre) {}
 		return result;
 	}

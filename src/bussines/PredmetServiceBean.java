@@ -1,13 +1,23 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
+import jpa.Nastavnik;
 import jpa.Predmet;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class PredmetComparator implements Comparator<Predmet> {
+    @Override
+    public int compare(Predmet o1, Predmet o2) {
+        return o1.getNazivPredmeta().compareToIgnoreCase(o2.getNazivPredmeta());
+    }
+}
 
 public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 	/**
@@ -48,6 +58,7 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 			result = em.createQuery("Select p from Predmet p").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PredmetComparator());
 		}catch(NoResultException nre) {}
 		return result;
 	}
@@ -97,6 +108,7 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PredmetComparator());
 		}catch(NoResultException nre){}
 
 		return result;
@@ -123,6 +135,7 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PredmetComparator());
 		}catch(NoResultException nre){}
 
 		return result;
@@ -136,6 +149,7 @@ public class PredmetServiceBean extends EntityManagerProducer<Predmet> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PredmetComparator());
 		}catch(NoResultException nre){}
 
 		return result;

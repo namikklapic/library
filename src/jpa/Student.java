@@ -13,7 +13,7 @@ public class Student implements Serializable{
 	@Id
 	private String brojIndeksa;
 	
-	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
 	private Korisnik korisnik;
 	
 	private String password;

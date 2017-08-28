@@ -239,7 +239,7 @@ public class AutorPregled extends JFrame {
 		String filter = txtSearchFilter.getText();
 		boolean success = true;
 		
-		if(!isAutomatic && filter.equals(null) || filter.equals("")){
+		if(!isAutomatic && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter the value in search filter!";
 			success = false;

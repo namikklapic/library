@@ -217,16 +217,16 @@ public class VrstaKnjigePregled extends JFrame {
 	}
 	
 	public void refreshTable(boolean isAutomatic) {
-		
 		String filter = txtSearchFilter.getText();
 		
-		if(!isAutomatic && filter.equals(null) || filter.equals("")){
+		if(!isAutomatic && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter value in the search filter!";
 			displayMessageDialogBox();
 		}
-		else if(filter.equals("*") || isAutomatic)
+		else if(filter.equals("*") || isAutomatic) {
 			model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getAllVrstaKnjige());
+		}
 		else{
 			model = new VrstaKnjigeTableModel(vrstaKnjigeServiceBean.getVrstaKnjigeByNaziv(filter));
 		}

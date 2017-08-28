@@ -18,11 +18,14 @@ public class Bibliotekar {
 	@Id
 	private Korisnik korisnik;
 	private String password;
+	@Temporal(TemporalType.DATE)
+	private Date loginDatum;
 	
 	public Bibliotekar(){}
-	public Bibliotekar(Korisnik k, String p){
+	public Bibliotekar(Korisnik k, String p, Date lD){
 		korisnik = k;
 		password = p;
+		setLoginDatum(lD);
 	}
 	
 	public Korisnik getKorisnik() {
@@ -39,6 +42,12 @@ public class Bibliotekar {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Date getLoginDatum() {
+		return loginDatum;
+	}
+	public void setLoginDatum(Date loginDatum) {
+		this.loginDatum = loginDatum;
 	}
 		
 }

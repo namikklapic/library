@@ -1,13 +1,23 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
+import jpa.Nastavnik;
 import jpa.Student;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class StudentComparator implements Comparator<Student> {
+    @Override
+    public int compare(Student o1, Student o2) {
+        return o1.getKorisnik().getImeKorisnika().compareToIgnoreCase(o2.getKorisnik().getImeKorisnika());
+    }
+}
 
 public class StudentServiceBean extends EntityManagerProducer<Student> {
 	
@@ -47,6 +57,7 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new StudentComparator());
 		}catch(NoResultException nre){}
 
 		return result;
@@ -61,6 +72,7 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new StudentComparator());
 		}catch(NoResultException nre){}
 
 		return result;
@@ -74,6 +86,7 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new StudentComparator());
 		}catch(NoResultException nre){}
 
 		return result;
@@ -110,6 +123,7 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 			result = em.createQuery("Select s from Student s").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new StudentComparator());
 		} catch(NoResultException nre) {}
 
 		return result;

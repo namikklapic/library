@@ -8,9 +8,17 @@ import java.util.Vector;
 import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
+import jpa.Student;
 import jpa.VrstaKnjige;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class VrstaKnjigeComparator implements Comparator<VrstaKnjige> {
+    @Override
+    public int compare(VrstaKnjige o1, VrstaKnjige o2) {
+        return o1.getNazivVrste().compareToIgnoreCase(o2.getNazivVrste());
+    }
+}
 
 public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 	/**
@@ -60,6 +68,7 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new VrstaKnjigeComparator());
 			
 		}catch(NoResultException nre){}
 
@@ -76,6 +85,7 @@ public class VrstaKnjigeServiceBean extends EntityManagerProducer<VrstaKnjige> {
 			result = em.createQuery("select vk from VrstaKnjige vk").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new VrstaKnjigeComparator());
 		} catch(NoResultException nre) {}
 		
 		return result;

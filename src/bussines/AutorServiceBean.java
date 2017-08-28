@@ -1,13 +1,24 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 
 import jpa.Autor;
+import jpa.AutorKnjiga;
 import jpa.EntityManagerProducer;
+import jpa.Knjiga;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class AutorComparator implements Comparator<Autor> {
+    @Override
+    public int compare(Autor o1, Autor o2) {
+        return o1.getImeAutora().compareToIgnoreCase(o2.getImeAutora());
+    }
+}
 
 public class AutorServiceBean extends EntityManagerProducer<Autor> {
 	
@@ -39,6 +50,7 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 			result = em.createQuery("select a from Autor a").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new AutorComparator());
 		} catch(NoResultException nre) {}
 		return result;
 	}
@@ -55,6 +67,7 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new AutorComparator());
 		}catch(NoResultException nre){}
 		
 		return result;

@@ -1,9 +1,12 @@
 package bussines;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import jpa.Knjiga;
 import jpa.Literatura;
+import jpa.Posudba;
 
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -13,6 +16,13 @@ import jpa.EntityManagerProducer;
 import jpa.Primjerak;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class PrimjerakComparator implements Comparator<Primjerak> {
+    @Override
+    public int compare(Primjerak o1, Primjerak o2) {
+        return o1.getKnjiga().getNaslov().compareToIgnoreCase(o2.getKnjiga().getNaslov());
+    }
+}
 
 public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 	
@@ -38,6 +48,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			result = query.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PrimjerakComparator());
 		} catch(NoResultException nre) {}
 
 		return result;
@@ -58,6 +69,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				  available.add(knjiga);
 			  }
 			}
+			Collections.sort(available, new KnjigaComparator());
 		} catch(NoResultException nre) {}
 		return available;	
 	}
@@ -77,6 +89,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				  available.add(knjiga);
 			  }
 			}
+			Collections.sort(available, new KnjigaComparator());
 		} catch(NoResultException nre) {}
 		return available;	
 	}
@@ -96,6 +109,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				  available.add(knjiga);
 			  }
 			}
+			Collections.sort(available, new KnjigaComparator());
 		} catch(NoResultException nre) {}
 		return available;	
 	}
@@ -112,6 +126,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				if(!available.contains(k) && k.getVrsta().getNazivVrste().equals(vrsta))
 					available.add(k);
 			}
+			Collections.sort(available, new KnjigaComparator());
 		}catch(NoResultException nre){}
 		
 		return available;
@@ -149,6 +164,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				  }
 			  }
 			}
+			Collections.sort(available, new KnjigaComparator());
 		} catch(NoResultException nre) {}
 		return available;	
 	}
@@ -183,6 +199,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 				  }
 			  }
 			}
+			Collections.sort(available, new KnjigaComparator());
 		} catch(NoResultException nre) {}
 		return available;	
 	}
@@ -194,6 +211,7 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 			result = em.createQuery("select p from Primjerak p").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PrimjerakComparator());
 		} catch(NoResultException nre) {}
 
 		return result;

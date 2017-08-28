@@ -1616,6 +1616,10 @@ public class PanelBibliotekar extends JFrame{
 			vrstaKnjigePregled.refreshTable(true);
 			novaKnjiga.refreshTable();
 		}
+		else if(reason == "Update Korisnik") {
+			studentPregled.refreshTable(true);
+			nastavniciPregled.refreshTable(true);
+		}
 	}
 	
 	

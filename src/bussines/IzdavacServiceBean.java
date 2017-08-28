@@ -1,13 +1,23 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 
+import jpa.Autor;
 import jpa.EntityManagerProducer;
 import jpa.Izdavac;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class IzdavacComparator implements Comparator<Izdavac> {
+    @Override
+    public int compare(Izdavac o1, Izdavac o2) {
+        return o1.getNazivIzdavaca().compareToIgnoreCase(o2.getNazivIzdavaca());
+    }
+}
 
 public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 	/**
@@ -56,6 +66,7 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new IzdavacComparator());
 		}catch(NoResultException nre){}
 		return result;
 	}
@@ -70,6 +81,7 @@ public class IzdavacServiceBean extends EntityManagerProducer<Izdavac> {
 			result = em.createQuery("select i from Izdavac i").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new IzdavacComparator());
 		} catch(NoResultException nre) {}
 
 		return result;

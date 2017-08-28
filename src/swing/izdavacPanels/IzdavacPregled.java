@@ -233,7 +233,7 @@ public class IzdavacPregled extends JFrame {
 	public void refreshTable(boolean isAutomatic) {
 		String filter = txtSearchFilter.getText();
 		
-		if(!isAutomatic && filter.equals(null) || filter.equals("")){
+		if(!isAutomatic && (filter.equals(null) || filter.equals(""))){
 			txtSearchFilter.setBackground(Color.LIGHT_GRAY);
 			message = "Please, enter value in the search filter!";
 			displayMessageDialogBox();

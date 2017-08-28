@@ -36,6 +36,7 @@ public class BibliotekarServiceBean extends EntityManagerProducer<Bibliotekar>{
 			em.getTransaction().begin();
 			find.setKorisnik(entity.getKorisnik());
 			find.setPassword(entity.getPassword());
+			find.setLoginDatum(entity.getLoginDatum());
 			em.getTransaction().commit();
 		} else {
 			super.save(entity);

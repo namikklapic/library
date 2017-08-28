@@ -1,15 +1,20 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
+import jpa.Literatura;
 import jpa.Nastavnik;
 import jpa.NastavnikPredmet;
 import jpa.Predmet;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+
 
 public class NastavnikPredmetServiceBean extends EntityManagerProducer<NastavnikPredmet>{
 	
@@ -22,6 +27,7 @@ public class NastavnikPredmetServiceBean extends EntityManagerProducer<Nastavnik
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PredmetComparator());
 		} catch(NoResultException nre) {}
 		return result;
 	}
@@ -35,6 +41,7 @@ public class NastavnikPredmetServiceBean extends EntityManagerProducer<Nastavnik
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new NastavnikComparator());
 		} catch(NoResultException nre) {}
 
 		return result;

@@ -1,6 +1,8 @@
 package bussines;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -9,6 +11,14 @@ import jpa.EntityManagerProducer;
 import jpa.Literatura;
 import jpa.Predmet;
 import jpa.Knjiga;
+import jpa.Korisnik;
+
+class LiteraturaComparator implements Comparator<Literatura> {
+    @Override
+    public int compare(Literatura o1, Literatura o2) {
+        return o1.getKnjiga().getNaslov().compareToIgnoreCase(o2.getKnjiga().getNaslov());
+    }
+}
 
 public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 	
@@ -28,6 +38,7 @@ public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 		if(lista != null){
 			for(Literatura l : lista)
 				result.add(l.getKnjiga());
+			Collections.sort(result, new KnjigaComparator());
 		}
 		return result;
 	}
@@ -39,6 +50,7 @@ public class LiteraturaServiceBean extends EntityManagerProducer<Literatura>{
 					.getResultList();
 			for(int i=0; i<lista.size(); i++)
 				em.refresh(lista.get(i));
+			Collections.sort(lista, new LiteraturaComparator());
 		} catch(NoResultException nre) {}
 		return lista;
 	}

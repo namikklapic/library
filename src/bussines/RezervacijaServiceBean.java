@@ -1,5 +1,7 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -14,6 +16,13 @@ import jpa.RezervacijaPK;
 import swing.PanelPrijava;
 import util.MyEvent;
 
+class RezervacijaComparator implements Comparator<Rezervacija> {
+    @Override
+    public int compare(Rezervacija o1, Rezervacija o2) {
+        return o1.getPrimjerak().getKnjiga().getNaslov().compareToIgnoreCase(o2.getPrimjerak().getKnjiga().getNaslov());
+    }
+}
+
 public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 	
 	public List<Rezervacija> getActiveRezervacijeByKorisnik(Korisnik k){
@@ -25,6 +34,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
 		} catch(NoResultException nre) {}
 
 		return result;	
@@ -39,6 +49,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
 		} catch(NoResultException nre) {}
 
 		return result;	
@@ -52,6 +63,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
 		} catch(NoResultException nre) {}
 
 		return result;	
@@ -65,6 +77,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
 		} catch(NoResultException nre) {}
 
 		return result;	
@@ -98,6 +111,7 @@ public class RezervacijaServiceBean extends EntityManagerProducer<Rezervacija> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new RezervacijaComparator());
 		} catch(NoResultException nre) {}
 
 		return result;

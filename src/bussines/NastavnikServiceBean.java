@@ -1,14 +1,24 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.persistence.NoResultException;
 
 import jpa.EntityManagerProducer;
 import jpa.Izdavac;
+import jpa.Literatura;
 import jpa.Nastavnik;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class NastavnikComparator implements Comparator<Nastavnik> {
+    @Override
+    public int compare(Nastavnik o1, Nastavnik o2) {
+        return o1.getKorisnik().getImeKorisnika().compareToIgnoreCase(o2.getKorisnik().getImeKorisnika());
+    }
+}
 
 public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 	
@@ -41,6 +51,7 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new NastavnikComparator());
 		}catch(NoResultException nre){}
 		return result;
 	}
@@ -96,6 +107,7 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 			result = em.createQuery("select n from Nastavnik n").getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new NastavnikComparator());
 		} catch(NoResultException nre) {}
 		return result;
 	}

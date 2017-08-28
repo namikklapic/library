@@ -1,5 +1,7 @@
 package bussines;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -9,8 +11,16 @@ import jpa.EntityManagerProducer;
 import jpa.Knjiga;
 import jpa.Korisnik;
 import jpa.Posudba;
+import jpa.Predmet;
 import swing.PanelPrijava;
 import util.MyEvent;
+
+class PosudbaComparator implements Comparator<Posudba> {
+    @Override
+    public int compare(Posudba o1, Posudba o2) {
+        return o1.getPrimjerak().getKnjiga().getNaslov().compareToIgnoreCase(o2.getPrimjerak().getKnjiga().getNaslov());
+    }
+}
 
 public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 	
@@ -31,6 +41,7 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 				.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
 			}
 		catch(NoResultException nre) {}
 		return result;	
@@ -45,6 +56,7 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
 		} catch(NoResultException nre) {}
 
 		return result;	
@@ -70,6 +82,7 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
 		} catch(NoResultException nre) {}
 		return result;
 	}
@@ -82,6 +95,7 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
 		} 
 		catch(NoResultException nre) {}
 
@@ -109,6 +123,7 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 					.getResultList();
 			for(int i=0; i<result.size(); i++)
 				em.refresh(result.get(i));
+			Collections.sort(result, new PosudbaComparator());
 		} catch(NoResultException nre) {}
 		
 		return result;
