@@ -170,19 +170,25 @@ public class PrimjerakServiceBean extends EntityManagerProducer<Primjerak> {
 	}
 	
 	public List<Knjiga> getAllAvailableKnjigeByAutorFilter(String filter) {
-		filter = "%" + filter + "%";
+		String[] spliter = filter.split(" ");
 		List<Knjiga> result = null;
-		List<AutorKnjiga> lista = null;
+		List<AutorKnjiga> lista = new ArrayList<AutorKnjiga>();
+		List<AutorKnjiga> temp = new ArrayList<AutorKnjiga>();
 		List<Knjiga> available = new ArrayList<Knjiga>();
 		
-		try{
-			lista = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora LIKE :filter or ak.autor.prezimeAutora LIKE :filter")
-					.setParameter("filter", filter)
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try{
+				temp = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora LIKE :fil or ak.autor.prezimeAutora LIKE :fil")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<lista.size(); i++)
-				em.refresh(lista.get(i));
-		}catch(NoResultException nre) {}
-		
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!lista.contains(temp.get(i)))
+						lista.add(temp.get(i));
+				}
+			}catch(NoResultException nre) {}
+		}
 		try {
 			Query query = em.createQuery("select p.knjiga from Primjerak p where p.posudjen=0 and p.rezervisan=0");
 			result = query.getResultList();

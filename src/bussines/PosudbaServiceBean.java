@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -121,33 +122,46 @@ public class PosudbaServiceBean extends EntityManagerProducer<Posudba> {
 	
 	
 	public List<Posudba> getActivePosudbaByUserFilter(String filter){
-		filter = "%" + filter + "%";
-		List<Posudba> result = null;
-		try {
-			result = em
-					.createQuery("Select p from Posudba p where (p.korisnik.imeKorisnika LIKE :filter or p.korisnik.prezimeKorisnika LIKE :filter) and p.datumVracanja IS NULL")
-					.setParameter("filter", filter)
+		String[] spliter = filter.split(" ");
+		List<Posudba> result = new ArrayList<Posudba>();
+		List<Posudba> temp = null;
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try {
+				temp = em
+					.createQuery("Select p from Posudba p where (p.korisnik.imeKorisnika LIKE :fil or p.korisnik.prezimeKorisnika LIKE :fil) and p.datumVracanja IS NULL")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<result.size(); i++)
-				em.refresh(result.get(i));
-			Collections.sort(result, new PosudbaComparator());
-		} catch(NoResultException nre) {}
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!result.contains(temp.get(i)))
+						result.add(temp.get(i));
+				}
+			} catch(NoResultException nre) {}
+		}
+		Collections.sort(result, new PosudbaComparator());
 		return result;
 	}
 	
 	public List<Posudba> getAllPosudbeByUserFilter(String filter){
-		filter = "%" + filter + "%";
-		List<Posudba> result = null;
-		try {
-			result = em
-					.createQuery("Select p from Posudba p where p.korisnik.imeKorisnika LIKE :filter or p.korisnik.prezimeKorisnika LIKE :filter")
-					.setParameter("filter", filter)
+		String[] spliter = filter.split(" ");
+		List<Posudba> result = new ArrayList<Posudba>();
+		List<Posudba> temp = null;
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try {
+				temp = em
+					.createQuery("Select p from Posudba p where (p.korisnik.imeKorisnika LIKE :fil or p.korisnik.prezimeKorisnika LIKE :fil)")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<result.size(); i++)
-				em.refresh(result.get(i));
-			System.out.println(result.size());
-			Collections.sort(result, new PosudbaComparator());
-		} catch(NoResultException nre) {}
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!result.contains(temp.get(i)))
+						result.add(temp.get(i));
+				}
+			} catch(NoResultException nre) {}
+		}
+		Collections.sort(result, new PosudbaComparator());
 		return result;
 	}
 	

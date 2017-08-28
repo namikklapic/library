@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -145,17 +146,24 @@ public class StudentServiceBean extends EntityManagerProducer<Student> {
 	}
 
 	public List<Student> getStudentByFilter(String filter) {
-		List<Student> result = null;
-		filter = "%" + filter + "%";
-		try{
-			result = em.createQuery("Select s from Student s inner join s.korisnik k where k.imeKorisnika LIKE :filter or k.prezimeKorisnika LIKE :filter")
-					.setParameter("filter", filter)
+		String[] spliter = filter.split(" ");
+		List<Student> result = new ArrayList<Student>();
+		List<Student> temp = new ArrayList<Student>();
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try{
+				result = em.createQuery("Select s from Student s inner join s.korisnik k where k.imeKorisnika LIKE :fil or k.prezimeKorisnika LIKE :fil")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<result.size(); i++)
-				em.refresh(result.get(i));
-			Collections.sort(result, new StudentComparator());
-		}catch(NoResultException nre){}
-
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!result.contains(temp.get(i)))
+						result.add(temp.get(i));
+				}
+				
+			}catch(NoResultException nre){}
+		}
+		Collections.sort(result, new StudentComparator());
 		return result;
 	}
 }

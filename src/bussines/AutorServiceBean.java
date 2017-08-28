@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -74,17 +75,24 @@ public class AutorServiceBean extends EntityManagerProducer<Autor> {
 	}
 	
 	public List<Autor> getAutorsByFilter(String filter){
-		List<Autor> result = null;
-		filter = "%" + filter + "%";
-		try{
-			result = em.createQuery("Select a from Autor a where a.imeAutora LIKE :filter or a.prezimeAutora LIKE :filter")
-					.setParameter("filter", filter)
-					.getResultList();
-			for(int i=0; i<result.size(); i++)
-				em.refresh(result.get(i));
-			Collections.sort(result, new AutorComparator());
-		}catch(NoResultException nre){}
-		
+		String[] spliter = filter.split(" ");
+		List<Autor> result = new ArrayList<Autor>();
+		List<Autor> temp = new ArrayList<Autor>();
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try{
+				temp = em.createQuery("Select a from Autor a where a.imeAutora LIKE :fil or a.prezimeAutora LIKE :fil")
+						.setParameter("fil", fil)
+						.getResultList();
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!result.contains(temp.get(i)))
+						result.add(temp.get(i));
+				}
+				
+			}catch(NoResultException nre){}
+		}
+		Collections.sort(result, new AutorComparator());
 		return result;
 	}
 	

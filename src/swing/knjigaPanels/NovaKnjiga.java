@@ -191,7 +191,8 @@ public class NovaKnjiga extends JFrame {
 		});
 		panel.add(lbVrstaKnjige);
 		panel.add(cbVrstaKnjige);
-		panel.add(btnAddNovaVrsta);
+		if(user == null)
+			panel.add(btnAddNovaVrsta);
 		
 		lbIzdavac = new JLabel("Publisher: ");
 		lbIzdavac.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -233,7 +234,8 @@ public class NovaKnjiga extends JFrame {
 		});
 		panel.add(lbIzdavac);
 		panel.add(cbIzdavac);
-		panel.add(btnAddNoviIzdavac);
+		if(user == null)
+			panel.add(btnAddNoviIzdavac);
 		
 		lbAutori = new JLabel("Authors: ");
 		lbAutori.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -273,7 +275,8 @@ public class NovaKnjiga extends JFrame {
 		});
 		panel.add(lbAutori);
 		panel.add(lookupAutori);
-		panel.add(btnAddNoviAutor);
+		if(user == null)
+			panel.add(btnAddNoviAutor);
 		
 		lbBrPrimjeraka = new JLabel("Number of copies: ");
 		lbBrPrimjeraka.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -397,7 +400,6 @@ public class NovaKnjiga extends JFrame {
 	}
 	
 	public NovaKnjiga(Knjiga k, Boolean isEditable, Korisnik currUser){
-		
 		this();
 
 		knjiga = k;
@@ -433,6 +435,9 @@ public class NovaKnjiga extends JFrame {
 			btnRezervisi.setVisible(true);
 			lookupAutori.removeButtons();		
 			user = currUser;
+			this.btnAddNovaVrsta.setVisible(false);
+			this.btnAddNoviAutor.setVisible(false);
+			this.btnAddNoviIzdavac.setVisible(false);
 		}
 	}
 	

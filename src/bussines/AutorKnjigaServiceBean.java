@@ -11,6 +11,7 @@ import jpa.Autor;
 import jpa.AutorKnjiga;
 import jpa.EntityManagerProducer;
 import jpa.Knjiga;
+import jpa.Posudba;
 import swing.PanelPrijava;
 import util.MyEvent;
 
@@ -77,23 +78,31 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 	}
 	
 	public List<Knjiga> getKnjigeByAutorFilter(String filter){
-		filter = "%" + filter + "%";
-		List<AutorKnjiga> lista = null;
+		String[] spliter = filter.split(" ");
+		List<AutorKnjiga> lista = new ArrayList<AutorKnjiga>();
+		List<AutorKnjiga> temp = null;
 		List<Knjiga> result = new ArrayList<Knjiga>();
-		
-		try{
-			lista = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora LIKE :filter or ak.autor.prezimeAutora LIKE :filter")
-					.setParameter("filter", filter)
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try{
+				temp = em.createQuery("Select ak from AutorKnjiga ak where ak.autor.imeAutora LIKE :fil or ak.autor.prezimeAutora LIKE :fil")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<lista.size(); i++)
-				em.refresh(lista.get(i));
-			Collections.sort(result, new KnjigaComparator());
-		}catch(NoResultException nre) {}
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!lista.contains(temp.get(i)))
+						lista.add(temp.get(i));
+				}
+			}catch(NoResultException nre) {}
 		
 		if(lista != null){
-			for(AutorKnjiga ak : lista)
-				result.add(ak.getKnjiga());
+			for(AutorKnjiga ak : lista) {
+				if(!result.contains(ak.getKnjiga()))
+					result.add(ak.getKnjiga());
+			}
 		}
+		}
+		Collections.sort(result, new KnjigaComparator());
 		return result;
 	}
 	

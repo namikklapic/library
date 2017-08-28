@@ -1,5 +1,6 @@
 package bussines;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -114,16 +115,23 @@ public class NastavnikServiceBean extends EntityManagerProducer<Nastavnik>{
 	}
 
 	public List<Nastavnik> getNastavniciByFilter(String filter) {
-		filter = "%" + filter + "%";
-		List<Nastavnik> result = null;
-		try{
-			result = em.createQuery("Select n from Nastavnik n inner join n.korisnik k where k.imeKorisnika LIKE :filter or k.prezimeKorisnika LIKE :filter")
-					.setParameter("filter", filter)
+		String[] spliter = filter.split(" ");
+		List<Nastavnik> result = new ArrayList<Nastavnik>();
+		List<Nastavnik> temp = new ArrayList<Nastavnik>();
+		for(int brojRijeci=0; brojRijeci < spliter.length; brojRijeci++) {
+			String fil = "%" + spliter[brojRijeci] + "%";
+			try{
+				temp = em.createQuery("Select n from Nastavnik n inner join n.korisnik k where k.imeKorisnika LIKE :fil or k.prezimeKorisnika LIKE :fil")
+					.setParameter("fil", fil)
 					.getResultList();
-			for(int i=0; i<result.size(); i++)
-				em.refresh(result.get(i));
-			Collections.sort(result, new NastavnikComparator());
-		}catch(NoResultException nre){}
+				for(int i=0; i<temp.size(); i++) {
+					em.refresh(temp.get(i));
+					if(!result.contains(temp.get(i)))
+						result.add(temp.get(i));
+				}
+			}catch(NoResultException nre){}
+		}
+		Collections.sort(result, new NastavnikComparator());
 		return result;
 	}
 	
