@@ -107,7 +107,8 @@ public class PosudbePregled extends JFrame {
 		searchCriteriaLabel = new JLabel("Choose search criteria : ");
 		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		searchCriteriaLabel.setBounds(32, 458, 195, 33);
-		panel.add(searchCriteriaLabel);
+		if(currUser == null)
+			panel.add(searchCriteriaLabel);
 		
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -167,7 +168,8 @@ public class PosudbePregled extends JFrame {
 		searchBtn.setFocusPainted(false);
 		searchBtn.setBorder(null);
 		searchBtn.setBackground(Color.DARK_GRAY);
-		panel.add(searchBtn);
+		if(currUser == null)
+			panel.add(searchBtn);
 		
 		closeLoan = new JButton("Close the loan");
 		closeLoan.addActionListener(new ActionListener(){

@@ -152,7 +152,8 @@ public RezervacijePregled(Korisnik k){
 	searchCriteriaLabel = new JLabel("Choose search criteria : ");
 	searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 	searchCriteriaLabel.setBounds(10, 461, 191, 33);
-	panel.add(searchCriteriaLabel);
+	if(currUser == null)
+		panel.add(searchCriteriaLabel);
 	
 	txtSearchFilter = new JTextField(10);
 	txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
@@ -213,7 +214,8 @@ public RezervacijePregled(Korisnik k){
 	searchBtn.setFocusPainted(false);
 	searchBtn.setBorder(null);
 	searchBtn.setBackground(Color.DARK_GRAY);
-	panel.add(searchBtn);
+	if(currUser == null)
+		panel.add(searchBtn);
 	
 	//end-----------------------------------------------------------------------------------------------
 	
