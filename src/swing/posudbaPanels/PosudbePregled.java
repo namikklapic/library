@@ -66,7 +66,7 @@ public class PosudbePregled extends JFrame {
 		scrollPane.setFont(new Font("Segoe UI Emoji", Font.BOLD, 20));
 		scrollPane.getViewport().setBackground(new Color(255, 255, 255,20));
 		scrollPane.setOpaque(false);
-		scrollPane.setBounds(0, 52, 1276, 382);
+		scrollPane.setBounds(0, 52, 1276, 416);
 		model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbe());
 		if(k == null) //it is bibliotekar panel, and we want all users
 			model = new PosudbeTableModel(posudbaServiceBean.getAllPosudbe());
@@ -109,14 +109,14 @@ public class PosudbePregled extends JFrame {
 		//book review --------- search criteria ----------------------------------------------------------
 		searchCriteriaLabel = new JLabel("Choose search criteria : ");
 		searchCriteriaLabel.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		searchCriteriaLabel.setBounds(32, 458, 195, 33);
+		searchCriteriaLabel.setBounds(12, 481, 195, 33);
 		if(currUser == null)
 			panel.add(searchCriteriaLabel);
 			
 		
 		txtSearchFilter = new JTextField(10);
 		txtSearchFilter.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		txtSearchFilter.setBounds(598, 458, 195, 33);
+		txtSearchFilter.setBounds(193, 527, 195, 33);
 		txtSearchFilter.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -126,7 +126,7 @@ public class PosudbePregled extends JFrame {
 		
 		cbSearchFilters = new JComboBox<String>();
 		cbSearchFilters.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		cbSearchFilters.setBounds(213, 458, 195, 33);
+		cbSearchFilters.setBounds(193, 481, 195, 33);
 		cbSearchFilters.addItem("User");
 		cbSearchFilters.addItem("Book");
 		cbSearchFilters.addItem("Show all");
@@ -147,7 +147,7 @@ public class PosudbePregled extends JFrame {
 		}
 		panel.add(txtSearchFilter);
 		searchBtn = new JButton("Search");
-		searchBtn.setBounds(805, 456, 156, 37);
+		searchBtn.setBounds(428, 524, 156, 37);
 		searchBtn.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -175,7 +175,7 @@ public class PosudbePregled extends JFrame {
 			panel.add(searchBtn);
 		
 		closeLoan = new JButton("Close the loan");
-		closeLoan.setBounds(12, 524, 145, 37);
+		closeLoan.setBounds(674, 524, 156, 37);
 		closeLoan.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent event){
@@ -222,7 +222,7 @@ public class PosudbePregled extends JFrame {
 		onlyActive.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
 		onlyActive.setFocusPainted(false);
 		onlyActive.setOpaque(true);
-		onlyActive.setBounds(1010, 458, 232, 33);
+		onlyActive.setBounds(674, 481, 232, 33);
 		onlyActive.setSelected(false);
 		panel.setLayout(null);
 		
@@ -259,7 +259,7 @@ public class PosudbePregled extends JFrame {
 		cancel.setFocusPainted(false);
 		cancel.setBorder(null);
 		cancel.setBackground(Color.DARK_GRAY);
-		cancel.setBounds(565, 524, 145, 37);
+		cancel.setBounds(1119, 524, 145, 37);
 		
 
 		panel.add(cancel);
@@ -272,7 +272,7 @@ public class PosudbePregled extends JFrame {
 		
 		JLabel lblTypeToSearch = new JLabel("Type to search :");
 		lblTypeToSearch.setFont(new Font("Segoe UI Light", Font.PLAIN, 18));
-		lblTypeToSearch.setBounds(468, 458, 134, 33);
+		lblTypeToSearch.setBounds(12, 527, 134, 33);
 		//if(currUser == null)
 		panel.add(lblTypeToSearch);
 	}
