@@ -175,6 +175,24 @@ public class LiteraturaPregled extends JFrame {
 		}
 		model = new LiteraturaTableModel(literaturaServiceBean.getLiteraturaOnPredmet(this.currentPredmet));
 		table.setModel(this.model);
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				getContentPane().repaint();
+				getContentPane().revalidate();
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				getContentPane().repaint();
+				getContentPane().revalidate();
+			}
+		});
+		table.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 15));
+		table.setRowHeight(30);
+		table.setBackground(new Color(255, 255, 255,150));
+		table.getTableHeader().setFont(new Font("Segoe UI Emoji", Font.PLAIN, 17));
+		table.getTableHeader().setOpaque(false);
+		table.getTableHeader().setBackground(new Color(255, 255, 255,150));
 		table.getTableHeader().setEnabled(false);
 		novaLiteratura = new NovaLiteratura(this.currentPredmet, this);
 		this.repaint();
