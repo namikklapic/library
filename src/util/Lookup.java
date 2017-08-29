@@ -289,7 +289,7 @@ public class Lookup<T, U> extends JPanel {
 		remove(ponisti);
 		remove(openDialog);
 		// remove(cancelSelection);
-		selected.setEditable(false);
+		//selected.setEditable(false);
 	}
 
 	public JTextField getSelected() {

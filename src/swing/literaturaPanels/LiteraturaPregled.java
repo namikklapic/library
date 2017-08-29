@@ -73,14 +73,18 @@ public class LiteraturaPregled extends JFrame {
 		delete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				Literatura l = null;
-				try{
-					l = ((LiteraturaTableModel)table.getModel()).getLiteratura(table.getSelectedRow());
-				} catch(ArrayIndexOutOfBoundsException exception) {}
-				if(l != null) {
-					literaturaServiceBean.delete(l);
+				if(table.getSelectedRow() > -1){
+					Literatura l = null;
+					try{
+						l = ((LiteraturaTableModel)table.getModel()).getLiteratura(table.getSelectedRow());
+					} catch(ArrayIndexOutOfBoundsException exception) {}
+					if(l != null) {
+						literaturaServiceBean.delete(l);
+					}
+					update();
 				}
-				update();
+				else
+					JOptionPane.showMessageDialog(panel, "No item selected!", "No Item", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 		delete.addMouseListener(new MouseAdapter() {

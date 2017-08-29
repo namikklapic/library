@@ -420,6 +420,7 @@ public class NovaKnjiga extends JFrame {
 			setTitle("Edit book");
 			lookupAutori.removeButtons();
 			btnPotvrdi.setText("Save changes");
+			btnAddNoviAutor.setVisible(false);
 		}
 		else{
 			setTitle("Book review");
