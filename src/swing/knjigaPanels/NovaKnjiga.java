@@ -652,11 +652,11 @@ public class NovaKnjiga extends JFrame {
 				.save(new Knjiga(id, naslov, orgNaslov, brStranica, godIzdavanja, negBodovi, brPrimjeraka, izdavac, vrsta));
 		
 		AutorKnjigaPK autorKnjigaPK;
+		int b = 1;
 		for(Autor a : autori){
-			int i = 1;
 			autorKnjigaPK = new AutorKnjigaPK(a.getId(), k.getId());
-			autorKnjigaServiceBean.save(new AutorKnjiga(autorKnjigaPK, k, a, i));
-			i++;
+			autorKnjigaServiceBean.save(new AutorKnjiga(autorKnjigaPK, k, a, b));
+			b++;
 		}
 		
 		//save primjerci - each primjerak will get generated invBroj

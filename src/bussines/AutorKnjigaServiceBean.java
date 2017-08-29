@@ -43,18 +43,17 @@ public class AutorKnjigaServiceBean extends EntityManagerProducer<AutorKnjiga> {
 	}
 	
 	public Autor getAutorNaKnjizi(Knjiga k, int rbAutora){
-		List<AutorKnjiga> lista = new ArrayList<AutorKnjiga>();
 		AutorKnjiga result = null;
 		try{
-			lista = em
+			result = (AutorKnjiga)em
 					.createQuery("Select ak from AutorKnjiga ak where ak.knjiga=:k and ak.redniBrojAutoraNaKnjizi=:rbAutora")
 					.setParameter("k", k)
 					.setParameter("rbAutora", rbAutora)
-					.getResultList();
+					.getSingleResult();
 			//em.refresh(lista);
 		}catch(NoResultException nre) {}
 		
-		return lista.get(0).getAutor();
+		return result.getAutor();
 	}
 	
 	public List<Knjiga> getKnjigeByAutor(String ime, String prezime){
